@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <!--LINK DO CSS-->
+    <link rel="stylesheet" href="estilo.css">
+
+
+
+    <!--LINK DE ICONS-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" href="logo5.png">
+
+    
+    <!--FONTES GOOGLE-->
+   
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="icon" href="logoreal.png">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Lexend+Zetta:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+DE+Grund:wght@100..400&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Gowun+Dodum&family=Lexend+Zetta:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+DE+Grund:wght@100..400&family=Poiret+One&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Gowun+Dodum&family=Lexend+Exa:wght@100..900&family=Lexend+Zetta:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+DE+Grund:wght@100..400&family=Poiret+One&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Gowun+Dodum&family=Lexend+Deca:wght@100..900&family=Lexend+Exa:wght@100..900&family=Lexend+Zetta:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+DE+Grund:wght@100..400&family=Poiret+One&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mochilão</title>
+</head>
+<body>
+  <script src="script.js"></script>
+  
+    <section class="section-1" id="section-1">
+
+        <nav class="menu">
+            <img src="logo5.png" alt="" class="branco">
+
+            <button class="menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
+            <nav class="sidebar" id="sidebar">
+                <button class="close-btn" onclick="toggleMenu()"><i class="fa-solid fa-xmark"></i></button>
+                
+                <a href="#section-1" class="menu-link">Início</a>
+                
+                <a href="#section-4" class="menu-link">Galeria</a>
+            
+                <a href="#section-3">Sobre Agencia</a>
+                
+                <a href="#section-6">Dicas de viagem</a>
+                 
+                <a href="">Lugares e culturas</a>
+                 
+                 
+            </nav>
+
+            <div class="div">
+                <a href="#section-4" class="menu-link">Galeria</a>
+               <button popovertarget="my-popover">Sobre <i class="fa-solid fa-caret-down"></i></button>
+               <div id="my-popover" popover>
+                <a href="#section-3">Agencia</a>
+                <br>
+                <a href="#section-6">Dicas de viagem</a>
+                <br>
+                <a href="">Lugares e culturas</a>
+                </div>
+                <a href="#section-1" class="menu-link">Início</a>
+           </div>
+           
+
+        </nav>
+
+        <div class="atividade"> 
+
+            <div class="logo">
+                
+                <h1>Mais de 3 anos atuando 
+                    no mercado turístico
+                </h1>
+                <p>______________________</p>
+                <p>Não venda destinos,<br>
+                   oferecemos historias para contar.</p> 
+                   <div>
+                    <a href="#" class="reservar">Reservar viagem</a>
+                    <a href="#section-5" class="falar">Fale conosco</a>
+                   </div>
+            </div>
+            
+            <img src="Sem Título-3.png" alt="">
+        </div>
+
+    </section>
+
+    <!--BOTAO FIXO-->
+    <div class="button_fixed">
+      <a href="#" class="fixed_button_top"><i class="fa-solid fa-arrow-up"></i></a>
+
+      <a href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0" target="_blank" class="fixed_button_wpp"><i class="fa-brands fa-whatsapp"></i></a>
+    </div>
+     
+
+    <section class="section-2">
+       <span>
+           <div class="atividade-1">
+            <h4>Cabo Ledo </h4>
+            <p>Bengo, Luanda</p>
+            <i>__________</i>
+            <nav class="conteudo">
+              <p>Aaaaaaaaaaaaaaaaaa
+                aaaaaaaaaaaaaaaaaaa
+                aaaaaaaaaaaaaaaaaaa
+              </p>
+            </nav>
+            <a href="#">Saber mais</a>
+           </div>
+
+           <div class="atividade-1">
+            <h4>Cabo Ledo </h4>
+            <p>Bengo, Luanda</p>
+            <i>__________</i>
+            <div class="conteudo">
+              <p>Aaaaaaaaaaaaaaaaaa
+                aaaaaaaaaaaaaaaaaaa
+                aaaaaaaaaaaaaaaaaaa
+              </p>
+            </div>
+            <a href="#">Saber mais</a>
+           </div>
+
+           <div class="atividade-1">
+            <h4>Cabo Ledo </h4>
+            <p>Bengo, Luanda</p>
+            <i>__________</i>
+            <div class="conteudo">
+              <p>Aaaaaaaaaaaaaaaaaa
+                aaaaaaaaaaaaaaaaaaa
+                aaaaaaaaaaaaaaaaaaa
+              </p>
+            </div>
+            <a href="#">Saber mais</a>
+           </div>
+
+           <div class="atividade-1">
+            <h4>Cabo Ledo </h4>
+            <p>Bengo, Luanda</p>
+            <i>__________</i>
+            <div class="conteudo">
+              <p>Aaaaaaaaaaaaaaaaaa
+                aaaaaaaaaaaaaaaaaaa
+                aaaaaaaaaaaaaaaaaaa
+              </p>
+            </div>
+            <a href="#">Saber mais</a>
+           </div>
+           
+           <div class="atividade-1">
+            <h4>Cabo Ledo </h4>
+            <p>Bengo, Luanda</p>
+            <i>__________</i>
+            <div class="conteudo">
+              <p>Aaaaaaaaaaaaaaaaaa
+                aaaaaaaaaaaaaaaaaaa
+                aaaaaaaaaaaaaaaaaaa
+              </p>
+            </div>
+            <a href="#">Saber mais</a>
+           </div>
+
+           <div class="atividade-1">
+            <h4>Cabo Ledo </h4>
+            <p>Bengo, Luanda</p>
+            <i>__________</i>
+            <div class="conteudo">
+              <p>Aaaaaaaaaaaaaaaaaa
+                aaaaaaaaaaaaaaaaaaa
+                aaaaaaaaaaaaaaaaaaa
+              </p>
+            </div>
+            <a href="#">Saber mais</a>
+           </div>
+
+           <div class="atividade-1">
+            <h4>Cabo Ledo </h4>
+            <p>Bengo, Luanda</p>
+            <i>__________</i>
+            <div class="conteudo">
+              <p>Aaaaaaaaaaaaaaaaaa
+                aaaaaaaaaaaaaaaaaaa
+                aaaaaaaaaaaaaaaaaaa
+              </p>
+            </div>
+            <a href="#">Saber mais</a>
+           </div>
+
+           <div class="atividade-1">
+            <h4>Cabo Ledo </h4>
+            <p>Bengo, Luanda</p>
+            <i>__________</i>
+            <div class="conteudo">
+              <p>Aaaaaaaaaaaaaaaaaa
+                aaaaaaaaaaaaaaaaaaa
+                aaaaaaaaaaaaaaaaaaa
+              </p>
+            </div>
+            <a href="#">Saber mais</a>
+           </div>
+
+           <div class="atividade-1">
+            <h4>Cabo Ledo </h4>
+            <p>Bengo, Luanda</p>
+            <i>__________</i>
+            <div class="conteudo">
+              <p>Aaaaaaaaaaaaaaaaaa
+                aaaaaaaaaaaaaaaaaaa
+                aaaaaaaaaaaaaaaaaaa
+              </p>
+            </div>
+            <a href="#">Saber mais</a>
+           </div>
+
+           <div class="atividade-1">
+            <h4>Cabo Ledo </h4>
+            <p>Bengo, Luanda</p>
+            <i>__________</i>
+            <div class="conteudo">
+              <p>Aaaaaaaaaaaaaaaaaa
+                aaaaaaaaaaaaaaaaaaa
+                aaaaaaaaaaaaaaaaaaa
+              </p>
+            </div>
+            <a href="#">Saber mais</a>
+           </div>
+
+          
+       </span>
+    </section>
+
+    <section class="section-3" id="section-3" >
+      
+      <div class="texto_3">
+        <img src="mochi2.png" alt="" >
+        <div class="about_all">
+          <h1 class="h1">Sobre o Mochilão</h1>
+          <br>
+          <i><strong></strong>Transforme momentos em histórias, Crie memórias que duram para sempre.
+            Com a nossa experiência e dedicação,
+            Cada instante se torna inesquecível. </strong></i>
+            <p class="line">__________________________</p>
+            <br>
+          <div class="about_m">
+            <p class="p_primar">O Mochilão, ou simplesmente Mochilão, nasceu da
+              paixão e do desejo de explorar Angola em toda a sua grandiosidade. Mais do que uma empresa, somos movidos pelo fascínio de revelar as maravilhas naturais, os povos, as culturas e a rica gastronomia que compõem o vasto e encantador mosaico cultural angolano. Acreditamos que cada viagem é uma oportunidade de conexão, aprendizado e descobertas inesquecíveis.</p>
+
+              <p class="p_secundar">Carregamos profundo conhecimento sobre os melhores destinos e experiências em Angola. Além de contar com profissionais qualificados para garantir segurança e imersão cultural autêntica, oferecemos pacotes adaptados aos interesses e necessidades dos clientes. Além disso, proporcionamos suporte completo antes, durante e após a viagem, garantindo uma experiência tranquila e inesquecível. </p>
+
+          </div>
+          <section class="contador-section" id="contadores">
+            <div class="contador">
+              <h1><span  class="numero" data-alvo="120">0</span>+</h1>
+              <p>Viagens realisadas</p>
+            </div>
+            <div class="contador">
+              <h1 class="numero" data-alvo="300">0</h1>
+              <p>Clientes satisfeitos</p>
+            </div>
+            <div class="contador">
+              <h1><span  class="numero" data-alvo="98">0</span>%</h1>
+              <p>Qualidade de Atendimento </p>
+            </div>
+          </section>
+          
+        </div>
+      </div>
+    </section>
+  
+
+    <section class="section-4" id="section-4">
+      <div class="section_fotos">
+       <a href="https://www.instagram.com/o_mochilao/" target="_blank"><img src="leao.png"  alt=""></a>
+       <a href="https://www.instagram.com/o_mochilao/" target="_blank"><img src="leao.png"  alt=""></a>
+       <a href="https://www.instagram.com/o_mochilao/" target="_blank"><img src="leao.png"  alt=""></a>
+       <a href="https://www.instagram.com/o_mochilao/" target="_blank"><img src="leao.png"  alt=""></a>
+       <a href="https://www.instagram.com/o_mochilao/" target="_blank"><img src="leao.png"  alt=""></a>
+       <a href="https://www.instagram.com/o_mochilao/" target="_blank"><img src="leao.png"  alt=""></a>
+       <a href="https://www.instagram.com/o_mochilao/" target="_blank"><img src="leao.png"  alt=""></a>
+       <a href="https://www.instagram.com/o_mochilao/" target="_blank"><img src="leao.png"  alt=""></a>
+       
+       
+      </div>
+      
+    </section>
+    
+     <!--SECTION_5-->
+    
+    <section class="section-5" id="section-5" >
+
+      <div class="fale_2">
+        <form action="https://formsubmit.co/your@email.com" method="POST">
+
+          <fieldset class="fiel">
+            <legend>Seu email</legend>
+            <input type="email" class="email" name="email" placeholder="exemplo@gmail.com"></fieldset>
+
+            <fieldset class="fiel">
+            <legend>Seu numero</legend>
+            <input type="number" class="number" name="number" placeholder="+244"></fieldset>
+
+          <fieldset>
+            <legend>Sua mensagem</legend>
+            <textarea name="mensagem" id="mensagem" class="sms" placeholder="Preencha o campo"></textarea></fieldset>
+
+          <button type="submit">Enviar</button>
+     </form>
+      </div>
+
+      <div class="fale_1">
+        <h1 class="h1">Fale conosco</h1>
+        <p>Tem alguma dúvida sobre nossos roteiros? Quer saber mais detalhes sobre os pacotes ou precisa de dicas para planejar sua aventura dos sonhos em Angola? Estamos aqui para ajudar!</p>
+
+      <div class="about_1">
+          <p class="line_2">_______</p>
+          <p>Nossa equipe está pronta para responder suas perguntas.</p>
+      </div>
+
+       
+        <div class="redes">
+          <a href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0" target="_blank" class="wpp"><i class="fa-brands fa-whatsapp"></i></a>
+
+          <a href="https://www.instagram.com/o_mochilao/followers/mutualOnly?hl=pt-brT%C3%A1" target="_blank"    class="insta"><i class="fa-brands fa-instagram"></i></a>
+
+          <a href="https://www.tiktok.com/@o.mochilao" target="_blank" class="tiktok"><i class="fa-brands fa-tiktok"></i></a>
+
+          <a href="https://www.facebook.com/OMochilao" target="_blank" class="face"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+
+
+      </div>
+
+    </section>
+
+    <section class="section-6" id="section-6">
+      <h1 class="h1">Dicas de viagem</h1>
+      <span>
+           <div class="atividade-2">
+            <img src="sapato.jpg" alt="">
+            <div class="texto_6">
+              <h4>Escolha os calçados certos 🥾</h4>
+            <ol>
+              <li>Use botas de trilha para caminhadas longas e terrenos irregulares.
+              </li>
+
+              <li>Em destinos quentes, leve sandálias resistentes e confortáveis.</li>
+            </ol>
+            </div>
+           </div>
+
+           <div class="atividade-2">
+            <img src="roupa.jpg" alt="">
+            <div class="texto_6">
+              <h4>Vista-se adequadamente 👕</h4>
+             <ol>
+              <li>Opte por roupas leves e respiráveis para calor.</li>
+
+              <li>Para frio, use camadas térmicas e impermeáveis.</li>
+             </ol>
+            </div>
+           </div>
+
+           <div class="atividade-2">
+            <img src="carteira.jpg" alt="">
+            <div class="texto_6">
+              <h4>Proteja seus documentos e dinheiro 💳</h4>
+             <ol>
+              <li>Guarde dinheiro e passaporte em uma pochete antifurto.</li>
+
+              <li>Tenha cópias digitais e impressas dos documentos importantes.</li>
+             </ol>
+            </div>
+           </div>
+
+           <div class="atividade-2">
+            <img src="garrafa.jpg" alt="">
+            <div class="texto_6">
+            <h4>Leve uma garrafa de água reutilizável 💧
+            </h4>
+            <ol>
+              <li>Manter-se hidratado é essencial, especialmente em trilhas.</li>
+            </ol>
+            </div>
+           </div>
+
+           <div class="atividade-2">
+            <img src="protetor.jpg" alt="">
+            <div class="texto_6">
+              <h4>Use protetor solar e repelente ☀️🦟</h4>
+              <ol>
+                <li>Proteja sua pele do sol e dos insetos, principalmente em áreas tropicais.</li>
+              </ol>
+              
+            </div>
+           </div>
+
+           <div class="atividade-2">
+            <img src="mapa.jpg" alt="">
+            <div class="texto_6">
+              <h4>Planeje sua rota com antecedência 🗺️</h4>
+              <ol>
+                <li>Estude o destino, o clima e os possíveis desafios do percurso.</li>
+              </ol>
+             
+            </div>
+           </div>
+
+           <div class="atividade-2">
+            <img src="telefone.jpg" alt="">
+            <div class="texto_6">
+              <h4> Mantenha seu celular carregado 🔋</h4>
+              <ol>
+                <li>Leve um power bank para emergências.</li>
+              </ol>
+             
+            </div>
+           </div>
+
+           <div class="atividade-2">
+            <img src="natureza.jpg" alt="">
+            <div class="texto_6">
+              <h4>Respeite a natureza e o meio ambiente 🌿</h4>
+              <ol>
+                <li>Evite deixar lixo para trás e siga as regras locais de preservação.</li>
+              </ol>
+            </div>
+           </div>
+
+           <div class="atividade-2">
+            <img src="guia.jpg" alt="">
+            <div class="texto_6">
+             <h4>Siga as instruções dos guias 🎒</h4>
+             <ol>
+              <li>Se estiver em um tour guiado, siga todas as recomendações para sua segurança.</li>
+             </ol>
+            </div>
+           </div>
+
+           <div class="atividade-2">
+            <img src="kitSocorro.jpg" alt="">
+            <div class="texto_6">
+             <h4>Aproveite o kit de primeiros socorros da empresa 🚑</h4>
+             <ol>
+              <li>Nossa empresa oferece um kit de primeiros socorros para garantir uma viagem mais segura. Mesmo assim, leve medicamentos específicos, se necessário.</li>
+              
+             </ol>
+            </div>
+           </div>
+           
+
+       </span>
+    </section>
+   
+
+
+    <section class="section-7">
+  
+      <div class="texto_7">
+        <h1>Lugares e culturas</h1>
+        <br>
+        <p><strong>Viajar é mais do que conhecer lugares — é se conectar com o mundo.</strong></p>
+
+        <p>Em breve, lançaremos nosso canal oficial no YouTube, onde será possível acompanhar vlogs exclusivos sobre os destinos visitados durante o mochilão. Cada vídeo trará não apenas paisagens e pontos turísticos, mas também aspectos culturais, tradições locais e histórias de quem vive em cada lugar.</p>
+        
+      </div>
+      <img src="angola-removebg-preview.png" alt="">
+    </section>
+
+   
+    
+     
+    
+</body>
+</html>

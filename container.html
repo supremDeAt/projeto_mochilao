@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            height: 40vh;
+            width: 50%;
+            border: 2px solid black;
+            position: relative;
+            top: 10%;
+            left: 50%;
+            transform: translate(-50%, -1%);
+            overflow: hidden;
+            background: linear-gradient(to bottom, rgb(129, 213, 255), white);
+            border-bottom: 5px solid green;
+        }
+        .player{
+            height: 80px;
+            width: 50px;
+            background-color: red;
+            position: absolute;
+            bottom: 0;
+            left: 60px;
+        }
+        .pular{
+            animation: 500ms pular  ease-out;
+        }
+        .objeto{
+            width: 70px;
+            height: 50px;
+            background-color: black;
+            position: absolute;
+            bottom: 0;
+            animation: 1.5s mover infinite linear;
+        }
+        .aviao{
+            position: absolute;
+            width: 90px;
+            height: 30px;
+            bottom: 85px;
+            background-color: black;
+            right: -90px;
+          
+        }
+        .voo{
+            animation: 2.9s voo infinite linear;
+        }
+        h3{
+            position: absolute;
+            right: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        h1{
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: rgb(154, 16, 16);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        a{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px 17px;
+            border: none;
+            color: #fff;
+            background-color: black;
+            border-radius: 3px;
+            text-decoration: none;
+            font-family: Arial, Helvetica, sans-serif;
+            display: none;
+
+        }
+        @keyframes mover {
+            from{
+                right: -30px;
+            }
+            to{
+                right: 110%;
+            }
+            
+            
+        }
+        @keyframes voo {
+            from{
+                right: -30px;
+            }
+            to{
+                right: 110%;
+            }
+            
+        }
+        @keyframes pular {
+            0%{
+                bottom: 0;
+            }
+            30%{
+                bottom: 70px;
+            }
+
+            50%{
+                bottom: 70px;
+            }
+            70%{
+                bottom: 70px;
+            }
+
+            100%{
+                bottom: 0;
+            }
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3>Pontuação: 0</h3>
+
+        <div class="player" id="player"></div>
+        <div class="objeto" id="objeto"></div>
+        <div class="aviao" id="aviao"></div>
+        <h1></h1>
+        <a href="container.html">Recomeçar</a>
+
+    </div>
+
+
+    <script>
+        const player=document.querySelector('.player')
+        const objeto=document.querySelector('.objeto')
+        const button=document.querySelector('a')
+        const aviao=document.querySelector('.aviao')
+        const next_lvl=localStorage.getItem('texte')
+
+        let score=0
+        let intervalo
+        let verif_pulo
+
+        intervalo=setInterval(()=>{
+            score+=1
+            document.querySelector('h3').innerHTML='Pontuação: '+score
+            localStorage.setItem('texte', score)
+        }, 100)
+
+
+        function pular(){
+            player.classList.add('pular')
+
+        verif_pulo= setTimeout(()=>{
+                player.classList.remove('pular')
+            }, 500)
+
+        }
+
+        if (next_lvl>=200) {
+            aviao.classList.add('voo')
+        }
+       
+       
+
+        const verif= setInterval(()=>{
+            const position_objeto=objeto.offsetLeft
+            const position_aviao=aviao.offsetLeft
+            const position_player= +window.getComputedStyle(player).bottom.replace('px', '')
+           
+            
+            if ((position_objeto>0 && position_objeto<=110 && position_player==0) || (position_aviao>0 && position_aviao<=110 && position_player!=0)) {
+                objeto.style.animation='none'
+                aviao.classList.remove('voo')
+                aviao.style.left=`${position_aviao}px`
+                objeto.style.left=`${position_objeto}px`
+
+                
+                clearInterval(intervalo)
+
+                document.querySelector('h1').innerHTML='GAME OVER!'
+
+                button.style.display=`block`
+
+            }
+            
+            
+        }, 10)
+
+
+    document.addEventListener('click', pular)
+       
+    </script>
+    
+</body>
+</html>
+           
+           

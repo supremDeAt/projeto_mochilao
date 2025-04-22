@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            width: 300px;
+            height: 500px;
+            background-color: black;
+            position: absolute;
+            right: 0;
+            top: 0;
+            opacity: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: 0.3s all ease-in-out;
+            
+        }
+        .show_menu{
+            opacity: 1;
+        }
+        button{
+            display: none;
+        }
+        @media(max-width: 900px){
+            button{
+                display: block;
+            }
+        }
+     
+    </style>
+</head>
+<body>
+   <button  id="button">X</button>
+   <div>
+    <a href="">aaaaaaaaaa</a>
+    <a href="">aaaaaaaaaa</a>
+    <a href="">aaaaaaaa</a>
+    <a href="">aaaaaaaaaaaaa</a>
+    <a href="">aaaaaaaaa</a>
+
+   </div>
+   <script>
+    const div= document.querySelector('div')
+    const button=document.getElementById('button')
+    button.addEventListener('click', ()=>{
+        div.classList.toggle('show_menu')
+
+    })
+   </script>
+</html>
+</html>
