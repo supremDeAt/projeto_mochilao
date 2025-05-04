@@ -489,20 +489,20 @@ transform: scale(1.05);
 .section-5{
     margin-top: 90px;
     display: flex;
+    justify-content: center;
     gap: 60px;
-    
    
 }
 .fale_1{
     position: relative;
-    width: 300px;
+    width: 500px;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 .fale_1 p{
-    color: #635f5f;
-    font-size: 18px;
+    color: #666464;
+    font-size: 20px;
     text-align: justify;
 }
 .about_1{
@@ -513,12 +513,13 @@ transform: scale(1.05);
 
 .redes{
     display: flex;
-    justify-content: left;
-    gap: 30px;
+    justify-content: center;
+    gap: 50px;
+    background-color: #000000;
 }
 .redes a{
     color: #5a432d;
-    font-size: 19px;
+    font-size: 20px;
     transition: 0.3s all ease-in-out;
 }
 .redes a:hover{
@@ -530,7 +531,6 @@ transform: scale(1.05);
     padding: 30px 3px;
     position: relative;
     width: 500px;
-    margin-left: 120px;
     border-radius: 3px;
     
 }
@@ -651,6 +651,34 @@ legend{
     color:#ffffff;
     font-family: "Gowun Dodum", sans-serif;
     margin: 8px;
+}
+/*SECTION TEXTE*/
+.section_text{
+    display: flex;
+    gap: 80px;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 40px;
+    background-color: #5a432d;
+}
+.card_elenco{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    background-color: #fff;
+    border-radius: 3px;
+    padding: 10px;
+}
+.card_elenco img{
+    display: flex;
+    width: 250px;
+    border-radius: 3px;
+    border: 1px solid rgb(100, 98, 98);
+}
+.card_elenco a{
+    color: #5a432d;
+    font-size: 20px;
 }
 
 
@@ -879,6 +907,7 @@ legend{
     }
     .fale_1{
         margin: 0;
+        width: 300px;
 
     }
    .fale_2{
