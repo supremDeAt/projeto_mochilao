@@ -652,34 +652,6 @@ legend{
     font-family: "Gowun Dodum", sans-serif;
     margin: 8px;
 }
-/*SECTION TEXTE*/
-.section_text{
-    display: flex;
-    gap: 80px;
-    justify-content: center;
-    flex-wrap: wrap;
-    padding: 40px;
-    background-color: #5a432d;
-}
-.card_elenco{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 10px;
-    background-color: #fff;
-    border-radius: 3px;
-    padding: 10px;
-}
-.card_elenco img{
-    display: flex;
-    width: 250px;
-    border-radius: 3px;
-    border: 1px solid rgb(100, 98, 98);
-}
-.card_elenco a{
-    color: #5a432d;
-    font-size: 20px;
-}
 
 
 
