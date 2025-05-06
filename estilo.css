@@ -241,7 +241,7 @@ nav{
 .logo button{
     width: 100px;
 }
-.logo p{
+.logo hr{
     opacity: 0;
     transform: translateY(-30px);
     animation: invisivel_2 2s ease forwards;
@@ -377,12 +377,7 @@ nav{
     color: #ffffff;
     
 }
-.line{
-    text-align: right;
-    color: #000000;
 
-
-}
 .about_m{
     display: flex;
     flex-direction: column;
@@ -515,7 +510,7 @@ transform: scale(1.05);
     display: flex;
     justify-content: center;
     gap: 50px;
-    background-color: #000000;
+    
 }
 .redes a{
     color: #5a432d;
@@ -792,7 +787,7 @@ legend{
     }
     /*BOTOES FIXOS*/
     .button_fixed{
-        bottom: 100px;
+        bottom: 50px;
         
     }
     
@@ -832,12 +827,14 @@ legend{
         justify-content: center;
         align-items: center;
         
+        
     }
     .texto_3 i{
         font-size: 23px;
     }
     .texto_3 .about_m{
         width: 360px;
+        
         
     }
    
@@ -879,7 +876,7 @@ legend{
     }
     .fale_1{
         margin: 0;
-        width: 300px;
+        width: 320px;
 
     }
    .fale_2{
