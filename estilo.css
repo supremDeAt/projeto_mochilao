@@ -49,7 +49,7 @@ a{
 
 /*CSS DA 1ª SECTION*/
 .section-1{
-    background: linear-gradient(to bottom, rgba(0,0,0,0) 10%, rgba(0,0,0,0.7) 100%), url(imagem2.jpg) no-repeat center center/cover;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 10%, rgba(0,0,0,0.7) 100%), url(imagens/imagem2.webp) no-repeat center center/cover;
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -241,7 +241,7 @@ nav{
 .logo button{
     width: 100px;
 }
-.logo hr{
+.logo :where(hr, p){
     opacity: 0;
     transform: translateY(-30px);
     animation: invisivel_2 2s ease forwards;
@@ -308,16 +308,16 @@ nav{
     padding: 20px;
     display: flex;
     flex-direction: column;
-    width: 200px;
-    height: 30vh;
+    width: 15vw;
+    height: 28vh;
     border-radius: 3px;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.353) 10%, rgba(0,0,0,0.7) 100%), url(azzedine-rouichi-e5dS3oZcYqs-unsplash.jpg) no-repeat center center/cover;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.353) 10%, rgba(0,0,0,0.7) 100%), url(imagens/IMG_7006\ 2.webp) no-repeat center center/cover;
     transition: 1.2s all ease-in-out;
     cursor: pointer;
     
 }
 .atividade-1:hover{
-   background: url(azzedine-rouichi-e5dS3oZcYqs-unsplash.jpg) rgb(0, 0, 0) 200%;
+   background: url(imagens/IMG_7006\ 2.webp) rgb(0, 0, 0) 200%;
    background-position: center;
    background-size: cover;
 
@@ -592,10 +592,8 @@ legend{
 
 /*CSS DA 6ª SECTION*/
 .section-6{
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
     background-image: linear-gradient(25deg, #775f43, #775f43, rgb(202, 177, 134), rgb(212, 190, 151));
-
+    padding-bottom: 50px;
 
 }
 
@@ -654,6 +652,85 @@ legend{
 
 /*CSS DA 7ª SECTION*/
 .section-7{
+    background-color: #fff;
+    border-top-right-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+.sec_color{
+    margin-top: -10px;
+    padding-top: 20px;
+    background-color: #775f43;
+    
+}
+.section-7 span{
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+.section-7 p{
+    font-size: 17px;
+}
+.section-7 a{
+    font-size: 20px;
+    color: #fff;
+    cursor: pointer;
+
+}
+.card_1{
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-image: url(imagens/assis\ \(1\).webp);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 50vh;
+    width: 25vw;
+    position: relative;
+}
+
+.card_2{
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-image: url(imagens/matias\ \(1\).webp);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 50vh;
+    width: 25vw;
+    position: relative;
+}
+
+.card_3{
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-image: url(imagens/mochi4.webp);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 50vh;
+    width: 25vw;
+    position: relative;
+}
+
+.card_1 div, .card_2 div, .card_3 div {
+    position: absolute;
+    bottom: 0;
+    background-color: #ccc9c953;
+    backdrop-filter: blur(6px);
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    color: #fff;
+    text-align: left;
+    padding: 10px;
+}
+
+
+/*CSS DA 8ª SECTION*/
+.section-8{
     padding: 10px;
     display: flex;
     gap: 10%;
@@ -663,15 +740,15 @@ legend{
     
 }
 
-.texto_7{
+.texto_8{
     position: relative;
     width: 500px;
     color: #ffffff;
 }
-.texto_7 h1{
+.texto_8 h1{
     color: rgb(212, 190, 151);
 }
-.section-7 img{
+.section-8 img{
     width: 300px;
     border-radius: 2px;
 }
@@ -779,7 +856,7 @@ legend{
         text-align: left;
         margin: 0;
         margin-top: 20px;
-        width: 360px;
+        width: 90vw;
        
     }
     .logo :where(p, h1){
@@ -803,7 +880,7 @@ legend{
 
     }
     .atividade-1{
-        width: 180px;
+        width: 45vw;
         height: 28vh;
     }
 
@@ -919,11 +996,25 @@ legend{
         overflow-y: auto;
         gap: 9px;
     }
+    /*SECTION-7*/
     .section-7{
+         border-top-right-radius: 0;
+    }
+ .card_1, .card_2, .card_3{
+    width: 63vw;
+    
+ }
+ .section-7 span{
+    justify-content: center;
+ }
+
+
+    /*SECTION 8*/
+    .section-8{
         flex-direction: column-reverse;
         text-align: center;
     }
-    .texto_7{
+    .texto_8{
         width: 300px;
     }
 }
