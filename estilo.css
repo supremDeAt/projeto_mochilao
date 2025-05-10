@@ -2,6 +2,7 @@ body{
     margin: 0;
     background-color: rgb(212, 190, 151);
     /*background-color: rgb(179, 155, 116); */
+    height: 100vh;
 
 
 }
@@ -80,10 +81,9 @@ a{
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 40vh;
+    padding: 5px;
     border-radius: 3px;
     background-color: #000000;
-    backdrop-filter: blur(6px);
     color: white;
     position: fixed;
     top: -450px;
@@ -769,6 +769,7 @@ legend{
     }
     
 }
+
 @keyframes aparecer {
     to{
         
@@ -776,6 +777,7 @@ legend{
     }
     
 }
+
 @keyframes top_scroll{
     0%{
         opacity: 0;
@@ -819,6 +821,7 @@ legend{
     transform: translate(0px);
 }
 }
+
 @keyframes text_luz{
     0%{
         opacity: 0;
@@ -831,7 +834,203 @@ legend{
         
     }
 }
-@media(max-width:  490px){
+
+@media(max-width:  1024px){
+
+    /* SECTION 1 */
+    .section-1{
+        height: 100vh;
+       
+    }
+    .atividade{
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+        top: 15%;
+        gap: 40px;
+        position: relative;
+        
+    }
+    .atividade img{
+        width:50vw ;
+    }
+   .div{
+    display: none;
+   }
+   .menu-btn {
+    display: block;
+}
+    .logo{
+        text-align: left;
+        margin: 0;
+        margin-top: 20px;
+        width: 85vw;
+        
+       
+    }
+    .logo :where(p, h1){
+        font-size: 30px;
+    }
+    .logo a{
+        font-size: 22px;
+    }
+    /*BOTOES FIXOS*/
+    .button_fixed{
+        bottom: 50px;
+        
+    }
+    
+
+    
+    /* SECTION 2 */
+    .section-2{
+    overflow-y: auto;
+    height: 400px;
+    }
+    .section-2 span{
+        gap: 10px;
+
+    }
+    .atividade-1{
+        width: 30vw;
+        height: 25vh;
+    }
+
+
+    /* SECTION 3 */
+    .texto_3{
+        flex-direction: column;
+        
+        
+    }
+    .texto_3 img{
+        height: 80vh;
+        width: 80vw;
+    }
+    .texto_3 .about_all{
+        font-size: 18px;
+        margin-top: 10px;
+        width: 80vw;
+        text-align: justify;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        
+        
+        
+    }
+    .texto_3 i{
+        font-size: 23px;
+    }
+    .texto_3 .about_m{
+        width: 80vw;
+        
+        
+    }
+   
+    .contador {
+        width: 30vw;
+      }
+      .contador h1{
+        font-size: 22px;
+      }
+      .contador-section{
+        gap: 9px;
+      }
+      .contador-section{
+          padding: 9px;
+      }
+
+    /* SECTION 4 */
+    .section-4 .ver_fotos{
+        background-color: #000000;
+    }
+    .section_fotos img{
+        width: 30vw;
+    }
+    
+
+
+    /*SECTION 5 */
+    .section-5{
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+        margin-top: 80px;
+        
+        
+    }
+    .fale_1{
+        margin: 0;
+        width: 70vw;
+        font-size: 18px;
+    }
+   .fale_2{
+    margin: 0;
+    width: 80vw;
+    
+    
+   }
+   .fale_2 input{
+    border-radius: 3px;
+    border: none;
+    outline: none;
+    width: 30vw;
+    padding: 10px;
+    background: none;
+    color: #fff;
+    
+}
+
+  .fale_2 .sms{
+   height: 100px;
+   width: 62vw;
+
+
+}
+
+.fale_2 button{
+    padding: 5px;
+    width: 62vw;
+    border-radius: 3px;
+    background-color: #5a432d;
+    color: #fff;
+    cursor: pointer;
+}
+    
+ /* SECTION 6*/
+    .section-6 span{
+        
+        height: 600px;
+        overflow-y: auto;
+        gap: 9px;
+    }
+    /*SECTION-7*/
+    .section-7{
+         border-top-right-radius: 0;
+         font-size: 20px;
+    }
+ .card_1, .card_2, .card_3{
+    width: 55vw;
+    
+ }
+ .section-7 span{
+    justify-content: center;
+ }
+
+
+    /*SECTION 8*/
+    .section-8{
+        flex-direction: column-reverse;
+        text-align: center;
+    }
+    .texto_8{
+        width: 65vw;
+        text-align: justify;
+    }
+}
+
+@media(max-width:  480px){
 
     /* SECTION 1 */
     .section-1{
@@ -847,6 +1046,10 @@ legend{
         position: relative;
         position: relative;
     }
+    .atividade img{
+        width: 60vw;
+    }
+    
    .div{
     display: none;
    }
@@ -861,7 +1064,10 @@ legend{
        
     }
     .logo :where(p, h1){
-        font-size: 23px;
+        font-size: 19px;
+    }
+    .logo a{
+        font-size: 16px;
     }
     /*BOTOES FIXOS*/
     .button_fixed{
@@ -886,11 +1092,10 @@ legend{
     }
 
 
+
     /* SECTION 3 */
     .texto_3{
         flex-direction: column;
-        
-        
     }
     .texto_3 img{
         height: 60vh;
@@ -933,15 +1138,15 @@ legend{
       .contador-section{
           padding: 9px;
       }
+
     /* SECTION 4 */
     .section-4 .ver_fotos{
         background-color: #000000;
     }
     .section_fotos img{
-        width: 170px;
+        width: 290px;
     }
     
-
 
     /*SECTION 5 */
     .section-5{
@@ -954,7 +1159,7 @@ legend{
     }
     .fale_1{
         margin: 0;
-        width: 320px;
+        width: 70vw;
 
     }
    .fale_2{
@@ -1017,6 +1222,202 @@ legend{
     }
     .texto_8{
         width: 300px;
+    }
+}
+
+@media(max-width:  360px){
+
+    /* SECTION 1 */
+    .section-1{
+        height: 100vh;
+       
+    }
+    .atividade{
+        flex-direction: column-reverse;
+        align-items: center;
+        justify-content: center;
+        top: 15%;
+        gap: 40px;
+        position: relative;
+        position: relative;
+    }
+    .atividade img{
+        width: 64vw;
+    }
+    
+   .div{
+    display: none;
+   }
+   .menu-btn {
+    display: block;
+}
+    .logo{
+        text-align: left;
+        margin: 0;
+        margin-top: 20px;
+        width: 90vw;
+       
+    }
+    .logo :where(p, h1){
+        font-size: 18px;
+    }
+    .logo a{
+        font-size: 13px;
+    }
+    /*BOTOES FIXOS*/
+    .button_fixed{
+        bottom: 50px;
+        
+    }
+    
+
+    
+    /* SECTION 2 */
+    .section-2{
+    overflow-y: auto;
+    height: 400px;
+    }
+    .section-2 span{
+        gap: 7px;
+
+    }
+    .atividade-1{
+        width: 49vw;
+        height: 28vh;
+    }
+
+
+
+    /* SECTION 3 */
+    .texto_3{
+        flex-direction: column;
+    }
+    .texto_3 img{
+        height: 60vh;
+        width: 90vw;
+    }
+    .texto_3 .about_all{
+        font-size: 12px;
+        margin-top: 10px;
+        width: 86vw;
+        text-align: justify;
+        display: flex;
+        flex-direction: column;
+        justify-content: left;
+    
+        
+        
+    }
+    .texto_3 i{
+        font-size: 23px;
+    }
+    .texto_3 .about_m{
+        width: 86vw;
+        
+        
+    }
+   
+
+    .contador {
+        width: 29vw;
+      }
+      .contador h1{
+        font-size: 22px;
+      }
+      .contador-section{
+        gap: 9px;
+      }
+      .contador-section{
+          padding: 9px;
+      }
+
+    /* SECTION 4 */
+   
+
+    .section-4 .ver_fotos{
+        background-color: #000000;
+    }
+    .section_fotos img{
+        width: 290px;
+    }
+    
+
+    /*SECTION 5 */
+    .section-5{
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+        margin-top: 80px;
+        
+        
+    }
+    .fale_1{
+        margin: 0;
+        width: 80vw;
+        font-size: 14px;
+
+    }
+   .fale_2{
+    margin: 0;
+    width: 98vw;
+    
+    
+   }
+   .fale_2 input{
+    border-radius: 3px;
+    border: none;
+    outline: none;
+    width: 140px;
+    padding: 10px;
+    background: none;
+    color: #fff;
+    
+}
+
+  .fale_2 .sms{
+   height: 100px;
+  width: 300px;
+
+
+}
+
+.fale_2 button{
+    padding: 5px;
+    width: 300px;
+    border-radius: 3px;
+    background-color: #5a432d;
+    color: #fff;
+    cursor: pointer;
+}
+    
+ /* SECTION 6*/
+    .section-6 span{
+        
+        height: 600px;
+        overflow-y: auto;
+        gap: 9px;
+    }
+    /*SECTION-7*/
+    .section-7{
+         border-top-right-radius: 0;
+         font-size: 15px;
+    }
+ .card_1, .card_2, .card_3{
+    width: 63vw;
+    
+ }
+ .section-7 span{
+    justify-content: center;
+ }
+
+
+    /*SECTION 8*/
+    .section-8{
+        flex-direction: column-reverse;
+        text-align: center;
+    }
+    .texto_8{
+        width: 80vw;
     }
 }
 
