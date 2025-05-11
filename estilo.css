@@ -291,7 +291,7 @@ nav{
 }
 .section-2 span{
     z-index: 1;
-    margin-top: 40px;
+    margin-top: 50px;
     display: flex;
     flex-wrap: wrap;
     gap: 50px;
@@ -487,6 +487,7 @@ transform: scale(1.05);
     display: flex;
     justify-content: center;
     gap: 60px;
+    padding: 10px;
    
 }
 .fale_1{
