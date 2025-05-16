@@ -55,6 +55,7 @@ a{
     background-position: center;
     background-size: cover;
     height: 60vh;
+
    
     
 }
@@ -334,8 +335,10 @@ nav{
 .section-2 :where(p, h4, i, a){
     color: #ffffff;
     text-align: left;
+
 }
 .section-2 a{
+    margin-top: auto;
     text-decoration: underline;
     font-family: "Gowun Dodum", sans-serif;
 }
@@ -690,7 +693,8 @@ legend{
     background-repeat: no-repeat;
     height: 50vh;
     width: 25vw;
-    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 .card_2{
@@ -702,7 +706,8 @@ legend{
     background-repeat: no-repeat;
     height: 50vh;
     width: 25vw;
-    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 .card_3{
@@ -714,11 +719,12 @@ legend{
     background-repeat: no-repeat;
     height: 50vh;
     width: 25vw;
-    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 .card_1 div, .card_2 div, .card_3 div {
-    position: absolute;
+    margin-top: auto;
     bottom: 0;
     background-color: #ccc9c953;
     backdrop-filter: blur(6px);
@@ -1060,7 +1066,7 @@ legend{
     .logo{
         text-align: left;
         margin: 0;
-        margin-top: 20px;
+        margin-top: 20vw;
         width: 90vw;
        
     }
@@ -1226,7 +1232,8 @@ legend{
     }
 }
 
-@media(max-width:  360px){
+@media(max-width:  375px){
+   
 
     /* SECTION 1 */
     .section-1{
