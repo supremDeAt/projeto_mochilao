@@ -310,7 +310,7 @@ nav{
     display: flex;
     flex-direction: column;
     width: 15vw;
-    height: 28vh;
+
     border-radius: 3px;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.353) 10%, rgba(0,0,0,0.7) 100%), url(imagens/IMG_7006\ 2.webp) no-repeat center center/cover;
     transition: 1.2s all ease-in-out;
@@ -324,9 +324,10 @@ nav{
 
 }
 .atividade-1 .conteudo{
-    margin-top: 20px;
-    margin-bottom: 20px;
-    position: relative;
+    margin-top: 2vh;
+    margin-bottom: 5vh;
+    text-align: justify;
+
 }
 
 
@@ -377,7 +378,7 @@ nav{
 .texto_3 .about_all{
     position: relative;
     width: 500px;
-    color: #ffffff;
+    color:#000000;
     text-align: justify;
     
 }
@@ -396,8 +397,12 @@ nav{
 }
 .about_m .p_primar{
     margin-left: 70px;
-    color:#555555;
+    color:#363535;
     
+}
+.contador-section p{
+    color: #fff;
+    font-size: 14px;
 }
 
 /* .texto_3 :where(h1, p){
@@ -409,10 +414,7 @@ nav{
 .texto_3 h1{
     color: rgb(109, 76, 35);
 }
-.texto_3 i{
-    font-size: 24px;
-    color: #000000;  
-}
+
 .texto_3 button{
     margin-top: 7px;
     padding: 8px 20px;
@@ -469,13 +471,13 @@ transform: scale(1.05);
     animation-range: entry 0% cover 30%;
    display: flex;
    flex-wrap: wrap;
-   gap: 25px;
+   gap: 13px;
    justify-content: center;
    align-items: center;
     
 }
 .section_fotos img{
-    width: 300px;
+    width: 310px;
     border-radius: 4px;
     transition: 0.3s all ease-in-out;
 }
@@ -483,15 +485,174 @@ transform: scale(1.05);
     transform: scale(1.04);
 }
 
-
-/* CSS DA 5ª SECTION */
+/*CSS DA 5ª SECTION*/
 .section-5{
-    margin-top: 90px;
+    padding: 10px;
+    display: flex;
+    gap: 10%;
+    border-top: 1px solid rgba(212, 190, 151, 0.137);
+    align-items: center;
+    justify-content: center;
+    /*background-color: #775f43; */
+    
+}
+
+.texto_8{
+    position: relative;
+    width: 500px;
+    color: #ffffff;
+}
+.texto_8 h1{
+   color: #775f43;
+}
+.section-5 img{
+    width: 300px;
+    border-radius: 2px;
+}
+
+/*CSS DA 6ª SECTION*/
+.section-6{
+    background-color: #fff;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    margin-top: 100px;
+}
+
+
+.section-6 span{
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+.section-6 p{
+    font-size: 17px;
+}
+.section-6 a{
+    font-size: 20px;
+    color: #fff;
+    cursor: pointer;
+
+}
+.card_1{
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-image: url(imagens/assis\ \(1\).webp);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 50vh;
+    width: 25vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.card_2{
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-image: url(imagens/matias\ \(1\).webp);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 50vh;
+    width: 25vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.card_3{
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-image: url(imagens/mochi4.webp);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 50vh;
+    width: 25vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.card_1 div, .card_2 div, .card_3 div {
+    margin-top: auto;
+    bottom: 0;
+    background-color: #ccc9c953;
+    backdrop-filter: blur(6px);
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    color: #fff;
+    text-align: left;
+    padding: 10px;
+}
+
+/*CSS DA 7ª SECTION*/
+.section-7{
+    background-image: linear-gradient(20deg, #775f43, #775f43, rgb(202, 177, 134), rgb(212, 190, 151));
+    padding-bottom: 50px;
+
+}
+
+.section-7 h1{
+    text-align: center;
+    margin-top: 100px;
+    
+}
+
+
+
+.section-7 span{
+    margin-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    text-align: center;
+    justify-content: center;
+    border: none;
+
+    
+}
+
+.atividade-2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    animation: top_scroll linear;
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
+}
+.section-7 img{
+    border-radius: 3px;
+    width: 300px;
+}
+.texto_6{
+    width: 250px;
+}
+.texto_6 h4{
+    font-family: "Lexend Exa", sans-serif;
+    color: rgb(99, 70, 27);
+}
+
+.texto_6 li{
+    color:#ffffff;
+    font-family: "Gowun Dodum", sans-serif;
+    margin: 8px;
+}
+
+
+/* CSS DA 8ª SECTION */
+.section-8{
     display: flex;
     justify-content: center;
     gap: 60px;
     padding: 10px;
-   
+    background-color: #ffffff;
+    padding: 50px;
 }
 .fale_1{
     position: relative;
@@ -501,7 +662,7 @@ transform: scale(1.05);
     gap: 10px;
 }
 .fale_1 p{
-    color: #666464;
+    color: #565555;
     font-size: 20px;
     text-align: justify;
 }
@@ -523,7 +684,7 @@ transform: scale(1.05);
     transition: 0.3s all ease-in-out;
 }
 .redes a:hover{
-    color: rgb(255, 255, 255) ;
+    color: rgb(99, 97, 97);
     transform: scale(1.2);
 }
 .fale_2{
@@ -595,171 +756,6 @@ legend{
 
 
 
-/*CSS DA 6ª SECTION*/
-.section-6{
-    background-image: linear-gradient(25deg, #775f43, #775f43, rgb(202, 177, 134), rgb(212, 190, 151));
-    padding-bottom: 50px;
-
-}
-
-.section-6 h1{
-    position: relative;
-    text-align: center;
-    margin-top: 150px;
-    
-}
-
-
-
-.section-6 span{
-    margin-top: 40px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 50px;
-    text-align: center;
-    justify-content: center;
-    border: none;
-
-    
-}
-
-.atividade-2{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-radius: 5px;
-    animation: top_scroll linear;
-    animation-timeline: view();
-    animation-range: entry 0% cover 30%;
-}
-.section-6 img{
-    border-radius: 3px;
-    width: 300px;
-}
-.texto_6{
-    width: 250px;
-}
-.texto_6 h4{
-    font-family: "Lexend Exa", sans-serif;
-    color: rgb(99, 70, 27);
-}
-
-.texto_6 li{
-    color:#ffffff;
-    font-family: "Gowun Dodum", sans-serif;
-    margin: 8px;
-}
-
-
-
-
-
-/*CSS DA 7ª SECTION*/
-.section-7{
-    background-color: #fff;
-    border-top-right-radius: 50%;
-    display: flex;
-    flex-direction: column;
-    padding: 15px;
-}
-.sec_color{
-    margin-top: -10px;
-    padding-top: 20px;
-    background-color: #775f43;
-    
-}
-.section-7 span{
-    margin-top: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-}
-.section-7 p{
-    font-size: 17px;
-}
-.section-7 a{
-    font-size: 20px;
-    color: #fff;
-    cursor: pointer;
-
-}
-.card_1{
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    background-image: url(imagens/assis\ \(1\).webp);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 50vh;
-    width: 25vw;
-    display: flex;
-    flex-direction: column;
-}
-
-.card_2{
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    background-image: url(imagens/matias\ \(1\).webp);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 50vh;
-    width: 25vw;
-    display: flex;
-    flex-direction: column;
-}
-
-.card_3{
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    background-image: url(imagens/mochi4.webp);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 50vh;
-    width: 25vw;
-    display: flex;
-    flex-direction: column;
-}
-
-.card_1 div, .card_2 div, .card_3 div {
-    margin-top: auto;
-    bottom: 0;
-    background-color: #ccc9c953;
-    backdrop-filter: blur(6px);
-    display: flex;
-    flex-direction: column;
-    gap: 9px;
-    color: #fff;
-    text-align: left;
-    padding: 10px;
-}
-
-
-/*CSS DA 8ª SECTION*/
-.section-8{
-    padding: 10px;
-    display: flex;
-    gap: 10%;
-    align-items: center;
-    justify-content: center;
-    background-color: #775f43;
-    
-}
-
-.texto_8{
-    position: relative;
-    width: 500px;
-    color: #ffffff;
-}
-.texto_8 h1{
-    color: rgb(212, 190, 151);
-}
-.section-8 img{
-    width: 300px;
-    border-radius: 2px;
-}
 
 
 
@@ -879,7 +875,7 @@ legend{
         font-size: 30px;
     }
     .logo a{
-        font-size: 22px;
+        font-size: 18px;
     }
     /*BOTOES FIXOS*/
     .button_fixed{
@@ -900,7 +896,7 @@ legend{
     }
     .atividade-1{
         width: 30vw;
-        height: 25vh;
+    
     }
 
 
@@ -923,18 +919,13 @@ legend{
         flex-direction: column;
         justify-content: center;
         
-        
-        
     }
     .texto_3 i{
         font-size: 23px;
     }
     .texto_3 .about_m{
         width: 80vw;
-        
-        
     }
-   
     .contador {
         width: 30vw;
       }
@@ -948,23 +939,53 @@ legend{
           padding: 9px;
       }
 
+
     /* SECTION 4 */
     .section-4 .ver_fotos{
         background-color: #000000;
     }
     .section_fotos img{
-        width: 30vw;
+        width: 40vw;
     }
-    
 
-
-    /*SECTION 5 */
+     /*SECTION 5*/
     .section-5{
+        flex-direction: column-reverse;
+        text-align: center;
+    }
+    .texto_8{
+        width: 65vw;
+        text-align: justify;
+    }
+
+     /*SECTION-6*/
+    .section-6{
+         border-top-right-radius: 0;
+         font-size: 20px;
+    }
+ .card_1, .card_2, .card_3{
+    width: 46vw;
+    
+ }
+ .section-6 span{
+    flex-wrap: wrap;
+     height: 600px;
+    overflow-y: auto;
+ }
+
+ /* SECTION 7*/
+    .section-7 span{
+        
+        height: 600px;
+        overflow-y: auto;
+        gap: 9px;
+    }
+
+    /*SECTION 8 */
+    .section-8{
         flex-direction: column-reverse;
         justify-content: center;
         align-items: center;
-        margin-top: 80px;
-        
         
     }
     .fale_1{
@@ -1005,36 +1026,6 @@ legend{
     cursor: pointer;
 }
     
- /* SECTION 6*/
-    .section-6 span{
-        
-        height: 600px;
-        overflow-y: auto;
-        gap: 9px;
-    }
-    /*SECTION-7*/
-    .section-7{
-         border-top-right-radius: 0;
-         font-size: 20px;
-    }
- .card_1, .card_2, .card_3{
-    width: 55vw;
-    
- }
- .section-7 span{
-    justify-content: center;
- }
-
-
-    /*SECTION 8*/
-    .section-8{
-        flex-direction: column-reverse;
-        text-align: center;
-    }
-    .texto_8{
-        width: 65vw;
-        text-align: justify;
-    }
 }
 
 @media(max-width:  480px){
@@ -1095,7 +1086,7 @@ legend{
     }
     .atividade-1{
         width: 45vw;
-        height: 28vh;
+    
     }
 
 
@@ -1115,13 +1106,14 @@ legend{
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: center;
+    
         
         
     }
-    .texto_3 i{
+    .texto_3 h1{
         font-size: 23px;
     }
+    
     .texto_3 .about_m{
         width: 360px;
         
@@ -1153,14 +1145,45 @@ legend{
     .section_fotos img{
         width: 290px;
     }
+
+     /*SECTION 5*/
+    .section-5{
+        flex-direction: column-reverse;
+        text-align: center;
+    }
+    .texto_8{
+        width: 300px;
+    }
+
+     /*SECTION-6*/
+    .section-6{
+         border-top-right-radius: 0;
+     }
+   .card_1, .card_2, .card_3{
+    width: 63vw;
+    
+   }
+   .section-6 span{
+    justify-content: center;
+    height: 600px;
+        overflow-y: auto;
+   }
+
+  /* SECTION 7*/
+    .section-7 span{
+    
+        height: 600px;
+        overflow-y: auto;
+        gap: 9px;
+    }
     
 
-    /*SECTION 5 */
-    .section-5{
+    /*SECTION 8 */
+    .section-8{
+        margin-top: -10px;
         flex-direction: column-reverse;
         justify-content: center;
         align-items: center;
-        margin-top: 80px;
         
         
     }
@@ -1201,35 +1224,7 @@ legend{
     color: #fff;
     cursor: pointer;
 }
-    
- /* SECTION 6*/
-    .section-6 span{
-        
-        height: 600px;
-        overflow-y: auto;
-        gap: 9px;
-    }
-    /*SECTION-7*/
-    .section-7{
-         border-top-right-radius: 0;
-    }
- .card_1, .card_2, .card_3{
-    width: 63vw;
-    
- }
- .section-7 span{
-    justify-content: center;
- }
-
-
-    /*SECTION 8*/
-    .section-8{
-        flex-direction: column-reverse;
-        text-align: center;
-    }
-    .texto_8{
-        width: 300px;
-    }
+   
 }
 
 @media(max-width:  375px){
@@ -1291,7 +1286,7 @@ legend{
     }
     .atividade-1{
         width: 49vw;
-        height: 28vh;
+
     }
 
 
@@ -1316,7 +1311,7 @@ legend{
         
         
     }
-    .texto_3 i{
+    .texto_3 h1{
         font-size: 23px;
     }
     .texto_3 .about_m{
@@ -1346,16 +1341,46 @@ legend{
         background-color: #000000;
     }
     .section_fotos img{
-        width: 290px;
+        width: 310px;
+    }
+
+    /*SECTION 5*/
+    .section-5{
+        flex-direction: column-reverse;
+        text-align: center;
+    }
+    .texto_8{
+        width: 80vw;
+    }
+
+     /*SECTION-6*/
+    .section-6{
+         border-top-right-radius: 0;
+         font-size: 15px;
+    }
+ .card_1, .card_2, .card_3{
+    width: 74vw;
+    
+ }
+ .section-6 span{
+    justify-content: center;
+ }
+
+  /* SECTION 7*/
+    .section-7 span{
+        
+        height: 600px;
+        overflow-y: auto;
+        gap: 9px;
     }
     
 
-    /*SECTION 5 */
-    .section-5{
+    /*SECTION 8 */
+    .section-8{
         flex-direction: column-reverse;
         justify-content: center;
         align-items: center;
-        margin-top: 80px;
+        
         
         
     }
@@ -1398,35 +1423,11 @@ legend{
     cursor: pointer;
 }
     
- /* SECTION 6*/
-    .section-6 span{
-        
-        height: 600px;
-        overflow-y: auto;
-        gap: 9px;
-    }
-    /*SECTION-7*/
-    .section-7{
-         border-top-right-radius: 0;
-         font-size: 15px;
-    }
- .card_1, .card_2, .card_3{
-    width: 63vw;
+
+   
+
+
     
- }
- .section-7 span{
-    justify-content: center;
- }
-
-
-    /*SECTION 8*/
-    .section-8{
-        flex-direction: column-reverse;
-        text-align: center;
-    }
-    .texto_8{
-        width: 80vw;
-    }
 }
 
 
