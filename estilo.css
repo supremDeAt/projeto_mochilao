@@ -795,6 +795,10 @@ footer :where(.footer_2, .footer_3){
 }
 footer a{
     color: #fff;
+    font-weight: 200;
+}
+footer h4{
+    color: #775f43;
 }
 .footer_4{
     padding: 7px;
