@@ -310,7 +310,6 @@ nav{
     display: flex;
     flex-direction: column;
     width: 15vw;
-
     border-radius: 3px;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.353) 10%, rgba(0,0,0,0.7) 100%), url(imagens/IMG_7006\ 2.webp) no-repeat center center/cover;
     transition: 1.2s all ease-in-out;
@@ -318,7 +317,8 @@ nav{
     
 }
 .atividade-1:hover{
-   background: url(imagens/IMG_7006\ 2.webp) rgb(0, 0, 0) 200%;
+   background: url(imagens/IMG_7006\ 2.webp
+   ) rgb(0, 0, 0) 200%;
    background-position: center;
    background-size: cover;
 
