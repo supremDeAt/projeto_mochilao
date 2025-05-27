@@ -65,6 +65,7 @@ a{
     z-index: 1000;
     display: flex;
     position: fixed;
+    padding: 8px;
     color: #fff;
     z-index: 1000;
     width: 100%;
@@ -80,6 +81,7 @@ a{
 }
 .sidebar {
     display: flex;
+    z-index: 1000;
     flex-direction: column;
     width: 100%;
     padding: 5px;
