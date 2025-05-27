@@ -65,7 +65,7 @@ a{
     z-index: 1000;
     display: flex;
     position: fixed;
-    padding: 8px;
+    padding-top: 8px;
     color: #fff;
     z-index: 1000;
     width: 100%;
