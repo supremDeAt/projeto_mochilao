@@ -3,6 +3,7 @@ body{
     background-color: rgb(212, 190, 151);
     /*background-color: rgb(179, 155, 116); */
     height: 100vh;
+    
 
 
 }
@@ -318,13 +319,14 @@ nav{
     cursor: pointer;
     
 }
-.atividade-1:hover{
+/*.atividade-1:hover{
    background: url(imagens/IMG_7006\ 2.webp
    ) rgb(0, 0, 0) 200%;
    background-position: center;
    background-size: cover;
 
-}
+} */
+
 .atividade-1 .conteudo{
     margin-top: 2vh;
     margin-bottom: 5vh;
