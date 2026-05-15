@@ -1,535 +1,815 @@
 <!DOCTYPE html>
-<html lang="pt-br" translate="yes">
+<html lang="pt-br">
 <head>
-    <!--LINK DO CSS-->
-    <link rel="stylesheet" href="estilo.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>O Mochilão Aventuras</title>
 
+  <link rel="icon" href="logo5.png">
+  <link rel="stylesheet" href="estilo.css">
 
-    <!--LINK DE ICONS-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="icon" href="logo5.png">
-
-    
-    <!--FONTES GOOGLE-->
-   
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="icon" href="logoreal.png">
-   
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Gowun+Dodum&family=Lexend+Deca:wght@100..900&family=Lexend+Exa:wght@100..900&family=Lexend+Zetta:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+DE+Grund:wght@100..400&family=Poiret+One&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
-
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>O Mochilão</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Lexend+Exa:wght@100..900&family=Lexend+Deca:wght@100..900&family=Gowun+Dodum&display=swap" rel="stylesheet">
 </head>
 <body>
-  <script src="script.js"></script>
-  
-    <section class="section-1" id="section-1">
 
-        <nav class="menu">
-            <img src="Sem Título-3.png" alt="" class="branco">
+  <!-- ======= NAVBAR ======= -->
+  <header class="navbar" id="navbar">
+    <a href="#hero" class="navbar__brand">
+      <!--
+        LOGO: Substitua o src pelo caminho do seu logo branco
+        Recomendado: branco2.png (já tem esse ficheiro)
+      -->
+      <img src="branco2.png" alt="O Mochilão Aventuras" class="navbar__logo">
+    </a>
 
-            <button class="menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
-           
+    <nav class="navbar__links" id="navLinks">
+      <a href="#tours" class="navbar__link">Viagens</a>
+      <a href="#gallery" class="navbar__link">Galeria</a>
+      <a href="#about" class="navbar__link">Sobre</a>
+      <a href="#tips" class="navbar__link">Dicas</a>
+      <a href="#contact" class="navbar__link navbar__link--cta">Fale Connosco</a>
+    </nav>
 
-            <div class="div">
-                <a href="#section-4" class="menu-link">Galeria</a>
-               <button popovertarget="my-popover">Sobre <i class="fa-solid fa-caret-down"></i></button>
-               <div id="my-popover" popover>
-                <a href="#section-3">Agencia</a>
-                <br>
-                <a href="#section-6">Dicas de viagem</a>
-                <br>
-                <a href="">Lugares e culturas</a>
-                </div>
-                <a href="#section-1" class="menu-link">Início</a>
-           </div>
-           
-        </nav>
-         <nav class="sidebar" id="sidebar">
-                <button class="close-btn" onclick="toggleMenu()"><i class="fa-solid fa-xmark"></i></button>
-                
-                <a href="#section-1" class="menu-link">Início</a>
-                
-                <a href="#section-4" class="menu-link">Galeria</a>
-            
-                <a href="#section-3">Sobre Agencia</a>
-                
-                <a href="#section-6">Dicas de viagem</a>
-                 
-                <a href="#section-8">Lugares e culturas</a>
-                 
-                 
-            </nav>
+    <button class="navbar__burger" id="burgerBtn" aria-label="Abrir menu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </header>
 
-        <div class="atividade"> 
-
-            <div class="logo">
-             
-                
-                <h1>há mais de 3 anos revelando os segredos de Angola e despertando o espírito aventureiro de quem escolhe sentir cada passo dessa terra viva.
-                </h1>
-                <hr style="border: none; height: 1px; width: 300px; margin-top: 10px; background-color:#fff; position: relative; left: 0;">
-
-                <p>Cada viagem começa com uma <br>
-                   escolha. Faça a sua e eternize momentos únicos por Angola.</p> 
-                   <div>
-                    <a href="#section-2" class="reservar">Faça sua reserva</a>
-                    <a href="#section-8" class="falar">Fale conosco</a>
-                   </div>
-            </div>
-            
-            
-        </div>
-
-    </section>
-
-    <!--BOTAO FIXO-->
-    <div class="button_fixed">
-      <a href="#" class="fixed_button_top"><i class="fa-solid fa-arrow-up"></i></a>
-
-      <a href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0" target="_blank" class="fixed_button_wpp"><i class="fa-brands fa-whatsapp"></i></a>
+  <!-- ======= SIDEBAR MOBILE ======= -->
+  <div class="sidebar__overlay" id="sidebarOverlay"></div>
+  <aside class="sidebar" id="sidebar">
+    <button class="sidebar__close" id="closeBtn" aria-label="Fechar menu">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <nav class="sidebar__nav">
+      <a href="#hero"    class="sidebar__link">Início</a>
+      <a href="#tours"   class="sidebar__link">Viagens</a>
+      <a href="#gallery" class="sidebar__link">Galeria</a>
+      <a href="#about"   class="sidebar__link">Sobre</a>
+      <a href="#team"    class="sidebar__link">Equipa</a>
+      <a href="#tips"    class="sidebar__link">Dicas</a>
+      <a href="#contact" class="sidebar__link">Fale Connosco</a>
+    </nav>
+    <div class="sidebar__footer">
+      <a href="https://www.instagram.com/o_mochilao/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+      <a href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+      <a href="https://www.tiktok.com/@o.mochilao" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
     </div>
-     
+  </aside>
 
-    <section class="section-2" id="section-2">
-       <span>
-           <div class="atividade-1" style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0.353) 10%, rgba(0,0,0,0.7) 100%), url(imagens/caboledo.webp) no-repeat center center/cover;">
-            <h4>Cabo Ledo </h4>
-            <p>Sobre Rodas</p>
-            <hr style="border: 0.3px solid rgb(255, 255, 255); height: 1px; width: 120px;  background-color: rgb(255, 255, 255);">
-            <nav class="conteudo">
-              <p>Com ínicio no <strong>Miradouro da Lua</strong>,
-                seguido da <strong>Gruta das sereias</strong> e encerramento na <strong>Praia dos Surfistas</strong>, com almoço e  lazer. 
-              </p>
-            </nav>
-            <a href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0">Reservar</a>
-           </div>
+  <!-- ======= HERO ======= -->
+  <!--
+    IMAGEM DE FUNDO DO HERO:
+    Abra estilo.css e procure por ".hero {"
+    Substitua o background-image pelo caminho da sua imagem.
+    Exemplo: background-image: linear-gradient(...), url('imagens/imagem2.webp');
+  -->
+  <section class="hero" id="hero">
+    <div class="hero__content">
+      <span class="hero__badge reveal-fade">Angola · Aventuras Autênticas</span>
+      <h1 class="hero__title reveal-up">
+        Há mais de 3 anos revelando os segredos de Angola
+      </h1>
+      <div class="hero__divider reveal-fade"></div>
+      <p class="hero__subtitle reveal-up">
+        Cada viagem começa com uma escolha.<br>
+        Faça a sua e eternize momentos únicos por Angola.
+      </p>
+      <div class="hero__actions reveal-up">
+        <a href="#tours"   class="btn btn--primary">Faça a sua reserva</a>
+        <a href="#contact" class="btn btn--outline">Fale connosco</a>
+      </div>
+    </div>
+    <a href="#tours" class="hero__scroll" aria-label="Scroll para baixo">
+      <span>Explorar</span>
+      <i class="fa-solid fa-arrow-down"></i>
+    </a>
+  </section>
 
-           <div class="atividade-1" style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0.353) 10%, rgba(0,0,0,0.7) 100%), url(imagens/elefante.webp) no-repeat center center/cover;">
-            <h4>Quiçama</h4>
-            <p>Safari</p>
-            <hr style="border: 0.3px solid rgb(255, 255, 255); height: 1px; width: 120px;  background-color: rgb(255, 255, 255);">
-            <nav class="conteudo">
-              <p>Visita ao <strong>Parque Nacional da Quiçama</strong>, com safari guiado e almoço local. Finalização no <strong>Miradouro da Lua</strong>
-              </p>
-            </nav>
-            <a href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0">Reservar</a>
-           </div>
+  <!-- ======= BOTÕES FLUTUANTES ======= -->
+  <div class="float-btns">
+    <a href="#hero" class="float-btn float-btn--top" aria-label="Voltar ao topo">
+      <i class="fa-solid fa-arrow-up"></i>
+    </a>
+    <a href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0"
+       target="_blank" class="float-btn float-btn--wpp" aria-label="WhatsApp">
+      <i class="fa-brands fa-whatsapp"></i>
+    </a>
+  </div>
 
-           <div class="atividade-1" style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0.353) 10%, rgba(0,0,0,0.7) 100%), url(imagens/huambo.webp) no-repeat center center/cover;">
-            <h4>Huambo</h4>
-            <p>Águas Frias Camping</p>
-            <hr style="border: 0.3px solid rgb(255, 255, 255); height: 1px; width: 120px;  background-color: rgb(255, 255, 255);">
-            <nav class="conteudo">
-              <p><strong>Acampamento de 3 dias</strong>, incluindo<strong> tendas, trilhas, alimentação</strong> completa e água disponivel durante toda a estadia. 
-              </p>
-            </nav>
-            <a href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0">Reservar</a>
-           </div>
+  <!-- ======= TOURS ======= -->
+  <section class="tours" id="tours">
+    <div class="section-header reveal-up">
+      <span class="section-tag">Os Nossos Pacotes</span>
+      <h2 class="section-title">Destinos de Aventura</h2>
+      <p class="section-desc">Explore Angola com roteiros cuidadosamente planeados pela nossa equipa.</p>
+    </div>
 
-           <div class="atividade-1" style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0.353) 10%, rgba(0,0,0,0.7) 100%), url(imagens/fogueira.webp) no-repeat center center/cover;">
-            <h4>Bengo</h4>
-            <p>Kifuka Camping</p>
-            <hr style="border: 0.3px solid rgb(255, 255, 255); height: 1px; width: 120px;  background-color: rgb(255, 255, 255);">
-            <nav class="conteudo">
-              <p><strong>Acampamento de 2 dias</strong>, incluindo <strong>tendas, refeições, água à vontade</strong> e atividades de lazer em meio à natureza.
-              </p>
-            </nav>
-            <a href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0">Reservar</a>
-           </div>
+    <div class="tours__grid">
+      <!--
+        IMAGENS DOS CARDS DE TOURS:
+        Cada card tem um atributo data-destination="nome".
+        No ficheiro estilo.css, procure pela secção "TOUR CARD BACKGROUNDS"
+        e substitua o background-color pelo URL da sua imagem.
+        Exemplo: .tour-card[data-destination="cabo-ledo"] { background-image: url('imagens/caboledo.webp'); }
+      -->
 
-           <div class="atividade-1" style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0.353) 10%, rgba(0,0,0,0.7) 100%), url(imagens/dji_fly_20250501_111818_870_1746404350859_photo_optimized\ 2.webp) no-repeat center center/cover; ">
-            <h4>Malanje</h4>
-            <p>Terra da Palanca</p>
-            <hr style="border: 0.3px solid rgb(255, 255, 255); height: 1px; width: 120px;  background-color: rgb(255, 255, 255);">
-            <nav class="conteudo">
-              <p><strong>Excursão de 3 dias</strong> com visita as <strong>Pedras de Pungo Andongo</strong> e o ponto principal <strong>Malanje</strong>. Inclui <strong>t-shirt</strong>, snakes e água ilimitada.
-              </p>
-            </nav>
-            <a href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0">Reservar</a>
-           </div>
+      <div class="tour-card reveal-up" data-destination="cabo-ledo">
+        <div class="tour-card__inner">
+          <span class="tour-card__badge">Sobre Rodas</span>
+          <h3 class="tour-card__title">Cabo Ledo</h3>
+          <div class="tour-card__divider"></div>
+          <p class="tour-card__desc">
+            Com início no <strong>Miradouro da Lua</strong>, passando pela <strong>Gruta das Sereias</strong>
+            e encerramento na <strong>Praia dos Surfistas</strong>, com almoço e lazer.
+          </p>
+          <button type="button" class="tour-card__btn" data-open-reservation>
+            Reservar <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
 
-           <div class="atividade-1" style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0.353) 10%, rgba(0,0,0,0.7) 100%), url(imagens/IMG_7006\ 2.webp) no-repeat center center/cover;;">
-            <h4>Cuanza Norte</h4>
-            <p>Camping e Trilhas</p>
-            <hr style="border: 0.3px solid rgb(255, 255, 255); height: 1px; width: 120px;  background-color: rgb(255, 255, 255);">
-            <nav class="conteudo">
-              <p><strong>Acampamento de 3 dias</strong>, com <strong>alimentação incluída, água disponivel e trilhas ecológicas</strong> em ambiente natural. 
-              </p>
-            </nav>
-            <a href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0">Reservar</a>
-           </div>
+      <div class="tour-card reveal-up" data-destination="quicama">
+        <div class="tour-card__inner">
+          <span class="tour-card__badge">Safari</span>
+          <h3 class="tour-card__title">Quiçama</h3>
+          <div class="tour-card__divider"></div>
+          <p class="tour-card__desc">
+            Visita ao <strong>Parque Nacional da Quiçama</strong>, com safari guiado e almoço local.
+            Finalização no <strong>Miradouro da Lua</strong>.
+          </p>
+          <button type="button" class="tour-card__btn" data-open-reservation>
+            Reservar <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
 
-           <div class="atividade-1" style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0.353) 10%, rgba(0,0,0,0.7) 100%), url(imagens/Luanda.webp) no-repeat center center/cover;">
-            <h4>Luanda </h4>
-            <p>City Tour Kids</p>
-            <hr style="border: 0.3px solid rgb(255, 255, 255); height: 1px; width: 120px;  background-color: rgb(255, 255, 255);">
-            <nav class="conteudo">
-              <p><strong>Passeio educativo e recreativo</strong> pelas principais <strong>atrações de luanda</strong>, desenvolvido especialmente para o <strong>público infatil</strong>.
-              </p>
-            </nav>
-            <a href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0">Reservar</a>
-           </div>
+      <div class="tour-card reveal-up" data-destination="huambo">
+        <div class="tour-card__inner">
+          <span class="tour-card__badge">Camping · 3 dias</span>
+          <h3 class="tour-card__title">Huambo</h3>
+          <div class="tour-card__divider"></div>
+          <p class="tour-card__desc">
+            <strong>Acampamento de 3 dias</strong> incluindo <strong>tendas, trilhas e alimentação</strong>
+            completa com água disponível durante toda a estadia.
+          </p>
+          <button type="button" class="tour-card__btn" data-open-reservation>
+            Reservar <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
 
-           <div class="atividade-1" style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0.353) 10%, rgba(0,0,0,0.7) 100%), url(imagens/mochila3.webp) no-repeat center center/cover;">
-            <h4>Seu Programa</h4>
-            <p>Viagens ou Tours</p>
-            <hr style="border: 0.3px solid rgb(255, 255, 255); height: 1px; width: 120px;  background-color: rgb(255, 255, 255);">
-            <nav class="conteudo">
-              <p>Crie um <strong>roteiro personalizado</strong>, escolhendo o <strong>destino, a duração e as atividades</strong> conforme o seu interesse. 
-              </p>
-            </nav>
-            <a href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0">Reservar</a>
-           </div>
+      <div class="tour-card reveal-up" data-destination="bengo">
+        <div class="tour-card__inner">
+          <span class="tour-card__badge">Camping · 2 dias</span>
+          <h3 class="tour-card__title">Bengo</h3>
+          <div class="tour-card__divider"></div>
+          <p class="tour-card__desc">
+            <strong>Acampamento de 2 dias</strong> com <strong>tendas, refeições e água à vontade</strong>,
+            e atividades de lazer em plena natureza.
+          </p>
+          <button type="button" class="tour-card__btn" data-open-reservation>
+            Reservar <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
 
-           <div class="atividade-1">
-            <h4>🔧🔧🔧 </h4>
-            <p>🔧, 🔧</p>
-            <hr style="border: 0.3px solid rgb(255, 255, 255); height: 1px; width: 120px;  background-color: rgb(255, 255, 255);">
-            <nav class="conteudo">
-              <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
-              </p>
-            </nav>
-            <a href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0">Reservar</a>
-           </div>
+      <div class="tour-card reveal-up" data-destination="malanje">
+        <div class="tour-card__inner">
+          <span class="tour-card__badge">Excursão · 3 dias</span>
+          <h3 class="tour-card__title">Malanje</h3>
+          <div class="tour-card__divider"></div>
+          <p class="tour-card__desc">
+            Visita às <strong>Pedras de Pungo Andongo</strong> e ao coração de <strong>Malanje</strong>.
+            Inclui <strong>t-shirt</strong>, snacks e água ilimitada.
+          </p>
+          <button type="button" class="tour-card__btn" data-open-reservation>
+            Reservar <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
 
-           <div class="atividade-1">
-            <h4>🔧🔧🔧 </h4>
-            <p>🔧, 🔧</p>
-            <hr style="border: 0.3px solid rgb(255, 255, 255); height: 1px; width: 120px;  background-color: rgb(255, 255, 255);">
-            <nav class="conteudo">
-             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
-              </p>
-            </nav>
-            <a href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0">Reservar</a>
-           </div>
-          
-       </span>
-    </section>
+      <div class="tour-card reveal-up" data-destination="cuanza-norte">
+        <div class="tour-card__inner">
+          <span class="tour-card__badge">Camping · 3 dias</span>
+          <h3 class="tour-card__title">Cuanza Norte</h3>
+          <div class="tour-card__divider"></div>
+          <p class="tour-card__desc">
+            <strong>Acampamento de 3 dias</strong> com <strong>alimentação incluída, água disponível
+            e trilhas ecológicas</strong> em ambiente natural.
+          </p>
+          <button type="button" class="tour-card__btn" data-open-reservation>
+            Reservar <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
 
-    <section class="section-3" id="section-3" >
-      
-      <div class="texto_3">
-        <img src="imagens/mochi2.webp" alt="" loading="lazy">
-        <div class="about_all" >
-          <h1 class="h1">Sobre o Mochilão</h1>
-          <br>
-          <p style=" font-family: Lexend Deca, sans-serif; font-size: 20px;" >Transforme momentos em histórias, Crie memórias que duram para sempre.
-            Com a nossa experiência e dedicação,
-            Cada instante se torna inesquecível. </p>
-            <hr style="border: none; height: 1px; width: 300px; margin: 20px; background-color: black;">
-          <div class="about_m">
-            <p class="p_primar">O Mochilão, ou simplesmente Mochilão, nasceu da
-              paixão e do desejo de explorar Angola em toda a sua grandiosidade. Mais do que uma empresa, somos movidos pelo fascínio de revelar as maravilhas naturais, os povos, as culturas e a rica gastronomia que compõem o vasto e encantador mosaico cultural angolano. Acreditamos que cada viagem é uma oportunidade de conexão, aprendizado e descobertas inesquecíveis.</p>
+      <div class="tour-card reveal-up" data-destination="luanda">
+        <div class="tour-card__inner">
+          <span class="tour-card__badge">City Tour Kids</span>
+          <h3 class="tour-card__title">Luanda</h3>
+          <div class="tour-card__divider"></div>
+          <p class="tour-card__desc">
+            <strong>Passeio educativo e recreativo</strong> pelas principais <strong>atrações de Luanda</strong>,
+            desenvolvido especialmente para o <strong>público infantil</strong>.
+          </p>
+          <button type="button" class="tour-card__btn" data-open-reservation>
+            Reservar <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
 
-              <p class="p_secundar" >Carregamos profundo conhecimento sobre os melhores destinos e experiências em Angola. Além de contar com profissionais qualificados para garantir segurança e imersão cultural autêntica, oferecemos pacotes adaptados aos interesses e necessidades dos clientes. Além disso, proporcionamos suporte completo antes, durante e após a viagem, garantindo uma experiência tranquila e inesquecível. </p>
+      <div class="tour-card reveal-up" data-destination="personalizado">
+        <div class="tour-card__inner">
+          <span class="tour-card__badge">Personalizado</span>
+          <h3 class="tour-card__title">Seu Programa</h3>
+          <div class="tour-card__divider"></div>
+          <p class="tour-card__desc">
+            Crie um <strong>roteiro personalizado</strong>, escolhendo o <strong>destino, duração
+            e atividades</strong> conforme o seu interesse e orçamento.
+          </p>
+          <button type="button" class="tour-card__btn" data-open-reservation>
+            Reservar <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
 
+      <!-- Slot futuro — adicione novos destinos aqui -->
+      <div class="tour-card tour-card--soon reveal-up" data-destination="em-breve">
+        <div class="tour-card__inner">
+          <span class="tour-card__badge">Em Breve</span>
+          <h3 class="tour-card__title">Novo Destino</h3>
+          <div class="tour-card__divider"></div>
+          <p class="tour-card__desc">
+            Estamos a preparar uma nova aventura incrível. Fique atento às novidades!
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======= SOBRE ======= -->
+  <section class="about" id="about">
+    <div class="about__image reveal-left">
+      <!--
+        IMAGEM DA SECÇÃO SOBRE:
+        Substitua este div por uma tag <img> com a sua foto:
+        <img src="imagens/sobre.webp" alt="Equipa Mochilão" class="about__photo">
+        Ou configure o background-image no CSS em ".about__image"
+      -->
+      <div class="about__img-placeholder">
+        <i class="fa-solid fa-mountain-sun"></i>
+        <span>Adicione uma foto aqui</span>
+      </div>
+    </div>
+
+    <div class="about__content reveal-right">
+      <span class="section-tag">Sobre o Mochilão</span>
+      <h2 class="about__title">Transforme momentos em histórias inesquecíveis</h2>
+      <div class="about__line"></div>
+      <p class="about__lead">
+        Com a nossa experiência e dedicação, cada instante se torna inesquecível.
+      </p>
+      <p class="about__text">
+        O Mochilão nasceu da paixão e do desejo de explorar Angola em toda a sua grandiosidade.
+        Mais do que uma empresa, somos movidos pelo fascínio de revelar as maravilhas naturais,
+        os povos, as culturas e a rica gastronomia que compõem o vasto mosaico cultural angolano.
+      </p>
+      <p class="about__text">
+        Carregamos profundo conhecimento sobre os melhores destinos. Com profissionais qualificados,
+        garantimos segurança, imersão cultural autêntica e suporte completo antes, durante e após cada viagem.
+      </p>
+
+      <!-- CONTADORES -->
+      <div class="counters" id="counters">
+        <div class="counter">
+          <p class="counter__value">
+            <span class="counter__num" data-target="120">0</span><span class="counter__suffix">+</span>
+          </p>
+          <p class="counter__label">Viagens realizadas</p>
+        </div>
+        <div class="counter">
+          <p class="counter__value">
+            <span class="counter__num" data-target="300">0</span>
+          </p>
+          <p class="counter__label">Clientes satisfeitos</p>
+        </div>
+        <div class="counter">
+          <p class="counter__value">
+            <span class="counter__num" data-target="98">0</span><span class="counter__suffix">%</span>
+          </p>
+          <p class="counter__label">Taxa de satisfação</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= GALERIA ======= -->
+  <section class="gallery" id="gallery">
+    <div class="section-header reveal-up">
+      <span class="section-tag">Momentos</span>
+      <h2 class="section-title">Galeria de Aventuras</h2>
+      <p class="section-desc">Momentos reais das nossas viagens. Segue-nos no Instagram para mais.</p>
+    </div>
+
+    <div class="gallery__grid">
+      <!--
+        IMAGENS DA GALERIA:
+        Substitua cada <div class="gallery__ph"> por uma <img> com a sua foto.
+        Exemplo:
+        <a href="https://www.instagram.com/o_mochilao/" target="_blank" class="gallery__item gallery__item--1 reveal-up">
+          <img src="imagens/foto1.webp" alt="Aventura" loading="lazy">
+          <div class="gallery__hover"><i class="fa-brands fa-instagram"></i></div>
+        </a>
+
+        Ou adicione background-image a cada .gallery__item--N em estilo.css
+      -->
+      <a href="https://www.instagram.com/o_mochilao/" target="_blank" class="gallery__item gallery__item--1 reveal-up">
+        <div class="gallery__ph"><i class="fa-regular fa-image"></i></div>
+        <div class="gallery__hover"><i class="fa-brands fa-instagram"></i></div>
+      </a>
+      <a href="https://www.instagram.com/o_mochilao/" target="_blank" class="gallery__item gallery__item--2 reveal-up">
+        <div class="gallery__ph"><i class="fa-regular fa-image"></i></div>
+        <div class="gallery__hover"><i class="fa-brands fa-instagram"></i></div>
+      </a>
+      <a href="https://www.instagram.com/o_mochilao/" target="_blank" class="gallery__item gallery__item--3 reveal-up">
+        <div class="gallery__ph"><i class="fa-regular fa-image"></i></div>
+        <div class="gallery__hover"><i class="fa-brands fa-instagram"></i></div>
+      </a>
+      <a href="https://www.instagram.com/o_mochilao/" target="_blank" class="gallery__item gallery__item--4 reveal-up">
+        <div class="gallery__ph"><i class="fa-regular fa-image"></i></div>
+        <div class="gallery__hover"><i class="fa-brands fa-instagram"></i></div>
+      </a>
+      <a href="https://www.instagram.com/o_mochilao/" target="_blank" class="gallery__item gallery__item--5 reveal-up">
+        <div class="gallery__ph"><i class="fa-regular fa-image"></i></div>
+        <div class="gallery__hover"><i class="fa-brands fa-instagram"></i></div>
+      </a>
+      <a href="https://www.instagram.com/o_mochilao/" target="_blank" class="gallery__item gallery__item--6 reveal-up">
+        <div class="gallery__ph"><i class="fa-regular fa-image"></i></div>
+        <div class="gallery__hover"><i class="fa-brands fa-instagram"></i></div>
+      </a>
+      <a href="https://www.instagram.com/o_mochilao/" target="_blank" class="gallery__item gallery__item--7 reveal-up">
+        <div class="gallery__ph"><i class="fa-regular fa-image"></i></div>
+        <div class="gallery__hover"><i class="fa-brands fa-instagram"></i></div>
+      </a>
+      <a href="https://www.instagram.com/o_mochilao/" target="_blank" class="gallery__item gallery__item--8 reveal-up">
+        <div class="gallery__ph"><i class="fa-regular fa-image"></i></div>
+        <div class="gallery__hover"><i class="fa-brands fa-instagram"></i></div>
+      </a>
+    </div>
+
+    <div class="gallery__cta reveal-up">
+      <a href="https://www.instagram.com/o_mochilao/" target="_blank" class="btn btn--outline-dark">
+        <i class="fa-brands fa-instagram"></i> Ver mais no Instagram
+      </a>
+    </div>
+  </section>
+
+  <!-- ======= LUGARES & CULTURAS ======= -->
+  <section class="places" id="places">
+    <div class="places__text reveal-left">
+      <span class="section-tag">Em Breve</span>
+      <h2 class="places__title">Lugares e Culturas</h2>
+      <p class="places__lead"><strong>Viajar é mais do que conhecer lugares — é conectar-se com o mundo.</strong></p>
+      <p class="places__body">
+        Em breve, lançaremos o nosso canal oficial no YouTube com vlogs exclusivos sobre os destinos visitados.
+        Cada vídeo trará paisagens, pontos turísticos, culturas, tradições locais e histórias de quem vive em cada lugar.
+      </p>
+      <a href="https://www.youtube.com" target="_blank" class="btn btn--primary">
+        <i class="fa-brands fa-youtube"></i>&nbsp; Subscreve o canal
+      </a>
+    </div>
+    <div class="places__map reveal-right">
+      <!--
+        MAPA DE ANGOLA:
+        Substitua o src pelo seu ficheiro de mapa se mudar de nome.
+      -->
+      <img src="imagens/angola-removebg-preview.png" alt="Mapa de Angola" loading="lazy">
+    </div>
+  </section>
+
+  <!-- ======= EQUIPA ======= -->
+  <section class="team" id="team">
+    <div class="section-header reveal-up">
+      <span class="section-tag">Quem Somos</span>
+      <h2 class="section-title">Conheça a Equipa</h2>
+      <p class="section-desc">Quem pilota as aventuras por trás dos bastidores.</p>
+    </div>
+
+    <div class="team__grid">
+      <!--
+        FOTOS DA EQUIPA:
+        Para cada membro, adicione background-image no CSS em:
+        .team-card[data-member="perpetuo"] { background-image: url('imagens/assis.webp'); }
+        .team-card[data-member="matias"]   { background-image: url('imagens/matias.webp'); }
+        .team-card[data-member="funeno"]   { background-image: url('imagens/funeno.webp'); }
+      -->
+      <div class="team-card reveal-up" data-member="perpetuo">
+        <div class="team-card__photo">
+          <div class="team-card__ph"><i class="fa-solid fa-user"></i></div>
+        </div>
+        <div class="team-card__info">
+          <h3 class="team-card__name">Perpétuo de Assis</h3>
+          <p class="team-card__role">Fundador &amp; Guia Principal</p>
+          <a href="#" target="_blank" class="team-card__social" aria-label="Instagram">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="team-card reveal-up" data-member="matias">
+        <div class="team-card__photo">
+          <div class="team-card__ph"><i class="fa-solid fa-user"></i></div>
+        </div>
+        <div class="team-card__info">
+          <h3 class="team-card__name">Matias Matis</h3>
+          <p class="team-card__role">Coordenador de Viagens</p>
+          <a href="#" target="_blank" class="team-card__social" aria-label="Instagram">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="team-card reveal-up" data-member="funeno">
+        <div class="team-card__photo">
+          <div class="team-card__ph"><i class="fa-solid fa-user"></i></div>
+        </div>
+        <div class="team-card__info">
+          <h3 class="team-card__name">Funeno Puca</h3>
+          <p class="team-card__role">Guia &amp; Logística</p>
+          <a href="#" target="_blank" class="team-card__social" aria-label="Instagram">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= DICAS ======= -->
+  <section class="tips" id="tips">
+    <div class="section-header reveal-up">
+      <span class="section-tag section-tag--light">Dicas</span>
+      <h2 class="section-title section-title--light">Dicas de Viagem</h2>
+      <p class="section-desc section-desc--light">Prepare-se bem para aproveitar ao máximo cada aventura.</p>
+    </div>
+
+    <div class="tips__grid">
+      <div class="tip-card reveal-up">
+        <div class="tip-card__icon">🥾</div>
+        <h4 class="tip-card__title">Calçados certos</h4>
+        <ul class="tip-card__list">
+          <li>Use botas de trilha para terrenos irregulares.</li>
+          <li>Em destinos quentes, leve sandálias resistentes.</li>
+        </ul>
+      </div>
+      <div class="tip-card reveal-up">
+        <div class="tip-card__icon">👕</div>
+        <h4 class="tip-card__title">Vista-se adequadamente</h4>
+        <ul class="tip-card__list">
+          <li>Roupas leves e respiráveis para o calor.</li>
+          <li>Camadas térmicas e impermeáveis para o frio.</li>
+        </ul>
+      </div>
+      <div class="tip-card reveal-up">
+        <div class="tip-card__icon">💳</div>
+        <h4 class="tip-card__title">Proteja os seus documentos</h4>
+        <ul class="tip-card__list">
+          <li>Guarde dinheiro e passaporte em pochete antifurto.</li>
+          <li>Tenha cópias digitais dos documentos importantes.</li>
+        </ul>
+      </div>
+      <div class="tip-card reveal-up">
+        <div class="tip-card__icon">💧</div>
+        <h4 class="tip-card__title">Garrafa reutilizável</h4>
+        <ul class="tip-card__list">
+          <li>Hidratação é essencial, especialmente em trilhas e dias quentes.</li>
+        </ul>
+      </div>
+      <div class="tip-card reveal-up">
+        <div class="tip-card__icon">☀️</div>
+        <h4 class="tip-card__title">Protetor e repelente</h4>
+        <ul class="tip-card__list">
+          <li>Proteja-se do sol e insetos, especialmente em áreas tropicais.</li>
+        </ul>
+      </div>
+      <div class="tip-card reveal-up">
+        <div class="tip-card__icon">🗺️</div>
+        <h4 class="tip-card__title">Planeie a sua rota</h4>
+        <ul class="tip-card__list">
+          <li>Estude o destino, o clima e os possíveis desafios do percurso.</li>
+        </ul>
+      </div>
+      <div class="tip-card reveal-up">
+        <div class="tip-card__icon">🔋</div>
+        <h4 class="tip-card__title">Celular carregado</h4>
+        <ul class="tip-card__list">
+          <li>Leve sempre um power bank para emergências.</li>
+        </ul>
+      </div>
+      <div class="tip-card reveal-up">
+        <div class="tip-card__icon">🌿</div>
+        <h4 class="tip-card__title">Respeite a natureza</h4>
+        <ul class="tip-card__list">
+          <li>Não deixe lixo e siga as regras locais de preservação.</li>
+        </ul>
+      </div>
+      <div class="tip-card reveal-up">
+        <div class="tip-card__icon">🎒</div>
+        <h4 class="tip-card__title">Siga os guias</h4>
+        <ul class="tip-card__list">
+          <li>Em tour guiado, siga todas as recomendações de segurança.</li>
+        </ul>
+      </div>
+      <div class="tip-card reveal-up">
+        <div class="tip-card__icon">🚑</div>
+        <h4 class="tip-card__title">Kit de primeiros socorros</h4>
+        <ul class="tip-card__list">
+          <li>A nossa empresa fornece kit de primeiros socorros em todas as viagens.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= CONTACTO ======= -->
+  <section class="contact" id="contact">
+    <div class="contact__info reveal-left">
+      <span class="section-tag">Contacto</span>
+      <h2 class="contact__title">Fale Connosco</h2>
+      <p class="contact__text">
+        Tem dúvidas sobre os roteiros? Quer saber mais sobre os pacotes ou precisa de ajuda para planear
+        a sua aventura dos sonhos em Angola? Estamos aqui para ajudar!
+      </p>
+      <div class="contact__line"></div>
+      <p class="contact__sub"><strong>A nossa equipa responde com rapidez.</strong></p>
+
+      <div class="contact__socials">
+        <a href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0" target="_blank"
+           class="social-btn social-btn--wpp" aria-label="WhatsApp">
+          <i class="fa-brands fa-whatsapp"></i>
+        </a>
+        <a href="https://www.instagram.com/o_mochilao/" target="_blank"
+           class="social-btn social-btn--ig" aria-label="Instagram">
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="https://www.tiktok.com/@o.mochilao" target="_blank"
+           class="social-btn social-btn--tt" aria-label="TikTok">
+          <i class="fa-brands fa-tiktok"></i>
+        </a>
+        <a href="https://www.facebook.com/OMochilao" target="_blank"
+           class="social-btn social-btn--fb" aria-label="Facebook">
+          <i class="fa-brands fa-facebook-f"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="contact__form-wrap reveal-right">
+      <form class="contact__form" action="https://formsubmit.co/valganhosapalo@gmail.com" method="POST">
+        <input type="hidden" name="_template"     value="table">
+        <input type="hidden" name="_autoresponse" value="Obrigado pela sua mensagem, a nossa equipa responde em breve.">
+        <input type="hidden" name="_next"         value="https://supremdeat.github.io/projeto_mochilao/">
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="exemplo@gmail.com" required>
           </div>
-          <section class="contador-section" id="contadores">
-            <div class="contador">
-              <h1><span  class="numero" data-alvo="120">0</span>+</h1>
-              <p>Viagens realisadas</p>
-            </div>
-            <div class="contador">
-              <h1 class="numero" data-alvo="300">0</h1>
-              <p>Clientes satisfeitos</p>
-            </div>
-            <div class="contador">
-              <h1><span  class="numero" data-alvo="98">0</span>%</h1>
-              <p>Qualidade de Atendimento </p>
-            </div>
-          </section>
-          
+          <div class="form-group">
+            <label for="phone">Telefone</label>
+            <input type="tel" id="phone" name="number" placeholder="+244 9XX XXX XXX" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="mensagem">Mensagem</label>
+          <textarea id="mensagem" name="mensagem" rows="5"
+            placeholder="Escreva a sua mensagem aqui..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--full">
+          Enviar Mensagem &nbsp;<i class="fa-solid fa-paper-plane"></i>
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ======= FOOTER ======= -->
+  <footer class="footer">
+    <div class="footer__main">
+      <div class="footer__brand">
+        <!--
+          LOGO DO FOOTER:
+          Substitua o src pelo logo branco (branco2.png ou outro)
+        -->
+        <img src="branco2.png" alt="O Mochilão" class="footer__logo">
+        <p class="footer__tagline">Seus companheiros das aventuras por Angola</p>
+        <div class="footer__socials">
+          <a href="https://www.instagram.com/o_mochilao/" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0" target="_blank" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="https://www.tiktok.com/@o.mochilao" target="_blank" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="https://www.facebook.com/OMochilao" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
         </div>
       </div>
-    </section>
-  
 
-    <section class="section-4" id="section-4">
-      <div class="section_fotos">
-        <a href="https://www.instagram.com/o_mochilao/" target="_blank"><img src="imagens/IMG_6807.webp"  alt="" loading="lazy"></a>
-       <a href="https://www.instagram.com/o_mochilao/" target="_blank"><img src="imagens/IMG_8042.webp"  alt="" loading="lazy"></a>
-       <a href="https://www.instagram.com/o_mochilao/" target="_blank"><img src="imagens/IMG_8031 3.webp"  alt="" loading="lazy"></a>
-       <a href="https://www.instagram.com/o_mochilao/" target="_blank"><img src="imagens/IMG_6904 2.webp"  alt="" loading="lazy"></a>
-       <a href="https://www.instagram.com/o_mochilao/" target="_blank"><img src="imagens/IMG_7038 2.webp"  alt="" loading="lazy"></a>
-       <a href="https://www.instagram.com/o_mochilao/" target="_blank"><img src="imagens/IMG_7029 2.webp"  alt="" loading="lazy"></a>
-       <a href="https://www.instagram.com/o_mochilao/" target="_blank"><img src="imagens/IMG_7198 2.webp"  alt="" loading="lazy"></a>
-       <a href="https://www.instagram.com/o_mochilao/" target="_blank"><img src="imagens/IMG_7501 2.webp"  alt="" loading="lazy"></a>
-       
+      <div class="footer__col">
+        <h4 class="footer__col-title">Navegação</h4>
+        <a href="#hero">Início</a>
+        <a href="#tours">Viagens</a>
+        <a href="#gallery">Galeria</a>
+        <a href="#about">Sobre Nós</a>
       </div>
-      
-    </section>
 
-     <section class="section-5" id="section-5">
-  
-      <div class="texto_8">
-        <h1>Lugares e culturas</h1>
-        <br>
-        <p><strong>Viajar é mais do que conhecer lugares — é se conectar com o mundo.</strong></p>
-
-        <p>Em breve, lançaremos nosso canal oficial no YouTube, onde será possível acompanhar vlogs exclusivos sobre os destinos visitados durante o mochilão. Cada vídeo trará não apenas paisagens e pontos turísticos, mas também aspectos culturais, tradições locais e histórias de quem vive em cada lugar.</p>
-        
+      <div class="footer__col">
+        <h4 class="footer__col-title">Informações</h4>
+        <a href="#tips">Dicas de Viagem</a>
+        <a href="#places">Lugares e Culturas</a>
+        <a href="#contact">Fale Connosco</a>
       </div>
-      <img src="angola-removebg-preview.png" loading="lazy" alt="">
-    </section>
+    </div>
+
+    <div class="footer__bottom">
+      <p>© 2025 O Mochilão Aventuras. Todos os direitos reservados.</p>
+      <p>Desenvolvido por <strong>Valganho</strong></p>
+    </div>
+  </footer>
 
 
-    <section class="section-6">
-        <h1 class="h1">Conheça o time</h1>
-        <p>Quem pilota as aventuras por trás dos bastidores.</p>
-        <span>
-          <div class="card_1">
-            <div>
-              <h4>Perpétuo de Assis </h4>
-              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
-               <a href="#" target="_blank"    class="insta"><i class="fa-brands fa-instagram"></i></a>
+  <!-- ======= RESERVATION DRAWER ======= -->
+  <div class="res-overlay" id="resOverlay"></div>
+
+  <div class="res-drawer" id="resDrawer" role="dialog" aria-modal="true" aria-labelledby="resDrawerTitle">
+
+    <!-- Drawer Header -->
+    <div class="res-drawer__header">
+      <div class="res-drawer__header-info">
+        <span class="res-drawer__pre">Reservar viagem</span>
+        <h2 class="res-drawer__title" id="resDrawerTitle">—</h2>
+      </div>
+      <button class="res-drawer__close" id="resClose" aria-label="Fechar">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <!-- Drawer Body -->
+    <div class="res-drawer__body" id="resBody">
+
+      <!-- LEFT: Tour info -->
+      <div class="res-info" id="resInfo">
+        <div class="res-info__top">
+          <span class="res-info__emoji" id="resEmoji">🗺️</span>
+          <span class="res-info__badge" id="resBadge">Destino</span>
+        </div>
+        <p class="res-info__duration"><i class="fa-regular fa-clock"></i> <span id="resDuration">—</span></p>
+        <p class="res-info__desc" id="resDesc">—</p>
+
+        <div class="res-info__block">
+          <h4 class="res-info__block-title"><i class="fa-solid fa-location-dot"></i> Destaques</h4>
+          <ul class="res-info__list" id="resHighlights"></ul>
+        </div>
+
+        <div class="res-info__block">
+          <h4 class="res-info__block-title"><i class="fa-solid fa-circle-check"></i> O que inclui</h4>
+          <ul class="res-info__list" id="resIncludes"></ul>
+        </div>
+      </div>
+
+      <!-- RIGHT: Form -->
+      <div class="res-form-wrap">
+
+        <!-- Mobile: botão que abre o bottom sheet de informações -->
+        <button type="button" class="res-info-toggle" id="resInfoToggle">
+          <span class="res-info-toggle__left">
+            <i class="fa-solid fa-circle-info"></i>
+            <span id="resInfoToggleLabel">Informações sobre o programa</span>
+          </span>
+          <i class="fa-solid fa-chevron-right res-info-toggle__arrow"></i>
+        </button>
+
+        <!-- FORM STATE -->
+        <form class="res-form" id="resForm" novalidate>
+          <p class="res-form__subtitle">Preencha os seus dados e a nossa equipa confirmará a reserva.</p>
+
+          <div class="res-form__row">
+            <div class="res-field">
+              <label for="resName">Nome completo <span class="res-required">*</span></label>
+              <input type="text" id="resName" name="nome" placeholder="O seu nome" autocomplete="name" required>
+              <span class="res-field__error" id="resNameErr"></span>
             </div>
           </div>
-          <div class="card_2">
-             <div>
-              <h4>Matias Matis</h4>
-              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
-              <a href="#" target="_blank"    class="insta"><i class="fa-brands fa-instagram"></i></a>
+
+          <div class="res-form__row res-form__row--2">
+            <div class="res-field">
+              <label for="resEmail">Email <span class="res-required">*</span></label>
+              <input type="email" id="resEmail" name="email" placeholder="exemplo@gmail.com" autocomplete="email" required>
+              <span class="res-field__error" id="resEmailErr"></span>
             </div>
-            </div>
-          </div>
-          <div class="card_3">
-             <div>
-              <h4>Funeno Puca</h4>
-              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
-              <a href="#" target="_blank"    class="insta"><i class="fa-brands fa-instagram"></i></a>
-            </div>
+            <div class="res-field">
+              <label for="resPhone">Telefone <span class="res-required">*</span></label>
+              <input type="tel" id="resPhone" name="telefone" placeholder="+244 9XX XXX XXX" autocomplete="tel" required>
+              <span class="res-field__error" id="resPhoneErr"></span>
             </div>
           </div>
-        </span>
-      </section>
-    
-     <!--SECTION_7-->
-    
-   
-    
 
-    <section class="section-7" id="section-7">
-      <h1 class="h1">Dicas de viagem</h1>
-      <span>
-           <div class="atividade-2">
-            <img src="imagens/sapato.webp" loading="lazy" alt="">
-            <div class="texto_6">
-              <h4>Escolha os calçados certos 🥾</h4>
-            <ol>
-              <li>Use botas de trilha para caminhadas longas e terrenos irregulares.
-              </li>
-
-              <li>Em destinos quentes, leve sandálias resistentes e confortáveis.</li>
-            </ol>
+          <div class="res-form__row res-form__row--2">
+            <div class="res-field">
+              <label for="resDate">Data preferida <span class="res-required">*</span></label>
+              <input type="date" id="resDate" name="data_preferida">
+              <span class="res-field__error" id="resDateErr"></span>
             </div>
-           </div>
-
-           <div class="atividade-2">
-            <img src="imagens/roupa.webp" loading="lazy" alt="">
-            <div class="texto_6">
-              <h4>Vista-se adequadamente 👕</h4>
-             <ol>
-              <li>Opte por roupas leves e respiráveis para calor.</li>
-
-              <li>Para frio, use camadas térmicas e impermeáveis.</li>
-             </ol>
+            <div class="res-field">
+              <label>Número de vagas <span class="res-required">*</span></label>
+              <div class="res-counter">
+                <button type="button" class="res-counter__btn" id="resMinus" aria-label="Diminuir">
+                  <i class="fa-solid fa-minus"></i>
+                </button>
+                <span class="res-counter__val" id="resCountVal">1</span>
+                <button type="button" class="res-counter__btn" id="resPlus" aria-label="Aumentar">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+              </div>
+              <input type="hidden" id="resSpots" name="vagas" value="1">
+              <span class="res-field__error" id="resSpotsErr"></span>
             </div>
-           </div>
+          </div>
 
-           <div class="atividade-2">
-            <img src="imagens/carteira.webp" loading="lazy" alt="">
-            <div class="texto_6">
-              <h4>Proteja seus documentos e dinheiro 💳</h4>
-             <ol>
-              <li>Guarde dinheiro e passaporte em uma pochete antifurto.</li>
-
-              <li>Tenha cópias digitais e impressas dos documentos importantes.</li>
-             </ol>
+          <div class="res-form__row">
+            <div class="res-field">
+              <label for="resMessage">Mensagem <span class="res-optional">(opcional)</span></label>
+              <textarea id="resMessage" name="mensagem" rows="3"
+                placeholder="Alguma dúvida ou pedido especial?"></textarea>
             </div>
-           </div>
+          </div>
 
-           <div class="atividade-2">
-            <img src="imagens/garrafa.webp" loading="lazy" alt="">
-            <div class="texto_6">
-            <h4>Leve uma garrafa de água reutilizável 💧
-            </h4>
-            <ol>
-              <li>Manter-se hidratado é essencial, especialmente em trilhas.</li>
-            </ol>
-            </div>
-           </div>
+          <!-- Hidden fields -->
+          <input type="hidden" id="resTourField" name="programa" value="">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_subject" value="Nova Reserva — O Mochilão Aventuras">
+          <input type="hidden" name="_autoresponse"
+            value="Olá! Recebemos o seu pedido de reserva. A nossa equipa entrará em contacto em breve para confirmar os detalhes. Obrigado por escolher o Mochilão Aventuras!">
 
-           <div class="atividade-2">
-            <img src="imagens/protetor.webp" loading="lazy" alt="">
-            <div class="texto_6">
-              <h4>Use protetor solar e repelente ☀️🦟</h4>
-              <ol>
-                <li>Proteja sua pele do sol e dos insetos, principalmente em áreas tropicais.</li>
-              </ol>
-              
-            </div>
-           </div>
+          <div class="res-form__actions">
+            <button type="submit" class="btn btn--primary btn--full res-submit" id="resSubmit">
+              <span class="res-submit__text">Confirmar Reserva</span>
+              <span class="res-submit__loading" hidden>
+                <i class="fa-solid fa-spinner fa-spin"></i> A enviar…
+              </span>
+            </button>
+            <p class="res-form__disclaimer">
+              <i class="fa-solid fa-lock"></i>
+              Os seus dados são confidenciais e usados apenas para confirmar a reserva.
+            </p>
+          </div>
+        </form>
 
-           <div class="atividade-2">
-            <img src="imagens/mapa.webp" loading="lazy" alt="">
-            <div class="texto_6">
-              <h4>Planeje sua rota com antecedência 🗺️</h4>
-              <ol>
-                <li>Estude o destino, o clima e os possíveis desafios do percurso.</li>
-              </ol>
-             
-            </div>
-           </div>
-
-           <div class="atividade-2">
-            <img src="imagens/telefone.webp" loading="lazy" alt="">
-            <div class="texto_6">
-              <h4> Mantenha seu celular carregado 🔋</h4>
-              <ol>
-                <li>Leve um power bank para emergências.</li>
-              </ol>
-             
-            </div>
-           </div>
-
-           <div class="atividade-2">
-            <img src="imagens/natureza.webp" loading="lazy" alt="">
-            <div class="texto_6">
-              <h4>Respeite a natureza e o meio ambiente 🌿</h4>
-              <ol>
-                <li>Evite deixar lixo para trás e siga as regras locais de preservação.</li>
-              </ol>
-            </div>
-           </div>
-
-           <div class="atividade-2">
-            <img src="imagens/guia.webp" loading="lazy" alt="">
-            <div class="texto_6">
-             <h4>Siga as instruções dos guias 🎒</h4>
-             <ol>
-              <li>Se estiver em um tour guiado, siga todas as recomendações para sua segurança.</li>
-             </ol>
-            </div>
-           </div>
-
-           <div class="atividade-2">
-            <img src="imagens/kitSocorro.webp" loading="lazy" alt="">
-            <div class="texto_6">
-             <h4>Aproveite o kit de primeiros socorros da empresa 🚑</h4>
-             <ol>
-              <li>Nossa empresa oferece um kit de primeiros socorros para garantir uma viagem mais segura. Mesmo assim, leve medicamentos específicos, se necessário.</li>
-              
-             </ol>
-            </div>
-           </div>
-           
-       </span>
-    </section>
-
- 
-     <section class="section-8" id="section-8" >
-
-      <div class="fale_2">
-        <form action="https://formsubmit.co/valganhosapalo@gmail.com" method="POST">
-
-          <fieldset class="fiel">
-            <legend>Seu email</legend>
-            <input type="email" class="email" name="email" placeholder="exemplo@gmail.com" required></fieldset>
-
-            <fieldset class="fiel">
-            <legend>Seu numero</legend>
-            <input type="number" class="number" name="number" placeholder="+244" required></fieldset>
-
-          <fieldset>
-            <legend>Sua mensagem</legend>
-            <textarea name="mensagem" id="mensagem" class="sms" style="color: #fff;" placeholder="Preencha o campo" required></textarea></fieldset>
-
-            <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_autoresponse" value="Obrigado pela sua mensagem, nossa equipe vai responder em breve.">
-            <input type="hidden" name="_next" value="https://supremdeat.github.io/projeto_mochilao/">
-
-          <button type="submit">Enviar</button>
-     </form>
-      </div>
-
-      <div class="fale_1">
-        <h1 class="h1">Fale conosco</h1>
-        <p>Tem alguma dúvida sobre nossos roteiros? Quer saber mais detalhes sobre os pacotes ou precisa de dicas para planejar sua aventura dos sonhos em Angola? Estamos aqui para ajudar!</p>
-
-      <div class="about_1">
-        <hr style="border: none; height: 1px; width: 300px; margin: 20px; background-color: black;">
-          <p><strong>Nossa equipe está pronta para responder suas perguntas.</strong></p>
-      </div>
-
-       
-        <div class="redes">
-          <a href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0" target="_blank" class="wpp"><i class="fa-brands fa-whatsapp"></i></a>
-
-          <a href="https://www.instagram.com/o_mochilao/followers/mutualOnly?hl=pt-brT%C3%A1" target="_blank"    class="insta"><i class="fa-brands fa-instagram"></i></a>
-
-          <a href="https://www.tiktok.com/@o.mochilao" target="_blank" class="tiktok"><i class="fa-brands fa-tiktok"></i></a>
-
-          <a href="https://www.facebook.com/OMochilao" target="_blank" class="face"><i class="fa-brands fa-facebook-f"></i></a>
+        <!-- SUCCESS STATE -->
+        <div class="res-success" id="resSuccess" hidden>
+          <div class="res-success__icon">
+            <i class="fa-solid fa-circle-check"></i>
+          </div>
+          <h3 class="res-success__title">Reserva enviada!</h3>
+          <p class="res-success__msg">
+            Recebemos o seu pedido para <strong id="resSuccessTour">—</strong>.
+            A nossa equipa entrará em contacto em breve para confirmar todos os detalhes.
+          </p>
+          <div class="res-success__details" id="resSuccessDetails"></div>
+          <div class="res-success__actions">
+            <button type="button" class="btn btn--primary" id="resSuccessClose">
+              Perfeito, obrigado!
+            </button>
+            <button type="button" class="btn btn--outline-dark" id="resSuccessNew">
+              Reservar outro programa
+            </button>
+          </div>
         </div>
 
+      </div><!-- /.res-form-wrap -->
+    </div><!-- /.res-drawer__body -->
+  </div><!-- /.res-drawer -->
 
+  <!-- ======= MOBILE INFO BOTTOM SHEET ======= -->
+  <div class="info-sheet" id="infoSheet">
+    <div class="info-sheet__backdrop" id="infoSheetBackdrop"></div>
+    <div class="info-sheet__panel" id="infoSheetPanel">
+      <div class="info-sheet__handle"></div>
+      <div class="info-sheet__header">
+        <h3 class="info-sheet__title" id="infoSheetTitle">Detalhes do Programa</h3>
+        <button class="info-sheet__close" id="infoSheetClose" aria-label="Fechar">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
       </div>
-    </section>
-
-   
-
-
-
-    <footer>
-      <div class="footer_info">
-        <div class="footer_1">
-          <img src="branco2.png" loading="lazy" alt="">
-          <p>Seus companheiros
-            das aventuras por Angola</p>
-
-        </div>
-
-        <div class="footer_2">
-          <h4>Veja</h4>
-          <a href="#section-1" >Início</a>
-                
-          <a href="#section-4" >Galeria</a>
-            
-           <a href="#section-2">Planos de Viagem</a>
-
-        </div>
-
-        <div class="footer_3">
-          <h4>Sobre</h4>
-          <a href="#section-7">Dicas de viagem</a>
-                 
-          <a href="#section-5">Lugares e culturas</a>
-
-
-           <a href="#section-3">Sobre Agencia</a>
-
-        </div>
+      <div class="info-sheet__body" id="infoSheetBody">
+        <!-- Preenchido dinamicamente pelo JS ao abrir -->
       </div>
+    </div>
+  </div>
 
-      <div class="footer_4">
-        <i>@ Mochilão. Todos os direitos reservados</i>
-        <p>Desenvolvido por Valganho</p>
-      </div>
-    </footer>
-
-   
-    
-     
-    
+  <script src="script.js"></script>
 </body>
 </html>
