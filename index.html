@@ -12,10 +12,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     crossorigin="anonymous" referrerpolicy="no-referrer">
 
-  <!-- Google Fonts -->
+  <!-- Google Fonts — fallback caso Nekst não carregue -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Lexend+Exa:wght@100..900&family=Lexend+Deca:wght@100..900&family=Gowun+Dodum&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -26,23 +26,26 @@
         LOGO: Substitua o src pelo caminho do seu logo branco
         Recomendado: branco2.png (já tem esse ficheiro)
       -->
-      <img src="branco2.png" alt="O Mochilão Aventuras" class="navbar__logo">
+      <img src="branco2.png" alt="" class="navbar__logo">
     </a>
 
     <nav class="navbar__links" id="navLinks">
       <a href="#tours" class="navbar__link">Viagens</a>
       <a href="#gallery" class="navbar__link">Galeria</a>
+      <a href="#custom" class="navbar__link">Personalizado</a>
       <a href="#about" class="navbar__link">Sobre</a>
       <a href="#tips" class="navbar__link">Dicas</a>
       <a href="#contact" class="navbar__link navbar__link--cta">Fale Connosco</a>
     </nav>
 
-    <button class="navbar__burger" id="burgerBtn" aria-label="Abrir menu">
-      <i class="fa-solid fa-bars"></i>
+    <button class="navbar__burger" id="burgerBtn" aria-label="Abrir menu" aria-expanded="false">
+      <span class="navbar__burger-line"></span>
+      <span class="navbar__burger-line"></span>
+      <span class="navbar__burger-line"></span>
     </button>
   </header>
 
-  <!-- ======= SIDEBAR MOBILE ======= -->
+  <!-- ======= SIDEBAR / DRAWER DE NAVEGAÇÃO ======= -->
   <div class="sidebar__overlay" id="sidebarOverlay"></div>
   <aside class="sidebar" id="sidebar">
     <button class="sidebar__close" id="closeBtn" aria-label="Fechar menu">
@@ -52,6 +55,7 @@
       <a href="#hero"    class="sidebar__link">Início</a>
       <a href="#tours"   class="sidebar__link">Viagens</a>
       <a href="#gallery" class="sidebar__link">Galeria</a>
+      <a href="#custom"  class="sidebar__link">Personalizado</a>
       <a href="#about"   class="sidebar__link">Sobre</a>
       <a href="#team"    class="sidebar__link">Equipa</a>
       <a href="#tips"    class="sidebar__link">Dicas</a>
@@ -73,9 +77,9 @@
   -->
   <section class="hero" id="hero">
     <div class="hero__content">
-      <span class="hero__badge reveal-fade">Angola · Aventuras Autênticas</span>
+      <p class="hero__badge reveal-fade">SEJA BEM-VINDO AO MOCHILÃO</p>
       <h1 class="hero__title reveal-up">
-        Há mais de 3 anos revelando os segredos de Angola
+        Descubra Angola <br> através de experiências que <br> ficam para a vida
       </h1>
       <div class="hero__divider reveal-fade"></div>
       <p class="hero__subtitle reveal-up">
@@ -91,6 +95,38 @@
       <span>Explorar</span>
       <i class="fa-solid fa-arrow-down"></i>
     </a>
+
+    <!-- Cards sobrepostos na base do hero -->
+    <div class="hero__cards-overlap">
+      <div class="tour-card reveal-up" data-destination="cabo-ledo">
+        <div class="tour-card__inner">
+          <span class="tour-card__badge">Sobre rodas <br> <p style="font-size: 15px;">Luanda</p></span>
+          
+          <button type="button" class="tour-card__btn" data-open-reservation>
+            Saber Mais <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="tour-card reveal-up" data-destination="quicama">
+        <div class="tour-card__inner">
+          <span class="tour-card__badge">Safari <br> <p style="font-size: 15px;">Luanda</p></span>
+          <button type="button" class="tour-card__btn" data-open-reservation>
+            Saber Mais <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="tour-card reveal-up" data-destination="huambo">
+        <div class="tour-card__inner">
+          <span class="tour-card__badge">Kifuka Camping <br> <p style="font-size: 15px;">Bengo</p></span>
+          <button type="button" class="tour-card__btn" data-open-reservation>
+            Saber Mais <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
   </section>
 
   <!-- ======= BOTÕES FLUTUANTES ======= -->
@@ -106,66 +142,7 @@
 
   <!-- ======= TOURS ======= -->
   <section class="tours" id="tours">
-    <div class="section-header reveal-up">
-      <span class="section-tag">Os Nossos Pacotes</span>
-      <h2 class="section-title">Destinos de Aventura</h2>
-      <p class="section-desc">Explore Angola com roteiros cuidadosamente planeados pela nossa equipa.</p>
-    </div>
-
-    <div class="tours__grid">
-      <!--
-        IMAGENS DOS CARDS DE TOURS:
-        Cada card tem um atributo data-destination="nome".
-        No ficheiro estilo.css, procure pela secção "TOUR CARD BACKGROUNDS"
-        e substitua o background-color pelo URL da sua imagem.
-        Exemplo: .tour-card[data-destination="cabo-ledo"] { background-image: url('imagens/caboledo.webp'); }
-      -->
-
-      <div class="tour-card reveal-up" data-destination="cabo-ledo">
-        <div class="tour-card__inner">
-          <span class="tour-card__badge">Sobre Rodas</span>
-         
-          <button type="button" class="tour-card__btn" data-open-reservation>
-            Reservar <i class="fa-solid fa-arrow-right"></i>
-          </button>
-        </div>
-      </div>
-
-      <div class="tour-card reveal-up" data-destination="quicama">
-        <div class="tour-card__inner">
-          <span class="tour-card__badge">Safari</span>
-         
-          <button type="button" class="tour-card__btn" data-open-reservation>
-            Reservar <i class="fa-solid fa-arrow-right"></i>
-          </button>
-        </div>
-      </div>
-
-      <div class="tour-card reveal-up" data-destination="huambo">
-        <div class="tour-card__inner">
-          <span class="tour-card__badge">Kifuca Camping</span>
-         
-          <button type="button" class="tour-card__btn" data-open-reservation>
-            Reservar <i class="fa-solid fa-arrow-right"></i>
-          </button>
-        </div>
-      </div>
-
-     
-
-     
-      <div class="tour-card reveal-up" data-destination="personalizado">
-        <div class="tour-card__inner">
-          <span class="tour-card__badge">Personalizado</span>
-         
-          <button type="button" class="tour-card__btn" data-open-reservation>
-            Reservar <i class="fa-solid fa-arrow-right"></i>
-          </button>
-        </div>
-      </div>
-
-      
-    </div>
+  
   </section>
 
   <!-- ======= SOBRE ======= -->
@@ -173,8 +150,7 @@
     <div class="about__image reveal-left">
       <!--
         IMAGEM DA SECÇÃO SOBRE:
-        Substitua este div por uma tag <img> com a sua foto:
-        <img src="imagens/sobre.webp" alt="Equipa Mochilão" class="about__photo">
+        <img src="imagens/mochi2.webp" alt="Equipa Mochilão" class="about__photo">
         Ou configure o background-image no CSS em ".about__image"
       -->
       <div class="about__img-placeholder">
@@ -194,10 +170,6 @@
         O Mochilão nasceu da paixão e do desejo de explorar Angola em toda a sua grandiosidade.
         Mais do que uma empresa, somos movidos pelo fascínio de revelar as maravilhas naturais,
         os povos, as culturas e a rica gastronomia que compõem o vasto mosaico cultural angolano.
-      </p>
-      <p class="about__text">
-        Carregamos profundo conhecimento sobre os melhores destinos. Com profissionais qualificados,
-        garantimos segurança, imersão cultural autêntica e suporte completo antes, durante e após cada viagem.
       </p>
 
       <!-- CONTADORES -->
@@ -308,7 +280,80 @@
     </div>
   </section>
 
-  <!-- ======= EQUIPA ======= -->
+  <!-- ======= PROGRAMA PERSONALIZADO ======= -->
+  <section class="custom" id="custom">
+
+    <!-- Lado esquerdo — imagem -->
+    <div class="custom__visual reveal-left">
+      <!--
+        IMAGEM DO PROGRAMA PERSONALIZADO:
+        Substitua o div abaixo por:
+        <img src="imagens/personalizado.webp" alt="Programa Personalizado" class="custom__photo">
+      -->
+      <div class="custom__img-placeholder">
+        <i class="fa-solid fa-route"></i>
+      </div>
+
+      <!-- Tag flutuante sobre a imagem -->
+      <div class="custom__float-tag">
+        <i class="fa-solid fa-sliders"></i>
+        <span>100% à sua medida</span>
+      </div>
+    </div>
+
+    <!-- Lado direito — conteúdo -->
+    <div class="custom__content reveal-right">
+      <span class="section-tag section-tag--light">Programa Personalizado</span>
+
+      <h2 class="custom__title">
+        Crie a sua<br>
+        <em class="custom__title-em">própria aventura.</em>
+      </h2>
+
+      <p class="custom__lead">
+        Não encontrou o destino certo? Nós construímos a viagem à sua imagem — datas, percurso, grupo e ritmo definidos por si.
+      </p>
+
+      <!-- Passos -->
+      <ol class="custom__steps">
+        <li class="custom__step">
+          <span class="custom__step-num">01</span>
+          <div>
+            <strong>Diz-nos o que queres</strong>
+            <p>Destino, duração, número de pessoas e experiências que procura.</p>
+          </div>
+        </li>
+        <li class="custom__step">
+          <span class="custom__step-num">02</span>
+          <div>
+            <strong>Nós desenhamos o roteiro</strong>
+            <p>A nossa equipa cria um plano detalhado e personalizado para si.</p>
+          </div>
+        </li>
+        <li class="custom__step">
+          <span class="custom__step-num">03</span>
+          <div>
+            <strong>Parte em aventura</strong>
+            <p>Tudo tratado — logística, guias e suporte durante toda a viagem.</p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="custom__actions">
+        <button type="button" class="btn btn--light" data-open-reservation data-destination="personalizado">
+          Iniciar o meu programa &nbsp;<i class="fa-solid fa-arrow-right"></i>
+        </button>
+        <a href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0"
+           target="_blank" class="custom__wpp">
+          <i class="fa-brands fa-whatsapp"></i>
+          <span>Falar com a equipa</span>
+        </a>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ======= EQUIPA ======= --> 
   <section class="team" id="team">
     <div class="section-header reveal-up">
       <span class="section-tag">Quem Somos</span>
@@ -367,86 +412,143 @@
 
   <!-- ======= DICAS ======= -->
   <section class="tips" id="tips">
-    <div class="section-header reveal-up">
-      <span class="section-tag section-tag--light">Dicas</span>
-      <h2 class="section-title section-title--light">Dicas de Viagem</h2>
-      <p class="section-desc section-desc--light">Prepare-se bem para aproveitar ao máximo cada aventura.</p>
+
+    <div class="tips__header reveal-up">
+      <div class="tips__header-left">
+        <span class="section-tag">Dicas de Viagem</span>
+        <h2 class="tips__title">Prepare-se<br>para a aventura.</h2>
+      </div>
+      <p class="tips__subtitle">
+        Pequenos detalhes que fazem a diferença entre uma boa viagem e uma viagem inesquecível.
+      </p>
     </div>
 
     <div class="tips__grid">
+
       <div class="tip-card reveal-up">
-        <div class="tip-card__icon">🥾</div>
-        <h4 class="tip-card__title">Calçados certos</h4>
-        <ul class="tip-card__list">
-          <li>Use botas de trilha para terrenos irregulares.</li>
-          <li>Em destinos quentes, leve sandálias resistentes.</li>
-        </ul>
+        <div class="tip-card__icon-wrap">
+          <i class="fa-solid fa-shoe-prints"></i>
+        </div>
+        <div class="tip-card__body">
+          <h4 class="tip-card__title">Calçado certo</h4>
+          <ul class="tip-card__list">
+            <li>Botas de trilha para terrenos irregulares</li>
+            <li>Sandálias resistentes em destinos quentes</li>
+          </ul>
+        </div>
       </div>
+
       <div class="tip-card reveal-up">
-        <div class="tip-card__icon">👕</div>
-        <h4 class="tip-card__title">Vista-se adequadamente</h4>
-        <ul class="tip-card__list">
-          <li>Roupas leves e respiráveis para o calor.</li>
-          <li>Camadas térmicas e impermeáveis para o frio.</li>
-        </ul>
+        <div class="tip-card__icon-wrap">
+          <i class="fa-solid fa-shirt"></i>
+        </div>
+        <div class="tip-card__body">
+          <h4 class="tip-card__title">Vestuário adequado</h4>
+          <ul class="tip-card__list">
+            <li>Roupas leves e respiráveis para o calor</li>
+            <li>Camadas térmicas e impermeáveis para o frio</li>
+          </ul>
+        </div>
       </div>
+
       <div class="tip-card reveal-up">
-        <div class="tip-card__icon">💳</div>
-        <h4 class="tip-card__title">Proteja os seus documentos</h4>
-        <ul class="tip-card__list">
-          <li>Guarde dinheiro e passaporte em pochete antifurto.</li>
-          <li>Tenha cópias digitais dos documentos importantes.</li>
-        </ul>
+        <div class="tip-card__icon-wrap">
+          <i class="fa-solid fa-id-card"></i>
+        </div>
+        <div class="tip-card__body">
+          <h4 class="tip-card__title">Documentos seguros</h4>
+          <ul class="tip-card__list">
+            <li>Pochete antifurto para dinheiro e passaporte</li>
+            <li>Cópias digitais dos documentos importantes</li>
+          </ul>
+        </div>
       </div>
+
       <div class="tip-card reveal-up">
-        <div class="tip-card__icon">💧</div>
-        <h4 class="tip-card__title">Garrafa reutilizável</h4>
-        <ul class="tip-card__list">
-          <li>Hidratação é essencial, especialmente em trilhas e dias quentes.</li>
-        </ul>
+        <div class="tip-card__icon-wrap">
+          <i class="fa-solid fa-droplet"></i>
+        </div>
+        <div class="tip-card__body">
+          <h4 class="tip-card__title">Hidratação</h4>
+          <ul class="tip-card__list">
+            <li>Garrafa reutilizável em trilhas e dias quentes</li>
+          </ul>
+        </div>
       </div>
+
       <div class="tip-card reveal-up">
-        <div class="tip-card__icon">☀️</div>
-        <h4 class="tip-card__title">Protetor e repelente</h4>
-        <ul class="tip-card__list">
-          <li>Proteja-se do sol e insetos, especialmente em áreas tropicais.</li>
-        </ul>
+        <div class="tip-card__icon-wrap">
+          <i class="fa-solid fa-sun"></i>
+        </div>
+        <div class="tip-card__body">
+          <h4 class="tip-card__title">Proteção solar</h4>
+          <ul class="tip-card__list">
+            <li>Protetor solar e repelente de insetos</li>
+            <li>Essencial em áreas tropicais</li>
+          </ul>
+        </div>
       </div>
+
       <div class="tip-card reveal-up">
-        <div class="tip-card__icon">🗺️</div>
-        <h4 class="tip-card__title">Planeie a sua rota</h4>
-        <ul class="tip-card__list">
-          <li>Estude o destino, o clima e os possíveis desafios do percurso.</li>
-        </ul>
+        <div class="tip-card__icon-wrap">
+          <i class="fa-solid fa-map"></i>
+        </div>
+        <div class="tip-card__body">
+          <h4 class="tip-card__title">Planeie a rota</h4>
+          <ul class="tip-card__list">
+            <li>Estude o destino, o clima e os desafios do percurso</li>
+          </ul>
+        </div>
       </div>
+
       <div class="tip-card reveal-up">
-        <div class="tip-card__icon">🔋</div>
-        <h4 class="tip-card__title">Celular carregado</h4>
-        <ul class="tip-card__list">
-          <li>Leve sempre um power bank para emergências.</li>
-        </ul>
+        <div class="tip-card__icon-wrap">
+          <i class="fa-solid fa-battery-full"></i>
+        </div>
+        <div class="tip-card__body">
+          <h4 class="tip-card__title">Energia garantida</h4>
+          <ul class="tip-card__list">
+            <li>Power bank para emergências no campo</li>
+          </ul>
+        </div>
       </div>
+
       <div class="tip-card reveal-up">
-        <div class="tip-card__icon">🌿</div>
-        <h4 class="tip-card__title">Respeite a natureza</h4>
-        <ul class="tip-card__list">
-          <li>Não deixe lixo e siga as regras locais de preservação.</li>
-        </ul>
+        <div class="tip-card__icon-wrap">
+          <i class="fa-solid fa-leaf"></i>
+        </div>
+        <div class="tip-card__body">
+          <h4 class="tip-card__title">Respeite a natureza</h4>
+          <ul class="tip-card__list">
+            <li>Não deixe lixo e siga as regras de preservação local</li>
+          </ul>
+        </div>
       </div>
+
       <div class="tip-card reveal-up">
-        <div class="tip-card__icon">🎒</div>
-        <h4 class="tip-card__title">Siga os guias</h4>
-        <ul class="tip-card__list">
-          <li>Em tour guiado, siga todas as recomendações de segurança.</li>
-        </ul>
+        <div class="tip-card__icon-wrap">
+          <i class="fa-solid fa-compass"></i>
+        </div>
+        <div class="tip-card__body">
+          <h4 class="tip-card__title">Siga os guias</h4>
+          <ul class="tip-card__list">
+            <li>Em tour guiado, cumpra todas as recomendações de segurança</li>
+          </ul>
+        </div>
       </div>
+
       <div class="tip-card reveal-up">
-        <div class="tip-card__icon">🚑</div>
-        <h4 class="tip-card__title">Kit de primeiros socorros</h4>
-        <ul class="tip-card__list">
-          <li>A nossa empresa fornece kit de primeiros socorros em todas as viagens.</li>
-        </ul>
+        <div class="tip-card__icon-wrap">
+          <i class="fa-solid fa-kit-medical"></i>
+        </div>
+        <div class="tip-card__body">
+          <h4 class="tip-card__title">Primeiros socorros</h4>
+          <ul class="tip-card__list">
+            <li>Kit de primeiros socorros incluído em todas as viagens</li>
+          </ul>
+        </div>
       </div>
+
     </div>
   </section>
 
@@ -553,86 +655,106 @@
   </footer>
 
 
-  <!-- ======= RESERVATION DRAWER ======= -->
-  <div class="res-overlay" id="resOverlay"></div>
+  <!-- ======= RESERVATION PAGE (full screen) ======= -->
+  <div class="res-page" id="resPage">
 
-  <div class="res-drawer" id="resDrawer" role="dialog" aria-modal="true" aria-labelledby="resDrawerTitle">
-
-    <!-- Drawer Header -->
-    <div class="res-drawer__header">
-      <div class="res-drawer__header-info">
-        <span class="res-drawer__pre">Reservar viagem</span>
-        <h2 class="res-drawer__title" id="resDrawerTitle">—</h2>
-      </div>
-      <button class="res-drawer__close" id="resClose" aria-label="Fechar">
-        <i class="fa-solid fa-xmark"></i>
+    <!-- Sticky nav -->
+    <div class="res-page__nav">
+      <button class="res-page__back" id="resClose">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Voltar</span>
       </button>
+      <span class="res-page__nav-title" id="resNavTitle">Reservar Viagem</span>
+      <div style="width:90px"></div>
     </div>
 
-    <!-- Drawer Body -->
-    <div class="res-drawer__body" id="resBody">
-
-      <!-- LEFT: Tour info -->
-      <div class="res-info" id="resInfo">
-        <div class="res-info__top">
-          <span class="res-info__emoji" id="resEmoji">🗺️</span>
-          <span class="res-info__badge" id="resBadge">Destino</span>
-        </div>
-        <p class="res-info__duration"><i class="fa-regular fa-clock"></i> <span id="resDuration">—</span></p>
-        <p class="res-info__desc" id="resDesc">—</p>
-
-        <div class="res-info__block">
-          <h4 class="res-info__block-title"><i class="fa-solid fa-location-dot"></i> Destaques</h4>
-          <ul class="res-info__list" id="resHighlights"></ul>
+    <!-- ── SECÇÃO 1: Info do programa ── -->
+    <div class="res-hero" id="resHero">
+      <div class="res-hero__content">
+        <div class="res-hero__meta">
+          <span class="res-hero__emoji" id="resEmoji">🗺️</span>
+          <span class="res-hero__badge" id="resBadge">Destino</span>
+          <span class="res-hero__duration">
+            <i class="fa-regular fa-clock"></i>
+            <span id="resDuration">—</span>
+          </span>
         </div>
 
-        <div class="res-info__block">
-          <h4 class="res-info__block-title"><i class="fa-solid fa-circle-check"></i> O que inclui</h4>
-          <ul class="res-info__list" id="resIncludes"></ul>
+        <h1 class="res-hero__title" id="resDrawerTitle">—</h1>
+        <div class="res-hero__divider"></div>
+        <p class="res-hero__desc" id="resDesc">—</p>
+
+        <div class="res-hero__details">
+          <div class="res-hero__col">
+            <h4><i class="fa-solid fa-location-dot"></i> Destaques</h4>
+            <ul id="resHighlights"></ul>
+          </div>
+          <div class="res-hero__col">
+            <h4><i class="fa-solid fa-circle-check"></i> O que inclui</h4>
+            <ul id="resIncludes"></ul>
+          </div>
         </div>
       </div>
+    </div>
 
-      <!-- RIGHT: Form -->
-      <div class="res-form-wrap">
+    <!-- ── SECÇÃO 2: Fotos do programa ── -->
+    <!--
+      FOTOS POR PROGRAMA:
+      No script.js, em TOUR_DATA[destination].photos, adicione os URLs das suas imagens.
+      Exemplo: photos: ['imagens/cabo1.webp', 'imagens/cabo2.webp', ...]
+      Enquanto não houver fotos, são exibidos os slots de placeholder abaixo.
+    -->
+    <div class="res-photos" id="resPhotos">
+      <div class="res-photos__header">
+        <span class="res-photos__label">Fotos do programa</span>
+        <span class="res-photos__hint-admin">Adicione fotos em script.js → TOUR_DATA[destino].photos</span>
+      </div>
+      <div class="res-photos__strip" id="resPhotosStrip">
+        <!-- Gerado dinamicamente pelo JS -->
+      </div>
+    </div>
 
-        <!-- Mobile: botão que abre o bottom sheet de informações -->
-        <button type="button" class="res-info-toggle" id="resInfoToggle">
-          <span class="res-info-toggle__left">
-            <i class="fa-solid fa-circle-info"></i>
-            <span id="resInfoToggleLabel">Informações sobre o programa</span>
-          </span>
-          <i class="fa-solid fa-chevron-right res-info-toggle__arrow"></i>
-        </button>
+    <!-- ── SECÇÃO 3: Formulário de reserva ── -->
+    <div class="res-form-section">
+      <div class="res-form-section__inner">
 
-        <!-- FORM STATE -->
+        <span class="res-form-section__eyebrow">Dados da Reserva</span>
+        <h2 class="res-form-section__title">Garanta o seu lugar</h2>
+        <p class="res-form-section__sub">
+          Preencha os seus dados abaixo. A nossa equipa confirmará a disponibilidade e entrará em contacto.
+        </p>
+
         <form class="res-form" id="resForm" novalidate>
-          <p class="res-form__subtitle">Preencha os seus dados e a nossa equipa confirmará a reserva.</p>
 
-          <div class="res-form__row">
-            <div class="res-field">
-              <label for="resName">Nome completo <span class="res-required">*</span></label>
-              <input type="text" id="resName" name="nome" placeholder="O seu nome" autocomplete="name" required>
-              <span class="res-field__error" id="resNameErr"></span>
-            </div>
+          <!-- Nome -->
+          <div class="res-field">
+            <label for="resName">Nome completo <span class="res-required">*</span></label>
+            <input type="text" id="resName" name="nome" placeholder="O seu nome completo"
+                   autocomplete="name" required>
+            <span class="res-field__error" id="resNameErr"></span>
           </div>
 
-          <div class="res-form__row res-form__row--2">
+          <!-- Email + Telefone -->
+          <div class="res-grid-2">
             <div class="res-field">
               <label for="resEmail">Email <span class="res-required">*</span></label>
-              <input type="email" id="resEmail" name="email" placeholder="exemplo@gmail.com" autocomplete="email" required>
+              <input type="email" id="resEmail" name="email" placeholder="exemplo@gmail.com"
+                     autocomplete="email" required>
               <span class="res-field__error" id="resEmailErr"></span>
             </div>
             <div class="res-field">
               <label for="resPhone">Telefone <span class="res-required">*</span></label>
-              <input type="tel" id="resPhone" name="telefone" placeholder="+244 9XX XXX XXX" autocomplete="tel" required>
+              <input type="tel" id="resPhone" name="telefone" placeholder="+244 9XX XXX XXX"
+                     autocomplete="tel" required>
               <span class="res-field__error" id="resPhoneErr"></span>
             </div>
           </div>
 
-          <div class="res-form__row res-form__row--2">
+          <!-- Data + Vagas -->
+          <div class="res-grid-2">
             <div class="res-field">
               <label for="resDate">Data preferida <span class="res-required">*</span></label>
-              <input type="date" id="resDate" name="data_preferida">
+              <input type="date" id="resDate" name="data_preferida" required>
               <span class="res-field__error" id="resDateErr"></span>
             </div>
             <div class="res-field">
@@ -651,76 +773,69 @@
             </div>
           </div>
 
-          <div class="res-form__row">
-            <div class="res-field">
-              <label for="resMessage">Mensagem <span class="res-optional">(opcional)</span></label>
-              <textarea id="resMessage" name="mensagem" rows="3"
-                placeholder="Alguma dúvida ou pedido especial?"></textarea>
-            </div>
+          <!-- Mensagem -->
+          <div class="res-field">
+            <label for="resMessage">
+              Mensagem <span class="res-optional">(opcional)</span>
+            </label>
+            <textarea id="resMessage" name="mensagem" rows="3"
+              placeholder="Alguma dúvida, pedido especial ou informação relevante?"></textarea>
           </div>
 
-          <!-- Hidden fields -->
-          <input type="hidden" id="resTourField" name="programa" value="">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_subject" value="Nova Reserva — O Mochilão Aventuras">
-          <input type="hidden" name="_autoresponse"
-            value="Olá! Recebemos o seu pedido de reserva. A nossa equipa entrará em contacto em breve para confirmar os detalhes. Obrigado por escolher o Mochilão Aventuras!">
+          <hr class="res-form-divider">
 
+          <!-- Campos ocultos -->
+          <input type="hidden" id="resTourField"  name="programa"  value="">
+          <input type="hidden" name="_template"    value="table">
+          <input type="hidden" name="_subject"     value="Nova Reserva — O Mochilão Aventuras">
+          <input type="hidden" name="_autoresponse"
+            value="Olá! Recebemos o seu pedido de reserva. A nossa equipa entrará em contacto em breve. Obrigado por escolher o Mochilão Aventuras!">
+
+          <!-- Submit -->
           <div class="res-form__actions">
             <button type="submit" class="btn btn--primary btn--full res-submit" id="resSubmit">
-              <span class="res-submit__text">Confirmar Reserva</span>
+              <span class="res-submit__text">
+                <i class="fa-solid fa-check"></i>&nbsp; Confirmar Reserva
+              </span>
               <span class="res-submit__loading" hidden>
-                <i class="fa-solid fa-spinner fa-spin"></i> A enviar…
+                <i class="fa-solid fa-spinner fa-spin"></i>&nbsp; A enviar…
               </span>
             </button>
             <p class="res-form__disclaimer">
               <i class="fa-solid fa-lock"></i>
-              Os seus dados são confidenciais e usados apenas para confirmar a reserva.
+              Os seus dados são confidenciais e usados apenas para a sua reserva.
             </p>
           </div>
+
         </form>
-
-        <!-- SUCCESS STATE -->
-        <div class="res-success" id="resSuccess" hidden>
-          <div class="res-success__icon">
-            <i class="fa-solid fa-circle-check"></i>
-          </div>
-          <h3 class="res-success__title">Reserva enviada!</h3>
-          <p class="res-success__msg">
-            Recebemos o seu pedido para <strong id="resSuccessTour">—</strong>.
-            A nossa equipa entrará em contacto em breve para confirmar todos os detalhes.
-          </p>
-          <div class="res-success__details" id="resSuccessDetails"></div>
-          <div class="res-success__actions">
-            <button type="button" class="btn btn--primary" id="resSuccessClose">
-              Perfeito, obrigado!
-            </button>
-            <button type="button" class="btn btn--outline-dark" id="resSuccessNew">
-              Reservar outro programa
-            </button>
-          </div>
-        </div>
-
-      </div><!-- /.res-form-wrap -->
-    </div><!-- /.res-drawer__body -->
-  </div><!-- /.res-drawer -->
-
-  <!-- ======= MOBILE INFO BOTTOM SHEET ======= -->
-  <div class="info-sheet" id="infoSheet">
-    <div class="info-sheet__backdrop" id="infoSheetBackdrop"></div>
-    <div class="info-sheet__panel" id="infoSheetPanel">
-      <div class="info-sheet__handle"></div>
-      <div class="info-sheet__header">
-        <h3 class="info-sheet__title" id="infoSheetTitle">Detalhes do Programa</h3>
-        <button class="info-sheet__close" id="infoSheetClose" aria-label="Fechar">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
       </div>
-      <div class="info-sheet__body" id="infoSheetBody">
-        <!-- Preenchido dinamicamente pelo JS ao abrir -->
+    </div>
+
+  </div><!-- /.res-page -->
+
+  <!-- ======= CONFIRMATION POPUP ======= -->
+  <div class="res-confirm-overlay" id="resConfirmOverlay">
+    <div class="res-confirm" id="resConfirm">
+      <div class="res-confirm__ring">
+        <i class="fa-solid fa-check"></i>
+      </div>
+      <h3 class="res-confirm__title">Reserva enviada!</h3>
+      <p class="res-confirm__msg">
+        O seu pedido para <strong id="resConfirmTour">—</strong> foi recebido com sucesso.
+        Entraremos em contacto em breve para confirmar todos os detalhes.
+      </p>
+      <div class="res-confirm__summary" id="resConfirmSummary"></div>
+      <div class="res-confirm__actions">
+        <button class="btn btn--primary" id="resConfirmClose">
+          <i class="fa-solid fa-check"></i>&nbsp; Perfeito, obrigado!
+        </button>
+        <button class="btn btn--outline-dark" id="resConfirmNew">
+          Reservar outro programa
+        </button>
       </div>
     </div>
   </div>
+
 
   <script src="script.js"></script>
 </body>
