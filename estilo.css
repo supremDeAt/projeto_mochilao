@@ -696,6 +696,7 @@ p {
   max-width: 760px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 1.25rem;
 }
 
@@ -885,15 +886,13 @@ p {
     0 20px 60px rgba(0, 0, 0, 0.45),
     0 8px 20px rgba(0, 0, 0, 0.25);
   transition:
-    transform 0.s,
-    box-shadow 0s cubic-bezier(0, 0, 0.3, 0.1);
+    transform 0.15s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.15s cubic-bezier(0.16, 1, 0.3, 1);
   transform: translateY(var(--parallax-y));
-  transition-duration: 0s;
 }
 
 
 .tour-card:hover {
-  transition-duration: 0s;
   transform: translateY(calc(var(--parallax-y) - 14px)) scale(1.02);
   box-shadow:
     0 40px 90px rgba(0, 0, 0, 0.55),
@@ -920,8 +919,12 @@ p {
 
 .hero__cards-overlap .tour-card.reveal-up.is-visible {
   opacity: 1;
-  transition-duration: 0s;
   transform: translateY(var(--parallax-y));
+  /* Depois da entrada, o hover volta a ser rápido */
+  transition:
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.15s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.15s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .hero__cards-overlap .tour-card.reveal-up.is-visible:hover {
   transform: translateY(calc(var(--parallax-y) - 14px)) scale(1.02);
@@ -948,30 +951,10 @@ p {
   color: #ffff;
   width: fit-content;
   padding: 0.25rem 0.75rem;
-  border-radius: var(--radius-pill);
   margin-bottom: auto;
+ 
 }
 
-.tour-card__title {
-  font-family: var(--font-heading);
-  font-size: 1.5rem;
-  color: var(--clr-white);
-  margin-top: 2rem;
-}
-
-.tour-card__divider {
-  width: 40px;
-  height: 1.5px;
-  background: var(--clr-gold);
-  margin: 0.75rem 0;
-}
-
-.tour-card__desc {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.6;
-  margin-bottom: 1.25rem;
-}
 
 .tour-card__btn {
   font-family: var(--font-ui);
@@ -981,7 +964,7 @@ p {
   align-items: center;
   gap: 0.5rem;
   width: fit-content;
-  padding-bottom: 2px;
+  padding: 0.25rem 0.75rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.4);
   transition:
     gap var(--ease-std),
