@@ -29,7 +29,7 @@
   /* Cores principais */
   --clr-black: #0d0a06;
   --clr-dark: #1a1208;
-  --clr-brown-deep: #5a432d;
+  --clr-brown-deep: #4d351e;
   --clr-brown-mid: #775f43;
   --clr-brown-light: #a07d55;
   --clr-tan: #c8aa80;
@@ -183,7 +183,7 @@ p {
 }
 
 .btn--primary {
-  background-color: var(--clr-brown-deep);
+  background-color: var( --clr-brown-deep);
   color: #ffffff;
   box-shadow: 0 2px 12px rgba(90, 67, 45, 0.3);
 }
@@ -232,7 +232,7 @@ p {
   gap: 0.5rem;
   font-family: var(--font-ui);
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: 900;
   letter-spacing: 0.40em;
   text-transform: uppercase;
   color: var(--clr-brown-deep);
@@ -705,6 +705,7 @@ p {
   z-index: 2;
   max-width: 760px;
   display: flex;
+  border:3px solid red;
   flex-direction: column;
   justify-content: center;
   gap: 1.25rem;
@@ -712,7 +713,7 @@ p {
 
 .hero__badge {
   font-size: 17px;
-  color: #4d351e;
+  color: var( --clr-brown-deep);
   line-height: 1.7;
   font-weight: 1000;
   letter-spacing: 0.5rem;
@@ -1016,7 +1017,7 @@ p {
   gap: 4rem;
   min-height: 80vh;
   background: #e4d7bd;
-  padding: var(--space-xl) clamp(1.5rem, 6vw, 5rem);
+  padding: 5rem 7rem 14rem;
 }
 
 /* ── Conteúdo (texto, esquerda) ── */
@@ -1024,6 +1025,7 @@ p {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  display:flex;
 }
 
 .about__title {
@@ -1036,9 +1038,11 @@ p {
   padding: 0;
 }
 
+
 .about_content{
   padding: 0 1.75rem;
   display:flex;
+  
 }
 .about_content span{
   display: flex;
@@ -1046,7 +1050,7 @@ p {
   gap: 1rem;
 }
 .about_line{
-  width: 6px;
+  width: 8px;
   height: 130px;
   background-color:  var(--clr-brown-deep);
 }
@@ -1057,6 +1061,7 @@ p {
   font-size: 0.92rem;
   font-style: normal;
   line-height: 1.2;
+  letter-spacing: 0.01em;
   padding: 0 0.3rem;
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
 }
@@ -1065,6 +1070,7 @@ p {
   font-size: 0.98rem;
   color: var(--clr-text-mid);
   line-height: 1.2;
+  letter-spacing: 0.01em;
   padding: 0 1rem;
 }
 
@@ -1076,10 +1082,17 @@ p {
 /* ── Imagem (direita) ──
    .about__image  = container de posicionamento (sem corte, para os
                      contadores poderem sobressair na base)
-   .about__visual = camada visual cortada nos cantos (foto/placeholder) */
+   .about__visual = camada visual cortada nos cantos (foto/placeholder)
+
+   Usa aspect-ratio em vez de min-height fixo: assim a foto mantém
+   sempre a mesma proporção, em vez de esticar/achatar quando a
+   coluna do grid fica muito larga em monitores grandes. */
 .about__image {
   position: relative;
-  min-height: 660px;
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 3 / 4;
+  margin-left: auto;
 }
 
 .about__visual {
@@ -1189,7 +1202,7 @@ p {
    12. GALERIA
    ───────────────────────────────────────── */
 .gallery {
-  padding: var(--space-xl) var(--space-md);
+  padding: 5rem 7rem 14rem;
   background: var(--clr-warm-white);
 }
 
@@ -1306,7 +1319,7 @@ p {
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
   align-items: center;
-  padding: var(--space-xl) calc(var(--space-md) * 2);
+  padding: 5rem 7rem 14rem;
   background: linear-gradient(
     135deg,
     var(--clr-cream) 0%,
@@ -1353,7 +1366,7 @@ p {
    14. EQUIPA
    ───────────────────────────────────────── */
 .team {
-  padding: var(--space-xl) var(--space-md);
+  padding: 5rem 7rem 14rem;
   background: var(--clr-warm-white);
 }
 
@@ -1453,7 +1466,7 @@ p {
    15. DICAS DE VIAGEM
    ───────────────────────────────────────── */
 .tips {
-  padding: var(--space-xl) var(--space-md);
+  padding: 5rem 7rem 14rem;
   background: var(--clr-cream);
   position: relative;
 }
@@ -1638,7 +1651,7 @@ p {
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
   align-items: start;
-  padding: var(--space-xl) calc(var(--space-md) * 2);
+  padding: 5rem 7rem 14rem;
   background: var(--clr-white);
 }
 
@@ -1936,6 +1949,7 @@ input[type="number"]::-webkit-inner-spin-button {
   overflow: hidden;
   background: #1a1208;
   min-height: 500px;
+  padding: 5rem 7rem;
 }
 
 /* Overlay gradiente que funde com o conteúdo */
@@ -1977,12 +1991,12 @@ input[type="number"]::-webkit-inner-spin-button {
 .custom__float-tag {
   position: absolute;
   bottom: 2.5rem;
-  left: 2rem;
+  left: 7rem;
   z-index: 2;
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  color: var(--clr-gold-light);
+  color: #4d351e4e;
   font-family: var(--font-ui);
   font-size: 0.78rem;
   font-weight: 600;
@@ -1990,7 +2004,7 @@ input[type="number"]::-webkit-inner-spin-button {
   text-transform: uppercase;
   padding: 0.55rem 1.1rem;
   border-radius: var(--radius-pill);
-  backdrop-filter: blur(8px);
+  
   /* Entrada com delay */
   opacity: 0;
   transform: translateY(10px);
@@ -2007,7 +2021,8 @@ input[type="number"]::-webkit-inner-spin-button {
 .custom__content {
   position: relative;
   z-index: 1;
-  padding: 5rem 4.5rem;
+  
+  padding:  5rem 7rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
