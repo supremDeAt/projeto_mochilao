@@ -705,7 +705,6 @@ p {
   z-index: 2;
   max-width: 760px;
   display: flex;
-  border:3px solid red;
   flex-direction: column;
   justify-content: center;
   gap: 1.25rem;
