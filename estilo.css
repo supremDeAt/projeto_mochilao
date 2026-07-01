@@ -387,10 +387,9 @@ p {
 
 /* Estado ao fazer scroll — adicionado via JS */
 .navbar.scrolled {
-  background: rgba(13, 10, 6, 0.201);
-  backdrop-filter: blur(12px);
+  background: rgba(13, 10, 6, 0);
   padding: 0.65rem 2.5rem;
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0);
 }
 
 .navbar__brand {
@@ -539,6 +538,7 @@ p {
   height: 2px;
   background: var(--clr-white);
   border-radius: 2px;
+   box-shadow: 3px 2px 4px rgba(0, 0, 0, 0.278);
   transition:
     transform 0.35s cubic-bezier(0.65, 0, 0.35, 1),
     opacity 0.25s ease,
