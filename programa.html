@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lorem Ipsum - Modelo Limpo</title>
+    <style>
+        :root {
+            --primary: #d88c6c; /* Laranja da logo e botão */
+            --text-dark: #1a202c;
+            --text-light: #4a5568;
+            --bg-cream: #fcfaf6; /* Cor de fundo creme da seção de conteúdo */
+            --hero-bg: #8c7b6c; /* Placeholder escuro para a imagem do deserto */
+            --img-placeholder: #e2dfd8; /* Placeholder para a imagem de baixo */
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+        }
+
+        body { 
+            background-color: var(--bg-cream); 
+            color: var(--text-dark); 
+        }
+        
+        /* HEADER (NAVEGAÇÃO) */
+        header {
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%;
+            padding: 25px 60px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            z-index: 10; 
+            color: white;
+        }
+
+        .logo { 
+            font-size: 28px; 
+            font-weight: bold; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            letter-spacing: -1px;
+        }
+
+        .logo-icon { 
+            width: 35px; 
+            height: 35px; 
+            background: var(--primary); 
+            border-radius: 50%; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon::after {
+            content: '';
+            width: 15px;
+            height: 15px;
+            border: 2px solid var(--bg-cream);
+            border-radius: 50%;
+        }
+
+        nav ul { 
+            list-style: none; 
+            display: flex; 
+            gap: 35px; 
+        }
+
+        nav a { 
+            color: white; 
+            text-decoration: none; 
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .header-actions { 
+            display: flex; 
+            align-items: center; 
+            gap: 25px; 
+        }
+
+        .flags { 
+            display: flex; 
+            gap: 12px; 
+        }
+
+        .flag { 
+            width: 22px; 
+            height: 15px; 
+            border-radius: 2px; 
+            background: #ddd; /* Placeholders para as bandeiras */
+        }
+
+        .cart { 
+            background: var(--primary); 
+            width: 45px; 
+            height: 45px; 
+            border-radius: 50%; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-badge {
+            position: absolute; 
+            top: 0px; 
+            right: 0px; 
+            background: #ff4757; 
+            color: white;
+            font-size: 11px; 
+            font-weight: bold;
+            width: 16px; 
+            height: 16px; 
+            border-radius: 50%;
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+        }
+
+        /* HERO SECTION (IMAGEM TOPO) */
+        .hero {
+            height: 75vh; 
+            background-color: var(--hero-bg);
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center;
+            text-align: center; 
+            color: white; 
+            padding-top: 60px; /* Compensa o header absoluto */
+        }
+
+        .hero h1 { 
+            font-size: 3.5rem; 
+            font-weight: 400; 
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .hero p { 
+            font-size: 1.1rem; 
+            font-weight: 500;
+        }
+
+        /* CONTENT SPLIT (TEXTO E IMAGEM EMBAIXO) */
+        .content-section {
+            max-width: 1250px; 
+            margin: 0 auto; 
+            padding: 100px 40px;
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 80px; 
+            align-items: flex-start;
+        }
+
+        .text-content .subtitle {
+            color: var(--primary); 
+            text-transform: uppercase; 
+            letter-spacing: 4px;
+            font-size: 13px; 
+            font-weight: 600; 
+            margin-bottom: 20px; 
+            display: block;
+        }
+
+        .text-content h2 { 
+            font-size: 3.5rem; 
+            font-weight: 400; 
+            margin-bottom: 35px; 
+            color: var(--text-dark); 
+            line-height: 1.1;
+        }
+
+        .text-content p { 
+            color: var(--text-light); 
+            line-height: 1.8; 
+            font-size: 16px; 
+        }
+        
+        .image-box {
+            width: 100%; 
+            height: 450px; 
+            background-color: var(--img-placeholder);
+            border-radius: 12px; 
+        }
+
+        /* RESPONSIVIDADE BÁSICA */
+        @media (max-width: 992px) {
+            .content-section { 
+                grid-template-columns: 1fr; 
+                gap: 40px;
+            }
+            header { 
+                padding: 20px;
+            }
+            nav ul { 
+                display: none; /* Esconde menu em telas menores simulando um hamburger */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <div class="logo-icon"></div>
+            Lorem
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Lorem Adventures ▾</a></li>
+                <li><a href="#">Ipsum ▾</a></li>
+                <li><a href="#">Dolor</a></li>
+                <li><a href="#">Sit Amet</a></li>
+            </ul>
+        </nav>
+        <div class="header-actions">
+            <div class="flags">
+                <div class="flag" style="background-color: #00247d;"></div> <!-- UK Placeholder -->
+                <div class="flag" style="background-color: #ed2939;"></div> <!-- FR Placeholder -->
+                <div class="flag" style="background-color: #009e49;"></div> <!-- PT Placeholder -->
+            </div>
+            <div class="cart">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                <div class="cart-badge">0</div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Lorem Ipsum Dolor Sit</h1>
+        <p>Consectetur</p>
+    </section>
+
+    <section class="content-section">
+        <div class="text-content">
+            <span class="subtitle">L o r e m &nbsp; I p s u m</span>
+            <h2>Dolor Sit Amet</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <br>
+            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+        </div>
+        <div class="image-box"></div>
+    </section>
+
+</body>
+</html>

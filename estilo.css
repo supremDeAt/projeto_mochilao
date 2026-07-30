@@ -1116,7 +1116,7 @@ p {
 .counters {
   position: absolute;
   left: 50%;
-  bottom: -1.75rem;
+  bottom: -4rem;
   transform: translateX(-50%);
   display: flex;
   gap: 1rem;
@@ -1173,7 +1173,7 @@ p {
     order: -1;
   }
   .counters {
-    bottom: -1.5rem;
+    bottom: -3rem;
     gap: 0.75rem;
   }
 }
@@ -1181,7 +1181,7 @@ p {
 @media (max-width: 480px) {
   .counters {
     flex-direction: column;
-    bottom: -2.5rem;
+    bottom: -3rem;
     width: calc(100% - 1.5rem);
   }
   .counter {
@@ -2167,6 +2167,151 @@ input[type="number"]::-webkit-inner-spin-button {
   .custom__actions .btn {
     width: 100%;
     justify-content: center;
+  }
+}
+
+/* Botão pequeno — usado nos cards de pacotes */
+.btn--sm {
+  padding: 0.55rem 1.3rem;
+  font-size: 12.5px;
+}
+
+/* ─────────────────────────────────────────
+   VIAGENS EM GRUPO — cards de pacotes
+   ───────────────────────────────────────── */
+.packages {
+  padding: var(--space-xl) var(--space-md);
+  background: var(--clr-cream);
+}
+
+.packages__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.package-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--clr-white);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(13, 10, 6, 0.08);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.package-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 44px rgba(13, 10, 6, 0.14);
+}
+
+.package-card__media {
+  position: relative;
+  aspect-ratio: 3 / 2.5;
+  background: linear-gradient(160deg, var(--clr-brown-mid), var(--clr-dark));
+  overflow: hidden;
+}
+.package-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.package-card__ph {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.6rem;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.package-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.5rem 1.5rem 1.75rem;
+  font-family: var(--font-body);
+}
+
+.package-card__title {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--clr-brown-deep);
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+}
+
+.package-card__desc {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: var(--clr-text-muted);
+  line-height: 1.65;
+}
+
+/* Meta — Preço/Pax e Duração */
+.package-card__meta {
+  display: flex;
+  gap: 1.5rem;
+  padding-top: 0.75rem;
+  margin-top: 0.25rem;
+  border-top: 1px solid rgba(90, 67, 45, 0.12);
+}
+.package-card__meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.package-card__meta-label {
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--clr-text-muted);
+}
+.package-card__meta-value {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--clr-gold);
+  line-height: 1;
+}
+
+.package-card__actions {
+  margin-top: 0.75rem;
+}
+
+/* Botão único a full-width */
+.pkg-btn {
+  width: 100%;
+  justify-content: center;
+  padding: 0.7rem 1rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.packages__cta {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-lg);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .packages {
+    padding: var(--space-lg) 1.25rem;
+  }
+  .packages__grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .package-card__actions {
+    flex-wrap: wrap;
   }
 }
 
