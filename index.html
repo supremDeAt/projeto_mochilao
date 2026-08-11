@@ -30,13 +30,18 @@
     </a>
 
     <nav class="navbar__links" id="navLinks">
-      <a href="#tours" class="navbar__link">Viagens</a>
-      <a href="#gallery" class="navbar__link">Galeria</a>
-      <a href="#custom" class="navbar__link">Personalizado</a>
-      <a href="#about" class="navbar__link">Sobre</a>
-      <a href="#tips" class="navbar__link">Dicas</a>
-      <a href="#contact" class="navbar__link navbar__link--cta">Fale Connosco</a>
+      <a href="#tours" class="navbar__link" data-i18n="nav.tours">Viagens</a>
+      <a href="#gallery" class="navbar__link" data-i18n="nav.gallery">Galeria</a>
+      <a href="#custom" class="navbar__link" data-i18n="nav.custom">Personalizado</a>
+      <a href="#about" class="navbar__link" data-i18n="nav.about">Sobre</a>
+      <a href="#tips" class="navbar__link" data-i18n="nav.tips">Dicas</a>
+      <a href="#contact" class="navbar__link navbar__link--cta" data-i18n="nav.contact">Fale Connosco</a>
     </nav>
+
+    <button class="navbar__lang" id="langBtn" aria-label="Mudar idioma" title="Mudar idioma">
+      <span class="navbar__lang-flag navbar__lang-pt" aria-label="Português">🇦🇴</span>
+      <span class="navbar__lang-flag navbar__lang-en" aria-label="English">🇬🇧</span>
+    </button>
 
     <button class="navbar__burger" id="burgerBtn" aria-label="Abrir menu" aria-expanded="false">
       <span class="navbar__burger-line"></span>
@@ -78,18 +83,18 @@
   -->
   <section class="hero" id="hero">
     <div class="hero__content">
-      <p class="hero__badge reveal-fade"> BEM-VINDO AO MOCHILÃO</p>
-      <h1 class="hero__title reveal-up">
+      <p class="hero__badge reveal-fade" data-i18n="hero.badge"> BEM-VINDO AO MOCHILÃO</p>
+      <h1 class="hero__title reveal-up" data-i18n="hero.title">
         Descubra Angola <br> através de experiências que <br> ficam para a vida
       </h1>
       <div class="hero__divider reveal-fade"></div>
-      <p class="hero__subtitle reveal-up">
+      <p class="hero__subtitle reveal-up" data-i18n="hero.subtitle">
         Cada viagem começa com uma escolha.<br>
         Faça a sua e eternize momentos únicos por Angola.
       </p>
       <div class="hero__actions reveal-up">
-        <a href="#tours"   class="btn btn--primary">Faça a sua reserva</a>
-        <a href="#contact" class="btn btn--outline">Fale connosco</a>
+        <a href="#tours"   class="btn btn--primary" data-i18n="hero.cta1">Faça a sua reserva</a>
+        <a href="#contact" class="btn btn--outline" data-i18n="hero.cta2">Fale connosco</a>
       </div>
     </div>
     <a href="#tours" class="hero__scroll" aria-label="Scroll para baixo">
@@ -143,7 +148,7 @@
   <!-- ======= SOBRE ======= -->
   <section class="about" id="about">
     <div class="about__content reveal-right">
-      <span class="section-tag">Sobre o Mochilão</span>
+      <span class="section-tag" data-i18n="about.tag">Sobre o Mochilão</span>
       <h2 class="about__title">A experiência é o percurso, o destino é consequência</h2>
 
       <div class="about_content">
@@ -183,19 +188,19 @@
           <p class="counter__value">
             <span class="counter__num" data-target="120">0</span><span class="counter__suffix">+</span>
           </p>
-          <p class="counter__label">Viagens</p>
+          <p class="counter__label" data-i18n="about.counter1">Viagens</p>
         </div>
         <div class="counter">
           <p class="counter__value">
             <span class="counter__num" data-target="300">0</span>
           </p>
-          <p class="counter__label">Clientes</p>
+          <p class="counter__label" data-i18n="about.counter2">Clientes</p>
         </div>
         <div class="counter">
           <p class="counter__value">
             <span class="counter__num" data-target="98">0</span><span class="counter__suffix">%</span>
           </p>
-          <p class="counter__label">Satisfação</p>
+          <p class="counter__label" data-i18n="about.counter3">Satisfação</p>
         </div>
       </div>
     </div>
@@ -204,7 +209,7 @@
   <!-- ======= VIAGENS EM GRUPO ======= -->
   <section class="packages" id="packages">
     <div class="section-header reveal-up">
-      <span class="section-tag">Viagens em Grupo</span>
+      <span class="section-tag" data-i18n="pkg.tag">Viagens em Grupo</span>
       <h2 class="section-title">Experiências únicas em Angola</h2>
       <p class="section-desc">Roteiros com data marcada, feitos para viver em grupo. Escolhe o teu próximo destino.</p>
     </div>
@@ -307,7 +312,7 @@
   <!-- ======= GALERIA ======= -->
   <section class="gallery" id="gallery">
     <div class="section-header reveal-up">
-      <span class="section-tag">Momentos</span>
+      <span class="section-tag" data-i18n="gallery.tag">Momentos</span>
       <h2 class="section-title">Galeria de Aventuras</h2>
       <p class="section-desc">Momentos reais das nossas viagens. Segue-nos no Instagram para mais.</p>
     </div>
@@ -411,7 +416,7 @@
 
     <!-- Lado direito — conteúdo -->
     <div class="custom__content reveal-right">
-      <span class="section-tag section-tag--light">Programa Personalizado</span>
+      <span class="section-tag section-tag--light" data-i18n="custom.tag">Programa Personalizado</span>
 
       <h2 class="custom__title">
         Crie a sua<br>
@@ -464,7 +469,7 @@
   <!-- ======= EQUIPA ======= --> 
   <section class="team" id="team">
     <div class="section-header reveal-up">
-      <span class="section-tag">Quem Somos</span>
+      <span class="section-tag" data-i18n="team.tag">Quem Somos</span>
       <h2 class="section-title">Conheça a Equipa</h2>
       <p class="section-desc">Quem pilota as aventuras por trás dos bastidores.</p>
     </div>
@@ -523,7 +528,7 @@
 
     <div class="tips__header reveal-up">
       <div class="tips__header-left">
-        <span class="section-tag">Dicas de Viagem</span>
+        <span class="section-tag" data-i18n="tips.tag">Dicas de Viagem</span>
         <h2 class="tips__title">Prepare-se<br>para a aventura.</h2>
       </div>
       <p class="tips__subtitle">

@@ -1,256 +1,288 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lorem Ipsum - Modelo Limpo</title>
-    <style>
-        :root {
-            --primary: #d88c6c; /* Laranja da logo e botão */
-            --text-dark: #1a202c;
-            --text-light: #4a5568;
-            --bg-cream: #fcfaf6; /* Cor de fundo creme da seção de conteúdo */
-            --hero-bg: #8c7b6c; /* Placeholder escuro para a imagem do deserto */
-            --img-placeholder: #e2dfd8; /* Placeholder para a imagem de baixo */
-        }
-
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
-        }
-
-        body { 
-            background-color: var(--bg-cream); 
-            color: var(--text-dark); 
-        }
-        
-        /* HEADER (NAVEGAÇÃO) */
-        header {
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 100%;
-            padding: 25px 60px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;
-            z-index: 10; 
-            color: white;
-        }
-
-        .logo { 
-            font-size: 28px; 
-            font-weight: bold; 
-            display: flex; 
-            align-items: center; 
-            gap: 10px; 
-            letter-spacing: -1px;
-        }
-
-        .logo-icon { 
-            width: 35px; 
-            height: 35px; 
-            background: var(--primary); 
-            border-radius: 50%; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .logo-icon::after {
-            content: '';
-            width: 15px;
-            height: 15px;
-            border: 2px solid var(--bg-cream);
-            border-radius: 50%;
-        }
-
-        nav ul { 
-            list-style: none; 
-            display: flex; 
-            gap: 35px; 
-        }
-
-        nav a { 
-            color: white; 
-            text-decoration: none; 
-            font-size: 15px;
-            font-weight: 500;
-        }
-
-        .header-actions { 
-            display: flex; 
-            align-items: center; 
-            gap: 25px; 
-        }
-
-        .flags { 
-            display: flex; 
-            gap: 12px; 
-        }
-
-        .flag { 
-            width: 22px; 
-            height: 15px; 
-            border-radius: 2px; 
-            background: #ddd; /* Placeholders para as bandeiras */
-        }
-
-        .cart { 
-            background: var(--primary); 
-            width: 45px; 
-            height: 45px; 
-            border-radius: 50%; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center;
-            position: relative;
-            cursor: pointer;
-        }
-
-        .cart-badge {
-            position: absolute; 
-            top: 0px; 
-            right: 0px; 
-            background: #ff4757; 
-            color: white;
-            font-size: 11px; 
-            font-weight: bold;
-            width: 16px; 
-            height: 16px; 
-            border-radius: 50%;
-            display: flex; 
-            justify-content: center; 
-            align-items: center;
-        }
-
-        /* HERO SECTION (IMAGEM TOPO) */
-        .hero {
-            height: 75vh; 
-            background-color: var(--hero-bg);
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: center;
-            text-align: center; 
-            color: white; 
-            padding-top: 60px; /* Compensa o header absoluto */
-        }
-
-        .hero h1 { 
-            font-size: 3.5rem; 
-            font-weight: 400; 
-            margin-bottom: 15px;
-            letter-spacing: 1px;
-        }
-
-        .hero p { 
-            font-size: 1.1rem; 
-            font-weight: 500;
-        }
-
-        /* CONTENT SPLIT (TEXTO E IMAGEM EMBAIXO) */
-        .content-section {
-            max-width: 1250px; 
-            margin: 0 auto; 
-            padding: 100px 40px;
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 80px; 
-            align-items: flex-start;
-        }
-
-        .text-content .subtitle {
-            color: var(--primary); 
-            text-transform: uppercase; 
-            letter-spacing: 4px;
-            font-size: 13px; 
-            font-weight: 600; 
-            margin-bottom: 20px; 
-            display: block;
-        }
-
-        .text-content h2 { 
-            font-size: 3.5rem; 
-            font-weight: 400; 
-            margin-bottom: 35px; 
-            color: var(--text-dark); 
-            line-height: 1.1;
-        }
-
-        .text-content p { 
-            color: var(--text-light); 
-            line-height: 1.8; 
-            font-size: 16px; 
-        }
-        
-        .image-box {
-            width: 100%; 
-            height: 450px; 
-            background-color: var(--img-placeholder);
-            border-radius: 12px; 
-        }
-
-        /* RESPONSIVIDADE BÁSICA */
-        @media (max-width: 992px) {
-            .content-section { 
-                grid-template-columns: 1fr; 
-                gap: 40px;
-            }
-            header { 
-                padding: 20px;
-            }
-            nav ul { 
-                display: none; /* Esconde menu em telas menores simulando um hamburger */
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-        <div class="logo">
-            <div class="logo-icon"></div>
-            Lorem
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#">Lorem Adventures ▾</a></li>
-                <li><a href="#">Ipsum ▾</a></li>
-                <li><a href="#">Dolor</a></li>
-                <li><a href="#">Sit Amet</a></li>
-            </ul>
-        </nav>
-        <div class="header-actions">
-            <div class="flags">
-                <div class="flag" style="background-color: #00247d;"></div> <!-- UK Placeholder -->
-                <div class="flag" style="background-color: #ed2939;"></div> <!-- FR Placeholder -->
-                <div class="flag" style="background-color: #009e49;"></div> <!-- PT Placeholder -->
-            </div>
-            <div class="cart">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-                <div class="cart-badge">0</div>
-            </div>
-        </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Programa — O Mochilão Aventuras</title>
+    <link rel="icon" href="logo5.png" />
+    <link rel="stylesheet" href="estilo.css" />
+    <link rel="stylesheet" href="programas.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- ======= NAVBAR ======= -->
+    <header class="navbar" id="navbar">
+      <a href="index.html" class="navbar__brand">
+        <img
+          src="imagens/Sem Título-3.png"
+          alt="O Mochilão Aventuras"
+          class="navbar__logo"
+        />
+      </a>
+      <nav class="navbar__links" id="navLinks">
+        <a href="index.html#packages" class="navbar__link">Pacotes</a>
+        <a href="index.html#about" class="navbar__link">Sobre</a>
+        <a href="index.html#tips" class="navbar__link">Dicas</a>
+        <a href="index.html#contact" class="navbar__link navbar__link--cta"
+          >Fale Connosco</a
+        >
+      </nav>
+      <button
+        class="navbar__burger"
+        id="burgerBtn"
+        aria-label="Abrir menu"
+        aria-expanded="false"
+      >
+        <span class="navbar__burger-line"></span>
+        <span class="navbar__burger-line"></span>
+        <span class="navbar__burger-line"></span>
+      </button>
     </header>
 
-    <section class="hero">
-        <h1>Lorem Ipsum Dolor Sit</h1>
-        <p>Consectetur</p>
+    <!-- Sidebar mobile -->
+    <div class="sidebar__overlay" id="sidebarOverlay"></div>
+    <aside class="sidebar" id="sidebar">
+      <button class="sidebar__close" id="closeBtn">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <nav class="sidebar__nav">
+        <a href="index.html" class="sidebar__link">Início</a>
+        <a href="index.html#packages" class="sidebar__link">Pacotes</a>
+        <a href="index.html#about" class="sidebar__link">Sobre</a>
+        <a href="index.html#contact" class="sidebar__link">Fale Connosco</a>
+      </nav>
+      <div class="sidebar__footer">
+        <a href="https://www.instagram.com/o_mochilao/" target="_blank"
+          ><i class="fa-brands fa-instagram"></i
+        ></a>
+        <a href="https://www.whatsapp.com/catalog/244926509821/" target="_blank"
+          ><i class="fa-brands fa-whatsapp"></i
+        ></a>
+      </div>
+    </aside>
+
+    <!-- ======= HERO ======= -->
+    <section class="pkg-hero">
+      <div class="pkg-hero__content">
+        <nav class="pkg-breadcrumb" aria-label="breadcrumb">
+          <a href="index.html">Início</a>
+          <i class="fa-solid fa-chevron-right"></i>
+          <a href="index.html#packages">Pacotes</a>
+          <i class="fa-solid fa-chevron-right"></i>
+          <span>Programa</span>
+        </nav>
+        <h1 class="pkg-hero__title">Carregando...</h1>
+        <p class="pkg-hero__desc"></p>
+      </div>
+      <div class="pkg-hero__scroll">
+        <span>Ver detalhes</span>
+        <i class="fa-solid fa-arrow-down"></i>
+      </div>
     </section>
 
-    <section class="content-section">
-        <div class="text-content">
-            <span class="subtitle">L o r e m &nbsp; I p s u m</span>
-            <h2>Dolor Sit Amet</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <br>
-            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+    <!-- ======= CORPO PRINCIPAL ======= -->
+    <div class="pkg-wrapper">
+      <!-- ─── COLUNA ESQUERDA ─── -->
+      <main class="pkg-col-left">
+        <!-- Descrição + Foto -->
+        <section class="pkg-intro">
+          <div class="pkg-intro__text">
+            <span class="section-tag">Sobre este Programa</span>
+            <div class="pkg-descricao">Carregando...</div>
+
+            <!-- Roteiro -->
+            <div class="pkg-roteiro">
+              <h3 class="pkg-roteiro__title">
+                <i class="fa-solid fa-route"></i> Roteiro
+              </h3>
+              <ul class="pkg-roteiro__list"></ul>
+            </div>
+          </div>
+
+          <div class="pkg-img-box">
+            <!-- Populado pelo JS com a foto secundária -->
+            <div class="pkg-img-ph"><i class="fa-regular fa-image"></i></div>
+          </div>
+        </section>
+
+        <!-- Inclui / Não Inclui -->
+        <section class="pkg-includes">
+          <div class="pkg-includes__col pkg-includes__col--yes">
+            <h2 class="pkg-includes__title">
+              <i class="fa-solid fa-circle-check"></i>
+              Esta Viagem Inclui
+            </h2>
+            <ul class="pkg-inclui__list"></ul>
+          </div>
+          <div class="pkg-includes__col pkg-includes__col--no">
+            <h2 class="pkg-includes__title">
+              <i class="fa-solid fa-circle-xmark"></i>
+              Não Inclui
+            </h2>
+            <ul class="pkg-nao-inclui__list"></ul>
+          </div>
+        </section>
+
+        <!-- Itinerário -->
+        <section class="pkg-itinerary">
+          <h2 class="pkg-section-title">Itinerário</h2>
+          <p class="pkg-itinerary__intro">
+            Este itinerário foi pensado para transformar cada momento da viagem
+            numa verdadeira experiência de descoberta — combinando aventura,
+            natureza, cultura e momentos de descanso.
+          </p>
+          <div class="pkg-accordion"></div>
+        </section>
+      </main>
+
+      <!-- ─── SIDEBAR STICKY ─── -->
+      <aside class="pkg-sidebar">
+        <div class="pkg-sidebar__card">
+          <h3 class="pkg-sidebar__title">Detalhes da Viagem</h3>
+
+          <ul class="pkg-details">
+            <li class="pkg-detail pkg-detail--dur">
+              <span class="pkg-detail__icon"
+                ><i class="fa-regular fa-clock"></i
+              ></span>
+              <div>
+                <span class="pkg-detail__label">Duração</span>
+                <span class="pkg-detail__value">—</span>
+              </div>
+            </li>
+            <li class="pkg-detail pkg-detail--preco">
+              <span class="pkg-detail__icon"
+                ><i class="fa-solid fa-tag"></i
+              ></span>
+              <div>
+                <span class="pkg-detail__label">Preço</span>
+                <span class="pkg-detail__value">—</span>
+              </div>
+            </li>
+            <li class="pkg-detail pkg-detail--partida">
+              <span class="pkg-detail__icon"
+                ><i class="fa-solid fa-location-dot"></i
+              ></span>
+              <div>
+                <span class="pkg-detail__label">Ponto de Partida</span>
+                <span class="pkg-detail__value">—</span>
+              </div>
+            </li>
+          </ul>
+
+          <!-- Preços por número de pax -->
+          <div class="pkg-precos">
+            <h4 class="pkg-precos__title">Preços por número de pessoas</h4>
+            <ul class="pkg-precos__list"></ul>
+          </div>
+
+          <div class="pkg-sidebar__cta">
+            <a
+              href="https://wa.me/244926509821"
+              target="_blank"
+              class="btn btn--primary btn--full pkg-reservar"
+            >
+              <i class="fa-brands fa-whatsapp"></i>
+              Reservar Agora
+            </a>
+            <a href="index.html#contact" class="pkg-sidebar__contact">
+              <i class="fa-regular fa-envelope"></i>
+              Tenho uma dúvida
+            </a>
+          </div>
         </div>
-        <div class="image-box"></div>
+
+        <!-- Partilha -->
+        <div class="pkg-sidebar__share">
+          <span>Partilhar</span>
+          <a href="#" aria-label="WhatsApp"
+            ><i class="fa-brands fa-whatsapp"></i
+          ></a>
+          <a href="#" aria-label="Facebook"
+            ><i class="fa-brands fa-facebook-f"></i
+          ></a>
+          <a href="#" aria-label="Instagram"
+            ><i class="fa-brands fa-instagram"></i
+          ></a>
+        </div>
+      </aside>
+    </div>
+
+    <!-- ======= OUTROS DESTINOS ======= -->
+    <section class="pkg-more">
+      <div class="section-header">
+        <span class="section-tag">Explore Mais</span>
+        <h2 class="section-title">Conheça Outros Destinos</h2>
+      </div>
+      <div class="packages__grid"></div>
     </section>
 
-</body>
+    <!-- ======= FOOTER ======= -->
+    <footer class="footer">
+      <div class="footer__main">
+        <div class="footer__brand">
+          <img
+            src="imagens/Sem Título-3.png"
+            alt="O Mochilão"
+            class="footer__logo"
+          />
+          <p class="footer__tagline">A experiência é o percurso.</p>
+          <div class="footer__socials">
+            <a
+              href="https://www.instagram.com/o_mochilao/"
+              target="_blank"
+              aria-label="Instagram"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+            <a
+              href="https://www.facebook.com"
+              target="_blank"
+              aria-label="Facebook"
+              ><i class="fa-brands fa-facebook-f"></i
+            ></a>
+            <a
+              href="https://www.whatsapp.com/catalog/244926509821/"
+              target="_blank"
+              aria-label="WhatsApp"
+              ><i class="fa-brands fa-whatsapp"></i
+            ></a>
+          </div>
+        </div>
+        <div class="footer__col">
+          <h4 class="footer__heading">Explore</h4>
+          <ul>
+            <li><a href="index.html#packages">Pacotes</a></li>
+            <li><a href="index.html#custom">Viagem Personalizada</a></li>
+            <li><a href="index.html#about">Sobre Nós</a></li>
+            <li><a href="index.html#tips">Dicas de Viagem</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4 class="footer__heading">Contacto</h4>
+          <ul>
+            <li><a href="tel:+244926509821">+244 926 509 821</a></li>
+            <li><a href="mailto:geral@omochilao.ao">geral@omochilao.ao</a></li>
+            <li>
+              <a href="https://wa.me/244926509821" target="_blank">WhatsApp</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 O Mochilão Aventuras. Todos os direitos reservados.</p>
+      </div>
+    </footer>
+
+    <script src="programas.js"></script>
+  </body>
 </html>

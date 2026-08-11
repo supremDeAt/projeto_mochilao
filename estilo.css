@@ -515,6 +515,43 @@ p {
   background: var(--clr-brown-mid);
 }
 
+/* ── Botão de idioma com bandeiras ── */
+.navbar__lang {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: rgba(255,255,255,0.08);
+  border-radius: var(--radius-pill);
+  padding: 0.25rem;
+  transition: background var(--ease-std);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.navbar__lang:hover {
+  background: rgba(255,255,255,0.16);
+}
+
+/* Cada bandeira é um botão visual */
+.navbar__lang-flag {
+  font-size: 1.3rem;
+  line-height: 1;
+  padding: 0.2rem 0.35rem;
+  border-radius: var(--radius-pill);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    background 0.25s ease;
+  opacity: 0.38;
+  transform: scale(0.88);
+}
+
+/* Bandeira activa — destaque */
+.navbar__lang-flag.lang--active {
+  opacity: 1;
+  transform: scale(1);
+  background: rgba(255,255,255,0.15);
+}
+
 .navbar__burger {
   display: flex;
   flex-direction: column;

@@ -280,4 +280,96 @@
     });
   }
 
+  /* ─────────────────────────────────────────
+     6. INTERNACIONALIZAÇÃO — 🇦🇴 / 🇬🇧
+     ───────────────────────────────────────── */
+  const translations = {
+    pt: {
+      'nav.home':'Início','nav.tours':'Viagens','nav.gallery':'Galeria',
+      'nav.custom':'Personalizado','nav.about':'Sobre','nav.team':'Equipa',
+      'nav.tips':'Dicas','nav.contact':'Fale Connosco',
+      'hero.badge':'BEM-VINDO AO MOCHILÃO',
+      'hero.title':'Descubra Angola <br> através de experiências que <br> ficam para a vida',
+      'hero.subtitle':'Cada viagem começa com uma escolha.<br>Faça a sua e eternize momentos únicos por Angola.',
+      'hero.cta1':'Faça a sua reserva','hero.cta2':'Fale connosco','hero.scroll':'Explorar',
+      'about.tag':'Sobre o Mochilão',
+      'about.title':'A experiência é o percurso, o destino é consequência',
+      'about.quote':'Acreditamos que cada passo da viagem importa tanto quanto o lugar a que chegamos — é nessa jornada que nascem as histórias que ficam.',
+      'about.text':'O Mochilão nasceu da paixão e do desejo de explorar Angola em toda a sua grandiosidade. Mais do que uma empresa, somos movidos pelo fascínio de revelar as maravilhas naturais, os povos, as culturas e a rica gastronomia que compõem o vasto mosaico cultural angolano.',
+      'about.btn':'Saber Mais','about.counter1':'Viagens','about.counter2':'Clientes','about.counter3':'Satisfação',
+      'pkg.tag':'Viagens em Grupo','pkg.title':'Experiências únicas em Angola',
+      'pkg.desc':'Roteiros com data marcada, feitos para viver em grupo. Escolhe o teu próximo destino.',
+      'gallery.tag':'Momentos','gallery.title':'Galeria de Aventuras',
+      'gallery.desc':'Momentos reais das nossas viagens. Segue-nos no Instagram para mais.',
+      'custom.tag':'Programa Personalizado','custom.title':'Crie a sua','custom.titleem':'própria aventura.',
+      'custom.lead':'Não encontrou o destino certo? Nós construímos a viagem à sua imagem — datas, percurso, grupo e ritmo definidos por si.',
+      'custom.s1h':'Diz-nos o que queres','custom.s1p':'Destino, duração, número de pessoas e experiências que procura.',
+      'custom.s2h':'Nós desenhamos o roteiro','custom.s2p':'A nossa equipa cria um plano detalhado e personalizado para si.',
+      'custom.s3h':'Parte em aventura','custom.s3p':'Tudo tratado — logística, guias e suporte durante toda a viagem.',
+      'custom.btn':'Iniciar o meu programa','custom.wpp':'Falar com a equipa',
+      'team.tag':'Quem Somos','team.title':'Conheça a Equipa','team.desc':'Quem pilota as aventuras por trás dos bastidores.',
+      'tips.tag':'Dicas de Viagem','tips.title':'Prepare-se<br>para a aventura.',
+      'tips.subtitle':'Pequenos detalhes que fazem a diferença entre uma boa viagem e uma viagem inesquecível.',
+      'footer.tagline':'A experiência é o percurso.',
+    },
+    en: {
+      'nav.home':'Home','nav.tours':'Trips','nav.gallery':'Gallery',
+      'nav.custom':'Custom','nav.about':'About','nav.team':'Team',
+      'nav.tips':'Tips','nav.contact':'Contact Us',
+      'hero.badge':'WELCOME TO MOCHILÃO',
+      'hero.title':'Discover Angola <br> through experiences that <br> last a lifetime',
+      'hero.subtitle':'Every journey starts with a choice.<br>Make yours and create unique memories across Angola.',
+      'hero.cta1':'Book your trip','hero.cta2':'Contact us','hero.scroll':'Explore',
+      'about.tag':'About Mochilão',
+      'about.title':'The experience is the journey, the destination is a consequence',
+      'about.quote':'We believe that every step of the trip matters as much as where we end up — it is in that journey that the stories worth keeping are born.',
+      'about.text':'Mochilão was born from a passion for exploring Angola in all its grandeur. More than a company, we are driven by the fascination of revealing the natural wonders, peoples, cultures and rich gastronomy that make up the vast Angolan mosaic.',
+      'about.btn':'Learn More','about.counter1':'Trips','about.counter2':'Clients','about.counter3':'Satisfaction',
+      'pkg.tag':'Group Trips','pkg.title':'Unique experiences in Angola',
+      'pkg.desc':'Scheduled itineraries, made to experience in group. Choose your next destination.',
+      'gallery.tag':'Moments','gallery.title':'Adventure Gallery',
+      'gallery.desc':'Real moments from our trips. Follow us on Instagram for more.',
+      'custom.tag':'Custom Program','custom.title':'Create your','custom.titleem':'own adventure.',
+      'custom.lead':"Couldn't find the right destination? We build the trip in your image — dates, route, group and pace defined by you.",
+      'custom.s1h':'Tell us what you want','custom.s1p':'Destination, duration, number of people and the experiences you are looking for.',
+      'custom.s2h':'We design the itinerary','custom.s2p':'Our team creates a detailed and personalised plan just for you.',
+      'custom.s3h':'Set off on adventure','custom.s3p':'Everything handled — logistics, guides and support throughout the trip.',
+      'custom.btn':'Start my programme','custom.wpp':'Talk to the team',
+      'team.tag':'Who We Are','team.title':'Meet the Team','team.desc':'The people who drive the adventures behind the scenes.',
+      'tips.tag':'Travel Tips','tips.title':'Get ready<br>for the adventure.',
+      'tips.subtitle':'Small details that make the difference between a good trip and an unforgettable one.',
+      'footer.tagline':'The experience is the journey.',
+    }
+  };
+
+  const langBtn     = document.getElementById('langBtn');
+  const htmlEl      = document.documentElement;
+  let   currentLang = localStorage.getItem('mochilao-lang') || 'pt';
+
+  function applyLang(lang) {
+    const t = translations[lang];
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      var key = el.getAttribute('data-i18n');
+      if (t[key] !== undefined) el.innerHTML = t[key];
+    });
+    htmlEl.setAttribute('lang', lang === 'en' ? 'en' : 'pt-BR');
+
+    /* Actualizar bandeiras — destaca a activa */
+    if (langBtn) {
+      langBtn.querySelector('.navbar__lang-pt').classList.toggle('lang--active', lang === 'pt');
+      langBtn.querySelector('.navbar__lang-en').classList.toggle('lang--active', lang === 'en');
+    }
+
+    currentLang = lang;
+    localStorage.setItem('mochilao-lang', lang);
+  }
+
+  if (langBtn) {
+    langBtn.addEventListener('click', function() {
+      applyLang(currentLang === 'pt' ? 'en' : 'pt');
+    });
+  }
+
+  applyLang(currentLang);
+
 })();
