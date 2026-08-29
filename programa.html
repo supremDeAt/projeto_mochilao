@@ -1,288 +1,234 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Programa — O Mochilão Aventuras</title>
-    <link rel="icon" href="logo5.png" />
-    <link rel="stylesheet" href="estilo.css" />
-    <link rel="stylesheet" href="programas.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-      crossorigin="anonymous"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <!-- ======= NAVBAR ======= -->
-    <header class="navbar" id="navbar">
-      <a href="index.html" class="navbar__brand">
-        <img
-          src="imagens/Sem Título-3.png"
-          alt="O Mochilão Aventuras"
-          class="navbar__logo"
-        />
-      </a>
-      <nav class="navbar__links" id="navLinks">
-        <a href="index.html#packages" class="navbar__link">Pacotes</a>
-        <a href="index.html#about" class="navbar__link">Sobre</a>
-        <a href="index.html#tips" class="navbar__link">Dicas</a>
-        <a href="index.html#contact" class="navbar__link navbar__link--cta"
-          >Fale Connosco</a
-        >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programa — O Mochilão Aventuras</title>
+  <link rel="icon" href="logo5.png">
+  <link rel="stylesheet" href="estilo.css">
+  <link rel="stylesheet" href="programas.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ======= NAVBAR ======= -->
+  <header class="navbar" id="navbar">
+    <a href="index.html" class="navbar__brand">
+      <img src="imagens/Sem Título-3.png" alt="O Mochilão Aventuras" class="navbar__logo">
+    </a>
+    <nav class="navbar__links" id="navLinks">
+      <a href="index.html#packages" class="navbar__link">Pacotes</a>
+      <a href="index.html#about"    class="navbar__link">Sobre</a>
+      <a href="index.html#tips"     class="navbar__link">Dicas</a>
+      <a href="index.html#contact"  class="navbar__link navbar__link--cta">Fale Connosco</a>
+    </nav>
+    <button class="navbar__burger" id="burgerBtn" aria-label="Abrir menu" aria-expanded="false">
+      <span class="navbar__burger-line"></span>
+      <span class="navbar__burger-line"></span>
+      <span class="navbar__burger-line"></span>
+    </button>
+  </header>
+
+  <!-- Sidebar mobile -->
+  <div class="sidebar__overlay" id="sidebarOverlay"></div>
+  <aside class="sidebar" id="sidebar">
+    <button class="sidebar__close" id="closeBtn"><i class="fa-solid fa-xmark"></i></button>
+    <nav class="sidebar__nav">
+      <a href="index.html"          class="sidebar__link">Início</a>
+      <a href="index.html#packages" class="sidebar__link">Pacotes</a>
+      <a href="index.html#about"    class="sidebar__link">Sobre</a>
+      <a href="index.html#contact"  class="sidebar__link">Fale Connosco</a>
+    </nav>
+    <div class="sidebar__footer">
+      <a href="https://www.instagram.com/o_mochilao/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+      <a href="https://www.whatsapp.com/catalog/244926509821/" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+    </div>
+  </aside>
+
+  <!-- ======= HERO ======= -->
+  <section class="pkg-hero">
+    <div class="pkg-hero__content">
+      <nav class="pkg-breadcrumb" aria-label="breadcrumb">
+       
+        <span>Programa</span>
       </nav>
-      <button
-        class="navbar__burger"
-        id="burgerBtn"
-        aria-label="Abrir menu"
-        aria-expanded="false"
-      >
-        <span class="navbar__burger-line"></span>
-        <span class="navbar__burger-line"></span>
-        <span class="navbar__burger-line"></span>
-      </button>
-    </header>
+      <h1 class="pkg-hero__title">Carregando...</h1>
+      <p class="pkg-hero__desc"></p>
+    </div>
+  </section>
 
-    <!-- Sidebar mobile -->
-    <div class="sidebar__overlay" id="sidebarOverlay"></div>
-    <aside class="sidebar" id="sidebar">
-      <button class="sidebar__close" id="closeBtn">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-      <nav class="sidebar__nav">
-        <a href="index.html" class="sidebar__link">Início</a>
-        <a href="index.html#packages" class="sidebar__link">Pacotes</a>
-        <a href="index.html#about" class="sidebar__link">Sobre</a>
-        <a href="index.html#contact" class="sidebar__link">Fale Connosco</a>
-      </nav>
-      <div class="sidebar__footer">
-        <a href="https://www.instagram.com/o_mochilao/" target="_blank"
-          ><i class="fa-brands fa-instagram"></i
-        ></a>
-        <a href="https://www.whatsapp.com/catalog/244926509821/" target="_blank"
-          ><i class="fa-brands fa-whatsapp"></i
-        ></a>
+  <!-- ======= INTRO: texto + foto + detalhes ======= -->
+  <section class="pkg-intro">
+    <div class="pkg-intro__left">
+      <span class="pkg-eyebrow">Destaque</span>
+      
+      <div class="pkg-descricao">Carregando...</div>
+
+      <!-- Roteiro -->
+      <div class="pkg-roteiro">
+        <h3 class="pkg-roteiro__title">
+          <i class="fa-solid fa-route"></i> Roteiro
+        </h3>
+        <ul class="pkg-roteiro__list"></ul>
       </div>
-    </aside>
+    </div>
 
-    <!-- ======= HERO ======= -->
-    <section class="pkg-hero">
-      <div class="pkg-hero__content">
-        <nav class="pkg-breadcrumb" aria-label="breadcrumb">
-          <a href="index.html">Início</a>
-          <i class="fa-solid fa-chevron-right"></i>
-          <a href="index.html#packages">Pacotes</a>
-          <i class="fa-solid fa-chevron-right"></i>
-          <span>Programa</span>
-        </nav>
-        <h1 class="pkg-hero__title">Carregando...</h1>
-        <p class="pkg-hero__desc"></p>
+    <div class="pkg-intro__right">
+      <!-- Foto principal vertical -->
+      <div class="pkg-img-box">
+        <div class="pkg-img-ph"><i class="fa-regular fa-image"></i></div>
       </div>
-      <div class="pkg-hero__scroll">
-        <span>Ver detalhes</span>
-        <i class="fa-solid fa-arrow-down"></i>
-      </div>
-    </section>
 
-    <!-- ======= CORPO PRINCIPAL ======= -->
-    <div class="pkg-wrapper">
-      <!-- ─── COLUNA ESQUERDA ─── -->
-      <main class="pkg-col-left">
-        <!-- Descrição + Foto -->
-        <section class="pkg-intro">
-          <div class="pkg-intro__text">
-            <span class="section-tag">Sobre este Programa</span>
-            <div class="pkg-descricao">Carregando...</div>
-
-            <!-- Roteiro -->
-            <div class="pkg-roteiro">
-              <h3 class="pkg-roteiro__title">
-                <i class="fa-solid fa-route"></i> Roteiro
-              </h3>
-              <ul class="pkg-roteiro__list"></ul>
+      <!-- Card de detalhes logo abaixo da foto -->
+      <div class="pkg-details-card">
+        <p class="pkg-details-card__title">Detalhes da Viagem</p>
+        <p class="pkg-details-card__sub">Encontre aqui informações essenciais sobre duração, preço e ponto de partida para planear a sua aventura com tranquilidade.</p>
+        <ul class="pkg-details">
+          <li class="pkg-detail pkg-detail--dur">
+            <span class="pkg-detail__icon"><i class="fa-regular fa-clock"></i></span>
+            <div>
+              <span class="pkg-detail__label">Duração</span>
+              <span class="pkg-detail__value">—</span>
             </div>
-          </div>
+          </li>
+          <li class="pkg-detail pkg-detail--preco">
+            <span class="pkg-detail__icon"><i class="fa-solid fa-tag"></i></span>
+            <div>
+              <span class="pkg-detail__label">Preço</span>
+              <span class="pkg-detail__value">—</span>
+            </div>
+          </li>
+          <li class="pkg-detail pkg-detail--partida">
+            <span class="pkg-detail__icon"><i class="fa-solid fa-location-dot"></i></span>
+            <div>
+              <span class="pkg-detail__label">Ponto de Partida</span>
+              <span class="pkg-detail__value">—</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
-          <div class="pkg-img-box">
-            <!-- Populado pelo JS com a foto secundária -->
-            <div class="pkg-img-ph"><i class="fa-regular fa-image"></i></div>
-          </div>
-        </section>
+  <!-- ======= GALERIA ======= -->
+  <section class="pkg-gallery">
+    <div class="pkg-gallery__grid" id="pkgGallery">
+      <!-- Populado pelo JS -->
+    </div>
+  </section>
 
-        <!-- Inclui / Não Inclui -->
-        <section class="pkg-includes">
-          <div class="pkg-includes__col pkg-includes__col--yes">
-            <h2 class="pkg-includes__title">
-              <i class="fa-solid fa-circle-check"></i>
-              Esta Viagem Inclui
-            </h2>
-            <ul class="pkg-inclui__list"></ul>
-          </div>
-          <div class="pkg-includes__col pkg-includes__col--no">
-            <h2 class="pkg-includes__title">
-              <i class="fa-solid fa-circle-xmark"></i>
-              Não Inclui
-            </h2>
-            <ul class="pkg-nao-inclui__list"></ul>
-          </div>
-        </section>
+  <!-- ======= INCLUI / NÃO INCLUI ======= -->
+  <section class="pkg-includes">
+    <div class="pkg-includes__inner">
+      <div class="pkg-includes__col pkg-includes__col--yes">
+        <h2 class="pkg-includes__title">
+          <i class="fa-solid fa-circle-check"></i>
+          Esta Viagem Inclui
+        </h2>
+        <ul class="pkg-inclui__list"></ul>
+      </div>
+      <div class="pkg-includes__col pkg-includes__col--no">
+        <h2 class="pkg-includes__title">
+          <i class="fa-solid fa-circle-xmark"></i>
+          Esta Viagem Não Inclui
+        </h2>
+        <ul class="pkg-nao-inclui__list"></ul>
+      </div>
+    </div>
+  </section>
 
-        <!-- Itinerário -->
-        <section class="pkg-itinerary">
-          <h2 class="pkg-section-title">Itinerário</h2>
-          <p class="pkg-itinerary__intro">
-            Este itinerário foi pensado para transformar cada momento da viagem
-            numa verdadeira experiência de descoberta — combinando aventura,
-            natureza, cultura e momentos de descanso.
-          </p>
-          <div class="pkg-accordion"></div>
-        </section>
-      </main>
+  <!-- ======= ITINERÁRIO + CTA CARD ======= -->
+  <section class="pkg-itinerary-section">
+    <div class="pkg-itinerary-section__inner">
 
-      <!-- ─── SIDEBAR STICKY ─── -->
-      <aside class="pkg-sidebar">
-        <div class="pkg-sidebar__card">
-          <h3 class="pkg-sidebar__title">Detalhes da Viagem</h3>
+      <!-- Esquerda: accordion -->
+      <div class="pkg-itinerary">
+        <h2 class="pkg-section-title">Itinerário</h2>
+        <p class="pkg-itinerary__intro">
+          Este itinerário foi pensado para transformar cada momento da viagem numa verdadeira experiência de descoberta — combinando aventura, natureza, cultura e momentos de descanso.
+        </p>
+        <div class="pkg-accordion"></div>
+      </div>
 
-          <ul class="pkg-details">
-            <li class="pkg-detail pkg-detail--dur">
-              <span class="pkg-detail__icon"
-                ><i class="fa-regular fa-clock"></i
-              ></span>
-              <div>
-                <span class="pkg-detail__label">Duração</span>
-                <span class="pkg-detail__value">—</span>
-              </div>
-            </li>
-            <li class="pkg-detail pkg-detail--preco">
-              <span class="pkg-detail__icon"
-                ><i class="fa-solid fa-tag"></i
-              ></span>
-              <div>
-                <span class="pkg-detail__label">Preço</span>
-                <span class="pkg-detail__value">—</span>
-              </div>
-            </li>
-            <li class="pkg-detail pkg-detail--partida">
-              <span class="pkg-detail__icon"
-                ><i class="fa-solid fa-location-dot"></i
-              ></span>
-              <div>
-                <span class="pkg-detail__label">Ponto de Partida</span>
-                <span class="pkg-detail__value">—</span>
-              </div>
-            </li>
-          </ul>
+      <!-- Direita: card CTA escuro -->
+      <div class="pkg-cta-card">
+        <h3 class="pkg-cta-card__title" id="pkgCtaTitle">Aventurar-se Agora</h3>
+        <p class="pkg-cta-card__desc pkg-descricao-cta">—</p>
 
-          <!-- Preços por número de pax -->
-          <div class="pkg-precos">
-            <h4 class="pkg-precos__title">Preços por número de pessoas</h4>
-            <ul class="pkg-precos__list"></ul>
-          </div>
-
-          <div class="pkg-sidebar__cta">
-            <a
-              href="https://wa.me/244926509821"
-              target="_blank"
-              class="btn btn--primary btn--full pkg-reservar"
-            >
-              <i class="fa-brands fa-whatsapp"></i>
-              Reservar Agora
-            </a>
-            <a href="index.html#contact" class="pkg-sidebar__contact">
-              <i class="fa-regular fa-envelope"></i>
-              Tenho uma dúvida
-            </a>
-          </div>
+        <!-- Preços por pax -->
+        <div class="pkg-precos">
+          <h4 class="pkg-precos__title">Preços por número de pessoas</h4>
+          <ul class="pkg-precos__list"></ul>
         </div>
+
+        <a href="https://wa.me/244926509821" target="_blank" class="pkg-cta-card__btn">
+          <i class="fa-brands fa-whatsapp"></i>
+          Embarcar
+        </a>
+        <a href="index.html#contact" class="pkg-cta-card__link">
+          <i class="fa-regular fa-envelope"></i>
+          Tenho uma dúvida
+        </a>
 
         <!-- Partilha -->
         <div class="pkg-sidebar__share">
           <span>Partilhar</span>
-          <a href="#" aria-label="WhatsApp"
-            ><i class="fa-brands fa-whatsapp"></i
-          ></a>
-          <a href="#" aria-label="Facebook"
-            ><i class="fa-brands fa-facebook-f"></i
-          ></a>
-          <a href="#" aria-label="Instagram"
-            ><i class="fa-brands fa-instagram"></i
-          ></a>
+          <a href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
         </div>
-      </aside>
+      </div>
+
     </div>
+  </section>
 
-    <!-- ======= OUTROS DESTINOS ======= -->
-    <section class="pkg-more">
-      <div class="section-header">
-        <span class="section-tag">Explore Mais</span>
-        <h2 class="section-title">Conheça Outros Destinos</h2>
-      </div>
-      <div class="packages__grid"></div>
-    </section>
+  <!-- ======= OUTROS DESTINOS ======= -->
+  <section class="pkg-more">
+    <div class="section-header">
+      <span class="section-tag">Veja Mais</span>
+      <h2 class="section-title">Conheça Outros Destinos</h2>
+    </div>
+    <div class="packages__grid"></div>
+  </section>
 
-    <!-- ======= FOOTER ======= -->
-    <footer class="footer">
-      <div class="footer__main">
-        <div class="footer__brand">
-          <img
-            src="imagens/Sem Título-3.png"
-            alt="O Mochilão"
-            class="footer__logo"
-          />
-          <p class="footer__tagline">A experiência é o percurso.</p>
-          <div class="footer__socials">
-            <a
-              href="https://www.instagram.com/o_mochilao/"
-              target="_blank"
-              aria-label="Instagram"
-              ><i class="fa-brands fa-instagram"></i
-            ></a>
-            <a
-              href="https://www.facebook.com"
-              target="_blank"
-              aria-label="Facebook"
-              ><i class="fa-brands fa-facebook-f"></i
-            ></a>
-            <a
-              href="https://www.whatsapp.com/catalog/244926509821/"
-              target="_blank"
-              aria-label="WhatsApp"
-              ><i class="fa-brands fa-whatsapp"></i
-            ></a>
-          </div>
-        </div>
-        <div class="footer__col">
-          <h4 class="footer__heading">Explore</h4>
-          <ul>
-            <li><a href="index.html#packages">Pacotes</a></li>
-            <li><a href="index.html#custom">Viagem Personalizada</a></li>
-            <li><a href="index.html#about">Sobre Nós</a></li>
-            <li><a href="index.html#tips">Dicas de Viagem</a></li>
-          </ul>
-        </div>
-        <div class="footer__col">
-          <h4 class="footer__heading">Contacto</h4>
-          <ul>
-            <li><a href="tel:+244926509821">+244 926 509 821</a></li>
-            <li><a href="mailto:geral@omochilao.ao">geral@omochilao.ao</a></li>
-            <li>
-              <a href="https://wa.me/244926509821" target="_blank">WhatsApp</a>
-            </li>
-          </ul>
+  <!-- ======= FOOTER ======= -->
+  <footer class="footer">
+    <div class="footer__main">
+      <div class="footer__brand">
+        <img src="imagens/Sem Título-3.png" alt="O Mochilão" class="footer__logo">
+        <p class="footer__tagline">A experiência é o percurso.</p>
+        <div class="footer__socials">
+          <a href="https://www.instagram.com/o_mochilao/" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.facebook.com" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://www.whatsapp.com/catalog/244926509821/" target="_blank" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
         </div>
       </div>
-      <div class="footer__bottom">
-        <p>&copy; 2026 O Mochilão Aventuras. Todos os direitos reservados.</p>
+      <div class="footer__col">
+        <h4 class="footer__heading">Explore</h4>
+        <ul>
+          <li><a href="index.html#packages">Pacotes</a></li>
+          <li><a href="index.html#custom">Viagem Personalizada</a></li>
+          <li><a href="index.html#about">Sobre Nós</a></li>
+          <li><a href="index.html#tips">Dicas de Viagem</a></li>
+        </ul>
       </div>
-    </footer>
+      <div class="footer__col">
+        <h4 class="footer__heading">Contacto</h4>
+        <ul>
+          <li><a href="tel:+244926509821">+244 926 509 821</a></li>
+          <li><a href="mailto:geral@omochilao.ao">geral@omochilao.ao</a></li>
+          <li><a href="https://wa.me/244926509821" target="_blank">WhatsApp</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>&copy; 2026 O Mochilão Aventuras. Todos os direitos reservados.</p>
+    </div>
+  </footer>
 
-    <script src="programas.js"></script>
-  </body>
+  <script src="programas.js"></script>
+</body>
 </html>

@@ -1,774 +1,1236 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>O Mochilão Aventuras</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>O Mochilão Aventuras</title>
 
-  <link rel="icon" href="logo5.png">
-  <link rel="stylesheet" href="estilo.css">
+    <link rel="icon" href="logo5.png" />
+    <link rel="stylesheet" href="estilo.css" />
 
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    crossorigin="anonymous" referrerpolicy="no-referrer">
+    <!-- Flag icons (bandeiras reais, funciona em todos os browsers) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/6.11.0/css/flag-icons.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
 
-  <!-- Google Fonts — fallback caso Nekst não carregue -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
-</head>
-<body>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
 
-  <!-- ======= NAVBAR ======= -->
-  <header class="navbar" id="navbar">
-    <a href="#hero" class="navbar__brand">
-      <!--
+    <!-- Google Fonts — fallback caso Nekst não carregue -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- ======= NAVBAR ======= -->
+    <header class="navbar" id="navbar">
+      <a href="#hero" class="navbar__brand">
+        <!--
         LOGO: Substitua o src pelo caminho do seu logo branco
         Recomendado: branco2.png (já tem esse ficheiro)
       -->
-      <img src="imagens/Sem Título-3.png" alt="" class="navbar__logo">
-    </a>
+        <img src="imagens/Sem Título-3.png" alt="" class="navbar__logo" />
+      </a>
 
-    <nav class="navbar__links" id="navLinks">
-      <a href="#tours" class="navbar__link" data-i18n="nav.tours">Viagens</a>
-      <a href="#gallery" class="navbar__link" data-i18n="nav.gallery">Galeria</a>
-      <a href="#custom" class="navbar__link" data-i18n="nav.custom">Personalizado</a>
-      <a href="#about" class="navbar__link" data-i18n="nav.about">Sobre</a>
-      <a href="#tips" class="navbar__link" data-i18n="nav.tips">Dicas</a>
-      <a href="#contact" class="navbar__link navbar__link--cta" data-i18n="nav.contact">Fale Connosco</a>
-    </nav>
+      <nav class="navbar__links" id="navLinks">
+        <a href="#tours" class="navbar__link" data-i18n="nav.tours">Viagens</a>
+        <a href="#gallery" class="navbar__link" data-i18n="nav.gallery"
+          >Galeria</a
+        >
+        <a href="#custom" class="navbar__link" data-i18n="nav.custom"
+          >Personalizado</a
+        >
+        <a href="#about" class="navbar__link" data-i18n="nav.about">Sobre</a>
+        <a href="#tips" class="navbar__link" data-i18n="nav.tips">Dicas</a>
+        <a
+          href="#contact"
+          class="navbar__link navbar__link--cta"
+          data-i18n="nav.contact"
+          >Fale Connosco</a
+        >
+      </nav>
 
-    <button class="navbar__lang" id="langBtn" aria-label="Mudar idioma" title="Mudar idioma">
-      <span class="navbar__lang-flag navbar__lang-pt" aria-label="Português">🇦🇴</span>
-      <span class="navbar__lang-flag navbar__lang-en" aria-label="English">🇬🇧</span>
-    </button>
+      <button
+        class="navbar__lang"
+        id="langBtn"
+        aria-label="Mudar idioma"
+        title="Mudar idioma"
+      >
+        <!-- Bandeira Angola (PT) -->
+        <span class="navbar__lang-flag navbar__lang-pt" aria-label="Português">
+          <span class="fi fi-ao" role="img" aria-label="Angola"></span>
+          <span class="navbar__lang-label">PT</span>
+        </span>
+        <!-- Bandeira UK (EN) -->
+        <span class="navbar__lang-flag navbar__lang-en" aria-label="English">
+          <span class="fi fi-gb" role="img" aria-label="English"></span>
+          <span class="navbar__lang-label">EN</span>
+        </span>
+      </button>
 
-    <button class="navbar__burger" id="burgerBtn" aria-label="Abrir menu" aria-expanded="false">
-      <span class="navbar__burger-line"></span>
-      <span class="navbar__burger-line"></span>
-      <span class="navbar__burger-line"></span>
-    </button>
-  </header>
+      <button
+        class="navbar__burger"
+        id="burgerBtn"
+        aria-label="Abrir menu"
+        aria-expanded="false"
+      >
+        <span class="navbar__burger-line"></span>
+        <span class="navbar__burger-line"></span>
+        <span class="navbar__burger-line"></span>
+      </button>
+    </header>
 
-  <!-- ======= SIDEBAR / DRAWER DE NAVEGAÇÃO ======= -->
-  <div class="sidebar__overlay" id="sidebarOverlay"></div>
-  <aside class="sidebar" id="sidebar">
-    <button class="sidebar__close" id="closeBtn" aria-label="Fechar menu">
-      <i class="fa-solid fa-xmark"></i>
-    </button>
-    <nav class="sidebar__nav">
-      <a href="#hero"    class="sidebar__link">Início</a>
-      <a href="#tours"   class="sidebar__link">Viagens</a>
-      <a href="#gallery" class="sidebar__link">Galeria</a>
-      <a href="#custom"  class="sidebar__link">Personalizado</a>
-      <a href="#about"   class="sidebar__link">Sobre</a>
-      <a href="#team"    class="sidebar__link">Equipa</a>
-      <a href="#tips"    class="sidebar__link">Dicas</a>
-      <a href="#contact" class="sidebar__link">Fale Connosco</a>
-    </nav>
-    
-    <div class="sidebar__footer">
-      <a href="https://www.instagram.com/o_mochilao/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-      <a href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
-      <a href="https://www.tiktok.com/@o.mochilao" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
-    </div>
-  </aside>
+    <!-- ======= SIDEBAR / DRAWER DE NAVEGAÇÃO ======= -->
+    <div class="sidebar__overlay" id="sidebarOverlay"></div>
+    <aside class="sidebar" id="sidebar">
+      <button class="sidebar__close" id="closeBtn" aria-label="Fechar menu">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <nav class="sidebar__nav">
+        <a href="#hero" class="sidebar__link">Início</a>
+        <a href="#tours" class="sidebar__link">Viagens</a>
+        <a href="#gallery" class="sidebar__link">Galeria</a>
+        <a href="#custom" class="sidebar__link">Personalizado</a>
+        <a href="#about" class="sidebar__link">Sobre</a>
+        <a href="#team" class="sidebar__link">Equipa</a>
+        <a href="#tips" class="sidebar__link">Dicas</a>
+        <a href="#contact" class="sidebar__link">Fale Connosco</a>
+      </nav>
 
-  <!-- ======= HERO ======= -->
-  <!--
+      <div class="sidebar__footer">
+        <a href="https://www.instagram.com/o_mochilao/" target="_blank"
+          ><i class="fa-brands fa-instagram"></i
+        ></a>
+        <a
+          href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0"
+          target="_blank"
+          ><i class="fa-brands fa-whatsapp"></i
+        ></a>
+        <a href="https://www.tiktok.com/@o.mochilao" target="_blank"
+          ><i class="fa-brands fa-tiktok"></i
+        ></a>
+      </div>
+    </aside>
+
+    <!-- ======= HERO ======= -->
+    <!--
     IMAGEM DE FUNDO DO HERO:
     Abra estilo.css e procure por ".hero {"
     Substitua o background-image pelo caminho da sua imagem.
     Exemplo: background-image: linear-gradient(...), url('imagens/imagem2.webp');
   -->
-  <section class="hero" id="hero">
-    <div class="hero__content">
-      <p class="hero__badge reveal-fade" data-i18n="hero.badge"> BEM-VINDO AO MOCHILÃO</p>
-      <h1 class="hero__title reveal-up" data-i18n="hero.title">
-        Descubra Angola <br> através de experiências que <br> ficam para a vida
-      </h1>
-      <div class="hero__divider reveal-fade"></div>
-      <p class="hero__subtitle reveal-up" data-i18n="hero.subtitle">
-        Cada viagem começa com uma escolha.<br>
-        Faça a sua e eternize momentos únicos por Angola.
-      </p>
-      <div class="hero__actions reveal-up">
-        <a href="#tours"   class="btn btn--primary" data-i18n="hero.cta1">Faça a sua reserva</a>
-        <a href="#contact" class="btn btn--outline" data-i18n="hero.cta2">Fale connosco</a>
-      </div>
-    </div>
-    <a href="#tours" class="hero__scroll" aria-label="Scroll para baixo">
-      <span>Explorar</span>
-      <i class="fa-solid fa-arrow-down"></i>
-    </a>
-
-    <!-- Cards sobrepostos na base do hero -->
-    <div class="hero__cards-overlap">
-      <div class="tour-card reveal-up" data-destination="cabo-ledo">
-        <div class="tour-card__inner">
-          <span class="tour-card__badge">Sobre rodas <br> <p style="font-size: 15px;">Luanda</p></span>
-          
-          <a class="tour-card__btn" href="programa.html?d=cabo-ledo">Saber Mais <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-      </div>
-
-      <div class="tour-card reveal-up" data-destination="quicama">
-        <div class="tour-card__inner">
-          <span class="tour-card__badge">Safari <br> <p style="font-size: 15px;">Luanda</p></span>
-          <a class="tour-card__btn" href="programa.html?d=quicama">Saber Mais <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-      </div>
-
-      <div class="tour-card reveal-up" data-destination="huambo">
-        <div class="tour-card__inner">
-          <span class="tour-card__badge">Kifuka Camping <br> <p style="font-size: 15px;">Bengo</p></span>
-          <a class="tour-card__btn" href="programa.html?d=huambo">Saber Mais <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-      </div>
-    </div>
-
-  </section>
-
-  <!-- ======= BOTÕES FLUTUANTES ======= -->
-  <div class="float-btns">
-    <a href="#hero" class="float-btn float-btn--top" aria-label="Voltar ao topo">
-      <i class="fa-solid fa-arrow-up"></i>
-    </a>
-    <a href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0"
-       target="_blank" class="float-btn float-btn--wpp" aria-label="WhatsApp">
-      <i class="fa-brands fa-whatsapp"></i>
-    </a>
-  </div>
-
-  <!-- ======= TOURS ======= -->
-  <section class="tours" id="tours">
-  
-  </section>
-
-  <!-- ======= SOBRE ======= -->
-  <section class="about" id="about">
-    <div class="about__content reveal-right">
-      <span class="section-tag" data-i18n="about.tag">Sobre o Mochilão</span>
-      <h2 class="about__title">A experiência é o percurso, o destino é consequência</h2>
-
-      <div class="about_content">
-        <div class="about_line"></div>
-      <span>
-          
-         <p class="about__quote">
-        Acreditamos que cada passo da viagem importa <br>  tanto quanto o lugar a que  chegamos —
-        é <br> nessa jornada que  nascem  as histórias que ficam.
-              </p>
-
-        <p class="about__text">
-          O Mochilão nasceu da paixão e do desejo de explorar Angola em toda a sua grandiosidade. Mais do que uma empresa, somos movidos pelo fascínio de revelar as maravilhas naturais,
-          os povos, as culturas e a rica gastronomia que compõem o vasto mosaico cultural angolano.
+    <section class="hero" id="hero">
+      <div class="hero__content">
+        <p class="hero__badge reveal-fade" data-i18n="hero.badge">
+          BEM-VINDO AO MOCHILÃO
         </p>
-        <button type="button" class="btn btn--primary about__cta">Saber Mais</button>
-      </span>
-      
+        <h1 class="hero__title reveal-up" data-i18n="hero.title">
+          Descubra Angola <br />
+          através de experiências que <br />
+          ficam para a vida
+        </h1>
+        <div class="hero__divider reveal-fade"></div>
+        <p class="hero__subtitle reveal-up" data-i18n="hero.subtitle">
+          Cada viagem começa com uma escolha.<br />
+          Faça a sua e eternize momentos únicos por Angola.
+        </p>
+        <div class="hero__actions reveal-up">
+          <a href="#tours" class="btn btn--primary" data-i18n="hero.cta1"
+            >Faça a sua reserva</a
+          >
+          <a href="#contact" class="btn btn--outline" data-i18n="hero.cta2"
+            >Fale connosco</a
+          >
+        </div>
       </div>
+      <a href="#tours" class="hero__scroll" aria-label="Scroll para baixo">
+        <span>Explorar</span>
+        <i class="fa-solid fa-arrow-down"></i>
+      </a>
 
-      
+      <!-- Cards sobrepostos na base do hero -->
+      <div class="hero__cards-overlap">
+        <div class="tour-card reveal-up" data-destination="cabo-ledo">
+          <div class="tour-card__inner">
+            <span class="tour-card__badge"
+              >Sobre rodas <br />
+              <p style="font-size: 15px">Luanda</p></span
+            >
+
+            <a class="tour-card__btn" href="programa.html?d=cabo-ledo"
+              >Saber Mais
+            </a>
+          </div>
+        </div>
+
+        <div class="tour-card reveal-up" data-destination="quicama">
+          <div class="tour-card__inner">
+            <span class="tour-card__badge"
+              >Safari <br />
+              <p style="font-size: 15px">Luanda</p></span
+            >
+            <a class="tour-card__btn" href="programa.html?d=quicama"
+              >Saber Mais
+            </a>
+          </div>
+        </div>
+
+        <div class="tour-card reveal-up" data-destination="huambo">
+          <div class="tour-card__inner">
+            <span class="tour-card__badge"
+              >Kifuka Camping <br />
+              <p style="font-size: 15px">Bengo</p></span
+            >
+            <a class="tour-card__btn" href="programa.html?d=huambo"
+              >Saber Mais
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======= BOTÕES FLUTUANTES ======= -->
+    <div class="float-btns">
+      <a
+        href="#hero"
+        class="float-btn float-btn--top"
+        aria-label="Voltar ao topo"
+      >
+        <i class="fa-solid fa-arrow-up"></i>
+      </a>
+      <a
+        href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0"
+        target="_blank"
+        class="float-btn float-btn--wpp"
+        aria-label="WhatsApp"
+      >
+        <i class="fa-brands fa-whatsapp"></i>
+      </a>
     </div>
 
-    <div class="about__image reveal-left">
-      <div class="about__visual">
-        <!--
+    <!-- ======= TOURS ======= -->
+    <section class="tours" id="tours"></section>
+
+  
+
+    <!-- ======= SOBRE ======= -->
+    <section class="about" id="about">
+      <div class="about__content reveal-right">
+        <span class="section-tag" data-i18n="about.tag">Sobre o Mochilão</span>
+        <h2 class="about__title">
+          A experiência é o percurso, o destino é consequência
+        </h2>
+
+        <div class="about_content">
+          <div class="about_line"></div>
+          <span>
+            <p class="about__quote">
+              Acreditamos que cada passo da viagem importa <br />
+              tanto quanto o lugar a que chegamos. É <br />
+              nessa jornada que nascem as histórias que ficam.
+            </p>
+
+            <p class="about__text">
+              O Mochilão nasceu da paixão e do desejo de explorar Angola em toda
+              a sua grandiosidade. Mais do que uma empresa, somos movidos pelo
+              fascínio de revelar as maravilhas naturais, os povos, as culturas
+              e a rica gastronomia que compõem o vasto mosaico cultural
+              angolano.
+            </p>
+            <button type="button" class="btn btn--primary about__cta">
+              Saber Mais
+            </button>
+          </span>
+        </div>
+      </div>
+
+      <div class="about__image reveal-left">
+        <div class="about__visual">
+          <!--
           IMAGEM DA SECÇÃO SOBRE:
           <img src="imagens/mochi2.webp" alt="Equipa Mochilão" class="about__photo">
           Ou configure o background-image no CSS em ".about__visual"
-        -->
-       
+        --></div>
+
+        <!-- CONTADORES — sobrepostos na base da foto -->
+        <div class="counters" id="counters">
+          <div class="counter">
+            <p class="counter__value">
+              <span class="counter__num" data-target="120">0</span
+              ><span class="counter__suffix">+</span>
+            </p>
+            <p class="counter__label" data-i18n="about.counter1">Viagens</p>
+          </div>
+          <div class="counter">
+            <p class="counter__value">
+              <span class="counter__num" data-target="300">0</span>
+            </p>
+            <p class="counter__label" data-i18n="about.counter2">Clientes</p>
+          </div>
+          <div class="counter">
+            <p class="counter__value">
+              <span class="counter__num" data-target="98">0</span
+              ><span class="counter__suffix">%</span>
+            </p>
+            <p class="counter__label" data-i18n="about.counter3">Satisfação</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======= DICAS ======= -->
+    <section class="tips" id="tips">
+      <div class="tips__header reveal-up">
+        <div class="tips__header-left">
+          <span class="section-tag" data-i18n="tips.tag">Dicas de Viagem</span>
+          <h2 class="section-title">Prepare-se<br />para a aventura.</h2>
+        </div>
+        <p class="tips__subtitle">
+          Pequenos detalhes que fazem a diferença entre uma boa viagem e uma
+          viagem inesquecível.
+        </p>
       </div>
 
-      <!-- CONTADORES — sobrepostos na base da foto -->
-      <div class="counters" id="counters">
-        <div class="counter">
-          <p class="counter__value">
-            <span class="counter__num" data-target="120">0</span><span class="counter__suffix">+</span>
-          </p>
-          <p class="counter__label" data-i18n="about.counter1">Viagens</p>
+      <div class="tips__grid">
+        <div class="tip-card reveal-up">
+          <button
+            class="tip-card__trigger"
+            type="button"
+            aria-expanded="false"
+            aria-controls="tip-body-1"
+            aria-label="Calçado certo"
+            title="Calçado certo"
+          >
+            <span class="tip-card__icon-wrap">
+              <i class="fa-solid fa-shoe-prints"></i>
+            </span>
+          </button>
+          <div class="tip-card__body" id="tip-body-1" hidden>
+            <h4 class="tip-card__title">Calçado certo</h4>
+            <ul class="tip-card__list">
+              <li>Botas de trilha para terrenos irregulares</li>
+              <li>Sandálias resistentes em destinos quentes</li>
+            </ul>
+          </div>
         </div>
-        <div class="counter">
-          <p class="counter__value">
-            <span class="counter__num" data-target="300">0</span>
-          </p>
-          <p class="counter__label" data-i18n="about.counter2">Clientes</p>
+
+        <div class="tip-card reveal-up">
+          <button
+            class="tip-card__trigger"
+            type="button"
+            aria-expanded="false"
+            aria-controls="tip-body-2"
+            aria-label="Vestuário adequado"
+            title="Vestuário adequado"
+          >
+            <span class="tip-card__icon-wrap">
+              <i class="fa-solid fa-shirt"></i>
+            </span>
+          </button>
+          <div class="tip-card__body" id="tip-body-2" hidden>
+            <h4 class="tip-card__title">Vestuário adequado</h4>
+            <ul class="tip-card__list">
+              <li>Roupas leves e respiráveis para o calor</li>
+              <li>Camadas térmicas e impermeáveis para o frio</li>
+            </ul>
+          </div>
         </div>
-        <div class="counter">
-          <p class="counter__value">
-            <span class="counter__num" data-target="98">0</span><span class="counter__suffix">%</span>
-          </p>
-          <p class="counter__label" data-i18n="about.counter3">Satisfação</p>
+
+        <div class="tip-card reveal-up">
+          <button
+            class="tip-card__trigger"
+            type="button"
+            aria-expanded="false"
+            aria-controls="tip-body-3"
+            aria-label="Documentos seguros"
+            title="Documentos seguros"
+          >
+            <span class="tip-card__icon-wrap">
+              <i class="fa-solid fa-id-card"></i>
+            </span>
+          </button>
+          <div class="tip-card__body" id="tip-body-3" hidden>
+            <h4 class="tip-card__title">Documentos seguros</h4>
+            <ul class="tip-card__list">
+              <li>Pochete antifurto para dinheiro e passaporte</li>
+              <li>Cópias digitais dos documentos importantes</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tip-card reveal-up">
+          <button
+            class="tip-card__trigger"
+            type="button"
+            aria-expanded="false"
+            aria-controls="tip-body-4"
+            aria-label="Hidratação"
+            title="Hidratação"
+          >
+            <span class="tip-card__icon-wrap">
+              <i class="fa-solid fa-droplet"></i>
+            </span>
+          </button>
+          <div class="tip-card__body" id="tip-body-4" hidden>
+            <h4 class="tip-card__title">Hidratação</h4>
+            <ul class="tip-card__list">
+              <li>Garrafa reutilizável em trilhas e dias quentes</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tip-card reveal-up">
+          <button
+            class="tip-card__trigger"
+            type="button"
+            aria-expanded="false"
+            aria-controls="tip-body-5"
+            aria-label="Proteção solar"
+            title="Proteção solar"
+          >
+            <span class="tip-card__icon-wrap">
+              <i class="fa-solid fa-sun"></i>
+            </span>
+          </button>
+          <div class="tip-card__body" id="tip-body-5" hidden>
+            <h4 class="tip-card__title">Proteção solar</h4>
+            <ul class="tip-card__list">
+              <li>Protetor solar e repelente de insetos</li>
+              <li>Essencial em áreas tropicais</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tip-card reveal-up">
+          <button
+            class="tip-card__trigger"
+            type="button"
+            aria-expanded="false"
+            aria-controls="tip-body-6"
+            aria-label="Planeie a rota"
+            title="Planeie a rota"
+          >
+            <span class="tip-card__icon-wrap">
+              <i class="fa-solid fa-map"></i>
+            </span>
+          </button>
+          <div class="tip-card__body" id="tip-body-6" hidden>
+            <h4 class="tip-card__title">Planeie a rota</h4>
+            <ul class="tip-card__list">
+              <li>Estude o destino, o clima e os desafios do percurso</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tip-card reveal-up">
+          <button
+            class="tip-card__trigger"
+            type="button"
+            aria-expanded="false"
+            aria-controls="tip-body-7"
+            aria-label="Energia garantida"
+            title="Energia garantida"
+          >
+            <span class="tip-card__icon-wrap">
+              <i class="fa-solid fa-battery-full"></i>
+            </span>
+          </button>
+          <div class="tip-card__body" id="tip-body-7" hidden>
+            <h4 class="tip-card__title">Energia garantida</h4>
+            <ul class="tip-card__list">
+              <li>Power bank para emergências no campo</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tip-card reveal-up">
+          <button
+            class="tip-card__trigger"
+            type="button"
+            aria-expanded="false"
+            aria-controls="tip-body-8"
+            aria-label="Respeite a natureza"
+            title="Respeite a natureza"
+          >
+            <span class="tip-card__icon-wrap">
+              <i class="fa-solid fa-leaf"></i>
+            </span>
+          </button>
+          <div class="tip-card__body" id="tip-body-8" hidden>
+            <h4 class="tip-card__title">Respeite a natureza</h4>
+            <ul class="tip-card__list">
+              <li>Não deixe lixo e siga as regras de preservação local</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tip-card reveal-up">
+          <button
+            class="tip-card__trigger"
+            type="button"
+            aria-expanded="false"
+            aria-controls="tip-body-9"
+            aria-label="Siga os guias"
+            title="Siga os guias"
+          >
+            <span class="tip-card__icon-wrap">
+              <i class="fa-solid fa-compass"></i>
+            </span>
+          </button>
+          <div class="tip-card__body" id="tip-body-9" hidden>
+            <h4 class="tip-card__title">Siga os guias</h4>
+            <ul class="tip-card__list">
+              <li>
+                Em tour guiado, cumpra todas as recomendações de segurança
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tip-card reveal-up">
+          <button
+            class="tip-card__trigger"
+            type="button"
+            aria-expanded="false"
+            aria-controls="tip-body-10"
+            aria-label="Primeiros socorros"
+            title="Primeiros socorros"
+          >
+            <span class="tip-card__icon-wrap">
+              <i class="fa-solid fa-kit-medical"></i>
+            </span>
+          </button>
+          <div class="tip-card__body" id="tip-body-10" hidden>
+            <h4 class="tip-card__title">Primeiros socorros</h4>
+            <ul class="tip-card__list">
+              <li>Kit de primeiros socorros incluído em todas as viagens</li>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ======= VIAGENS EM GRUPO ======= -->
-  <section class="packages" id="packages">
-    <div class="section-header reveal-up">
-      <span class="section-tag" data-i18n="pkg.tag">Viagens em Grupo</span>
-      <h2 class="section-title">Experiências únicas em Angola</h2>
-      <p class="section-desc">Roteiros com data marcada, feitos para viver em grupo. Escolhe o teu próximo destino.</p>
-    </div>
 
-    <div class="packages__grid">
-      <!--
+    <!-- ======= VIAGENS EM GRUPO ======= -->
+    <section class="packages" id="packages">
+      <div class="section-header reveal-up">
+        <span class="section-tag" data-i18n="pkg.tag">Viagens em Grupo</span>
+        <h2 class="section-title">
+          Experiências únicas <br />
+          em Angola
+        </h2>
+        <p class="section-desc">
+          Roteiros com data marcada, feitos <br />
+          para viver em grupo. Escolhe o teu próximo destino.
+        </p>
+      </div>
+
+      <div class="packages__grid">
+        <!--
         IMAGEM DE CADA PACOTE:
         Substitua cada <div class="package-card__ph"> por uma <img> com a foto do destino.
         Exemplo:
         <img src="imagens/nome-do-destino.webp" alt="Nome do destino" class="package-card__img">
       -->
 
-      <article class="package-card reveal-up">
-        <div class="package-card__media">
-          <div class="package-card__ph"><i class="fa-solid fa-mountain-sun"></i></div>
-        </div>
-        <div class="package-card__body">
-          <h3 class="package-card__title">Cabo Ledo, 2 Dias</h3>
-          <p class="package-card__desc">Dunas, mar e adrenalina a poucas horas de Luanda, numa escapadela intensa em grupo.</p>
-
-          <div class="package-card__meta">
-            <div class="package-card__meta-item">
-              <span class="package-card__meta-label">Preço/Pax</span>
-              <span class="package-card__meta-value">45.000 Kz</span>
-            </div>
-            <div class="package-card__meta-item">
-              <span class="package-card__meta-label">Duração</span>
-              <span class="package-card__meta-value">2 Dias</span>
+        <article class="package-card reveal-up">
+          <div class="package-card__media">
+            <div class="package-card__ph">
+              <i class="fa-solid fa-mountain-sun"></i>
             </div>
           </div>
+          <div class="package-card__body">
+            <h3 class="package-card__title">Cabo Ledo, 2 Dias</h3>
+            <p class="package-card__desc">
+              Dunas, mar e adrenalina a poucas horas de Luanda, numa escapadela
+              intensa em grupo.
+            </p>
 
-          <div class="package-card__actions">
-            <button type="button" class="btn btn--primary btn--sm pkg-btn" data-open-reservation data-destination="cabo-ledo">
-              Saber Mais
-            </button>
-          </div>
-        </div>
-      </article>
-
-      <article class="package-card reveal-up">
-        <div class="package-card__media">
-          <div class="package-card__ph"><i class="fa-solid fa-paw"></i></div>
-        </div>
-        <div class="package-card__body">
-          <h3 class="package-card__title">Safari na Quiçama, 1 Dia</h3>
-          <p class="package-card__desc">Um dia inteiro no Parque Nacional da Quiçama à procura da vida selvagem angolana.</p>
-
-          <div class="package-card__meta">
-            <div class="package-card__meta-item">
-              <span class="package-card__meta-label">Preço/Pax</span>
-              <span class="package-card__meta-value">38.000 Kz</span>
+            <div class="package-card__meta">
+              <div class="package-card__meta-item">
+                <span class="package-card__meta-label">Preço/Pax</span>
+                <span class="package-card__meta-value">45.000 Kz</span>
+              </div>
+              <div class="package-card__meta-item">
+                <span class="package-card__meta-label">Duração</span>
+                <span class="package-card__meta-value">2 Dias</span>
+              </div>
             </div>
-            <div class="package-card__meta-item">
-              <span class="package-card__meta-label">Duração</span>
-              <span class="package-card__meta-value">1 Dia</span>
-            </div>
-          </div>
 
-          <div class="package-card__actions">
-            <button type="button" class="btn btn--primary btn--sm pkg-btn" data-open-reservation data-destination="quicama">
-              Saber Mais
-            </button>
-          </div>
-        </div>
-      </article>
-
-      <article class="package-card reveal-up">
-        <div class="package-card__media">
-          <div class="package-card__ph"><i class="fa-solid fa-campground"></i></div>
-        </div>
-        <div class="package-card__body">
-          <h3 class="package-card__title">Kifuka Camping, 3 Dias</h3>
-          <p class="package-card__desc">Acampamento em plena natureza no Bengo, entre trilhos, fogueira e noites de céu aberto.</p>
-
-          <div class="package-card__meta">
-            <div class="package-card__meta-item">
-              <span class="package-card__meta-label">Preço/Pax</span>
-              <span class="package-card__meta-value">62.000 Kz</span>
-            </div>
-            <div class="package-card__meta-item">
-              <span class="package-card__meta-label">Duração</span>
-              <span class="package-card__meta-value">3 Dias</span>
+            <div class="package-card__actions">
+              <button
+                type="button"
+                class="btn btn--primary btn--sm pkg-btn"
+                data-open-reservation
+                data-destination="cabo-ledo"
+              >
+                Saber Mais
+              </button>
             </div>
           </div>
+        </article>
 
-          <div class="package-card__actions">
-            <button type="button" class="btn btn--primary btn--sm pkg-btn" data-open-reservation data-destination="huambo">
-              Saber Mais
-            </button>
+        <article class="package-card reveal-up">
+          <div class="package-card__media">
+            <div class="package-card__ph"><i class="fa-solid fa-paw"></i></div>
           </div>
-        </div>
-      </article>
-    </div>
+          <div class="package-card__body">
+            <h3 class="package-card__title">Safari na Quiçama, 1 Dia</h3>
+            <p class="package-card__desc">
+              Um dia inteiro no Parque Nacional da Quiçama à procura da vida
+              selvagem angolana.
+            </p>
 
-    <div class="packages__cta reveal-up">
-      <a href="#tours" class="btn btn--outline-dark">Ver Todas as Viagens</a>
-    </div>
-  </section>
+            <div class="package-card__meta">
+              <div class="package-card__meta-item">
+                <span class="package-card__meta-label">Preço/Pax</span>
+                <span class="package-card__meta-value">38.000 Kz</span>
+              </div>
+              <div class="package-card__meta-item">
+                <span class="package-card__meta-label">Duração</span>
+                <span class="package-card__meta-value">1 Dia</span>
+              </div>
+            </div>
 
-  <!-- ======= GALERIA ======= -->
-  <section class="gallery" id="gallery">
-    <div class="section-header reveal-up">
-      <span class="section-tag" data-i18n="gallery.tag">Momentos</span>
-      <h2 class="section-title">Galeria de Aventuras</h2>
-      <p class="section-desc">Momentos reais das nossas viagens. Segue-nos no Instagram para mais.</p>
-    </div>
+            <div class="package-card__actions">
+              <button
+                type="button"
+                class="btn btn--primary btn--sm pkg-btn"
+                data-open-reservation
+                data-destination="quicama"
+              >
+                Saber Mais
+              </button>
+            </div>
+          </div>
+        </article>
 
-    <div class="gallery__grid">
-      <!--
-        IMAGENS DA GALERIA:
-        Substitua cada <div class="gallery__ph"> por uma <img> com a sua foto.
-        Exemplo:
-        <a href="https://www.instagram.com/o_mochilao/" target="_blank" class="gallery__item gallery__item--1 reveal-up">
-          <img src="imagens/foto1.webp" alt="Aventura" loading="lazy">
-          <div class="gallery__hover"><i class="fa-brands fa-instagram"></i></div>
-        </a>
+        <article class="package-card reveal-up">
+          <div class="package-card__media">
+            <div class="package-card__ph">
+              <i class="fa-solid fa-campground"></i>
+            </div>
+          </div>
+          <div class="package-card__body">
+            <h3 class="package-card__title">Kifuka Camping, 3 Dias</h3>
+            <p class="package-card__desc">
+              Acampamento em plena natureza no Bengo, entre trilhos, fogueira e
+              noites de céu aberto.
+            </p>
 
-        Ou adicione background-image a cada .gallery__item--N em estilo.css
-      -->
-      <a href="https://www.instagram.com/o_mochilao/" target="_blank" class="gallery__item gallery__item--1 reveal-up">
-        <div class="gallery__ph"><i class="fa-regular fa-image"></i></div>
-        <div class="gallery__hover"><i class="fa-brands fa-instagram"></i></div>
-      </a>
-      <a href="https://www.instagram.com/o_mochilao/" target="_blank" class="gallery__item gallery__item--2 reveal-up">
-        <div class="gallery__ph"><i class="fa-regular fa-image"></i></div>
-        <div class="gallery__hover"><i class="fa-brands fa-instagram"></i></div>
-      </a>
-      <a href="https://www.instagram.com/o_mochilao/" target="_blank" class="gallery__item gallery__item--3 reveal-up">
-        <div class="gallery__ph"><i class="fa-regular fa-image"></i></div>
-        <div class="gallery__hover"><i class="fa-brands fa-instagram"></i></div>
-      </a>
-      <a href="https://www.instagram.com/o_mochilao/" target="_blank" class="gallery__item gallery__item--4 reveal-up">
-        <div class="gallery__ph"><i class="fa-regular fa-image"></i></div>
-        <div class="gallery__hover"><i class="fa-brands fa-instagram"></i></div>
-      </a>
-      <a href="https://www.instagram.com/o_mochilao/" target="_blank" class="gallery__item gallery__item--5 reveal-up">
-        <div class="gallery__ph"><i class="fa-regular fa-image"></i></div>
-        <div class="gallery__hover"><i class="fa-brands fa-instagram"></i></div>
-      </a>
-      <a href="https://www.instagram.com/o_mochilao/" target="_blank" class="gallery__item gallery__item--6 reveal-up">
-        <div class="gallery__ph"><i class="fa-regular fa-image"></i></div>
-        <div class="gallery__hover"><i class="fa-brands fa-instagram"></i></div>
-      </a>
-      <a href="https://www.instagram.com/o_mochilao/" target="_blank" class="gallery__item gallery__item--7 reveal-up">
-        <div class="gallery__ph"><i class="fa-regular fa-image"></i></div>
-        <div class="gallery__hover"><i class="fa-brands fa-instagram"></i></div>
-      </a>
-      <a href="https://www.instagram.com/o_mochilao/" target="_blank" class="gallery__item gallery__item--8 reveal-up">
-        <div class="gallery__ph"><i class="fa-regular fa-image"></i></div>
-        <div class="gallery__hover"><i class="fa-brands fa-instagram"></i></div>
-      </a>
-    </div>
+            <div class="package-card__meta">
+              <div class="package-card__meta-item">
+                <span class="package-card__meta-label">Preço/Pax</span>
+                <span class="package-card__meta-value">62.000 Kz</span>
+              </div>
+              <div class="package-card__meta-item">
+                <span class="package-card__meta-label">Duração</span>
+                <span class="package-card__meta-value">3 Dias</span>
+              </div>
+            </div>
 
-    <div class="gallery__cta reveal-up">
-      <a href="https://www.instagram.com/o_mochilao/" target="_blank" class="btn btn--outline-dark">
-        <i class="fa-brands fa-instagram"></i> Ver mais no Instagram
-      </a>
-    </div>
-  </section>
-
-  <!-- ======= LUGARES & CULTURAS ======= -->
-  <section class="places" id="places">
-    <div class="places__text reveal-left">
-      <span class="section-tag">Em Breve</span>
-      <h2 class="places__title">Lugares e Culturas</h2>
-      <p class="places__lead"><strong>Viajar é mais do que conhecer lugares — é conectar-se com o mundo.</strong></p>
-      <p class="places__body">
-        Em breve, lançaremos o nosso canal oficial no YouTube com vlogs exclusivos sobre os destinos visitados.
-        Cada vídeo trará paisagens, pontos turísticos, culturas, tradições locais e histórias de quem vive em cada lugar.
-      </p>
-      <a href="https://www.youtube.com" target="_blank" class="btn btn--primary">
-        <i class="fa-brands fa-youtube"></i>&nbsp; Subscreve o canal
-      </a>
-    </div>
-    <div class="places__map reveal-right">
-      <!--
-        MAPA DE ANGOLA:
-        Substitua o src pelo seu ficheiro de mapa se mudar de nome.
-      -->
-      <img src="imagens/angola-removebg-preview.png" alt="Mapa de Angola" loading="lazy">
-    </div>
-  </section>
-
-  <!-- ======= PROGRAMA PERSONALIZADO ======= -->
-  <section class="custom" id="custom">
-
-    <!-- Lado esquerdo — imagem -->
-    <div class="custom__visual reveal-left">
-      <!--
-        IMAGEM DO PROGRAMA PERSONALIZADO:
-        Substitua o div abaixo por:
-        <img src="imagens/personalizado.webp" alt="Programa Personalizado" class="custom__photo">
-      -->
-      <div class="custom__img-placeholder">
-        <i class="fa-solid fa-route"></i>
+            <div class="package-card__actions">
+              <button
+                type="button"
+                class="btn btn--primary btn--sm pkg-btn"
+                data-open-reservation
+                data-destination="huambo"
+              >
+                Saber Mais
+              </button>
+            </div>
+          </div>
+        </article>
       </div>
 
-      <!-- Tag flutuante sobre a imagem -->
-      <div class="custom__float-tag">
-        <i class="fa-solid fa-sliders"></i>
-        <span>100% à sua medida</span>
+      <div class="packages__cta reveal-up">
+        <a href="#tours" class="btn btn--outline-dark">Ver Todas as Viagens</a>
+      </div>
+    </section>
+
+    <!-- ======= RESERVA CTA ======= -->
+  <section class="reserve" id="reserve">
+
+    <!-- Esquerda: foto -->
+    <div class="reserve__img-wrap reveal-left">
+      <!--
+        FOTO:
+        Substitua o div.reserve__img-ph por uma tag <img>:
+        <img src="imagens/reserve-photo.webp" alt="Reserve agora" class="reserve__img" loading="lazy">
+        Ou defina: .reserve__img-wrap { background-image: url('imagens/reserve-photo.webp'); }
+      -->
+      <div class="reserve__img-ph">
+        <i class="fa-regular fa-image"></i>
       </div>
     </div>
 
-    <!-- Lado direito — conteúdo -->
-    <div class="custom__content reveal-right">
-      <span class="section-tag section-tag--light" data-i18n="custom.tag">Programa Personalizado</span>
+    <!-- Direita: texto + contactos -->
+    <div class="reserve__content reveal-right">
 
-      <h2 class="custom__title">
-        Crie a sua<br>
-        <em class="custom__title-em">própria aventura.</em>
+      <span class="reserve__eyebrow" data-i18n="reserve.tag">Faça já a sua reserva</span>
+
+      <h2 class="reserve__title" data-i18n="reserve.title">
+        Reserve agora e crie memórias únicas!
       </h2>
 
-      <p class="custom__lead">
-        Não encontrou o destino certo? Nós construímos a viagem à sua imagem — datas, percurso, grupo e ritmo definidos por si.
+      <div class="reserve__divider"></div>
+
+      <p class="reserve__desc" data-i18n="reserve.desc">
+        Embarque connosco em busca de experiências autênticas que nos conectam
+        profundamente à cultura e às paisagens únicas desta região fascinante.
       </p>
 
-      <!-- Passos -->
-      <ol class="custom__steps">
-        <li class="custom__step">
-          <span class="custom__step-num">01</span>
-          <div>
-            <strong>Diz-nos o que queres</strong>
-            <p>Destino, duração, número de pessoas e experiências que procura.</p>
-          </div>
-        </li>
-        <li class="custom__step">
-          <span class="custom__step-num">02</span>
-          <div>
-            <strong>Nós desenhamos o roteiro</strong>
-            <p>A nossa equipa cria um plano detalhado e personalizado para si.</p>
-          </div>
-        </li>
-        <li class="custom__step">
-          <span class="custom__step-num">03</span>
-          <div>
-            <strong>Parte em aventura</strong>
-            <p>Tudo tratado — logística, guias e suporte durante toda a viagem.</p>
-          </div>
-        </li>
-      </ol>
-
-      <div class="custom__actions">
-        <button type="button" class="btn btn--light" data-open-reservation data-destination="personalizado">
-          Iniciar o meu programa &nbsp;<i class="fa-solid fa-arrow-right"></i>
-        </button>
-        <a href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0"
-           target="_blank" class="custom__wpp">
-          <i class="fa-brands fa-whatsapp"></i>
-          <span>Falar com a equipa</span>
-        </a>
+      <!-- Contactos: telefone + email -->
+      <div class="reserve__contacts">
+        <div class="reserve__contact-item">
+          <span class="reserve__contact-label" data-i18n="reserve.phoneLabel">Telefone</span>
+          <a href="tel:+244926509821" class="reserve__contact-value">+244 926 509 821</a>
+        </div>
+        <div class="reserve__contact-item">
+          <span class="reserve__contact-label" data-i18n="reserve.emailLabel">E-mail</span>
+          <a href="mailto:geral@omochilao.ao" class="reserve__contact-value">geral@omochilao.ao</a>
+        </div>
       </div>
+
     </div>
 
   </section>
 
-  <!-- ======= EQUIPA ======= --> 
-  <section class="team" id="team">
-    <div class="section-header reveal-up">
-      <span class="section-tag" data-i18n="team.tag">Quem Somos</span>
-      <h2 class="section-title">Conheça a Equipa</h2>
-      <p class="section-desc">Quem pilota as aventuras por trás dos bastidores.</p>
-    </div>
+    <!-- ======= GALERIA ======= -->
+    <section class="gallery" id="gallery">
+      <!-- ── Coluna esquerda: título + texto + link + foto grande ── -->
+      <div class="gallery__left">
+        <div class="gallery__left-body">
+          <h2 class="gallery__heading" data-i18n="gallery.title">
+            Galeria<br />de
+            <em class="gallery__heading-accent">Aventuras.</em>
+          </h2>
 
-    <div class="team__grid">
-      <!--
-        FOTOS DA EQUIPA:
-        Para cada membro, adicione background-image no CSS em:
-        .team-card[data-member="perpetuo"] { background-image: url('imagens/assis.webp'); }
-        .team-card[data-member="matias"]   { background-image: url('imagens/matias.webp'); }
-        .team-card[data-member="funeno"]   { background-image: url('imagens/funeno.webp'); }
-      -->
-      <div class="team-card reveal-up" data-member="perpetuo">
-        <div class="team-card__photo">
-          <div class="team-card__ph"><i class="fa-solid fa-user"></i></div>
-        </div>
-        <div class="team-card__info">
-          <h3 class="team-card__name">Perpétuo de Assis</h3>
-          <p class="team-card__role">Fundador &amp; Guia Principal</p>
-          <a href="#" target="_blank" class="team-card__social" aria-label="Instagram">
-            <i class="fa-brands fa-instagram"></i>
+          <p class="gallery__text" data-i18n="gallery.desc">
+            Momentos reais das nossas viagens por Angola. Cada fotografia conta
+            uma história de descoberta, aventura e conexão com a natureza.
+          </p>
+
+          <!-- Foto grande vertical — em baixo à esquerda -->
+          <a
+            href="https://www.instagram.com/o_mochilao/"
+            target="_blank"
+            class="gallery__item gallery__item--main"
+          >
+            <div class="gallery__ph"><i class="fa-regular fa-image"></i></div>
+            <div class="gallery__hover">
+              <i class="fa-brands fa-instagram"></i>
+            </div>
           </a>
         </div>
       </div>
 
-      <div class="team-card reveal-up" data-member="matias">
-        <div class="team-card__photo">
-          <div class="team-card__ph"><i class="fa-solid fa-user"></i></div>
-        </div>
-        <div class="team-card__info">
-          <h3 class="team-card__name">Matias Matis</h3>
-          <p class="team-card__role">Coordenador de Viagens</p>
-          <a href="#" target="_blank" class="team-card__social" aria-label="Instagram">
+      <!-- ── Coluna direita: grid 2×2 ── -->
+      <div class="gallery__right">
+        <a
+          href="https://www.instagram.com/o_mochilao/"
+          target="_blank"
+          class="gallery__item gallery__item--r1"
+        >
+          <div class="gallery__ph"><i class="fa-regular fa-image"></i></div>
+          <div class="gallery__hover">
             <i class="fa-brands fa-instagram"></i>
+          </div>
+        </a>
+
+        <a
+          href="https://www.instagram.com/o_mochilao/"
+          target="_blank"
+          class="gallery__item gallery__item--r2"
+        >
+          <div class="gallery__ph"><i class="fa-regular fa-image"></i></div>
+          <div class="gallery__hover">
+            <i class="fa-brands fa-instagram"></i>
+          </div>
+        </a>
+
+        <a
+          href="https://www.instagram.com/o_mochilao/"
+          target="_blank"
+          class="gallery__item gallery__item--r3"
+        >
+          <div class="gallery__ph"><i class="fa-regular fa-image"></i></div>
+          <div class="gallery__hover">
+            <i class="fa-brands fa-instagram"></i>
+          </div>
+        </a>
+
+        <a
+          href="https://www.instagram.com/o_mochilao/"
+          target="_blank"
+          class="gallery__item gallery__item--r4"
+        >
+          <div class="gallery__ph"><i class="fa-regular fa-image"></i></div>
+          <div class="gallery__hover">
+            <i class="fa-brands fa-instagram"></i>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- ======= EQUIPA ======= -->
+    <section class="team" id="team">
+      <div class="team__left reveal-left">
+        <div class="section-header">
+          <span class="section-tag" data-i18n="team.tag">Quem Somos</span>
+          <h2 class="section-title" data-i18n="team.title">Conheça a Equipa</h2>
+          <p class="section-desc" data-i18n="team.desc">
+            Quem pilota as aventuras por trás dos bastidores.
+          </p>
+        </div>
+      </div>
+
+      <div class="team__right reveal-right">
+        <div class="team-carousel">
+          <div class="team-carousel__cards" id="teamCards">
+            <!-- Card 1 -->
+            <div class="team-card" data-member="perpetuo" data-pos="0">
+              <div class="team-card__info">
+                <h3 class="team-card__name">Perpétuo de Assis</h3>
+                <p class="team-card__role">Fundador &amp; Guia Principal</p>
+                <a
+                  href="#"
+                  target="_blank"
+                  class="team-card__social"
+                  aria-label="Instagram"
+                >
+                  <i class="fa-brands fa-instagram"></i>
+                </a>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="team-card" data-member="matias" data-pos="1">
+              <div class="team-card__info">
+                <h3 class="team-card__name">Matias Matis</h3>
+                <p class="team-card__role">Coordenador de Viagens</p>
+                <a
+                  href="#"
+                  target="_blank"
+                  class="team-card__social"
+                  aria-label="Instagram"
+                >
+                  <i class="fa-brands fa-instagram"></i>
+                </a>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="team-card" data-member="funeno" data-pos="2">
+              <div class="team-card__info">
+                <h3 class="team-card__name">Funeno Puca</h3>
+                <p class="team-card__role">Guia &amp; Logística</p>
+                <a
+                  href="#"
+                  target="_blank"
+                  class="team-card__social"
+                  aria-label="Instagram"
+                >
+                  <i class="fa-brands fa-instagram"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="team-carousel__dots" id="teamDots">
+            <button
+              class="team-carousel__dot active"
+              aria-label="Membro 1"
+            ></button>
+            <button class="team-carousel__dot" aria-label="Membro 2"></button>
+            <button class="team-carousel__dot" aria-label="Membro 3"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======= FAQ ======= -->
+    <section class="faq" id="faq">
+      <!-- ESQUERDA — título sticky -->
+      <div class="faq__left">
+        <div class="faq__left-inner">
+          <h2 class="section-title" data-i18n="faq.title">
+            Perguntas frequentes<br />dos Mochileiros.
+          </h2>
+          <div class="faq__left-bottom">
+            <p class="faq__subtitle" data-i18n="faq.subtitle">
+              A nossa equipa está sempre disponível para responder com clareza e
+              rapidez.
+            </p>
+            <a href="#contact" class="faq__cta-btn" data-i18n="faq.ctaBtn">
+              Fale connosco
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- DIREITA — accordion de cards -->
+      <div class="faq__right">
+        <span>
+          <div class="faq__item">
+            <button class="faq__trigger" aria-expanded="false">
+              <span data-i18n="faq.q1">Como funcionam os serviços?</span>
+              <span class="faq__icon"><i class="fa-solid fa-plus"></i></span>
+            </button>
+            <div class="faq__body" hidden>
+              <p data-i18n="faq.a1">
+                Desenvolvemos programas à medida do Mochileiro, segundo a
+                disponibilidade temporal do mesmo. Apresentamos e reservamos os
+                melhores alojamentos, tratamos do transporte desde a chegada até
+                ao regresso e disponibilizamos guias e motoristas. Oferecemos
+                ainda viagens predefinidas para grupos, geralmente nos feriados
+                prolongados, cujos pacotes são disponibilizados no nosso
+                website.
+              </p>
+            </div>
+          </div>
+          <div class="faq__item">
+            <button class="faq__trigger" aria-expanded="false">
+              <span data-i18n="faq.q2">Em quais províncias operam?</span>
+              <span class="faq__icon"><i class="fa-solid fa-plus"></i></span>
+            </button>
+            <div class="faq__body" hidden>
+              <p data-i18n="faq.a2">
+                Operamos em todo o território Nacional e Namíbia.
+              </p>
+            </div>
+          </div>
+          <div class="faq__item">
+            <button class="faq__trigger" aria-expanded="false">
+              <span data-i18n="faq.q3">Como funcionam os preços?</span>
+              <span class="faq__icon"><i class="fa-solid fa-plus"></i></span>
+            </button>
+            <div class="faq__body" hidden>
+              <p data-i18n="faq.a3">
+                Os preços para programas personalizados são variáveis — dependem
+                do tipo de alojamento, aventura, transporte, número de pessoas e
+                duração. Para as viagens predefinidas, os preços são
+                apresentados no website e redes sociais com as informações
+                detalhadas do pacote.
+              </p>
+            </div>
+          </div>
+          <div class="faq__item">
+            <button class="faq__trigger" aria-expanded="false">
+              <span data-i18n="faq.q4">Como solicito uma proposta?</span>
+              <span class="faq__icon"><i class="fa-solid fa-plus"></i></span>
+            </button>
+            <div class="faq__body" hidden>
+              <p data-i18n="faq.a4">
+                Para solicitar uma proposta, basta entrar em contacto connosco
+                através do formulário de contacto ou via WhatsApp. A nossa
+                equipa responde em breve com todas as opções disponíveis.
+              </p>
+            </div>
+          </div>
+          <div class="faq__item">
+            <button class="faq__trigger" aria-expanded="false">
+              <span data-i18n="faq.q5">Como fazer a reserva?</span>
+              <span class="faq__icon"><i class="fa-solid fa-plus"></i></span>
+            </button>
+            <div class="faq__body" hidden>
+              <p data-i18n="faq.a5">
+                A reserva só é garantida após o pagamento, efectuado em duas
+                partes: 30% (não reembolsáveis) para assegurar a reserva, e os
+                restantes 70% por transferência bancária até 10 dias antes do
+                início da viagem. Pode também optar por pagar a totalidade numa
+                única vez.
+              </p>
+            </div>
+          </div>
+          <div class="faq__item">
+            <button class="faq__trigger" aria-expanded="false">
+              <span data-i18n="faq.q6"
+                >Recebo mais informações após a reserva?</span
+              >
+              <span class="faq__icon"><i class="fa-solid fa-plus"></i></span>
+            </button>
+            <div class="faq__body" hidden>
+              <p data-i18n="faq.a6">
+                Sim. Após a reserva será adicionado/a a um chat onde enviaremos
+                todas as informações sobre o programa, incluindo itinerário
+                detalhado e curiosidades sobre o destino. Uma semana antes da
+                viagem enviaremos um e-mail com as últimas dicas e informações.
+              </p>
+            </div>
+          </div>
+          <div class="faq__item">
+            <button class="faq__trigger" aria-expanded="false">
+              <span data-i18n="faq.q7">Os voos estão incluídos?</span>
+              <span class="faq__icon"><i class="fa-solid fa-plus"></i></span>
+            </button>
+            <div class="faq__body" hidden>
+              <p data-i18n="faq.a7">
+                Não. Os voos não estão incluídos nos pacotes. É da
+                responsabilidade do Mochileiro reservar a viagem até aos nossos
+                destinos. As aventuras começam no aeroporto ou nos hotéis
+                indicados. Podemos informar sobre as melhores opções de voos,
+                mas não fazemos reservas de bilhetes.
+              </p>
+            </div>
+          </div>
+          <div class="faq__item">
+            <button class="faq__trigger" aria-expanded="false">
+              <span data-i18n="faq.q8">Que tipo de alojamento teremos?</span>
+              <span class="faq__icon"><i class="fa-solid fa-plus"></i></span>
+            </button>
+            <div class="faq__body" hidden>
+              <p data-i18n="faq.a8">
+                Depende de cada viagem e da escolha. Geralmente varia entre
+                hotéis nas províncias, resorts, pousadas, quintas ou
+                acampamentos. Não somos uma agência de luxo — privilegiamos a
+                autenticidade e o contacto genuíno com os destinos.
+              </p>
+            </div>
+          </div>
+          <div class="faq__item">
+            <button class="faq__trigger" aria-expanded="false">
+              <span data-i18n="faq.q9"
+                >Como é feita a distribuição dos quartos?</span
+              >
+              <span class="faq__icon"><i class="fa-solid fa-plus"></i></span>
+            </button>
+            <div class="faq__body" hidden>
+              <p data-i18n="faq.a9">
+                Em grupos, os quartos são distribuídos de forma aleatória —
+                chamamos de Kamba. Se viajar sozinho, partilhará o quarto com
+                outro Mochileiro do mesmo sexo. Casais e pares têm quarto
+                privado. Quarto individual está disponível com taxa adicional.
+              </p>
+            </div>
+          </div>
+          <div class="faq__item">
+            <button class="faq__trigger" aria-expanded="false">
+              <span data-i18n="faq.q10">São permitidas crianças?</span>
+              <span class="faq__icon"><i class="fa-solid fa-plus"></i></span>
+            </button>
+            <div class="faq__body" hidden>
+              <p data-i18n="faq.a10">
+                Para viagens personalizadas não há limite de idade. Para viagens
+                de grupo, são permitidas crianças a partir dos 8 anos. Dos 0 aos
+                4 anos não pagam; dos 5 aos 7 pagam 50%; a partir dos 8 anos
+                pagam como adultos.
+              </p>
+            </div>
+          </div>
+          <div class="faq__item">
+            <button class="faq__trigger" aria-expanded="false">
+              <span data-i18n="faq.q11"
+                >As fotografias fazem parte do pacote?</span
+              >
+              <span class="faq__icon"><i class="fa-solid fa-plus"></i></span>
+            </button>
+            <div class="faq__body" hidden>
+              <p data-i18n="faq.a11">Sim.</p>
+            </div>
+          </div>
+          <div class="faq__item">
+            <button class="faq__trigger" aria-expanded="false">
+              <span data-i18n="faq.q12">Posso viajar sozinho?</span>
+              <span class="faq__icon"><i class="fa-solid fa-plus"></i></span>
+            </button>
+            <div class="faq__body" hidden>
+              <p data-i18n="faq.a12">
+                Claro que sim. A maior parte dos Mochileiros viaja sozinho — é a
+                melhor oportunidade para conectar-se com pessoas novas e criar
+                amizades para a vida.
+              </p>
+            </div>
+          </div>
+        </span>
+      </div>
+      <!-- /.faq__right -->
+    </section>
+
+    
+    <!-- ======= CONTACTO ======= -->
+    <section class="contact" id="contact">
+      <div class="contact__info reveal-left">
+        <span class="section-tag">Contacto</span>
+        <h2 class="contact__title">Fale Connosco</h2>
+        <p class="contact__text">
+          Tem dúvidas sobre os roteiros? Quer saber mais sobre os pacotes ou
+          precisa de ajuda para planear a sua aventura dos sonhos em Angola?
+          Estamos aqui para ajudar!
+        </p>
+        <div class="contact__line"></div>
+        <p class="contact__sub">
+          <strong>A nossa equipa responde com rapidez.</strong>
+        </p>
+
+        <div class="contact__socials">
+          <a
+            href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0"
+            target="_blank"
+            class="social-btn social-btn--wpp"
+            aria-label="WhatsApp"
+          >
+            <i class="fa-brands fa-whatsapp"></i>
+          </a>
+          <a
+            href="https://www.instagram.com/o_mochilao/"
+            target="_blank"
+            class="social-btn social-btn--ig"
+            aria-label="Instagram"
+          >
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a
+            href="https://www.tiktok.com/@o.mochilao"
+            target="_blank"
+            class="social-btn social-btn--tt"
+            aria-label="TikTok"
+          >
+            <i class="fa-brands fa-tiktok"></i>
+          </a>
+          <a
+            href="https://www.facebook.com/OMochilao"
+            target="_blank"
+            class="social-btn social-btn--fb"
+            aria-label="Facebook"
+          >
+            <i class="fa-brands fa-facebook-f"></i>
           </a>
         </div>
       </div>
 
-      <div class="team-card reveal-up" data-member="funeno">
-        <div class="team-card__photo">
-          <div class="team-card__ph"><i class="fa-solid fa-user"></i></div>
-        </div>
-        <div class="team-card__info">
-          <h3 class="team-card__name">Funeno Puca</h3>
-          <p class="team-card__role">Guia &amp; Logística</p>
-          <a href="#" target="_blank" class="team-card__social" aria-label="Instagram">
-            <i class="fa-brands fa-instagram"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
+      <div class="contact__form-wrap reveal-right">
+        <form
+          class="contact__form"
+          action="https://formsubmit.co/valganhosapalo@gmail.com"
+          method="POST"
+        >
+          <input type="hidden" name="_template" value="table" />
+          <input
+            type="hidden"
+            name="_autoresponse"
+            value="Obrigado pela sua mensagem, a nossa equipa responde em breve."
+          />
+          <input
+            type="hidden"
+            name="_next"
+            value="https://supremdeat.github.io/projeto_mochilao/"
+          />
 
-  <!-- ======= DICAS ======= -->
-  <section class="tips" id="tips">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="exemplo@gmail.com"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="phone">Telefone</label>
+              <input
+                type="tel"
+                id="phone"
+                name="number"
+                placeholder="+244 9XX XXX XXX"
+                required
+              />
+            </div>
+          </div>
 
-    <div class="tips__header reveal-up">
-      <div class="tips__header-left">
-        <span class="section-tag" data-i18n="tips.tag">Dicas de Viagem</span>
-        <h2 class="tips__title">Prepare-se<br>para a aventura.</h2>
-      </div>
-      <p class="tips__subtitle">
-        Pequenos detalhes que fazem a diferença entre uma boa viagem e uma viagem inesquecível.
-      </p>
-    </div>
-
-    <div class="tips__grid">
-
-      <div class="tip-card reveal-up">
-        <div class="tip-card__icon-wrap">
-          <i class="fa-solid fa-shoe-prints"></i>
-        </div>
-        <div class="tip-card__body">
-          <h4 class="tip-card__title">Calçado certo</h4>
-          <ul class="tip-card__list">
-            <li>Botas de trilha para terrenos irregulares</li>
-            <li>Sandálias resistentes em destinos quentes</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="tip-card reveal-up">
-        <div class="tip-card__icon-wrap">
-          <i class="fa-solid fa-shirt"></i>
-        </div>
-        <div class="tip-card__body">
-          <h4 class="tip-card__title">Vestuário adequado</h4>
-          <ul class="tip-card__list">
-            <li>Roupas leves e respiráveis para o calor</li>
-            <li>Camadas térmicas e impermeáveis para o frio</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="tip-card reveal-up">
-        <div class="tip-card__icon-wrap">
-          <i class="fa-solid fa-id-card"></i>
-        </div>
-        <div class="tip-card__body">
-          <h4 class="tip-card__title">Documentos seguros</h4>
-          <ul class="tip-card__list">
-            <li>Pochete antifurto para dinheiro e passaporte</li>
-            <li>Cópias digitais dos documentos importantes</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="tip-card reveal-up">
-        <div class="tip-card__icon-wrap">
-          <i class="fa-solid fa-droplet"></i>
-        </div>
-        <div class="tip-card__body">
-          <h4 class="tip-card__title">Hidratação</h4>
-          <ul class="tip-card__list">
-            <li>Garrafa reutilizável em trilhas e dias quentes</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="tip-card reveal-up">
-        <div class="tip-card__icon-wrap">
-          <i class="fa-solid fa-sun"></i>
-        </div>
-        <div class="tip-card__body">
-          <h4 class="tip-card__title">Proteção solar</h4>
-          <ul class="tip-card__list">
-            <li>Protetor solar e repelente de insetos</li>
-            <li>Essencial em áreas tropicais</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="tip-card reveal-up">
-        <div class="tip-card__icon-wrap">
-          <i class="fa-solid fa-map"></i>
-        </div>
-        <div class="tip-card__body">
-          <h4 class="tip-card__title">Planeie a rota</h4>
-          <ul class="tip-card__list">
-            <li>Estude o destino, o clima e os desafios do percurso</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="tip-card reveal-up">
-        <div class="tip-card__icon-wrap">
-          <i class="fa-solid fa-battery-full"></i>
-        </div>
-        <div class="tip-card__body">
-          <h4 class="tip-card__title">Energia garantida</h4>
-          <ul class="tip-card__list">
-            <li>Power bank para emergências no campo</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="tip-card reveal-up">
-        <div class="tip-card__icon-wrap">
-          <i class="fa-solid fa-leaf"></i>
-        </div>
-        <div class="tip-card__body">
-          <h4 class="tip-card__title">Respeite a natureza</h4>
-          <ul class="tip-card__list">
-            <li>Não deixe lixo e siga as regras de preservação local</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="tip-card reveal-up">
-        <div class="tip-card__icon-wrap">
-          <i class="fa-solid fa-compass"></i>
-        </div>
-        <div class="tip-card__body">
-          <h4 class="tip-card__title">Siga os guias</h4>
-          <ul class="tip-card__list">
-            <li>Em tour guiado, cumpra todas as recomendações de segurança</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="tip-card reveal-up">
-        <div class="tip-card__icon-wrap">
-          <i class="fa-solid fa-kit-medical"></i>
-        </div>
-        <div class="tip-card__body">
-          <h4 class="tip-card__title">Primeiros socorros</h4>
-          <ul class="tip-card__list">
-            <li>Kit de primeiros socorros incluído em todas as viagens</li>
-          </ul>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ======= CONTACTO ======= -->
-  <section class="contact" id="contact">
-    <div class="contact__info reveal-left">
-      <span class="section-tag">Contacto</span>
-      <h2 class="contact__title">Fale Connosco</h2>
-      <p class="contact__text">
-        Tem dúvidas sobre os roteiros? Quer saber mais sobre os pacotes ou precisa de ajuda para planear
-        a sua aventura dos sonhos em Angola? Estamos aqui para ajudar!
-      </p>
-      <div class="contact__line"></div>
-      <p class="contact__sub"><strong>A nossa equipa responde com rapidez.</strong></p>
-
-      <div class="contact__socials">
-        <a href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0" target="_blank"
-           class="social-btn social-btn--wpp" aria-label="WhatsApp">
-          <i class="fa-brands fa-whatsapp"></i>
-        </a>
-        <a href="https://www.instagram.com/o_mochilao/" target="_blank"
-           class="social-btn social-btn--ig" aria-label="Instagram">
-          <i class="fa-brands fa-instagram"></i>
-        </a>
-        <a href="https://www.tiktok.com/@o.mochilao" target="_blank"
-           class="social-btn social-btn--tt" aria-label="TikTok">
-          <i class="fa-brands fa-tiktok"></i>
-        </a>
-        <a href="https://www.facebook.com/OMochilao" target="_blank"
-           class="social-btn social-btn--fb" aria-label="Facebook">
-          <i class="fa-brands fa-facebook-f"></i>
-        </a>
-      </div>
-    </div>
-
-    <div class="contact__form-wrap reveal-right">
-      <form class="contact__form" action="https://formsubmit.co/valganhosapalo@gmail.com" method="POST">
-        <input type="hidden" name="_template"     value="table">
-        <input type="hidden" name="_autoresponse" value="Obrigado pela sua mensagem, a nossa equipa responde em breve.">
-        <input type="hidden" name="_next"         value="https://supremdeat.github.io/projeto_mochilao/">
-
-        <div class="form-row">
           <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="exemplo@gmail.com" required>
+            <label for="mensagem">Mensagem</label>
+            <textarea
+              id="mensagem"
+              name="mensagem"
+              rows="5"
+              placeholder="Escreva a sua mensagem aqui..."
+              required
+            ></textarea>
           </div>
-          <div class="form-group">
-            <label for="phone">Telefone</label>
-            <input type="tel" id="phone" name="number" placeholder="+244 9XX XXX XXX" required>
-          </div>
-        </div>
 
-        <div class="form-group">
-          <label for="mensagem">Mensagem</label>
-          <textarea id="mensagem" name="mensagem" rows="5"
-            placeholder="Escreva a sua mensagem aqui..." required></textarea>
-        </div>
+          <button type="submit" class="btn btn--primary btn--full">
+            Enviar Mensagem &nbsp;<i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </form>
+      </div>
+    </section>
 
-        <button type="submit" class="btn btn--primary btn--full">
-          Enviar Mensagem &nbsp;<i class="fa-solid fa-paper-plane"></i>
-        </button>
-      </form>
-    </div>
-  </section>
-
-  <!-- ======= FOOTER ======= -->
-  <footer class="footer">
-    <div class="footer__main">
-      <div class="footer__brand">
-        <!--
+    <!-- ======= FOOTER ======= -->
+    <footer class="footer">
+      <div class="footer__main">
+        <div class="footer__brand">
+          <!--
           LOGO DO FOOTER:
           Substitua o src pelo logo branco (branco2.png ou outro)
         -->
-        <img src="branco2.png" alt="O Mochilão" class="footer__logo">
-        <p class="footer__tagline">Seus companheiros das aventuras por Angola</p>
-        <div class="footer__socials">
-          <a href="https://www.instagram.com/o_mochilao/" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-          <a href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0" target="_blank" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-          <a href="https://www.tiktok.com/@o.mochilao" target="_blank" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-          <a href="https://www.facebook.com/OMochilao" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <img src="branco2.png" alt="O Mochilão" class="footer__logo" />
+          <p class="footer__tagline">
+            Seus companheiros das aventuras por Angola
+          </p>
+          <div class="footer__socials">
+            <a
+              href="https://www.instagram.com/o_mochilao/"
+              target="_blank"
+              aria-label="Instagram"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+            <a
+              href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0"
+              target="_blank"
+              aria-label="WhatsApp"
+              ><i class="fa-brands fa-whatsapp"></i
+            ></a>
+            <a
+              href="https://www.tiktok.com/@o.mochilao"
+              target="_blank"
+              aria-label="TikTok"
+              ><i class="fa-brands fa-tiktok"></i
+            ></a>
+            <a
+              href="https://www.facebook.com/OMochilao"
+              target="_blank"
+              aria-label="Facebook"
+              ><i class="fa-brands fa-facebook-f"></i
+            ></a>
+          </div>
+        </div>
+
+        <div class="footer__col">
+          <h4 class="footer__col-title">Navegação</h4>
+          <a href="#hero">Início</a>
+          <a href="#tours">Viagens</a>
+          <a href="#gallery">Galeria</a>
+          <a href="#about">Sobre Nós</a>
+        </div>
+
+        <div class="footer__col">
+          <h4 class="footer__col-title">Informações</h4>
+          <a href="#tips">Dicas de Viagem</a>
+          <a href="#places">Lugares e Culturas</a>
+          <a href="#contact">Fale Connosco</a>
         </div>
       </div>
 
-      <div class="footer__col">
-        <h4 class="footer__col-title">Navegação</h4>
-        <a href="#hero">Início</a>
-        <a href="#tours">Viagens</a>
-        <a href="#gallery">Galeria</a>
-        <a href="#about">Sobre Nós</a>
+      <div class="footer__bottom">
+        <p>© 2025 O Mochilão Aventuras. Todos os direitos reservados.</p>
+        <p>Desenvolvido por <strong>Valganho</strong></p>
       </div>
+    </footer>
 
-      <div class="footer__col">
-        <h4 class="footer__col-title">Informações</h4>
-        <a href="#tips">Dicas de Viagem</a>
-        <a href="#places">Lugares e Culturas</a>
-        <a href="#contact">Fale Connosco</a>
-      </div>
-    </div>
-
-    <div class="footer__bottom">
-      <p>© 2025 O Mochilão Aventuras. Todos os direitos reservados.</p>
-      <p>Desenvolvido por <strong>Valganho</strong></p>
-    </div>
-  </footer>
-
-
-
-  <script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
