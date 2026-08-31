@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Admin - O Mochilão</title>
+  <link rel="icon" href="logo5.png" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --clr-black: #0d0a06;
+      --clr-brown-deep: #4d351e;
+      --clr-brown-mid: #775f43;
+      --clr-gold: #c9962a;
+      --clr-gold-light: #e8c56e;
+      --clr-white: #ffffff;
+      --clr-danger: #d32f2f;
+      --ease-std: 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    body {
+      font-family: "Plus Jakarta Sans", sans-serif;
+      background: linear-gradient(135deg, var(--clr-black) 0%, var(--clr-brown-deep) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      color: var(--clr-white);
+    }
+
+    .login-container {
+      width: 100%;
+      max-width: 420px;
+      padding: 2rem;
+    }
+
+    .login-box {
+      background: rgba(26, 18, 8, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 2.5rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .login-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .login-logo {
+      font-size: 48px;
+      margin-bottom: 1rem;
+    }
+
+    .login-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--clr-gold-light);
+      margin-bottom: 0.5rem;
+    }
+
+    .login-subtitle {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .form-group input {
+      padding: 0.8rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      color: var(--clr-white);
+      font-family: inherit;
+      transition: border-color var(--ease-std);
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--clr-gold);
+    }
+
+    .form-group input::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 0.9rem;
+      background: var(--clr-brown-deep);
+      color: var(--clr-white);
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all var(--ease-std);
+    }
+
+    .login-btn:hover:not(:disabled) {
+      background: var(--clr-brown-mid);
+      transform: translateY(-2px);
+    }
+
+    .login-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .error-message {
+      background: rgba(211, 47, 47, 0.15);
+      border: 1px solid rgba(211, 47, 47, 0.3);
+      color: #ff6b6b;
+      padding: 0.75rem;
+      border-radius: 6px;
+      font-size: 13px;
+      margin-bottom: 1rem;
+      display: none;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    .loading {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: var(--clr-white);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-right: 0.5rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .login-footer {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .login-footer a {
+      color: var(--clr-gold);
+      text-decoration: none;
+      transition: color var(--ease-std);
+    }
+
+    .login-footer a:hover {
+      color: var(--clr-gold-light);
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-box">
+      <div class="login-header">
+        <div class="login-logo">🏔️</div>
+        <h1 class="login-title">O Mochilão</h1>
+        <p class="login-subtitle">Painel de Administração</p>
+      </div>
+
+      <div class="error-message" id="error-message"></div>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="admin@omochilao.ao"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Palavra-passe</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="••••••••"
+            required
+          />
+        </div>
+
+        <button type="submit" class="login-btn" id="login-btn">
+          Entrar
+        </button>
+      </form>
+
+      <div class="login-footer">
+        <p>Problemas para entrar? Contacte <a href="mailto:geral@omochilao.ao">geral@omochilao.ao</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js"></script>
+
+  <!-- Config & Login Script -->
+  <script src="firebase-config.js"></script>
+  <script>
+    (function () {
+      "use strict";
+
+      const { auth } = window.FirebaseApp;
+      const loginForm = document.getElementById("login-form");
+      const emailInput = document.getElementById("email");
+      const passwordInput = document.getElementById("password");
+      const loginBtn = document.getElementById("login-btn");
+      const errorMessage = document.getElementById("error-message");
+
+      // Redirecionar se já logado
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          window.location.href = "admin.html";
+        }
+      });
+
+      loginForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
+
+        errorMessage.classList.remove("show");
+
+        // Desabilitar botão
+        loginBtn.disabled = true;
+        loginBtn.innerHTML =
+          '<span class="loading"></span> Entrando...';
+
+        try {
+          await auth.signInWithEmailAndPassword(email, password);
+          // Sucesso — redirecionará via onAuthStateChanged
+        } catch (error) {
+          console.error("Erro de login:", error);
+
+          let message = "Erro desconhecido. Tente novamente.";
+          if (error.code === "auth/user-not-found") {
+            message = "Utilizador não encontrado.";
+          } else if (error.code === "auth/wrong-password") {
+            message = "Palavra-passe incorreta.";
+          } else if (error.code === "auth/invalid-email") {
+            message = "Email inválido.";
+          }
+
+          errorMessage.textContent = message;
+          errorMessage.classList.add("show");
+
+          loginBtn.disabled = false;
+          loginBtn.innerHTML = "Entrar";
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
