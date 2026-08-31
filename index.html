@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>O Mochilão Aventuras</title>
 
-    <link rel="icon" href="logo5.png" />
-    <link rel="stylesheet" href="estilo.css" />
+    <link rel="icon" href="imagens/logo5.png" />
+    <link rel="stylesheet" href="STYLES/estilo.css" />
 
     <!-- Flag icons (bandeiras reais, funciona em todos os browsers) -->
     <link
@@ -168,7 +168,7 @@
               <p style="font-size: 15px">Luanda</p></span
             >
 
-            <a class="tour-card__btn" href="programa.html?d=cabo-ledo"
+            <a class="tour-card__btn" href="PAGES/programa.html?d=cabo-ledo"
               >Saber Mais
             </a>
           </div>
@@ -180,7 +180,7 @@
               >Safari <br />
               <p style="font-size: 15px">Luanda</p></span
             >
-            <a class="tour-card__btn" href="programa.html?d=quicama"
+            <a class="tour-card__btn" href="PAGES/programa.html?d=quicama"
               >Saber Mais
             </a>
           </div>
@@ -192,7 +192,7 @@
               >Kifuka Camping <br />
               <p style="font-size: 15px">Bengo</p></span
             >
-            <a class="tour-card__btn" href="programa.html?d=huambo"
+            <a class="tour-card__btn" href="PAGES/programa.html?d=huambo"
               >Saber Mais
             </a>
           </div>
@@ -221,8 +221,6 @@
 
     <!-- ======= TOURS ======= -->
     <section class="tours" id="tours"></section>
-
-  
 
     <!-- ======= SOBRE ======= -->
     <section class="about" id="about">
@@ -521,7 +519,6 @@
       </div>
     </section>
 
-
     <!-- ======= VIAGENS EM GRUPO ======= -->
     <section class="packages" id="packages">
       <div class="section-header reveal-up">
@@ -660,59 +657,65 @@
     </section>
 
     <!-- ======= RESERVA CTA ======= -->
-  <section class="reserve" id="reserve">
-
-    <!-- Esquerda: foto -->
-    <div class="reserve__img-wrap reveal-left">
-      <!--
+    <section class="reserve" id="reserve">
+      <!-- Esquerda: foto -->
+      <div class="reserve__img-wrap reveal-left">
+        <!--
         FOTO:
         Substitua o div.reserve__img-ph por uma tag <img>:
         <img src="imagens/reserve-photo.webp" alt="Reserve agora" class="reserve__img" loading="lazy">
         Ou defina: .reserve__img-wrap { background-image: url('imagens/reserve-photo.webp'); }
       -->
-      <div class="reserve__img-ph">
-        <i class="fa-regular fa-image"></i>
-      </div>
-    </div>
-
-    <!-- Direita: texto + contactos -->
-    <div class="reserve__content reveal-right">
-
-      <span class="reserve__eyebrow" data-i18n="reserve.tag">Faça já a sua reserva</span>
-
-      <h2 class="reserve__title" data-i18n="reserve.title">
-        Reserve agora e crie memórias únicas!
-      </h2>
-
-      <div class="reserve__divider"></div>
-
-      <p class="reserve__desc" data-i18n="reserve.desc">
-        Embarque connosco em busca de experiências autênticas que nos conectam
-        profundamente à cultura e às paisagens únicas desta região fascinante.
-      </p>
-
-      <!-- Contactos: telefone + email -->
-      <div class="reserve__contacts">
-        <div class="reserve__contact-item">
-          <span class="reserve__contact-label" data-i18n="reserve.phoneLabel">Telefone</span>
-          <a href="tel:+244926509821" class="reserve__contact-value">+244 926 509 821</a>
-        </div>
-        <div class="reserve__contact-item">
-          <span class="reserve__contact-label" data-i18n="reserve.emailLabel">E-mail</span>
-          <a href="mailto:geral@omochilao.ao" class="reserve__contact-value">geral@omochilao.ao</a>
+        <div class="reserve__img-ph">
+          <i class="fa-regular fa-image"></i>
         </div>
       </div>
 
-    </div>
+      <!-- Direita: texto + contactos -->
+      <div class="reserve__content reveal-right">
+        <span class="section-tag" data-i18n="reserve.tag"
+          >Faça já a sua reserva</span
+        >
 
-  </section>
+        <h2 class="section-title" data-i18n="reserve.title">
+          Reserve agora e crie memórias únicas!
+        </h2>
+
+        <div class="reserve__divider"></div>
+
+        <p class="reserve__desc" data-i18n="reserve.desc">
+          Embarque connosco em busca de experiências autênticas que nos conectam
+          profundamente à cultura e às paisagens únicas desta região fascinante.
+        </p>
+
+        <!-- Contactos: telefone + email -->
+        <div class="reserve__contacts">
+          <div class="reserve__contact-item">
+            <span class="reserve__contact-label" data-i18n="reserve.phoneLabel"
+              >Telefone</span
+            >
+            <a href="tel:+244926509821" class="reserve__contact-value"
+              >+244 926 509 821</a
+            >
+          </div>
+          <div class="reserve__contact-item">
+            <span class="reserve__contact-label" data-i18n="reserve.emailLabel"
+              >E-mail</span
+            >
+            <a href="mailto:geral@omochilao.ao" class="reserve__contact-value"
+              >geral@omochilao.ao</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- ======= GALERIA ======= -->
     <section class="gallery" id="gallery">
       <!-- ── Coluna esquerda: título + texto + link + foto grande ── -->
       <div class="gallery__left">
         <div class="gallery__left-body">
-          <h2 class="gallery__heading" data-i18n="gallery.title">
+          <h2 class="section-title" data-i18n="gallery.title">
             Galeria<br />de
             <em class="gallery__heading-accent">Aventuras.</em>
           </h2>
@@ -1058,12 +1061,11 @@
       <!-- /.faq__right -->
     </section>
 
-    
     <!-- ======= CONTACTO ======= -->
     <section class="contact" id="contact">
       <div class="contact__info reveal-left">
         <span class="section-tag">Contacto</span>
-        <h2 class="contact__title">Fale Connosco</h2>
+        <h2 class="section-title">Fale Connosco</h2>
         <p class="contact__text">
           Tem dúvidas sobre os roteiros? Quer saber mais sobre os pacotes ou
           precisa de ajuda para planear a sua aventura dos sonhos em Angola?
@@ -1177,7 +1179,11 @@
           LOGO DO FOOTER:
           Substitua o src pelo logo branco (branco2.png ou outro)
         -->
-          <img src="branco2.png" alt="O Mochilão" class="footer__logo" />
+          <img
+            src="imagens/branco2.png"
+            alt="O Mochilão"
+            class="footer__logo"
+          />
           <p class="footer__tagline">
             Seus companheiros das aventuras por Angola
           </p>
@@ -1231,6 +1237,6 @@
       </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="SCRIPT/script.js"></script>
   </body>
 </html>

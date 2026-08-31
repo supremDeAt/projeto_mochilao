@@ -9,7 +9,7 @@
    ───────────────────────────────────────── */
 @font-face {
   font-family: "Heaters";
-  src: url("fonts/Heaters.otf") format("opentype");
+  src: url("../fonts/Heaters.otf") format("opentype");
   font-weight: 100;
   font-style: normal;
   font-display: swap;
@@ -18,8 +18,8 @@
 @font-face {
   font-family: "Nekst";
   src:
-    url("fonts/Nekst-Light.woff") format("woff"),
-    url("fonts/Nekst-Light.ttf") format("truetype");
+    url("../fonts/Nekst-Light.woff") format("woff"),
+    url("../fonts/Nekst-Light.ttf") format("truetype");
   font-weight: 100;
   font-style: normal;
   font-display: swap;
@@ -699,7 +699,10 @@ p {
   color: rgba(255, 255, 255, 0.82);
   padding: 0.85rem 1rem;
   border-radius: var(--radius-sm);
-  transition: color 0.18s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.18s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    color 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.18s cubic-bezier(0.16, 1, 0.3, 1);
   border-left: 3px solid transparent;
 }
 .sidebar__link:hover {
@@ -738,7 +741,7 @@ p {
    Exemplo:
      background-image:
        linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.78) 100%),
-       url('imagens/imagem2.webp');
+       url('../imagens/imagem2.webp');
    ───────────────────────────────────────── */
 .hero {
   position: relative;
@@ -748,7 +751,7 @@ p {
   padding: 5rem 7rem 14rem;
   background-image:
     linear-gradient(to bottom, #5d2d171e 0%, #5d2d171e 100%),
-    url("imagens/fundo_kifuka2.jpeg");
+    url("../imagens/fundo_kifuka2.jpeg");
 
   background-size: 100%;
   background-position: center;
@@ -928,14 +931,14 @@ p {
    TOUR CARD BACKGROUNDS
    Para cada destino, adicione a sua imagem aqui.
 
-   .tour-card[data-destination="cabo-ledo"]   { background-image: linear-gradient(...), url('imagens/caboledo.webp'); }
-   .tour-card[data-destination="quicama"]      { background-image: linear-gradient(...), url('imagens/elefante.webp'); }
-   .tour-card[data-destination="huambo"]       { background-image: linear-gradient(...), url('imagens/huambo.webp'); }
-   .tour-card[data-destination="bengo"]        { background-image: linear-gradient(...), url('imagens/fogueira.webp'); }
-   .tour-card[data-destination="malanje"]      { background-image: linear-gradient(...), url('imagens/malanje.webp'); }
-   .tour-card[data-destination="cuanza-norte"] { background-image: linear-gradient(...), url('imagens/cuanza.webp'); }
-   .tour-card[data-destination="luanda"]       { background-image: linear-gradient(...), url('imagens/Luanda.webp'); }
-   .tour-card[data-destination="personalizado"]{ background-image: linear-gradient(...), url('imagens/mochila3.webp'); }
+   .tour-card[data-destination="cabo-ledo"]   { background-image: linear-gradient(...), url('../imagens/caboledo.webp'); }
+   .tour-card[data-destination="quicama"]      { background-image: linear-gradient(...), url('../imagens/elefante.webp'); }
+   .tour-card[data-destination="huambo"]       { background-image: linear-gradient(...), url('../imagens/huambo.webp'); }
+   .tour-card[data-destination="bengo"]        { background-image: linear-gradient(...), url('../imagens/fogueira.webp'); }
+   .tour-card[data-destination="malanje"]      { background-image: linear-gradient(...), url('../imagens/malanje.webp'); }
+   .tour-card[data-destination="cuanza-norte"] { background-image: linear-gradient(...), url('../imagens/cuanza.webp'); }
+   .tour-card[data-destination="luanda"]       { background-image: linear-gradient(...), url('../imagens/Luanda.webp'); }
+   .tour-card[data-destination="personalizado"]{ background-image: linear-gradient(...), url('../imagens/mochila3.webp'); }
    ────────────────────────────────────────── */
 
 /* Gradiente padrão (placeholder) — substitua pelo url() da imagem */
@@ -950,17 +953,17 @@ p {
 .tour-card[data-destination="cabo-ledo"] {
   background-image:
     linear-gradient(to bottom, #5d2d171e 0%, #5d2d171e 100%),
-    url(imagens/fundo_sereias.jpeg);
+    url("../imagens/fundo_sereias.jpeg");
 }
 .tour-card[data-destination="quicama"] {
   background-image:
     linear-gradient(to bottom, #5d2d171e 0%, #5d2d171e 100%),
-    url(imagens/elefante.webp);
+    url("../imagens/elefante.webp");
 }
 .tour-card[data-destination="huambo"] {
   background-image:
     linear-gradient(to bottom, #5d2d171e 0%, #5d2d171e 100%),
-    url(imagens/fundo_kifuka.jpeg);
+    url("../imagens/fundo_kifuka.jpeg");
 }
 
 .tour-card {
@@ -1099,7 +1102,7 @@ p {
   align-items: center;
   gap: 5rem;
   padding: 5rem 7rem 7rem;
-  background: #0808080b;           /* cream quente — fiel ao template */
+  background: #0808080b; /* cream quente — fiel ao template */
 }
 
 /* ── Foto (esquerda) ── */
@@ -1123,7 +1126,9 @@ p {
   display: block;
   transition: transform 0.55s ease;
 }
-.reserve__img-wrap:hover .reserve__img { transform: scale(1.04); }
+.reserve__img-wrap:hover .reserve__img {
+  transform: scale(1.04);
+}
 
 /* Placeholder */
 .reserve__img-ph {
@@ -1132,7 +1137,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255,255,255,0.22);
+  color: rgba(255, 255, 255, 0.22);
   font-size: 3rem;
 }
 
@@ -1150,7 +1155,7 @@ p {
   font-weight: 700;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: #b85a1a;                /* tom laranja da referência */
+  color: #b85a1a; /* tom laranja da referência */
   display: block;
 }
 
@@ -1212,7 +1217,9 @@ p {
   text-decoration: underline;
   text-underline-offset: 3px;
   text-decoration-color: rgba(77, 53, 30, 0.4);
-  transition: color var(--ease-std), text-decoration-color var(--ease-std);
+  transition:
+    color var(--ease-std),
+    text-decoration-color var(--ease-std);
   width: fit-content;
 }
 .reserve__contact-value:hover {
@@ -1234,13 +1241,22 @@ p {
     padding: 3.5rem 2rem 4rem;
     gap: 2.5rem;
   }
-  .reserve__img-wrap { aspect-ratio: 16/10; }
-  .reserve__title { font-size: clamp(1.9rem, 7vw, 2.6rem); }
+  .reserve__img-wrap {
+    aspect-ratio: 16/10;
+  }
+  .reserve__title {
+    font-size: clamp(1.9rem, 7vw, 2.6rem);
+  }
 }
 
 @media (max-width: 480px) {
-  .reserve { padding: 3rem 1.25rem; }
-  .reserve__contacts { grid-template-columns: 1fr; gap: 1.25rem; }
+  .reserve {
+    padding: 3rem 1.25rem;
+  }
+  .reserve__contacts {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
 }
 
 /* ─────────────────────────────────────────
@@ -1334,7 +1350,7 @@ p {
   inset: 0;
   border-radius: 20px;
   overflow: hidden;
-  background-image: url(imagens/camelo.jpeg);
+  background-image: url(../imagens/camelo.jpeg);
   background-size: cover;
   background-position: center;
 }
@@ -1437,11 +1453,11 @@ p {
    ─────────────────────────────────────────
 
    COMO ADICIONAR FOTOS:
-   .gallery__item--tall { background-image: url('imagens/foto1.webp'); }
-   .gallery__item--sm2  { background-image: url('imagens/foto2.webp'); }
-   .gallery__item--sm3  { background-image: url('imagens/foto3.webp'); }
-   .gallery__item--sm4  { background-image: url('imagens/foto4.webp'); }
-   .gallery__item--sm5  { background-image: url('imagens/foto5.webp'); }
+   .gallery__item--tall { background-image: url('../imagens/foto1.webp'); }
+   .gallery__item--sm2  { background-image: url('../imagens/foto2.webp'); }
+   .gallery__item--sm3  { background-image: url('../imagens/foto3.webp'); }
+   .gallery__item--sm4  { background-image: url('../imagens/foto4.webp'); }
+   .gallery__item--sm5  { background-image: url('../imagens/foto5.webp'); }
    ───────────────────────────────────────── */
 
 /* Contentor principal — flex horizontal */
@@ -1456,7 +1472,6 @@ p {
 
 /* ── COLUNA ESQUERDA ── */
 .gallery__left {
-  padding: 4rem 0rem 0 0rem;
   display: flex;
   flex-direction: column;
 }
@@ -1712,15 +1727,15 @@ p {
 }
 
 .team-card[data-member="perpetuo"] {
-  background-image: url("imagens/assis.webp");
+  background-image: url("../imagens/assis.webp");
 }
 
 .team-card[data-member="matias"] {
-  background-image: url("imagens/matias.webp");
+  background-image: url("../imagens/matias.webp");
 }
 
 .team-card[data-member="funeno"] {
-  background-image: url("imagens/guia.webp");
+  background-image: url("../imagens/guia.webp");
 }
 
 .team-card[data-pos="0"] {

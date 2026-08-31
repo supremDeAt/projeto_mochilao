@@ -10,8 +10,8 @@ const PROGRAMAS = {
     duracao: "2 Dias",
     preco: "A partir de 760.000 Kz",
     partida: "Luanda",
-    heroImg: "imagens/malanje_kiari.jpeg",
-    fotoSecundaria: "imagens/malanje2.webp",
+    heroImg: "../imagens/malanje_kiari.jpeg",
+    fotoSecundaria: "../imagens/malanje2.webp",
     descricao: `Terra de paisagens monumentais, rios imponentes, quedas de água deslumbrantes e formações rochosas que contam a história de milhões de anos, Malanje é um dos destinos mais fascinantes de Angola. Um lugar onde a natureza revela toda a sua grandiosidade e cada quilómetro percorrido reserva uma nova descoberta.<br><br>
     Em apenas 2 dias, convidamo-lo a mergulhar na essência desta província extraordinária, através de um roteiro cuidadosamente preparado para que viva o melhor que Malanje tem para oferecer.`,
     roteiro: [
@@ -67,8 +67,8 @@ const PROGRAMAS = {
     duracao: "2 Dias",
     preco: "A partir de 925.000 Kz",
     partida: "Luanda",
-    heroImg: "imagens/malanje-camping.webp",
-    fotoSecundaria: "imagens/malanje-camping2.webp",
+    heroImg: "../imagens/malanje-camping.webp",
+    fotoSecundaria: "../imagens/malanje-camping2.webp",
     descricao: `A mesma grandiosidade de Malanje, mas com uma noite de acampamento em meio às imponentes Pedras Negras de Pungo a Ndongo ou nas maravilhosas Quedas de Kalandula. Veja o nascer e o pôr do sol em cenários de rara beleza, respire ar puro, desconecte da rotina.<br><br>
     Porque há lugares que se visitam… e há lugares que se vivem.`,
     roteiro: [
@@ -116,8 +116,8 @@ const PROGRAMAS = {
     duracao: "1 Dia",
     preco: "A partir de 90.000 Kz",
     partida: "Luanda",
-    heroImg: "imagens/caboledo.webp",
-    fotoSecundaria: "imagens/cabo-ledo2.webp",
+    heroImg: "../imagens/caboledo.webp",
+    fotoSecundaria: "../imagens/cabo-ledo2.webp",
     descricao: `Há dias em que a estrada deixa de ser apenas o caminho e passa a fazer parte da experiência.<br><br>
     Em um dia sobre rodas, partimos à descoberta de alguns dos cenários mais fascinantes da nossa costa: começamos pelo <strong>Miradouro da Lua</strong>, onde a paisagem parece ter saído de outro planeta; seguimos até à <strong>Gruta das Sereias</strong>, entre o mistério e a força do mar; e terminamos na <strong>Praia dos Surfistas</strong>, onde o azul do Atlântico encontra a energia descontraída de Cabo Ledo.<br><br>
     Vem viver Cabo Ledo de uma forma diferente.`,
@@ -162,8 +162,8 @@ const PROGRAMAS = {
     duracao: "3 Dias",
     preco: "A partir de 761.000 Kz",
     partida: "Luanda",
-    heroImg: "imagens/huambo.webp",
-    fotoSecundaria: "imagens/huambo2.webp",
+    heroImg: "../imagens/huambo.webp",
+    fotoSecundaria: "../imagens/huambo2.webp",
     descricao: `Longe da agitação, existe um lugar onde o tempo parece passar mais devagar. No Alto Hama, Huambo, as Águas Frias convidam-nos a trocar o ruído da cidade pelo som da água a correr, o stress pela tranquilidade e a rotina por momentos de verdadeira conexão com a natureza.<br><br>
     Aqui pode escolher entre alojamento rústico ou camping, acordar ao som da natureza, passar o dia junto à água, explorar os arredores ou simplesmente não fazer nada e deixar que esse seja o plano.<br><br>
     Águas Frias não é apenas um lugar para visitar. É um lugar para desacelerar.`,
@@ -227,8 +227,8 @@ const PROGRAMAS = {
     duracao: "3 Dias",
     preco: "A partir de 920.000 Kz",
     partida: "Luanda",
-    heroImg: "imagens/morro-moco.webp",
-    fotoSecundaria: "imagens/morro-moco2.webp",
+    heroImg: "../imagens/morro-moco.webp",
+    fotoSecundaria: "../imagens/morro-moco2.webp",
     descricao: `No coração do Huambo, ergue-se o Morro do Moço, o ponto mais alto de Angola. Um cenário de montanhas, vales, vegetação e paisagens que se transformam a cada passo do caminho.<br><br>
     Aqui, a viagem começa muito antes de chegar ao topo. É caminhar, superar cada subida, sentir o frio da altitude, contemplar o horizonte e descobrir, quilómetro após quilómetro, uma Angola selvagem e extraordinária.`,
     roteiro: [
@@ -291,8 +291,8 @@ const PROGRAMAS = {
     duracao: "3 Dias",
     preco: "1.000.000 Kz / Pax",
     partida: "Namibe (voo por conta própria)",
-    heroImg: "imagens/namibe.webp",
-    fotoSecundaria: "imagens/namibe2.webp",
+    heroImg: "../imagens/namibe.webp",
+    fotoSecundaria: "../imagens/namibe2.webp",
     descricao: `Nesta viagem, vamos atravessar cenários que parecem pertencer a mundos diferentes. Sentir a força e o silêncio do deserto, percorrer estradas entre paisagens áridas e terminar junto ao mar, onde a areia encontra as ondas e o horizonte parece não ter fim.<br><br>
     É uma experiência de contrastes: calor e frescura, areia e água, silêncio e movimento. Um tour para quem quer descobrir um Namibe que não se explica apenas em fotografias — vive-se.`,
     roteiro: [
@@ -351,8 +351,8 @@ const PROGRAMAS = {
     duracao: "Meio Dia",
     preco: "190.000 Kz / Pax",
     partida: "Moçâmedes",
-    heroImg: "imagens/namibe-dia.webp",
-    fotoSecundaria: "imagens/namibe-dia2.webp",
+    heroImg: "../imagens/namibe-dia.webp",
+    fotoSecundaria: "../imagens/namibe-dia2.webp",
     descricao: `Neste programa será possível conhecer os principais encantos da Província em apenas algumas horas. Parta do Namibe e inicie a sua viagem panorâmica pela paisagem desértica.<br><br>
     Um tour para quem quer descobrir um Namibe que não se explica apenas em fotografias — vive-se.`,
     roteiro: [
@@ -392,8 +392,8 @@ const PROGRAMAS = {
     duracao: "3 Horas",
     preco: "25.000 Kz / Pax",
     partida: "A definir",
-    heroImg: "imagens/tuk-tuk.webp",
-    fotoSecundaria: "imagens/tuk-tuk2.webp",
+    heroImg: "../imagens/tuk-tuk.webp",
+    fotoSecundaria: "../imagens/tuk-tuk2.webp",
     descricao: `Neste tour teremos um passeio com vista panorâmica e cheia de aventura que os tuk tuks nos proporcionam. Vamos circular por entre a Luanda velha, antiga e histórica e acompanhar a vida do Luandense.`,
     roteiro: [
       "Primeiro de Maio",
@@ -435,8 +435,8 @@ const PROGRAMAS = {
     duracao: "1 Dia",
     preco: "A consultar",
     partida: "Luanda",
-    heroImg: "imagens/quicama.webp",
-    fotoSecundaria: "imagens/quicama2.webp",
+    heroImg: "../imagens/quicama.webp",
+    fotoSecundaria: "../imagens/quicama2.webp",
     descricao: `O Parque Nacional da Quiçama é o maior parque nacional de Angola e um dos mais ricos em biodiversidade do continente. Um dia inteiro dedicado a explorar esta reserva natural única, onde a fauna e a flora angolana se mostram em todo o seu esplendor.`,
     roteiro: ["Luanda", "Parque Nacional da Quiçama", "Safari 4×4", "Regresso"],
     itinerario: [
@@ -488,7 +488,7 @@ const PROGRAMAS = {
   /* 4. Hero */
   const heroSection = document.querySelector(".pkg-hero");
   if (prog.heroImg) {
-    const heroFallback = "imagens/assis.webp";
+    const heroFallback = "../imagens/assis.webp";
     const heroImage = new Image();
     heroImage.onload = function () {
       heroSection.style.backgroundImage =
