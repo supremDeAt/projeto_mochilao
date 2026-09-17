@@ -3671,6 +3671,7 @@ input[type="number"]::-webkit-inner-spin-button {
   }
   .res-grid-2 {
     grid-template-columns: 1fr;
+    
   }
 
   .res-page__nav {

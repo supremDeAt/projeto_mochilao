@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reservas — O Mochilão Aventuras</title>
+
+    <link rel="icon" href="logo5.png" />
+    <link rel="stylesheet" href="estilo.css" />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Reservas (página dedicada) -->
+    <div class="res-page is-open" id="resPage">
+      <!-- Sticky nav -->
+      <div class="res-page__nav">
+        <a href="index.html" class="res-page__back">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>Voltar</span>
+        </a>
+        <span class="res-page__nav-title" id="resNavTitle"
+          >Reservar Viagem</span
+        >
+        <div style="width: 90px"></div>
+      </div>
+
+      <!-- ── SECÇÃO 1: Info do programa ── -->
+      <div class="res-hero" id="resHero">
+        <div class="res-hero__content">
+          <div class="res-hero__meta">
+            <span class="res-hero__emoji" id="resEmoji">🗺️</span>
+            <span class="res-hero__badge" id="resBadge">Destino</span>
+            <span class="res-hero__duration">
+              <i class="fa-regular fa-clock"></i>
+              <span id="resDuration">—</span>
+            </span>
+          </div>
+
+          <h1 class="res-hero__title" id="resDrawerTitle">—</h1>
+          <div class="res-hero__divider"></div>
+          <p class="res-hero__desc" id="resDesc">—</p>
+
+          <div class="res-hero__details">
+            <div class="res-hero__col">
+              <h4><i class="fa-solid fa-location-dot"></i> Destaques</h4>
+              <ul id="resHighlights"></ul>
+            </div>
+            <div class="res-hero__col">
+              <h4><i class="fa-solid fa-circle-check"></i> O que inclui</h4>
+              <ul id="resIncludes"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SECÇÃO 2: Fotos do programa ── -->
+      <div class="res-photos" id="resPhotos">
+        <div class="res-photos__header">
+          <span class="res-photos__label">Fotos do programa</span>
+          <span class="res-photos__hint-admin"
+            >Adicione fotos em script.js → TOUR_DATA[destino].photos</span
+          >
+        </div>
+        <div class="res-photos__strip" id="resPhotosStrip">
+          <!-- Gerado dinamicamente pelo JS -->
+        </div>
+      </div>
+
+      <!-- ── SECÇÃO 3: Formulário de reserva ── -->
+      <div class="res-form-section">
+        <div class="res-form-section__inner">
+          <span class="res-form-section__eyebrow">Dados da Reserva</span>
+          <h2 class="res-form-section__title">Garanta o seu lugar</h2>
+          <p class="res-form-section__sub">
+            Preencha os seus dados abaixo. A nossa equipa confirmará a
+            disponibilidade e entrará em contacto.
+          </p>
+
+          <form class="res-form" id="resForm" novalidate>
+            <!-- Nome -->
+            <div class="res-field">
+              <label for="resName"
+                >Nome completo <span class="res-required">*</span></label
+              >
+              <input
+                type="text"
+                id="resName"
+                name="nome"
+                placeholder="O seu nome completo"
+                autocomplete="name"
+                required
+              />
+              <span class="res-field__error" id="resNameErr"></span>
+            </div>
+
+            <!-- Email + Telefone -->
+            <div class="res-grid-2">
+              <div class="res-field">
+                <label for="resEmail"
+                  >Email <span class="res-required">*</span></label
+                >
+                <input
+                  type="email"
+                  id="resEmail"
+                  name="email"
+                  placeholder="exemplo@gmail.com"
+                  autocomplete="email"
+                  required
+                />
+                <span class="res-field__error" id="resEmailErr"></span>
+              </div>
+              <div class="res-field">
+                <label for="resPhone"
+                  >Telefone <span class="res-required">*</span></label
+                >
+                <input
+                  type="tel"
+                  id="resPhone"
+                  name="telefone"
+                  placeholder="+244 9XX XXX XXX"
+                  autocomplete="tel"
+                  required
+                />
+                <span class="res-field__error" id="resPhoneErr"></span>
+              </div>
+            </div>
+
+            <!-- Data + Vagas -->
+            <div class="res-grid-2">
+              <div class="res-field">
+                <label for="resDate"
+                  >Data preferida <span class="res-required">*</span></label
+                >
+                <input
+                  type="date"
+                  id="resDate"
+                  name="data_preferida"
+                  required
+                />
+                <span class="res-field__error" id="resDateErr"></span>
+              </div>
+              <div class="res-field">
+                <label
+                  >Número de vagas <span class="res-required">*</span></label
+                >
+                <div class="res-counter">
+                  <button
+                    type="button"
+                    class="res-counter__btn"
+                    id="resMinus"
+                    aria-label="Diminuir"
+                  >
+                    <i class="fa-solid fa-minus"></i>
+                  </button>
+                  <span class="res-counter__val" id="resCountVal">1</span>
+                  <button
+                    type="button"
+                    class="res-counter__btn"
+                    id="resPlus"
+                    aria-label="Aumentar"
+                  >
+                    <i class="fa-solid fa-plus"></i>
+                  </button>
+                </div>
+                <input type="hidden" id="resSpots" name="vagas" value="1" />
+                <span class="res-field__error" id="resSpotsErr"></span>
+              </div>
+            </div>
+
+            <!-- Mensagem -->
+            <div class="res-field">
+              <label for="resMessage">
+                Mensagem <span class="res-optional">(opcional)</span>
+              </label>
+              <textarea
+                id="resMessage"
+                name="mensagem"
+                rows="3"
+                placeholder="Alguma dúvida, pedido especial ou informação relevante?"
+              ></textarea>
+            </div>
+
+            <hr class="res-form-divider" />
+
+            <!-- Campos ocultos -->
+            <input type="hidden" id="resTourField" name="programa" value="" />
+            <input type="hidden" name="_template" value="table" />
+            <input
+              type="hidden"
+              name="_subject"
+              value="Nova Reserva — O Mochilão Aventuras"
+            />
+            <input
+              type="hidden"
+              name="_autoresponse"
+              value="Olá! Recebemos o seu pedido de reserva. A nossa equipa entrará em contacto em breve. Obrigado por escolher o Mochilão Aventuras!"
+            />
+
+            <!-- Submit -->
+            <div class="res-form__actions">
+              <button
+                type="submit"
+                class="btn btn--primary btn--full res-submit"
+                id="resSubmit"
+              >
+                <span class="res-submit__text">
+                  <i class="fa-solid fa-check"></i>&nbsp; Confirmar Reserva
+                </span>
+                <span class="res-submit__loading" hidden>
+                  <i class="fa-solid fa-spinner fa-spin"></i>&nbsp; A enviar…
+                </span>
+              </button>
+              <p class="res-form__disclaimer">
+                <i class="fa-solid fa-lock"></i>
+                Os seus dados são confidenciais e usados apenas para a sua
+                reserva.
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- /.res-page -->
+
+    <!-- ======= CONFIRMATION POPUP ======= -->
+    <div class="res-confirm-overlay" id="resConfirmOverlay">
+      <div class="res-confirm" id="resConfirm">
+        <div class="res-confirm__ring">
+          <i class="fa-solid fa-check"></i>
+        </div>
+        <h3 class="res-confirm__title">Reserva enviada!</h3>
+        <p class="res-confirm__msg">
+          O seu pedido para <strong id="resConfirmTour">—</strong> foi recebido
+          com sucesso. Entraremos em contacto em breve para confirmar todos os
+          detalhes.
+        </p>
+        <div class="res-confirm__summary" id="resConfirmSummary"></div>
+        <div class="res-confirm__actions">
+          <button class="btn btn--primary" id="resConfirmClose">
+            <i class="fa-solid fa-check"></i>&nbsp; Perfeito, obrigado!
+          </button>
+          <button class="btn btn--outline-dark" id="resConfirmNew">
+            Reservar outro programa
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

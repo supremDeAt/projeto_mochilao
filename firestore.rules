@@ -1,0 +1,78 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function adminDocument() {
+      return isSignedIn()
+        && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    function currentRole() {
+      return get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.role;
+    }
+
+    function hasRole(role) {
+      return adminDocument() && currentRole() == role;
+    }
+
+    function hasAnyRole(roles) {
+      return adminDocument() && currentRole() in roles;
+    }
+
+    function isSuperAdmin() {
+      return hasRole('Super Admin');
+    }
+
+    function canManagePrograms() {
+      return hasAnyRole(['Super Admin', 'Gestor de Conteúdo']);
+    }
+
+    function canManageMessagesAndReservations() {
+      return hasAnyRole(['Super Admin', 'Gestor de Conteúdo', 'Atendente']);
+    }
+
+    function onlyStatusChanged() {
+      return request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status']);
+    }
+
+    // Apenas Super Admin pode consultar ou alterar os administradores.
+    match /admins/{adminId} {
+      // Necessário para o login descobrir a role do próprio utilizador.
+      allow get: if isSignedIn() && request.auth.uid == adminId;
+      allow list: if isSuperAdmin();
+      allow create, update, delete: if isSuperAdmin();
+    }
+
+    // Os programas são públicos para leitura; a gestão fica limitada às roles de conteúdo.
+    match /programs/{programId} {
+      allow read: if true;
+      allow create, update, delete: if canManagePrograms();
+    }
+
+    // O formulário público pode criar mensagens. A leitura e alteração são administrativas.
+    match /messages/{messageId} {
+      allow create: if true;
+      allow read: if isSignedIn();
+      allow update: if canManageMessagesAndReservations() && onlyStatusChanged();
+      allow delete: if isSuperAdmin();
+    }
+
+    // O formulário público pode criar reservas. A leitura e alteração são administrativas.
+    match /reservations/{reservationId} {
+      allow create: if true;
+      allow read: if isSignedIn();
+      allow update: if canManageMessagesAndReservations() && onlyStatusChanged();
+      allow delete: if isSuperAdmin();
+    }
+
+    // O conteúdo público pode ser lido; apenas conteúdo e Super Admin podem editá-lo.
+    match /siteConfig/{configId} {
+      allow read: if true;
+      allow create, update, delete: if canManagePrograms();
+    }
+  }
+}

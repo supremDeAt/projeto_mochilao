@@ -1,0 +1,24 @@
+{
+  "name": "omochilao-site",
+  "version": "1.0.0",
+  "description": "Site da agência de viagens O Mochilão",
+  "main": "index.html",
+  "scripts": {
+    "init-firestore": "node SCRIPT/init-firestore.js",
+    "dev": "npx http-server -p 8000",
+    "build": "echo 'Build script placeholder'"
+  },
+  "keywords": [
+    "viagens",
+    "Angola",
+    "turismo"
+  ],
+  "author": "Perpétuo de Assis",
+  "license": "MIT",
+  "dependencies": {
+    "firebase-admin": "^12.0.0"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

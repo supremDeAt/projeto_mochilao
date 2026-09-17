@@ -1,0 +1,20 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function canManagePrograms() {
+      return isSignedIn()
+        && get(/databases/(default)/documents/admins/$(request.auth.uid)).data.role
+          in ['Super Admin', 'Gestor de Conteúdo'];
+    }
+
+    match /programs/{uploaderUid}/{fileName} {
+      allow read: if true;
+      allow create, update, delete: if canManagePrograms();
+    }
+  }
+}

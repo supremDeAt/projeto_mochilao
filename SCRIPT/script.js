@@ -64,7 +64,38 @@
   updateActiveLink();
 
   /* ─────────────────────────────────────────
-     2. MENU — abrir / fechar
+     2. LOGO DO FOOTER — atalho de 5 cliques
+     ───────────────────────────────────────── */
+  const footerLogos = document.querySelectorAll(".footer__logo");
+
+  if (footerLogos.length > 0) {
+    let clickCount = 0;
+    let lastClickTime = 0;
+    const clickWindow = 1200;
+    const loginPath = window.location.pathname.includes("/PAGES/")
+      ? "login.html"
+      : "PAGES/login.html";
+
+    footerLogos.forEach(function (logo) {
+      logo.addEventListener("click", function () {
+        const currentTime = Date.now();
+
+        if (currentTime - lastClickTime > clickWindow) {
+          clickCount = 0;
+        }
+
+        lastClickTime = currentTime;
+        clickCount += 1;
+
+        if (clickCount === 5) {
+          window.location.href = loginPath;
+        }
+      });
+    });
+  }
+
+  /* ─────────────────────────────────────────
+     3. MENU — abrir / fechar
      Desktop/tablet: os links deslizam dentro da
      própria navbar (da direita para a esquerda).
      Mobile estreito: usa a sidebar lateral.
@@ -155,8 +186,8 @@
         });
       },
       {
-        threshold: 0.12,
-        rootMargin: "0px 0px -40px 0px",
+        threshold: 0.2,
+        rootMargin: "0px 0px -12% 0px",
       },
     );
 

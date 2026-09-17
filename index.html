@@ -133,15 +133,26 @@
     <section class="hero" id="hero">
       <div class="hero__content">
         <p class="hero__badge reveal-fade" data-i18n="hero.badge">
+        <p
+          class="hero__badge reveal-fade"
+          id="heroBadge"
+          data-i18n="hero.badge"
+        >
           BEM-VINDO AO MOCHILÃO
         </p>
         <h1 class="hero__title reveal-up" data-i18n="hero.title">
+        <h1 class="hero__title reveal-up" id="heroTitle" data-i18n="hero.title">
           Descubra Angola <br />
           através de experiências que <br />
           ficam para a vida
         </h1>
         <div class="hero__divider reveal-fade"></div>
         <p class="hero__subtitle reveal-up" data-i18n="hero.subtitle">
+        <p
+          class="hero__subtitle reveal-up"
+          id="heroSubtitle"
+          data-i18n="hero.subtitle"
+        >
           Cada viagem começa com uma escolha.<br />
           Faça a sua e eternize momentos únicos por Angola.
         </p>
@@ -658,21 +669,8 @@
 
     <!-- ======= RESERVA CTA ======= -->
     <section class="reserve" id="reserve">
-      <!-- Esquerda: foto -->
-      <div class="reserve__img-wrap reveal-left">
-        <!--
-        FOTO:
-        Substitua o div.reserve__img-ph por uma tag <img>:
-        <img src="imagens/reserve-photo.webp" alt="Reserve agora" class="reserve__img" loading="lazy">
-        Ou defina: .reserve__img-wrap { background-image: url('imagens/reserve-photo.webp'); }
-      -->
-        <div class="reserve__img-ph">
-          <i class="fa-regular fa-image"></i>
-        </div>
-      </div>
-
-      <!-- Direita: texto + contactos -->
-      <div class="reserve__content reveal-right">
+      <!-- Esquerda: texto + contactos -->
+      <div class="reserve__content reveal-left">
         <span class="section-tag" data-i18n="reserve.tag"
           >Faça já a sua reserva</span
         >
@@ -708,12 +706,83 @@
           </div>
         </div>
       </div>
+
+      <!-- Direita: Formulário de Reserva -->
+      <div class="reserve__form-wrap reveal-right">
+        <div id="reserveSuccessMsg" style="display:none; background: rgba(46,125,91,0.1); border-left: 3px solid #2e7d5b; border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: 1.25rem; color: #2e7d5b; font-weight: 600;">
+          ✓ Pedido de reserva enviado! Entraremos em contacto brevemente.
+        </div>
+        <form id="reserveForm" class="reserve__form">
+          <h3 class="reserve__form-title">Solicitar Reserva</h3>
+
+          <div class="form-group">
+            <label for="reserveNome">Nome completo</label>
+            <input
+              type="text"
+              id="reserveNome"
+              name="nome"
+              placeholder="O seu nome"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="reserveDestino">Destino / Programa</label>
+            <select id="reserveDestino" name="destino" required>
+              <option value="" disabled selected>Escolha um programa…</option>
+              <option value="Cabo Ledo">Cabo Ledo</option>
+              <option value="Quiçama Safari">Quiçama Safari</option>
+              <option value="Kifuka Camping">Kifuka Camping</option>
+              <option value="Personalizado">Pacote Personalizado</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="reserveData">Data pretendida</label>
+              <input
+                type="date"
+                id="reserveData"
+                name="data"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="reservePessoas">Nº de pessoas</label>
+              <input
+                type="number"
+                id="reservePessoas"
+                name="pessoas"
+                min="1"
+                max="50"
+                placeholder="Ex: 2"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="reserveTelefone">Telefone</label>
+            <input
+              type="tel"
+              id="reserveTelefone"
+              name="telefone"
+              placeholder="+244 9XX XXX XXX"
+              required
+            />
+          </div>
+
+          <button type="submit" class="btn btn--primary btn--full" id="reserveSubmitBtn">
+            Confirmar Pedido &nbsp;<i class="fa-solid fa-calendar-check"></i>
+          </button>
+        </form>
+      </div>
     </section>
 
     <!-- ======= GALERIA ======= -->
     <section class="gallery" id="gallery">
       <!-- ── Coluna esquerda: título + texto + link + foto grande ── -->
-      <div class="gallery__left">
+      <div class="gallery__left reveal-left">
         <div class="gallery__left-body">
           <h2 class="section-title" data-i18n="gallery.title">
             Galeria<br />de
@@ -740,11 +809,11 @@
       </div>
 
       <!-- ── Coluna direita: grid 2×2 ── -->
-      <div class="gallery__right">
+      <div class="gallery__right reveal-right">
         <a
           href="https://www.instagram.com/o_mochilao/"
           target="_blank"
-          class="gallery__item gallery__item--r1"
+          class="gallery__item gallery__item--r1 reveal-up"
         >
           <div class="gallery__ph"><i class="fa-regular fa-image"></i></div>
           <div class="gallery__hover">
@@ -755,7 +824,7 @@
         <a
           href="https://www.instagram.com/o_mochilao/"
           target="_blank"
-          class="gallery__item gallery__item--r2"
+          class="gallery__item gallery__item--r2 reveal-up"
         >
           <div class="gallery__ph"><i class="fa-regular fa-image"></i></div>
           <div class="gallery__hover">
@@ -766,7 +835,7 @@
         <a
           href="https://www.instagram.com/o_mochilao/"
           target="_blank"
-          class="gallery__item gallery__item--r3"
+          class="gallery__item gallery__item--r3 reveal-up"
         >
           <div class="gallery__ph"><i class="fa-regular fa-image"></i></div>
           <div class="gallery__hover">
@@ -777,7 +846,7 @@
         <a
           href="https://www.instagram.com/o_mochilao/"
           target="_blank"
-          class="gallery__item gallery__item--r4"
+          class="gallery__item gallery__item--r4 reveal-up"
         >
           <div class="gallery__ph"><i class="fa-regular fa-image"></i></div>
           <div class="gallery__hover">
@@ -866,7 +935,7 @@
     <!-- ======= FAQ ======= -->
     <section class="faq" id="faq">
       <!-- ESQUERDA — título sticky -->
-      <div class="faq__left">
+      <div class="faq__left reveal-left">
         <div class="faq__left-inner">
           <h2 class="section-title" data-i18n="faq.title">
             Perguntas frequentes<br />dos Mochileiros.
@@ -884,9 +953,9 @@
       </div>
 
       <!-- DIREITA — accordion de cards -->
-      <div class="faq__right">
+      <div class="faq__right reveal-right">
         <span>
-          <div class="faq__item">
+          <div class="faq__item reveal-up">
             <button class="faq__trigger" aria-expanded="false">
               <span data-i18n="faq.q1">Como funcionam os serviços?</span>
               <span class="faq__icon"><i class="fa-solid fa-plus"></i></span>
@@ -903,7 +972,7 @@
               </p>
             </div>
           </div>
-          <div class="faq__item">
+          <div class="faq__item reveal-up">
             <button class="faq__trigger" aria-expanded="false">
               <span data-i18n="faq.q2">Em quais províncias operam?</span>
               <span class="faq__icon"><i class="fa-solid fa-plus"></i></span>
@@ -914,7 +983,7 @@
               </p>
             </div>
           </div>
-          <div class="faq__item">
+          <div class="faq__item reveal-up">
             <button class="faq__trigger" aria-expanded="false">
               <span data-i18n="faq.q3">Como funcionam os preços?</span>
               <span class="faq__icon"><i class="fa-solid fa-plus"></i></span>
@@ -929,7 +998,7 @@
               </p>
             </div>
           </div>
-          <div class="faq__item">
+          <div class="faq__item reveal-up">
             <button class="faq__trigger" aria-expanded="false">
               <span data-i18n="faq.q4">Como solicito uma proposta?</span>
               <span class="faq__icon"><i class="fa-solid fa-plus"></i></span>
@@ -942,7 +1011,7 @@
               </p>
             </div>
           </div>
-          <div class="faq__item">
+          <div class="faq__item reveal-up">
             <button class="faq__trigger" aria-expanded="false">
               <span data-i18n="faq.q5">Como fazer a reserva?</span>
               <span class="faq__icon"><i class="fa-solid fa-plus"></i></span>
@@ -957,7 +1026,7 @@
               </p>
             </div>
           </div>
-          <div class="faq__item">
+          <div class="faq__item reveal-up">
             <button class="faq__trigger" aria-expanded="false">
               <span data-i18n="faq.q6"
                 >Recebo mais informações após a reserva?</span
@@ -973,7 +1042,7 @@
               </p>
             </div>
           </div>
-          <div class="faq__item">
+          <div class="faq__item reveal-up">
             <button class="faq__trigger" aria-expanded="false">
               <span data-i18n="faq.q7">Os voos estão incluídos?</span>
               <span class="faq__icon"><i class="fa-solid fa-plus"></i></span>
@@ -988,7 +1057,7 @@
               </p>
             </div>
           </div>
-          <div class="faq__item">
+          <div class="faq__item reveal-up">
             <button class="faq__trigger" aria-expanded="false">
               <span data-i18n="faq.q8">Que tipo de alojamento teremos?</span>
               <span class="faq__icon"><i class="fa-solid fa-plus"></i></span>
@@ -1002,7 +1071,7 @@
               </p>
             </div>
           </div>
-          <div class="faq__item">
+          <div class="faq__item reveal-up">
             <button class="faq__trigger" aria-expanded="false">
               <span data-i18n="faq.q9"
                 >Como é feita a distribuição dos quartos?</span
@@ -1018,7 +1087,7 @@
               </p>
             </div>
           </div>
-          <div class="faq__item">
+          <div class="faq__item reveal-up">
             <button class="faq__trigger" aria-expanded="false">
               <span data-i18n="faq.q10">São permitidas crianças?</span>
               <span class="faq__icon"><i class="fa-solid fa-plus"></i></span>
@@ -1032,7 +1101,7 @@
               </p>
             </div>
           </div>
-          <div class="faq__item">
+          <div class="faq__item reveal-up">
             <button class="faq__trigger" aria-expanded="false">
               <span data-i18n="faq.q11"
                 >As fotografias fazem parte do pacote?</span
@@ -1043,7 +1112,7 @@
               <p data-i18n="faq.a11">Sim.</p>
             </div>
           </div>
-          <div class="faq__item">
+          <div class="faq__item reveal-up">
             <button class="faq__trigger" aria-expanded="false">
               <span data-i18n="faq.q12">Posso viajar sozinho?</span>
               <span class="faq__icon"><i class="fa-solid fa-plus"></i></span>
@@ -1113,10 +1182,12 @@
       </div>
 
       <div class="contact__form-wrap reveal-right">
+        <div id="contactSuccessMsg" style="display:none; background: rgba(46,125,91,0.1); border-left: 3px solid #2e7d5b; border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: 1.25rem; color: #2e7d5b; font-weight: 600;">
+          ✓ Mensagem enviada! A nossa equipa responde em breve.
+        </div>
         <form
+          id="contactForm"
           class="contact__form"
-          action="https://formsubmit.co/valganhosapalo@gmail.com"
-          method="POST"
         >
           <input type="hidden" name="_template" value="table" />
           <input
@@ -1124,29 +1195,35 @@
             name="_autoresponse"
             value="Obrigado pela sua mensagem, a nossa equipa responde em breve."
           />
-          <input
-            type="hidden"
-            name="_next"
-            value="https://supremdeat.github.io/projeto_mochilao/"
-          />
+
+          <div class="form-group">
+            <label for="contactNome">Nome</label>
+            <input
+              type="text"
+              id="contactNome"
+              name="nome"
+              placeholder="O seu nome completo"
+              required
+            />
+          </div>
 
           <div class="form-row">
             <div class="form-group">
-              <label for="email">Email</label>
+              <label for="contactEmail">Email</label>
               <input
                 type="email"
-                id="email"
+                id="contactEmail"
                 name="email"
                 placeholder="exemplo@gmail.com"
                 required
               />
             </div>
             <div class="form-group">
-              <label for="phone">Telefone</label>
+              <label for="contactPhone">Telefone</label>
               <input
                 type="tel"
-                id="phone"
-                name="number"
+                id="contactPhone"
+                name="telefone"
                 placeholder="+244 9XX XXX XXX"
                 required
               />
@@ -1154,9 +1231,20 @@
           </div>
 
           <div class="form-group">
-            <label for="mensagem">Mensagem</label>
+            <label for="contactAssunto">Assunto</label>
+            <input
+              type="text"
+              id="contactAssunto"
+              name="assunto"
+              placeholder="Sobre o que pretende saber?"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="contactMensagem">Mensagem</label>
             <textarea
-              id="mensagem"
+              id="contactMensagem"
               name="mensagem"
               rows="5"
               placeholder="Escreva a sua mensagem aqui..."
@@ -1164,7 +1252,7 @@
             ></textarea>
           </div>
 
-          <button type="submit" class="btn btn--primary btn--full">
+          <button type="submit" class="btn btn--primary btn--full" id="contactSubmitBtn">
             Enviar Mensagem &nbsp;<i class="fa-solid fa-paper-plane"></i>
           </button>
         </form>
@@ -1237,6 +1325,9 @@
       </div>
     </footer>
 
-    <script src="SCRIPT/script.js"></script>
+    <script type="module" src="SCRIPT/firebase-config.js"></script>
+    <script type="module" src="SCRIPT/site-content.js"></script>
+    <script type="module" src="SCRIPT/forms.js"></script>
+    <script type="module" src="SCRIPT/script.js"></script>
   </body>
 </html>

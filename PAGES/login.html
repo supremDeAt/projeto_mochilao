@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="pt-PT">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | O Mochilão</title>
+    <link rel="icon" href="../imagens/logo5.png" />
+    <link rel="stylesheet" href="../STYLES/estilo.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../STYLES/login.css" />
+  </head>
+  <body>
+    <main class="auth-page">
+      <div class="auth-shell">
+        <section class="auth-visual" aria-label="Apresentação da marca">
+          <div class="auth-brand">
+            <img
+              class="auth-brand__logo"
+              src="../imagens/logo5.png"
+              alt="Logo do Mochilão"
+            />
+            <span class="auth-brand__name">O MOCHILÃO</span>
+          </div>
+
+          <div class="auth-copy">
+            <span class="auth-copy__eyebrow">Área reservada</span>
+            <h1>Entre na sua conta</h1>
+            <p>
+              Acede ao painel de administração para gerir o conteúdo do site e
+              manter a informação atualizada.
+            </p>
+          </div>
+        </section>
+
+        <section class="auth-card-wrap" aria-label="Login do utilizador">
+          <div class="auth-card">
+            <div class="auth-card__header">
+              <span class="auth-card__tag">Login</span>
+              <h2>Bem-vindo</h2>
+            </div>
+
+            <form id="loginForm" class="auth-form" action="#" method="post">
+              <div class="field">
+                <label for="email">Email</label>
+                <input
+                  id="email"
+                  type="email"
+                  name="email"
+                  placeholder="seu@email.com"
+                  autocomplete="email"
+                  required
+                />
+              </div>
+
+              <div class="field">
+                <label for="password">Senha</label>
+                <input
+                  id="password"
+                  type="password"
+                  name="password"
+                  placeholder="••••••••"
+                  autocomplete="current-password"
+                  required
+                />
+              </div>
+
+              <div class="auth-row">
+                <span aria-hidden="true">&nbsp;</span>
+                <a href="#" id="forgotPasswordBtn">Recuperar senha</a>
+              </div>
+
+              <button type="submit" class="btn btn--primary">Entrar</button>
+            </form>
+
+            <p class="auth-card__footer">
+              Voltar ao <a href="../index.html">site</a>
+            </p>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script type="module" src="../SCRIPT/login.js"></script>
+  </body>
+</html>
