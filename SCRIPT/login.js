@@ -10,6 +10,21 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 import { auth, db } from "./firebase-config.js";
 
+function getAuthErrorMessage(error) {
+  const messages = {
+    "auth/invalid-credential": "Email ou senha inválidos. Confirme o email usado no Firebase Authentication.",
+    "auth/invalid-login-credentials": "Email ou senha inválidos. Confirme o email usado no Firebase Authentication.",
+    "auth/user-not-found": "Não existe uma conta Firebase com este email.",
+    "auth/wrong-password": "A senha está incorreta. Use a senha mais recente definida no Firebase.",
+    "auth/invalid-email": "O formato do email não é válido.",
+    "auth/user-disabled": "Esta conta foi desativada no Firebase Authentication.",
+    "auth/too-many-requests": "Muitas tentativas. Aguarde alguns minutos e tente novamente.",
+    "auth/network-request-failed": "Não foi possível contactar o Firebase. Verifique a ligação à internet.",
+  };
+
+  return messages[error?.code] || "Não foi possível iniciar sessão. Consulte o console para mais detalhes.";
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   const loginForm = document.getElementById("loginForm");
 
@@ -49,9 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
         );
       } catch (error) {
         console.error("Erro na recuperação:", error);
-        alert(
-          "Ocorreu um erro. Verifique se o email está correto ou se existe uma conta associada.",
-        );
+        alert(getAuthErrorMessage(error));
       }
     });
   }
@@ -74,7 +87,15 @@ document.addEventListener("DOMContentLoaded", function () {
         password,
       );
       const user = userCredential.user;
-      const adminSnapshot = await getDoc(doc(db, "admins", user.uid));
+
+      let adminSnapshot;
+      try {
+        adminSnapshot = await getDoc(doc(db, "admins", user.uid));
+      } catch (error) {
+        console.error("Login aceito, mas não foi possível consultar o perfil admin:", error);
+        await signOut(auth);
+        throw new Error("ADMIN_PROFILE_READ_FAILED");
+      }
 
       if (!adminSnapshot.exists()) {
         await signOut(auth);
@@ -97,10 +118,14 @@ document.addEventListener("DOMContentLoaded", function () {
       window.location.href = "admin.html";
     } catch (error) {
       console.error("Erro no login:", error);
-      alert(
+      const message =
         error.message === "ADMIN_PROFILE_NOT_FOUND"
           ? "Acesso negado. Esta conta não está autorizada para o painel."
-          : "Email ou senha inválidos. Verifique as credenciais.",
+          : error.message === "ADMIN_PROFILE_READ_FAILED"
+            ? "A senha está correta, mas não foi possível validar o perfil administrativo. Verifique as regras do Firestore."
+            : getAuthErrorMessage(error);
+      alert(
+        message,
       );
     }
   });

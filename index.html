@@ -132,27 +132,16 @@
   -->
     <section class="hero" id="hero">
       <div class="hero__content">
-        <p class="hero__badge reveal-fade" data-i18n="hero.badge">
-        <p
-          class="hero__badge reveal-fade"
-          id="heroBadge"
-          data-i18n="hero.badge"
-        >
+        <p class="hero__badge reveal-fade" id="heroBadge">
           BEM-VINDO AO MOCHILÃO
         </p>
-        <h1 class="hero__title reveal-up" data-i18n="hero.title">
         <h1 class="hero__title reveal-up" id="heroTitle" data-i18n="hero.title">
           Descubra Angola <br />
           através de experiências que <br />
           ficam para a vida
         </h1>
         <div class="hero__divider reveal-fade"></div>
-        <p class="hero__subtitle reveal-up" data-i18n="hero.subtitle">
-        <p
-          class="hero__subtitle reveal-up"
-          id="heroSubtitle"
-          data-i18n="hero.subtitle"
-        >
+        <p class="hero__subtitle reveal-up" id="heroSubtitle">
           Cada viagem começa com uma escolha.<br />
           Faça a sua e eternize momentos únicos por Angola.
         </p>
@@ -169,8 +158,10 @@
         <span>Explorar</span>
         <i class="fa-solid fa-arrow-down"></i>
       </a>
+    </section>
 
-      <!-- Cards sobrepostos na base do hero -->
+    <!-- Cards sobrepostos na base do hero (movidos para fora do header) -->
+    <div class="hero-cards-container">
       <div class="hero__cards-overlap">
         <div class="tour-card reveal-up" data-destination="cabo-ledo">
           <div class="tour-card__inner">
@@ -209,7 +200,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </div>
 
     <!-- ======= BOTÕES FLUTUANTES ======= -->
     <div class="float-btns">
@@ -237,7 +228,7 @@
     <section class="about" id="about">
       <div class="about__content reveal-right">
         <span class="section-tag" data-i18n="about.tag">Sobre o Mochilão</span>
-        <h2 class="about__title">
+        <h2 class="section-title" data-i18n="about.title">
           A experiência é o percurso, o destino é consequência
         </h2>
 
@@ -303,7 +294,7 @@
       <div class="tips__header reveal-up">
         <div class="tips__header-left">
           <span class="section-tag" data-i18n="tips.tag">Dicas de Viagem</span>
-          <h2 class="section-title">Prepare-se<br />para a aventura.</h2>
+          <h2 class="section-title" data-i18n="tips.title">Prepare-se<br />para a aventura.</h2>
         </div>
         <p class="tips__subtitle">
           Pequenos detalhes que fazem a diferença entre uma boa viagem e uma
@@ -707,75 +698,16 @@
         </div>
       </div>
 
-      <!-- Direita: Formulário de Reserva -->
-      <div class="reserve__form-wrap reveal-right">
-        <div id="reserveSuccessMsg" style="display:none; background: rgba(46,125,91,0.1); border-left: 3px solid #2e7d5b; border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: 1.25rem; color: #2e7d5b; font-weight: 600;">
-          ✓ Pedido de reserva enviado! Entraremos em contacto brevemente.
-        </div>
-        <form id="reserveForm" class="reserve__form">
-          <h3 class="reserve__form-title">Solicitar Reserva</h3>
-
-          <div class="form-group">
-            <label for="reserveNome">Nome completo</label>
-            <input
-              type="text"
-              id="reserveNome"
-              name="nome"
-              placeholder="O seu nome"
-              required
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="reserveDestino">Destino / Programa</label>
-            <select id="reserveDestino" name="destino" required>
-              <option value="" disabled selected>Escolha um programa…</option>
-              <option value="Cabo Ledo">Cabo Ledo</option>
-              <option value="Quiçama Safari">Quiçama Safari</option>
-              <option value="Kifuka Camping">Kifuka Camping</option>
-              <option value="Personalizado">Pacote Personalizado</option>
-            </select>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="reserveData">Data pretendida</label>
-              <input
-                type="date"
-                id="reserveData"
-                name="data"
-                required
-              />
-            </div>
-            <div class="form-group">
-              <label for="reservePessoas">Nº de pessoas</label>
-              <input
-                type="number"
-                id="reservePessoas"
-                name="pessoas"
-                min="1"
-                max="50"
-                placeholder="Ex: 2"
-                required
-              />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="reserveTelefone">Telefone</label>
-            <input
-              type="tel"
-              id="reserveTelefone"
-              name="telefone"
-              placeholder="+244 9XX XXX XXX"
-              required
-            />
-          </div>
-
-          <button type="submit" class="btn btn--primary btn--full" id="reserveSubmitBtn">
-            Confirmar Pedido &nbsp;<i class="fa-solid fa-calendar-check"></i>
-          </button>
-        </form>
+      <!-- Direita: imagem da secção de reserva -->
+      <div
+        class="reserve__image-wrap reveal-right"
+        aria-label="Imagem de reserva"
+      >
+        <img
+          src="imagens/assis.webp"
+          alt="Reserva O Mochilão"
+          class="reserve__image"
+        />
       </div>
     </section>
 
@@ -1182,13 +1114,22 @@
       </div>
 
       <div class="contact__form-wrap reveal-right">
-        <div id="contactSuccessMsg" style="display:none; background: rgba(46,125,91,0.1); border-left: 3px solid #2e7d5b; border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: 1.25rem; color: #2e7d5b; font-weight: 600;">
+        <div
+          id="contactSuccessMsg"
+          style="
+            display: none;
+            background: rgba(46, 125, 91, 0.1);
+            border-left: 3px solid #2e7d5b;
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.25rem;
+            color: #2e7d5b;
+            font-weight: 600;
+          "
+        >
           ✓ Mensagem enviada! A nossa equipa responde em breve.
         </div>
-        <form
-          id="contactForm"
-          class="contact__form"
-        >
+        <form id="contactForm" class="contact__form">
           <input type="hidden" name="_template" value="table" />
           <input
             type="hidden"
@@ -1252,7 +1193,11 @@
             ></textarea>
           </div>
 
-          <button type="submit" class="btn btn--primary btn--full" id="contactSubmitBtn">
+          <button
+            type="submit"
+            class="btn btn--primary btn--full"
+            id="contactSubmitBtn"
+          >
             Enviar Mensagem &nbsp;<i class="fa-solid fa-paper-plane"></i>
           </button>
         </form>
@@ -1327,6 +1272,7 @@
 
     <script type="module" src="SCRIPT/firebase-config.js"></script>
     <script type="module" src="SCRIPT/site-content.js"></script>
+    <script type="module" src="SCRIPT/programs-public.js"></script>
     <script type="module" src="SCRIPT/forms.js"></script>
     <script type="module" src="SCRIPT/script.js"></script>
   </body>

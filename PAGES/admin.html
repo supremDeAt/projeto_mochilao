@@ -7,152 +7,108 @@
     <link rel="icon" href="../imagens/logo5.png" />
     <link rel="stylesheet" href="../STYLES/estilo.css" />
     <link rel="stylesheet" href="../STYLES/admin.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-      crossorigin="anonymous"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet" />
   </head>
   <body>
     <div class="admin-page">
+      <!-- SIDEBAR -->
       <aside class="admin-sidebar">
         <div class="admin-brand">
-          <img
-            class="admin-brand__logo"
-            src="../imagens/logo5.png"
-            alt="Logo O Mochilão"
-          />
+          <img class="admin-brand__logo" src="../imagens/logo5.png" alt="Logo O Mochilão" />
           <span class="admin-brand__text">MOCHILÃO</span>
         </div>
 
         <nav class="admin-nav" aria-label="Navegação do painel admin">
-          <a
-            class="admin-nav__link is-active"
-            href="#dashboard"
-            data-view="dashboard"
-            ><i class="fa-solid fa-chart-line"></i> Dashboard</a
-          >
-          <a class="admin-nav__link" href="#programas" data-view="programas"
-            ><i class="fa-solid fa-map-location-dot"></i> Programas</a
-          >
-          <a class="admin-nav__link" href="#mensagens" data-view="mensagens"
-            ><i class="fa-solid fa-message"></i> Mensagens</a
-          >
-          <a class="admin-nav__link" href="#reservas" data-view="reservas"
-            ><i class="fa-solid fa-calendar-check"></i> Reservas</a
-          >
-          <a class="admin-nav__link" href="#admins" data-view="admins"
-            ><i class="fa-solid fa-user-shield"></i> Admins</a
-          >
-          <a class="admin-nav__link" href="#conteudo" data-view="conteudo"
-            ><i class="fa-solid fa-image"></i> Conteúdo</a
-          >
+          <a class="admin-nav__link is-active" href="#dashboard" data-view="dashboard">
+            <i class="fa-solid fa-chart-line"></i> Dashboard
+          </a>
+          <a class="admin-nav__link" href="#programas" data-view="programas">
+            <i class="fa-solid fa-map-location-dot"></i> Programas
+          </a>
+          <a class="admin-nav__link" href="#mensagens" data-view="mensagens">
+            <i class="fa-solid fa-message"></i> Mensagens
+          </a>
+          <a class="admin-nav__link" href="#reservas" data-view="reservas">
+            <i class="fa-solid fa-calendar-check"></i> Reservas
+          </a>
+          <a class="admin-nav__link" href="#admins" data-view="admins">
+            <i class="fa-solid fa-user-shield"></i> Equipa
+          </a>
+          <a class="admin-nav__link" href="#conteudo" data-view="conteudo">
+            <i class="fa-solid fa-image"></i> Site Web
+          </a>
         </nav>
 
         <div class="admin-sidebar__footer">
-          <button id="logoutBtn" class="admin-logout" type="button">
-            Sair
+          <button id="logoutBtn" class="btn btn--outline admin-logout" type="button">
+            Sair <i class="fa-solid fa-arrow-right-from-bracket"></i>
           </button>
         </div>
       </aside>
 
+      <!-- MAIN CONTENT -->
       <main class="admin-main">
         <div class="admin-topbar">
-          <h1 class="admin-topbar__title">Painel administrativo</h1>
+          <h1 class="admin-topbar__title">Painel Administrativo</h1>
           <div class="admin-topbar__meta">
-            <span id="firebaseStatus" class="firebase-status"
-              >Firebase em preparação</span
-            >
+            <span id="firebaseStatus" class="firebase-status">Conectando...</span>
           </div>
         </div>
 
         <div class="admin-view-stack">
-          <section
-            id="dashboard"
-            class="admin-view is-visible"
-            data-view="dashboard"
-          >
-            <!-- KPI Cards -->
+          
+          <!-- VIEW: DASHBOARD -->
+          <section id="dashboard" class="admin-view is-visible" data-view="dashboard">
             <div class="admin-grid">
               <article class="stat-card" data-stat="messages">
                 <div class="stat-card__header">
                   <span class="stat-card__label">Mensagens</span>
-                  <div class="stat-card__icon">
-                    <i class="fa-solid fa-envelope"></i>
-                  </div>
+                  <div class="stat-card__icon"><i class="fa-solid fa-envelope"></i></div>
                 </div>
                 <span class="stat-card__value">0</span>
-                <span class="stat-card__sub" id="dashMsgPending"
-                  >0 pendentes</span
-                >
+                <span class="stat-card__sub" id="dashMsgPending">0 pendentes</span>
               </article>
-              <article
-                class="stat-card stat-card--blue"
-                data-stat="reservations"
-              >
+              <article class="stat-card stat-card--blue" data-stat="reservations">
                 <div class="stat-card__header">
                   <span class="stat-card__label">Reservas</span>
-                  <div class="stat-card__icon stat-card__icon--blue">
-                    <i class="fa-solid fa-calendar-check"></i>
-                  </div>
+                  <div class="stat-card__icon stat-card__icon--blue"><i class="fa-solid fa-calendar-check"></i></div>
                 </div>
                 <span class="stat-card__value">0</span>
-                <span class="stat-card__sub" id="dashResConfirmed"
-                  >0 confirmadas</span
-                >
+                <span class="stat-card__sub" id="dashResConfirmed">0 confirmadas</span>
               </article>
               <article class="stat-card stat-card--green" data-stat="programs">
                 <div class="stat-card__header">
                   <span class="stat-card__label">Programas</span>
-                  <div class="stat-card__icon stat-card__icon--green">
-                    <i class="fa-solid fa-map-location-dot"></i>
-                  </div>
+                  <div class="stat-card__icon stat-card__icon--green"><i class="fa-solid fa-map-location-dot"></i></div>
                 </div>
                 <span class="stat-card__value">0</span>
-                <span class="stat-card__sub" id="dashProgCats"
-                  >0 categorias</span
-                >
+                <span class="stat-card__sub" id="dashProgCats">0 categorias</span>
               </article>
               <article class="stat-card stat-card--dark" data-stat="admins">
                 <div class="stat-card__header">
-                  <span class="stat-card__label">Admins</span>
-                  <div class="stat-card__icon stat-card__icon--dark">
-                    <i class="fa-solid fa-user-shield"></i>
-                  </div>
+                  <span class="stat-card__label">Equipa Admin</span>
+                  <div class="stat-card__icon stat-card__icon--dark"><i class="fa-solid fa-users-gear"></i></div>
                 </div>
                 <span class="stat-card__value">0</span>
                 <span class="stat-card__sub" id="dashAdminRole">–</span>
               </article>
             </div>
 
-            <!-- Alertas + Atividade Recente -->
             <div class="dashboard-bottom">
-              <!-- Alertas -->
               <div class="panel dashboard-alerts">
                 <div class="panel__header">
                   <h2 class="panel__title">Atenção necessária</h2>
-                  <i
-                    class="fa-solid fa-triangle-exclamation"
-                    style="color: var(--clr-gold); font-size: 1.1rem"
-                  ></i>
+                  <i class="fa-solid fa-triangle-exclamation" style="color: var(--clr-gold); font-size: 1.1rem"></i>
                 </div>
                 <div style="padding: 1.5rem">
                   <ul id="dashAlertsList" class="alerts-list">
-                    <li class="alerts-list__empty">
-                      <i class="fa-solid fa-circle-check"></i>
-                      Tudo em ordem! Sem alertas de momento.
-                    </li>
+                    <li class="alerts-list__empty"><i class="fa-solid fa-circle-check"></i> Tudo em ordem! Sem alertas de momento.</li>
                   </ul>
                 </div>
               </div>
-
-              <!-- Atividade Recente -->
               <div class="panel dashboard-recent">
                 <div class="panel__header">
                   <h2 class="panel__title">Atividade recente</h2>
@@ -164,111 +120,79 @@
             </div>
           </section>
 
+          <!-- VIEW: PROGRAMAS -->
           <section id="programas" class="admin-view" data-view="programas">
             <div class="panel">
               <div class="panel__header">
-                <h2 class="panel__title">Programas</h2>
-                <button type="button" id="addProgramBtn" class="secondary-btn">
-                  Adicionar
-                </button>
+                <h2 class="panel__title">Roteiros e Programas</h2>
+                <button type="button" id="addProgramBtn" class="btn btn--primary btn--sm">Adicionar Novo</button>
               </div>
-              <div class="panel__body">
-                <form
-                  id="programForm"
-                  class="form-stack admin-form-panel"
-                  style="
-                    display: none;
-                    margin-bottom: 2rem;
-                    background: var(--surface-2);
-                    padding: 1.5rem;
-                    border-radius: var(--radius-md);
-                  "
-                >
-                  <h3 id="programFormTitle" style="margin-bottom: 1rem">
-                    Novo Programa
-                  </h3>
-                  <input type="hidden" id="programId" name="programId" />
+              
+              <!-- Formulário Deslizante -->
+              <form id="programForm" class="form-drawer form-stack">
+                <div class="form-drawer__header">
+                  <div>
+                    <span class="form-drawer__eyebrow">Gestão de destinos</span>
+                    <h3 id="programFormTitle">Novo Programa</h3>
+                  </div>
+                  <button type="button" id="cancelProgramBtn" class="drawer-close" aria-label="Fechar formulário" title="Fechar formulário">
+                    <i class="fa-solid fa-xmark"></i>
+                  </button>
+                </div>
+                <input type="hidden" id="programId" name="programId" />
 
+                <div class="program-form__fields">
                   <div class="field">
-                    <label for="progName">Nome</label>
-                    <input id="progName" name="progName" type="text" required />
+                    <label for="progName">Nome do Destino</label>
+                    <input id="progName" name="progName" type="text" placeholder="Ex: Cabo Ledo" required />
                   </div>
                   <div class="field">
-                    <label for="progSlogan">Slogan</label>
-                    <input
-                      id="progSlogan"
-                      name="progSlogan"
-                      type="text"
-                      required
-                    />
+                    <label for="progSlogan">Slogan (Badge)</label>
+                    <input id="progSlogan" name="progSlogan" type="text" placeholder="Ex: Sobre Rodas" required />
                   </div>
                   <div class="field">
-                    <label for="progPrice">Preço (ex: 45.000 Kz)</label>
-                    <input
-                      id="progPrice"
-                      name="progPrice"
-                      type="text"
-                      required
-                    />
+                    <label for="progPrice">Preço</label>
+                    <input id="progPrice" name="progPrice" type="text" placeholder="Ex: 45.000 Kz" required />
                   </div>
                   <div class="field">
                     <label for="progDuration">Duração</label>
-                    <input
-                      id="progDuration"
-                      name="progDuration"
-                      type="text"
-                      required
-                    />
+                    <input id="progDuration" name="progDuration" type="text" placeholder="Ex: 2 Dias" required />
                   </div>
                   <div class="field">
                     <label for="progCategory">Categoria</label>
-                    <input
-                      id="progCategory"
-                      name="progCategory"
-                      type="text"
-                      required
-                    />
+                    <select id="progCategory" name="progCategory" required>
+                      <option value="Praia">Praia</option>
+                      <option value="Safari">Safari</option>
+                      <option value="Acampamento">Acampamento</option>
+                      <option value="Cultura">Cultura</option>
+                    </select>
                   </div>
                   <div class="field">
                     <label for="progImage">Imagem do programa</label>
-                    <input
-                      id="progImage"
-                      name="progImage"
-                      type="file"
-                      accept="image/*"
-                    />
+                    <input id="progImage" name="progImage" type="file" accept="image/*" />
                     <small>Obrigatória ao criar; opcional ao editar.</small>
                   </div>
-                  <div class="field">
-                    <label for="progDesc">Descrição</label>
-                    <textarea
-                      id="progDesc"
-                      name="progDesc"
-                      rows="3"
-                      required
-                    ></textarea>
-                  </div>
-                  <div style="display: flex; gap: 1rem; margin-top: 1rem">
-                    <button type="submit" class="primary-btn">Salvar</button>
-                    <button
-                      type="button"
-                      id="cancelProgramBtn"
-                      class="secondary-btn"
-                    >
-                      Cancelar
-                    </button>
-                  </div>
-                </form>
+                </div>
+                <div class="field">
+                  <label for="progDesc">Descrição Completa</label>
+                  <textarea id="progDesc" name="progDesc" required placeholder="Descreva a experiência..."></textarea>
+                </div>
+                <div class="form-drawer__actions">
+                  <button type="submit" id="saveProgramBtn" class="btn btn--primary">Salvar <i class="fa-solid fa-check"></i></button>
+                  <button type="button" class="btn btn--outline drawer-cancel-action">Cancelar</button>
+                </div>
+              </form>
 
+              <div class="panel__body">
                 <div class="table-wrap">
                   <table class="admin-table">
                     <thead>
                       <tr>
-                        <th>Nome</th>
+                        <th>Nome do Destino</th>
                         <th>Categoria</th>
                         <th>Duração</th>
                         <th>Preço</th>
-                        <th>Ação</th>
+                        <th>Ações</th>
                       </tr>
                     </thead>
                     <tbody id="programList"></tbody>
@@ -278,19 +202,19 @@
             </div>
           </section>
 
+          <!-- VIEW: MENSAGENS -->
           <section id="mensagens" class="admin-view" data-view="mensagens">
             <div class="panel">
               <div class="panel__header">
-                <h2 class="panel__title">Mensagens de clientes</h2>
+                <h2 class="panel__title">Caixa de Entrada</h2>
               </div>
               <div class="panel__body">
                 <div class="table-wrap">
                   <table class="admin-table">
                     <thead>
                       <tr>
-                        <th>Nome</th>
-                        <th>Assunto</th>
-                        <th>Email / Telefone</th>
+                        <th>Cliente</th>
+                        <th>Telefone / Email</th>
                         <th>Data</th>
                         <th>Status</th>
                         <th>Ação</th>
@@ -303,10 +227,11 @@
             </div>
           </section>
 
+          <!-- VIEW: RESERVAS -->
           <section id="reservas" class="admin-view" data-view="reservas">
             <div class="panel">
               <div class="panel__header">
-                <h2 class="panel__title">Reservas e solicitações</h2>
+                <h2 class="panel__title">Gestão de Reservas</h2>
               </div>
               <div class="panel__body">
                 <div class="table-wrap">
@@ -315,8 +240,8 @@
                       <tr>
                         <th>Cliente</th>
                         <th>Destino</th>
-                        <th>Data</th>
-                        <th>Pessoas</th>
+                        <th>Data Desejada</th>
+                        <th>Pax</th>
                         <th>Telefone</th>
                         <th>Status</th>
                         <th>Ação</th>
@@ -328,80 +253,46 @@
               </div>
             </div>
           </section>
+
+          <!-- VIEW: ADMINS -->
           <section id="admins" class="admin-view" data-view="admins">
             <div class="panel">
               <div class="panel__header">
-                <h2 class="panel__title">Gestão de admins</h2>
-                <button
-                  type="button"
-                  id="addAdminBtn"
-                  class="secondary-btn"
-                  style="display: none"
-                >
-                  Adicionar
-                </button>
+                <h2 class="panel__title">Gestão da Equipa</h2>
+                <button type="button" id="addAdminBtn" class="btn btn--primary btn--sm" style="display: none">Adicionar Novo</button>
               </div>
               <div class="panel__body admins-layout">
                 <form id="adminForm" class="form-stack admin-form-panel">
-                  <h3 id="adminFormTitle" style="margin-bottom: 1rem">
-                    Novo Admin
-                  </h3>
+                  <h3 id="adminFormTitle" style="font-family: var(--font-display); font-size:2rem; color:var(--clr-brown-deep)">Novo Admin</h3>
                   <input type="hidden" id="adminId" name="adminId" />
                   <div class="field">
                     <label for="adminName">Nome</label>
-                    <input
-                      id="adminName"
-                      name="adminName"
-                      type="text"
-                      placeholder="Nome completo"
-                      required
-                    />
+                    <input id="adminName" name="adminName" type="text" placeholder="Nome completo" required />
                   </div>
-
                   <div class="field">
                     <label for="adminEmail">Email</label>
-                    <input
-                      id="adminEmail"
-                      name="adminEmail"
-                      type="email"
-                      placeholder="nome@email.com"
-                      required
-                    />
+                    <input id="adminEmail" name="adminEmail" type="email" placeholder="nome@omochilao.ao" required />
                   </div>
-
                   <div class="field">
-                    <label for="adminPassword">Senha (Apenas para novos)</label>
-                    <input
-                      id="adminPassword"
-                      name="adminPassword"
-                      type="password"
-                      placeholder="Min 6 caracteres"
-                    />
+                    <label for="adminPhone">Telefone</label>
+                    <input id="adminPhone" name="adminPhone" type="tel" placeholder="+244 900 000 000" />
                   </div>
-
+                  <div class="field">
+                    <label for="adminPassword">Senha <small>(Apenas para novos)</small></label>
+                    <input id="adminPassword" name="adminPassword" type="password" placeholder="Min 6 caracteres" />
+                  </div>
                   <div class="field">
                     <label for="adminRole">Nível de acesso</label>
                     <select id="adminRole" name="adminRole">
                       <option value="Super Admin">Super Admin</option>
-                      <option value="Gestor de Conteúdo">
-                        Gestor de Conteúdo
-                      </option>
+                      <option value="Gestor de Conteúdo">Gestor de Conteúdo</option>
                       <option value="Atendente">Atendente</option>
                       <option value="Visualizador">Visualizador</option>
                     </select>
                   </div>
-
                   <div style="display: flex; gap: 1rem; margin-top: 1rem">
-                    <button type="submit" class="primary-btn" id="saveAdminBtn">
-                      Salvar
-                    </button>
-                    <button
-                      type="button"
-                      class="secondary-btn"
-                      id="cancelAdminBtn"
-                    >
-                      Cancelar
-                    </button>
+                    <button type="submit" class="btn btn--primary" id="saveAdminBtn">Salvar</button>
+                    <button type="button" class="btn btn--outline" id="cancelAdminBtn">Cancelar</button>
                   </div>
                 </form>
 
@@ -422,73 +313,52 @@
             </div>
           </section>
 
+          <!-- VIEW: CONTEÚDO (Site Web) -->
           <section id="conteudo" class="admin-view" data-view="conteudo">
             <div class="panel">
               <div class="panel__header">
-                <h2 class="panel__title">Preview do conteúdo</h2>
+                <h2 class="panel__title">Textos Principais (Site)</h2>
               </div>
-              <div
-                class="panel__body"
-                style="display: grid; gap: 2rem; grid-template-columns: 1fr 1fr"
-              >
+              <div class="panel__body panel__body-padded" style="display: grid; gap: 3rem; grid-template-columns: 1fr 1fr">
                 <form id="contentForm" class="form-stack">
                   <div class="field">
-                    <label for="contentHeroLabel"
-                      >Label (ex: BEM-VINDO AO MOCHILÃO)</label
-                    >
-                    <input
-                      id="contentHeroLabel"
-                      name="contentHeroLabel"
-                      type="text"
-                      required
-                    />
+                    <label for="contentHeroLabel">Badge / Slogan</label>
+                    <input id="contentHeroLabel" name="contentHeroLabel" type="text" required />
                   </div>
                   <div class="field">
                     <label for="contentHeroTitle">Título do Hero</label>
-                    <textarea
-                      id="contentHeroTitle"
-                      name="contentHeroTitle"
-                      rows="2"
-                      required
-                    ></textarea>
+                    <textarea id="contentHeroTitle" name="contentHeroTitle" rows="2" required></textarea>
                   </div>
                   <div class="field">
                     <label for="contentHeroSubtitle">Subtítulo do Hero</label>
-                    <textarea
-                      id="contentHeroSubtitle"
-                      name="contentHeroSubtitle"
-                      rows="3"
-                      required
-                    ></textarea>
+                    <textarea id="contentHeroSubtitle" name="contentHeroSubtitle" rows="3" required></textarea>
                   </div>
-                  <button type="submit" id="saveContentBtn" class="primary-btn">
-                    Salvar Alterações
-                  </button>
+                  <button type="submit" id="saveContentBtn" class="btn btn--primary">Salvar Alterações no Site</button>
                 </form>
 
                 <div class="preview-box">
-                  <span
-                    id="heroLabelPreview"
-                    class="preview-box__label"
-                    style="
-                      display: block;
-                      margin-bottom: 0.5rem;
-                      color: var(--primary);
-                    "
-                    >Carregando...</span
-                  >
-                  <h3 id="heroTitlePreview" class="preview-box__title">
-                    Carregando...
-                  </h3>
-                  <p id="heroSubtitlePreview" class="preview-box__text">
-                    Carregando...
-                  </p>
+                  <span id="heroLabelPreview" class="preview-box__label" style="display: block; margin-bottom: 0.5rem; color: var(--clr-gold);">Carregando...</span>
+                  <h3 id="heroTitlePreview" class="preview-box__title">Carregando...</h3>
+                  <p id="heroSubtitlePreview" class="preview-box__text">Carregando...</p>
                 </div>
               </div>
             </div>
           </section>
         </div>
       </main>
+    </div>
+
+    <!-- GLOBAL MODAL (Para Ler Mensagens e Ver Reservas) -->
+    <div id="globalModal" class="modal-overlay" hidden>
+      <div class="modal">
+        <div class="modal__header">
+          <h3 id="modalTitle" class="modal__title">Título do Modal</h3>
+          <button id="modalClose" class="modal__close"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div id="modalBody" class="modal__body">
+          <!-- Conteúdo dinâmico injetado via JS -->
+        </div>
+      </div>
     </div>
 
     <script type="module" src="../SCRIPT/firebase-config.js"></script>

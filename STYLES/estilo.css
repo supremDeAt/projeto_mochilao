@@ -760,6 +760,16 @@ p {
 }
 
 /* Cards sobrepostos na base do hero */
+/* Wrapper dos cards sobrepostos (fica fora do hero) */
+.hero-cards-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  position: relative;
+  z-index: 20;
+}
+
 .hero__cards-overlap {
   position: absolute;
   bottom: -300px;
@@ -770,6 +780,7 @@ p {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   z-index: 20;
+  gap: 1.5rem;
 }
 
 /* Textura de grão */
@@ -1033,9 +1044,6 @@ p {
     transform 0.15s cubic-bezier(0.16, 1, 0.3, 1),
     box-shadow 0.15s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.hero__cards-overlap .tour-card.reveal-up.is-visible:hover {
-  transform: translateY(calc(var(--parallax-y) - 14px)) scale(1.02);
-}
 
 .tour-card__inner {
   display: flex;
@@ -1089,7 +1097,7 @@ p {
 }
 
 /* ─────────────────────────────────────────
-   10b. RESERVA CTA — "Reserve agora"
+  11. RESERVA CTA — "Reserve agora"
    Fiel ao template Okuya: 2 colunas,
    foto arredondada à esquerda,
    eyebrow laranja + título + divisor +
@@ -1260,7 +1268,7 @@ p {
 }
 
 /* ─────────────────────────────────────────
-   11. SECÇÃO SOBRE
+  12. SECÇÃO SOBRE
    ───────────────────────────────────────── */
 .about {
   display: grid;
@@ -1276,7 +1284,7 @@ p {
 .about__content {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 01.5rem;
   display: flex;
 }
 
@@ -1340,9 +1348,8 @@ p {
 .about__image {
   position: relative;
   width: 100%;
-  max-width: 480px;
   aspect-ratio: 3 / 4;
-  margin-left: auto;
+  margin-inline: auto;
 }
 
 .about__visual {
@@ -1428,17 +1435,26 @@ p {
 }
 
 @media (max-width: 480px) {
+  .about__image {
+    margin-inline: auto;
+    justify-self: center;
+  }
+
   .counters {
-    flex-direction: column;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: center;
     bottom: -3rem;
-    width: calc(100% - 1.5rem);
+    width: calc(100% - 1rem);
+    left: 50%;
   }
   .counter {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    text-align: left;
-    padding: 0.75rem 1rem;
+    text-align: center;
+    padding: 0.75rem 0.5rem;
   }
   .counter__value {
     margin-bottom: 0;
@@ -1448,8 +1464,17 @@ p {
   }
 }
 
+@media (max-width: 400px) {
+  .about__image {
+    width: 100%;
+    margin-inline: auto;
+    justify-self: center;
+  }
+ 
+}
+
 /* ─────────────────────────────────────────
-   12. GALERIA — layout Calgary Art Gallery
+  13. GALERIA — layout Calgary Art Gallery
    ─────────────────────────────────────────
 
    COMO ADICIONAR FOTOS:
@@ -1642,12 +1667,16 @@ p {
   }
 }
 @media (max-width: 640px) {
+  .gallery {
+    padding: 3rem 0 5rem;
+    row-gap: 1.5rem;
+  }
   .gallery__right {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(4, 200px);
   }
   .gallery__left {
-    padding: 2.5rem 1.25rem 1.5rem;
+    padding: 3rem 1.25rem 2rem;
   }
   .gallery__right {
     padding: 0 1.25rem 2rem;
@@ -1655,7 +1684,7 @@ p {
 }
 
 /* ─────────────────────────────────────────
-   14. EQUIPA
+  14. EQUIPA
    ───────────────────────────────────────── */
 .team {
   display: grid;
@@ -1842,7 +1871,7 @@ p {
 }
 
 /* ─────────────────────────────────────────
-   14b. FAQ — PERGUNTAS FREQUENTES
+  15. FAQ — PERGUNTAS FREQUENTES
    Layout: 2 colunas — título sticky esquerda
    + lista de cards accordion à direita.
    ───────────────────────────────────────── */
@@ -2090,10 +2119,10 @@ p {
 }
 
 /* ─────────────────────────────────────────
-   15. DICAS DE VIAGEM
+  16. DICAS DE VIAGEM
    ───────────────────────────────────────── */
 .tips {
-  padding: 7rem 7rem 14rem;
+  padding: 8rem 7rem 16rem;
   background: var(--clr-cream);
   position: relative;
 }
@@ -2273,6 +2302,9 @@ p {
 
 /* Responsive tips */
 @media (max-width: 1024px) {
+  .tips {
+    padding: 8rem 3rem 16rem;
+  }
   .tips__grid {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -2287,8 +2319,11 @@ p {
 }
 
 @media (max-width: 640px) {
+  .tips {
+    padding: 7rem 1.25rem 12rem;
+  }
   .tips__grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   .tips__title {
     font-size: clamp(2rem, 10vw, 2.8rem);
@@ -2302,7 +2337,7 @@ p {
 
 @media (max-width: 400px) {
   .tips__grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   .tip-card {
     border-right: none;
@@ -2310,7 +2345,7 @@ p {
 }
 
 /* ─────────────────────────────────────────
-   16. CONTACTO
+  17. CONTACTO
    ───────────────────────────────────────── */
 .contact {
   display: grid;
@@ -2460,7 +2495,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 /* ─────────────────────────────────────────
-   17. FOOTER
+  18. FOOTER
    ───────────────────────────────────────── */
 .footer {
   background: var(--clr-dark);
@@ -2542,7 +2577,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 /* ─────────────────────────────────────────
-   18. KEYFRAMES
+  19. KEYFRAMES
    ───────────────────────────────────────── */
 @keyframes fadeIn {
   from {
@@ -2593,7 +2628,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 /* ─────────────────────────────────────────
-   VIAGENS EM GRUPO — cards de pacotes
+  20. VIAGENS EM GRUPO — cards de pacotes
    ───────────────────────────────────────── */
 .packages {
   padding: 5rem 7rem 3rem;
@@ -2718,7 +2753,7 @@ input[type="number"]::-webkit-inner-spin-button {
   margin-top: var(--space-lg);
 }
 
-/* Responsive */
+/* Responsividade dos cards de pacotes */
 @media (max-width: 640px) {
   .packages {
     padding: var(--space-lg) 1.25rem;
@@ -2732,7 +2767,11 @@ input[type="number"]::-webkit-inner-spin-button {
   }
 }
 
-/* Tablet grande */
+/* ─────────────────────────────────────────
+  21. RESPONSIVIDADE GLOBAL
+  ───────────────────────────────────────── */
+
+/* Tablet grande — layout geral, hero e cards */
 @media (max-width: 1024px) {
   .navbar {
     padding: 1rem 1.5rem;
@@ -2741,6 +2780,7 @@ input[type="number"]::-webkit-inner-spin-button {
   .hero {
     padding: 5rem 3rem 16rem;
   }
+  /* Cards do hero: três colunas com menor sobreposição */
   .hero__cards-overlap {
     bottom: -260px;
     width: min(900px, calc(100% - 3rem));
@@ -2748,6 +2788,7 @@ input[type="number"]::-webkit-inner-spin-button {
   }
   .tours {
     padding-top: 300px;
+    padding-top: 60px; /* Reduzido porque os cards ocupam espaço natural agora */
   }
 
   .about {
@@ -2759,10 +2800,6 @@ input[type="number"]::-webkit-inner-spin-button {
   .about__image::after {
     display: none;
   }
-  .about__content {
-    padding: 3rem 2rem;
-  }
-
   .places {
     grid-template-columns: 1fr;
     padding: var(--space-lg) var(--space-md);
@@ -2800,7 +2837,7 @@ input[type="number"]::-webkit-inner-spin-button {
   }
 }
 
-/* Tablet pequeno */
+/* Tablet pequeno — layout geral, hero e cards */
 @media (max-width: 768px) {
   /* Navbar */
   .navbar {
@@ -2813,6 +2850,7 @@ input[type="number"]::-webkit-inner-spin-button {
     background-attachment: scroll;
     align-items: flex-start;
   }
+  /* Cards do hero: duas colunas */
   .hero__cards-overlap {
     grid-template-columns: repeat(2, 1fr);
     bottom: -180px;
@@ -2824,6 +2862,7 @@ input[type="number"]::-webkit-inner-spin-button {
   }
   .tours {
     padding: 210px 1rem var(--space-lg);
+    padding: 60px 1rem var(--space-lg);
   }
 
   /* Galeria */
@@ -2840,10 +2879,19 @@ input[type="number"]::-webkit-inner-spin-button {
     width: 100%;
   }
 
-  /* Contadores */
+  /* Contadores — alinhados lado a lado */
   .counters {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+  .counter {
+    display: flex;
     flex-direction: column;
-    gap: 1rem;
+    align-items: center;
+    justify-content: center;
   }
 
   /* Formulário */
@@ -2866,24 +2914,56 @@ input[type="number"]::-webkit-inner-spin-button {
   }
 }
 
-/* Mobile */
+/* Mobile — layout geral, hero e cards */
 @media (max-width: 540px) {
+   
+  .section-title, .about__title{
+    font-size: 40px;
+    
+  }
+  .section-subtitle{
+    font-size: 1rem;
+  }
+  .section-tag{
+    font-size: 0.75rem;
+  }
+
+  .about {
+    padding-inline: 1rem;
+    gap: 7rem;
+  }
+
+  .about__image.reveal-left {
+    transform: none;
+  }
+
   /* Hero — cards em coluna, saem do overlap absoluto */
   .hero {
     padding: 0;
-    min-height: 100svh;
+    min-height: 110svh;
     flex-direction: column;
     justify-content: flex-end;
     align-items: stretch;
+    background-repeat: no-repeat;
+    background-size: cover;
     background-attachment: scroll;
   }
 
   .hero__content {
-    padding: 5.5rem 1.25rem 1.5rem;
+    padding: 0rem 1rem 18rem;
+    
+    
+  }
+
+  .hero__badge{
+    font-size: 0.75rem;
+  }
+  .hero__subtitle {
+    font-size: 1rem;
   }
 
   .hero__title {
-    font-size: clamp(2.2rem, 10vw, 3rem);
+    font-size: 40px;
   }
 
   /* Scroll indicator esconde em mobile */
@@ -2891,20 +2971,36 @@ input[type="number"]::-webkit-inner-spin-button {
     display: none;
   }
 
-  /* Cards saem do posicionamento absoluto e fluem normalmente */
+  /* Cards do hero: deixam de ser absolutos e passam ao fluxo normal */
+  .hero-cards-container {
+    margin-top: -40px;
+    padding: 0rem 1rem;
+  }
+  .hero__actions{
+    font-size: 100px;
+   
+  }
+  /*botoes gerais */
+  .btn{
+    font-size: 0.75rem;
+    padding: 0.55rem 1.25rem;
+  }
+
   .hero__cards-overlap {
     position: static;
     transform: none;
     width: 100%;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; 
     gap: 0.75rem;
-    padding: 0.75rem 1.25rem 2rem;
+    padding: 0.75rem 0 2rem;
     bottom: auto;
   }
   .hero__cards-overlap .tour-card {
-    min-height: 190px;
+    min-height: 230px;
     --parallax-y: 0px !important;
   }
+
+  
 
   /* Tours volta ao padding normal sem compensar overlap */
   .tours {
@@ -2929,9 +3025,9 @@ input[type="number"]::-webkit-inner-spin-button {
     max-width: 300px;
   }
 
-  /* Tips grid mobile — 1 coluna */
+  /* Tips grid mobile — 3 colunas */
   .tips__grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   .tip-card {
     border-right: none;
@@ -2947,22 +3043,22 @@ input[type="number"]::-webkit-inner-spin-button {
     padding: 0 1rem;
   }
 
-  /* Contadores — empilhados */
+  /* Contadores — alinhados lado a lado */
   .counters {
-    flex-direction: column;
-    gap: 1.25rem;
-    border-top: 1px solid rgba(90, 67, 45, 0.15);
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: center;
+    gap: 0.75rem;
+    border-top: none;
   }
   .counter {
-    padding-right: 0;
-    padding-bottom: 1.25rem;
-    border-left: none !important;
-    padding-left: 0 !important;
-    border-bottom: 1px solid rgba(90, 67, 45, 0.1);
-  }
-  .counter:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 0.5rem;
+    border: none !important;
   }
 
   /* Footer */
@@ -2972,7 +3068,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 /* ─────────────────────────────────────────
-   20. RESERVATION — FULL SCREEN PAGE
+  22. RESERVATION — FULL SCREEN PAGE
    ───────────────────────────────────────── */
 
 /* Garante que [hidden] nunca é sobrescrito pelo CSS */
@@ -3494,7 +3590,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 /* ─────────────────────────────────────────
-   21. CONFIRMATION POPUP
+  23. CONFIRMATION POPUP
    ───────────────────────────────────────── */
 .res-confirm-overlay {
   position: fixed;
@@ -3642,7 +3738,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 /* ─────────────────────────────────────────
-   22. RESERVATION — RESPONSIVE
+  24. RESERVATION — RESPONSIVE
    ───────────────────────────────────────── */
 @media (max-width: 768px) {
   .res-hero {
@@ -3671,7 +3767,6 @@ input[type="number"]::-webkit-inner-spin-button {
   }
   .res-grid-2 {
     grid-template-columns: 1fr;
-    
   }
 
   .res-page__nav {
