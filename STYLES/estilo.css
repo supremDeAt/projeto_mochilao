@@ -2783,7 +2783,7 @@ input[type="number"]::-webkit-inner-spin-button {
   .navbar {
     padding: 1rem 1.5rem;
   }
-  .packages{
+  .packages {
     gap: 2rem;
   }
 
@@ -2874,7 +2874,6 @@ input[type="number"]::-webkit-inner-spin-button {
   .tours {
     padding: 210px 1rem var(--space-lg);
     padding: 60px 1rem var(--space-lg);
-    
   }
 
   /* Galeria */
@@ -2882,18 +2881,18 @@ input[type="number"]::-webkit-inner-spin-button {
     grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: 180px;
   }
- 
 
   /* Equipa */
   .team {
     grid-template-columns: 1fr;
     padding: 0rem 0rem 20rem;
     gap: 3rem;
-    
+
   }
 
   .team__left {
-    padding: 0 1rem;
+    
+
     align-items: left;
     text-align: left;
   }
@@ -2963,7 +2962,6 @@ input[type="number"]::-webkit-inner-spin-button {
     padding-inline: 1rem;
     gap: 7rem;
   }
- 
 
   .about__image.reveal-left {
     transform: none;
@@ -3092,6 +3090,9 @@ input[type="number"]::-webkit-inner-spin-button {
   /* Section headers */
   .section-header {
     padding: 0 1rem;
+  }
+  .team__left .section-header {
+    padding: 0;
   }
 
   /* Contadores — alinhados lado a lado */
