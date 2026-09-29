@@ -37,26 +37,56 @@ document.addEventListener("DOMContentLoaded", function () {
   let siteConfig = {};
 
   const rolesPermissions = {
-    "Super Admin": { canEditPrograms: true, canEditAdmins: true, canEditContent: true, canManageReservations: true },
-    "Gestor de Conteúdo": { canEditPrograms: true, canEditAdmins: false, canEditContent: true, canManageReservations: true },
-    "Atendente": { canEditPrograms: false, canEditAdmins: false, canEditContent: false, canManageReservations: true },
-    "Visualizador": { canEditPrograms: false, canEditAdmins: false, canEditContent: false, canManageReservations: false },
+    "Super Admin": {
+      canEditPrograms: true,
+      canEditAdmins: true,
+      canEditContent: true,
+      canManageReservations: true,
+    },
+    "Gestor de Conteúdo": {
+      canEditPrograms: true,
+      canEditAdmins: false,
+      canEditContent: true,
+      canManageReservations: true,
+    },
+    Atendente: {
+      canEditPrograms: false,
+      canEditAdmins: false,
+      canEditContent: false,
+      canManageReservations: true,
+    },
+    Visualizador: {
+      canEditPrograms: false,
+      canEditAdmins: false,
+      canEditContent: false,
+      canManageReservations: false,
+    },
   };
 
   function applyPermissions(role) {
     currentUserRole = role || "Visualizador";
-    const perms = rolesPermissions[currentUserRole] || rolesPermissions["Visualizador"];
+    const perms =
+      rolesPermissions[currentUserRole] || rolesPermissions["Visualizador"];
 
     const addProgBtn = document.getElementById("addProgramBtn");
-    if (addProgBtn) addProgBtn.style.display = perms.canEditPrograms ? "inline-block" : "none";
+    if (addProgBtn)
+      addProgBtn.style.display = perms.canEditPrograms
+        ? "inline-block"
+        : "none";
 
     const addAdminBtn = document.getElementById("addAdminBtn");
-    if (addAdminBtn) addAdminBtn.style.display = perms.canEditAdmins ? "inline-block" : "none";
+    if (addAdminBtn)
+      addAdminBtn.style.display = perms.canEditAdmins ? "inline-block" : "none";
 
     const saveContentBtn = document.getElementById("saveContentBtn");
-    if (saveContentBtn) saveContentBtn.style.display = perms.canEditContent ? "inline-block" : "none";
+    if (saveContentBtn)
+      saveContentBtn.style.display = perms.canEditContent
+        ? "inline-block"
+        : "none";
 
-    document.querySelectorAll("#contentForm input, #contentForm textarea").forEach((el) => (el.disabled = !perms.canEditContent));
+    document
+      .querySelectorAll("#contentForm input, #contentForm textarea")
+      .forEach((el) => (el.disabled = !perms.canEditContent));
 
     renderPrograms();
     renderAdmins();
@@ -107,10 +137,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // --- MODAL SYSTEM ---
-  const globalModal = document.getElementById('globalModal');
-  const modalTitle = document.getElementById('modalTitle');
-  const modalBody = document.getElementById('modalBody');
-  const modalClose = document.getElementById('modalClose');
+  const globalModal = document.getElementById("globalModal");
+  const modalTitle = document.getElementById("modalTitle");
+  const modalBody = document.getElementById("modalBody");
+  const modalClose = document.getElementById("modalClose");
 
   function openModal(title, htmlContent) {
     modalTitle.textContent = title;
@@ -120,37 +150,48 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function closeModal() {
     globalModal.hidden = true;
-    modalBody.innerHTML = '';
+    modalBody.innerHTML = "";
   }
 
-  if (modalClose) modalClose.addEventListener('click', closeModal);
-  if (globalModal) globalModal.addEventListener('click', (e) => {
-    if (e.target === globalModal) closeModal();
-  });
+  if (modalClose) modalClose.addEventListener("click", closeModal);
+  if (globalModal)
+    globalModal.addEventListener("click", (e) => {
+      if (e.target === globalModal) closeModal();
+    });
 
   // --- VIEW FULL MESSAGE ---
-  window.viewMessage = async function(id) {
-    const msg = messagesList.find(m => m.id === id);
+  window.viewMessage = async function (id) {
+    const msg = messagesList.find((m) => m.id === id);
     if (!msg) return;
 
     // Se estiver pendente, muda automaticamente para "Lida/Respondida" ao abrir
-    const perms = rolesPermissions[currentUserRole] || rolesPermissions["Visualizador"];
+    const perms =
+      rolesPermissions[currentUserRole] || rolesPermissions["Visualizador"];
     if (perms.canManageReservations && msg.status === "Pendente") {
-      updateDoc(doc(db, "messages", id), { status: "Respondido", lido: true }).catch(console.error);
+      updateDoc(doc(db, "messages", id), {
+        status: "Respondido",
+        lido: true,
+      }).catch(console.error);
     }
 
-    const dataStr = msg.data ? (msg.data.toDate ? msg.data.toDate().toLocaleDateString("pt-PT") : msg.data) : "–";
-    const wppHref = msg.telefone ? `https://wa.me/${msg.telefone.replace(/\D/g, "")}` : '';
+    const dataStr = msg.data
+      ? msg.data.toDate
+        ? msg.data.toDate().toLocaleDateString("pt-PT")
+        : msg.data
+      : "–";
+    const wppHref = msg.telefone
+      ? `https://wa.me/${msg.telefone.replace(/\D/g, "")}`
+      : "";
 
     const html = `
       <div style="display:flex; flex-direction:column; gap:0.8rem;">
         <div><strong style="color:var(--clr-text-muted); font-size:0.75rem; text-transform:uppercase;">Cliente</strong><br>${msg.nome || "–"}</div>
-        <div><strong style="color:var(--clr-text-muted); font-size:0.75rem; text-transform:uppercase;">Data e Contacto</strong><br>${dataStr} &bull; ${msg.email || "–"} ${msg.telefone ? `&bull; ${msg.telefone}` : ''}</div>
+        <div><strong style="color:var(--clr-text-muted); font-size:0.75rem; text-transform:uppercase;">Data e Contacto</strong><br>${dataStr} &bull; ${msg.email || "–"} ${msg.telefone ? `&bull; ${msg.telefone}` : ""}</div>
         <div><strong style="color:var(--clr-text-muted); font-size:0.75rem; text-transform:uppercase;">Assunto</strong><br>${msg.assunto || "–"}</div>
         <div style="background:#faf8f4; padding:1.2rem; border-radius:12px; margin-top:0.5rem; font-size:0.95rem;">${msg.mensagem || "Sem conteúdo."}</div>
         <div style="display:flex; gap:1rem; margin-top:1rem;">
           <a href="mailto:${msg.email}" class="btn btn--outline"><i class="fa-solid fa-envelope"></i> Responder via Email</a>
-          ${wppHref ? `<a href="${wppHref}" target="_blank" class="btn btn--primary" style="background:#25d366"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>` : ''}
+          ${wppHref ? `<a href="${wppHref}" target="_blank" class="btn btn--primary" style="background:#25d366"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>` : ""}
         </div>
       </div>
     `;
@@ -158,13 +199,20 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   // --- VIEW RESERVATION & NOTES ---
-  window.viewReservation = function(id) {
-    const res = reservationsList.find(r => r.id === id);
+  window.viewReservation = function (id) {
+    const res = reservationsList.find((r) => r.id === id);
     if (!res) return;
 
-    const dataStr = res.data ? (res.data.toDate ? res.data.toDate().toLocaleDateString("pt-PT") : res.data) : "–";
-    const wppHref = res.telefone ? `https://wa.me/${res.telefone.replace(/\D/g, "")}` : '';
-    const perms = rolesPermissions[currentUserRole] || rolesPermissions["Visualizador"];
+    const dataStr = res.data
+      ? res.data.toDate
+        ? res.data.toDate().toLocaleDateString("pt-PT")
+        : res.data
+      : "–";
+    const wppHref = res.telefone
+      ? `https://wa.me/${res.telefone.replace(/\D/g, "")}`
+      : "";
+    const perms =
+      rolesPermissions[currentUserRole] || rolesPermissions["Visualizador"];
 
     const html = `
       <div style="display:flex; flex-direction:column; gap:1rem;">
@@ -179,26 +227,26 @@ document.addEventListener("DOMContentLoaded", function () {
         
         <div class="field" style="margin-top:1rem;">
           <label>Notas Internas (Admin)</label>
-          <textarea id="modalNotesInput" placeholder="Ex: Cliente quer guia em inglês...">${res.notas || ''}</textarea>
+          <textarea id="modalNotesInput" placeholder="Ex: Cliente quer guia em inglês...">${res.notas || ""}</textarea>
         </div>
         
         <div style="display:flex; gap:1rem; margin-top:0.5rem;">
-          ${perms.canManageReservations ? `<button id="saveNotesBtn" class="btn btn--primary">Guardar Notas</button>` : ''}
-          ${wppHref ? `<a href="${wppHref}" target="_blank" class="btn btn--outline" style="color:#25d366; border-color:#25d366;"><i class="fa-brands fa-whatsapp"></i> Falar com Cliente</a>` : ''}
+          ${perms.canManageReservations ? `<button id="saveNotesBtn" class="btn btn--primary">Guardar Notas</button>` : ""}
+          ${wppHref ? `<a href="${wppHref}" target="_blank" class="btn btn--outline" style="color:#25d366; border-color:#25d366;"><i class="fa-brands fa-whatsapp"></i> Falar com Cliente</a>` : ""}
         </div>
       </div>
     `;
-    
+
     openModal("Detalhes da Reserva", html);
 
     // Adicionar evento ao botão de salvar notas no modal
     if (perms.canManageReservations) {
       setTimeout(() => {
-        const btn = document.getElementById('saveNotesBtn');
+        const btn = document.getElementById("saveNotesBtn");
         if (btn) {
-          btn.addEventListener('click', async () => {
-            const notas = document.getElementById('modalNotesInput').value;
-            btn.innerHTML = 'A guardar...';
+          btn.addEventListener("click", async () => {
+            const notas = document.getElementById("modalNotesInput").value;
+            btn.innerHTML = "A guardar...";
             btn.disabled = true;
             try {
               await updateDoc(doc(db, "reservations", id), { notas: notas });
@@ -206,7 +254,7 @@ document.addEventListener("DOMContentLoaded", function () {
               setTimeout(closeModal, 800);
             } catch (err) {
               console.error(err);
-              btn.innerHTML = 'Erro!';
+              btn.innerHTML = "Erro!";
             }
           });
         }
@@ -217,23 +265,37 @@ document.addEventListener("DOMContentLoaded", function () {
   // --- RENDER FUNCTIONS ---
   function renderStats() {
     const cards = document.querySelectorAll("[data-stat]");
-    const totals = { messages: messagesList.length, reservations: reservationsList.length, programs: programsList.length, admins: adminsList.length };
+    const totals = {
+      messages: messagesList.length,
+      reservations: reservationsList.length,
+      programs: programsList.length,
+      admins: adminsList.length,
+    };
     cards.forEach((card) => {
       const key = card.dataset.stat;
       card.querySelector(".stat-card__value").textContent = totals[key] ?? 0;
     });
 
-    const pendingMsgs = messagesList.filter((m) => m.status === "Pendente").length;
+    const pendingMsgs = messagesList.filter(
+      (m) => m.status === "Pendente",
+    ).length;
     const subMsg = document.getElementById("dashMsgPending");
-    if (subMsg) subMsg.textContent = `${pendingMsgs} pendente${pendingMsgs !== 1 ? "s" : ""}`;
+    if (subMsg)
+      subMsg.textContent = `${pendingMsgs} pendente${pendingMsgs !== 1 ? "s" : ""}`;
 
-    const confirmedRes = reservationsList.filter((r) => r.status === "Confirmada").length;
+    const confirmedRes = reservationsList.filter(
+      (r) => r.status === "Confirmada",
+    ).length;
     const subRes = document.getElementById("dashResConfirmed");
-    if (subRes) subRes.textContent = `${confirmedRes} confirmada${confirmedRes !== 1 ? "s" : ""}`;
+    if (subRes)
+      subRes.textContent = `${confirmedRes} confirmada${confirmedRes !== 1 ? "s" : ""}`;
 
-    const cats = [...new Set(programsList.map((p) => p.categoria).filter(Boolean))].length;
+    const cats = [
+      ...new Set(programsList.map((p) => p.categoria).filter(Boolean)),
+    ].length;
     const subProg = document.getElementById("dashProgCats");
-    if (subProg) subProg.textContent = `${cats} categoria${cats !== 1 ? "s" : ""}`;
+    if (subProg)
+      subProg.textContent = `${cats} categoria${cats !== 1 ? "s" : ""}`;
 
     const subAdmin = document.getElementById("dashAdminRole");
     if (subAdmin) subAdmin.textContent = currentUserRole || "–";
@@ -247,7 +309,9 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!alertsList) return;
 
     const alerts = [];
-    const pendingMsgs = messagesList.filter((m) => m.status === "Pendente").length;
+    const pendingMsgs = messagesList.filter(
+      (m) => m.status === "Pendente",
+    ).length;
     if (pendingMsgs > 0) {
       alerts.push({
         icon: "fa-envelope",
@@ -257,7 +321,9 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
 
-    const pendingRes = reservationsList.filter((r) => r.status === "Pendente").length;
+    const pendingRes = reservationsList.filter(
+      (r) => r.status === "Pendente",
+    ).length;
     if (pendingRes > 0) {
       alerts.push({
         icon: "fa-calendar-xmark",
@@ -281,27 +347,56 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    alertsList.innerHTML = alerts.map((a) => `
+    alertsList.innerHTML = alerts
+      .map(
+        (a) => `
       <li class="alert-item${a.danger ? " alert-item--danger" : ""}">
         <i class="fa-solid ${a.icon}"></i>
         <div><strong>${a.title}</strong>${a.desc}</div>
       </li>
-    `).join("");
+    `,
+      )
+      .join("");
   }
 
   function renderRecentActivity() {
     const recentList = document.getElementById("dashRecentList");
     if (!recentList) return;
 
-    const statusDot = { Confirmada: "--green", Cancelada: "--red", "Em análise": "--blue", Respondido: "--green", Arquivado: "--blue", Pendente: "" };
+    const statusDot = {
+      Confirmada: "--green",
+      Cancelada: "--red",
+      "Em análise": "--blue",
+      Respondido: "--green",
+      Arquivado: "--blue",
+      Pendente: "",
+    };
     const entries = [];
 
-    [...messagesList].slice(-4).reverse().forEach((m) => {
-        entries.push({ dot: statusDot[m.status] || "", title: m.nome || "Cliente", desc: m.assunto || "Nova mensagem", badge: m.status || "Pendente", badgeMod: statusDot[m.status] || "" });
+    [...messagesList]
+      .slice(-4)
+      .reverse()
+      .forEach((m) => {
+        entries.push({
+          dot: statusDot[m.status] || "",
+          title: m.nome || "Cliente",
+          desc: m.assunto || "Nova mensagem",
+          badge: m.status || "Pendente",
+          badgeMod: statusDot[m.status] || "",
+        });
       });
 
-    [...reservationsList].slice(-4).reverse().forEach((r) => {
-        entries.push({ dot: statusDot[r.status] || "", title: r.nome || "Cliente", desc: `Reserva → ${r.destino || "destino"}`, badge: r.status || "Pendente", badgeMod: statusDot[r.status] || "" });
+    [...reservationsList]
+      .slice(-4)
+      .reverse()
+      .forEach((r) => {
+        entries.push({
+          dot: statusDot[r.status] || "",
+          title: r.nome || "Cliente",
+          desc: `Reserva → ${r.destino || "destino"}`,
+          badge: r.status || "Pendente",
+          badgeMod: statusDot[r.status] || "",
+        });
       });
 
     if (entries.length === 0) {
@@ -309,7 +404,10 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    recentList.innerHTML = entries.slice(0, 6).map((e) => `
+    recentList.innerHTML = entries
+      .slice(0, 6)
+      .map(
+        (e) => `
       <li class="recent-item">
         <div class="recent-item__dot recent-item__dot${e.dot}"></div>
         <div class="recent-item__body">
@@ -318,52 +416,78 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
         <span class="recent-item__badge recent-item__badge${e.badgeMod}">${e.badge}</span>
       </li>
-    `).join("");
+    `,
+      )
+      .join("");
   }
 
   function renderPrograms() {
     const list = document.getElementById("programList");
     if (!list) return;
-    const perms = rolesPermissions[currentUserRole] || rolesPermissions["Visualizador"];
+    const perms =
+      rolesPermissions[currentUserRole] || rolesPermissions["Visualizador"];
 
     if (!programsList.length) {
       list.innerHTML = `<tr><td colspan="5" class="admin-empty-state">Nenhum programa cadastrado. Adicione o seu primeiro destino!</td></tr>`;
       return;
     }
 
-    list.innerHTML = programsList.map((program) => `
+    list.innerHTML = programsList
+      .map(
+        (program) => `
       <tr>
         <td><strong>${program.nome || ""}</strong></td>
         <td>${program.categoria || ""}</td>
         <td>${program.duracao || ""}</td>
         <td>${program.preco || ""}</td>
         <td>
-          ${perms.canEditPrograms
-            ? `<button class="table-action table-action--primary btn-edit-program" data-id="${program.id}" title="Editar"><i class="fa-solid fa-pen"></i></button>
+          ${
+            perms.canEditPrograms
+              ? `<button class="table-action table-action--primary btn-edit-program" data-id="${program.id}" title="Editar"><i class="fa-solid fa-pen"></i></button>
                <button class="table-action table-action--danger btn-delete-program" data-id="${program.id}" title="Remover"><i class="fa-solid fa-trash-can"></i></button>`
-            : "-"
+              : "-"
           }
         </td>
       </tr>
-    `).join("");
+    `,
+      )
+      .join("");
 
-    document.querySelectorAll(".btn-edit-program").forEach((btn) => btn.addEventListener("click", () => window.editProgram(btn.dataset.id)));
-    document.querySelectorAll(".btn-delete-program").forEach((btn) => btn.addEventListener("click", () => window.deleteProgram(btn.dataset.id)));
+    document
+      .querySelectorAll(".btn-edit-program")
+      .forEach((btn) =>
+        btn.addEventListener("click", () => window.editProgram(btn.dataset.id)),
+      );
+    document
+      .querySelectorAll(".btn-delete-program")
+      .forEach((btn) =>
+        btn.addEventListener("click", () =>
+          window.deleteProgram(btn.dataset.id),
+        ),
+      );
   }
 
   function renderMessages() {
     const list = document.getElementById("messagesList");
     if (!list) return;
-    const perms = rolesPermissions[currentUserRole] || rolesPermissions["Visualizador"];
+    const perms =
+      rolesPermissions[currentUserRole] || rolesPermissions["Visualizador"];
 
     if (!messagesList.length) {
       list.innerHTML = `<tr><td colspan="5" class="admin-empty-state">A caixa de entrada está limpa. Sem mensagens de clientes.</td></tr>`;
       return;
     }
 
-    list.innerHTML = messagesList.map((msg) => {
-        const statusClass = (msg.status || "").toLowerCase().replace(/\s+/g, "-");
-        const dataStr = msg.data ? (msg.data.toDate ? msg.data.toDate().toLocaleDateString("pt-PT") : msg.data) : "–";
+    list.innerHTML = messagesList
+      .map((msg) => {
+        const statusClass = (msg.status || "")
+          .toLowerCase()
+          .replace(/\s+/g, "-");
+        const dataStr = msg.data
+          ? msg.data.toDate
+            ? msg.data.toDate().toLocaleDateString("pt-PT")
+            : msg.data
+          : "–";
 
         return `
         <tr>
@@ -381,22 +505,31 @@ document.addEventListener("DOMContentLoaded", function () {
           </td>
         </tr>
       `;
-      }).join("");
+      })
+      .join("");
   }
 
   function renderReservations() {
     const list = document.getElementById("reservationsList");
     if (!list) return;
-    const perms = rolesPermissions[currentUserRole] || rolesPermissions["Visualizador"];
+    const perms =
+      rolesPermissions[currentUserRole] || rolesPermissions["Visualizador"];
 
     if (!reservationsList.length) {
       list.innerHTML = `<tr><td colspan="7" class="admin-empty-state">Ainda sem reservas registadas.</td></tr>`;
       return;
     }
 
-    list.innerHTML = reservationsList.map((res) => {
-        const statusClass = (res.status || "").toLowerCase().replace(/\s+/g, "-");
-        const dataStr = res.data ? (res.data.toDate ? res.data.toDate().toLocaleDateString("pt-PT") : res.data) : "–";
+    list.innerHTML = reservationsList
+      .map((res) => {
+        const statusClass = (res.status || "")
+          .toLowerCase()
+          .replace(/\s+/g, "-");
+        const dataStr = res.data
+          ? res.data.toDate
+            ? res.data.toDate().toLocaleDateString("pt-PT")
+            : res.data
+          : "–";
 
         let statusCell;
         if (perms.canManageReservations) {
@@ -426,16 +559,21 @@ document.addEventListener("DOMContentLoaded", function () {
           </td>
         </tr>
       `;
-      }).join("");
+      })
+      .join("");
 
     document.querySelectorAll(".status-select").forEach((sel) => {
       sel.addEventListener("change", async (e) => {
         const id = sel.dataset.id;
         const newStatus = sel.value;
         sel.disabled = true;
-        try { await updateDoc(doc(db, "reservations", id), { status: newStatus }); } 
-        catch (err) { console.error("[admin] Erro:", err); } 
-        finally { sel.disabled = false; }
+        try {
+          await updateDoc(doc(db, "reservations", id), { status: newStatus });
+        } catch (err) {
+          console.error("[admin] Erro:", err);
+        } finally {
+          sel.disabled = false;
+        }
       });
     });
   }
@@ -443,54 +581,102 @@ document.addEventListener("DOMContentLoaded", function () {
   function renderAdmins() {
     const list = document.getElementById("adminsList");
     if (!list) return;
-    const perms = rolesPermissions[currentUserRole] || rolesPermissions["Visualizador"];
+    const perms =
+      rolesPermissions[currentUserRole] || rolesPermissions["Visualizador"];
 
     if (!adminsList.length) {
       list.innerHTML = `<tr><td colspan="4" class="admin-empty-state">Nenhum administrador encontrado.</td></tr>`;
       return;
     }
 
-    list.innerHTML = adminsList.map((admin) => `
+    list.innerHTML = adminsList
+      .map(
+        (admin) => `
       <tr>
         <td><strong>${admin.nome || ""}</strong></td>
         <td>${admin.email || ""}</td>
         <td>${admin.role || ""}</td>
         <td>
-          ${perms.canEditAdmins
+          ${
+            perms.canEditAdmins
               ? `<button class="table-action table-action--primary btn-edit-admin" data-id="${admin.id}"><i class="fa-solid fa-pen"></i></button>
                  <button class="table-action table-action--danger btn-delete-admin" data-id="${admin.id}"><i class="fa-solid fa-trash-can"></i></button>`
               : "-"
           }
         </td>
       </tr>
-    `).join("");
+    `,
+      )
+      .join("");
 
-    document.querySelectorAll(".btn-edit-admin").forEach((btn) => btn.addEventListener("click", () => editAdmin(btn.dataset.id)));
-    document.querySelectorAll(".btn-delete-admin").forEach((btn) => btn.addEventListener("click", () => deleteAdmin(btn.dataset.id)));
+    document
+      .querySelectorAll(".btn-edit-admin")
+      .forEach((btn) =>
+        btn.addEventListener("click", () => editAdmin(btn.dataset.id)),
+      );
+    document
+      .querySelectorAll(".btn-delete-admin")
+      .forEach((btn) =>
+        btn.addEventListener("click", () => deleteAdmin(btn.dataset.id)),
+      );
   }
 
   function renderContent() {
+    const imagePreview = document.getElementById("heroImagePreview");
+    if (
+      imagePreview &&
+      !document.getElementById("contentHeroImage")?.files.length
+    ) {
+      imagePreview.src =
+        siteConfig.heroImageUrl || "../imagens/fundo_kifuka2.jpeg";
+    }
     if (siteConfig.heroTitle) {
-      document.getElementById("heroTitlePreview").textContent = siteConfig.heroTitle;
+      document.getElementById("heroTitlePreview").textContent =
+        siteConfig.heroTitle;
       document.getElementById("contentHeroTitle").value = siteConfig.heroTitle;
     }
     if (siteConfig.heroSubtitle) {
-      document.getElementById("heroSubtitlePreview").textContent = siteConfig.heroSubtitle;
-      document.getElementById("contentHeroSubtitle").value = siteConfig.heroSubtitle;
+      document.getElementById("heroSubtitlePreview").textContent =
+        siteConfig.heroSubtitle;
+      document.getElementById("contentHeroSubtitle").value =
+        siteConfig.heroSubtitle;
     }
     if (siteConfig.featureLabel) {
-      document.getElementById("heroLabelPreview").textContent = siteConfig.featureLabel;
-      document.getElementById("contentHeroLabel").value = siteConfig.featureLabel;
+      document.getElementById("heroLabelPreview").textContent =
+        siteConfig.featureLabel;
+      document.getElementById("contentHeroLabel").value =
+        siteConfig.featureLabel;
     }
   }
 
   // --- Subscriptions ---
   function subscribeAll() {
-    onSnapshot(collection(db, "programs"), (snap) => { programsList = snap.docs.map((d) => ({ id: d.id, ...d.data() })); renderPrograms(); renderStats(); });
-    onSnapshot(collection(db, "messages"), (snap) => { messagesList = snap.docs.map((d) => ({ id: d.id, ...d.data() })); renderMessages(); renderStats(); });
-    onSnapshot(collection(db, "reservations"), (snap) => { reservationsList = snap.docs.map((d) => ({ id: d.id, ...d.data() })); renderReservations(); renderStats(); });
-    onSnapshot(collection(db, "admins"), (snap) => { adminsList = snap.docs.map((d) => ({ id: d.id, ...d.data() })); renderAdmins(); renderStats(); });
-    onSnapshot(doc(db, "siteConfig", "hero"), (snap) => { if (snap.exists()) { siteConfig = snap.data(); renderContent(); } });
+    onSnapshot(collection(db, "programs"), (snap) => {
+      programsList = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+      renderPrograms();
+      renderStats();
+    });
+    onSnapshot(collection(db, "messages"), (snap) => {
+      messagesList = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+      renderMessages();
+      renderStats();
+    });
+    onSnapshot(collection(db, "reservations"), (snap) => {
+      reservationsList = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+      renderReservations();
+      renderStats();
+    });
+    onSnapshot(collection(db, "admins"), (snap) => {
+      adminsList = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+      renderAdmins();
+      renderStats();
+    });
+    onSnapshot(doc(db, "siteConfig", "hero"), (snap) => {
+      if (snap.exists()) {
+        siteConfig = snap.data();
+        renderContent();
+      }
+    });
   }
 
   async function uploadProgramImage(file) {
@@ -502,18 +688,42 @@ document.addEventListener("DOMContentLoaded", function () {
     return { imagemURL: await getDownloadURL(imageRef), imagemPath: imagePath };
   }
 
+  async function uploadHeroImage(file) {
+    if (!file) return null;
+    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "-");
+    const imagePath = `site-content/${Date.now()}-${safeName}`;
+    const imageRef = ref(storage, imagePath);
+    await uploadBytes(imageRef, file, { contentType: file.type });
+    return { imagemURL: await getDownloadURL(imageRef), imagemPath: imagePath };
+  }
+
   function withTimeout(promise, milliseconds, message) {
     let timeoutId;
     const timeout = new Promise((_, reject) => {
       timeoutId = setTimeout(() => reject(new Error(message)), milliseconds);
     });
 
-    return Promise.race([promise, timeout]).finally(() => clearTimeout(timeoutId));
+    return Promise.race([promise, timeout]).finally(() =>
+      clearTimeout(timeoutId),
+    );
   }
 
   async function removeProgramImage(imagePath) {
     if (!imagePath) return;
-    try { await deleteObject(ref(storage, imagePath)); } catch (error) { if (error.code !== "storage/object-not-found") throw error; }
+    try {
+      await deleteObject(ref(storage, imagePath));
+    } catch (error) {
+      if (error.code !== "storage/object-not-found") throw error;
+    }
+  }
+
+  async function removeHeroImage(imagePath) {
+    if (!imagePath) return;
+    try {
+      await deleteObject(ref(storage, imagePath));
+    } catch (error) {
+      if (error.code !== "storage/object-not-found") throw error;
+    }
   }
 
   // --- Forms & Actions ---
@@ -527,17 +737,20 @@ document.addEventListener("DOMContentLoaded", function () {
       addProgramBtn.addEventListener("click", () => {
         programForm.reset();
         document.getElementById("programId").value = "";
-        document.getElementById("programFormTitle").textContent = "Novo Programa";
+        document.getElementById("programFormTitle").textContent =
+          "Novo Programa";
         programForm.classList.add("is-open");
       });
       cancelProgramBtn.addEventListener("click", () => {
         programForm.classList.remove("is-open");
       });
-      programForm.querySelectorAll(".drawer-cancel-action").forEach((button) => {
-        button.addEventListener("click", () => {
-          programForm.classList.remove("is-open");
+      programForm
+        .querySelectorAll(".drawer-cancel-action")
+        .forEach((button) => {
+          button.addEventListener("click", () => {
+            programForm.classList.remove("is-open");
+          });
         });
-      });
       programForm.addEventListener("submit", async (e) => {
         e.preventDefault();
         const btn = document.getElementById("saveProgramBtn");
@@ -547,9 +760,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const id = document.getElementById("programId").value;
         const imageFile = document.getElementById("progImage").files[0];
-        const existingProgram = programsList.find((program) => program.id === id);
+        const existingProgram = programsList.find(
+          (program) => program.id === id,
+        );
         let uploadedImage = null;
-        
+
         const data = {
           nome: document.getElementById("progName").value.trim(),
           slogan: document.getElementById("progSlogan").value.trim(),
@@ -585,7 +800,8 @@ document.addEventListener("DOMContentLoaded", function () {
               15000,
               "A atualização do programa demorou demasiado. Verifique a ligação e as permissões da conta.",
             );
-            if (imageFile && existingProgram?.imagemPath) await removeProgramImage(existingProgram.imagemPath);
+            if (imageFile && existingProgram?.imagemPath)
+              await removeProgramImage(existingProgram.imagemPath);
           } else {
             await withTimeout(
               addDoc(collection(db, "programs"), data),
@@ -599,7 +815,9 @@ document.addEventListener("DOMContentLoaded", function () {
             await removeProgramImage(uploadedImage.imagemPath).catch(() => {});
           }
           console.error(err);
-          alert(`Erro ao salvar programa: ${err.message || "operação não concluída."}`);
+          alert(
+            `Erro ao salvar programa: ${err.message || "operação não concluída."}`,
+          );
         } finally {
           btn.innerHTML = originalButtonContent;
           btn.disabled = false;
@@ -612,7 +830,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const adminForm = document.getElementById("adminForm");
     const adminsLayout = document.querySelector(".admins-layout");
     const cancelAdminBtn = document.getElementById("cancelAdminBtn");
-    
+
     if (adminForm && addAdminBtn) {
       addAdminBtn.addEventListener("click", () => {
         adminForm.reset();
@@ -640,17 +858,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
         try {
           if (id) {
-            await updateDoc(doc(db, "admins", id), { nome, email, role, telefone });
+            await updateDoc(doc(db, "admins", id), {
+              nome,
+              email,
+              role,
+              telefone,
+            });
           } else {
             if (!password || password.length < 6) {
               alert("Senha é obrigatória para novos admins (min 6 carateres).");
               return;
             }
-            const secondaryApp = initializeApp(app.options, `AdminCreation-${Date.now()}`);
+            const secondaryApp = initializeApp(
+              app.options,
+              `AdminCreation-${Date.now()}`,
+            );
             const secondaryAuth = getAuth(secondaryApp);
             try {
-              const userCred = await createUserWithEmailAndPassword(secondaryAuth, email, password);
-              await setDoc(doc(db, "admins", userCred.user.uid), { email, nome, role, telefone, ativo: true });
+              const userCred = await createUserWithEmailAndPassword(
+                secondaryAuth,
+                email,
+                password,
+              );
+              await setDoc(doc(db, "admins", userCred.user.uid), {
+                email,
+                nome,
+                role,
+                telefone,
+                ativo: true,
+              });
             } finally {
               await signOut(secondaryAuth).catch(() => {});
               await deleteApp(secondaryApp);
@@ -672,23 +908,74 @@ document.addEventListener("DOMContentLoaded", function () {
     // Content
     const contentForm = document.getElementById("contentForm");
     if (contentForm) {
+      const imageInput = document.getElementById("contentHeroImage");
+      const imagePreview = document.getElementById("heroImagePreview");
+      let previewObjectUrl = null;
+
+      imageInput.addEventListener("change", () => {
+        const file = imageInput.files?.[0];
+        if (!file || !imagePreview) return;
+        if (previewObjectUrl) URL.revokeObjectURL(previewObjectUrl);
+        previewObjectUrl = URL.createObjectURL(file);
+        imagePreview.src = previewObjectUrl;
+      });
+
       contentForm.addEventListener("submit", async (e) => {
         e.preventDefault();
-        const btn = document.getElementById('saveContentBtn');
-        btn.textContent = 'A guardar...';
+        const btn = document.getElementById("saveContentBtn");
+        btn.textContent = "A guardar...";
         btn.disabled = true;
+        const previousImagePath = siteConfig.heroImagePath;
+        let uploadedImagePath = null;
         const data = {
           featureLabel: document.getElementById("contentHeroLabel").value,
           heroTitle: document.getElementById("contentHeroTitle").value,
           heroSubtitle: document.getElementById("contentHeroSubtitle").value,
         };
         try {
+          const imageFile = imageInput.files?.[0];
+          if (imageFile) {
+            const uploadedImage = await uploadHeroImage(imageFile);
+            uploadedImagePath = uploadedImage.imagemPath;
+            data.heroImageUrl = uploadedImage.imagemURL;
+            data.heroImagePath = uploadedImage.imagemPath;
+          }
           await setDoc(doc(db, "siteConfig", "hero"), data, { merge: true });
+          siteConfig = { ...siteConfig, ...data };
+          imageInput.value = "";
+          if (previewObjectUrl) URL.revokeObjectURL(previewObjectUrl);
+          previewObjectUrl = null;
+          renderContent();
+
+          if (
+            previousImagePath &&
+            uploadedImagePath &&
+            previousImagePath !== uploadedImagePath
+          ) {
+            try {
+              await removeHeroImage(previousImagePath);
+            } catch (error) {
+              console.warn(
+                "Não foi possível remover a foto anterior do Hero.",
+                error,
+              );
+            }
+          }
         } catch (err) {
           console.error(err);
+          if (uploadedImagePath) {
+            try {
+              await removeHeroImage(uploadedImagePath);
+            } catch (cleanupError) {
+              console.warn(
+                "Não foi possível remover a foto não guardada.",
+                cleanupError,
+              );
+            }
+          }
           alert("Erro ao atualizar conteúdo.");
         } finally {
-          btn.textContent = 'Salvar Alterações no Site';
+          btn.textContent = "Salvar Alterações no Site";
           btn.disabled = false;
         }
       });
@@ -742,7 +1029,11 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
     if (confirm("Tem certeza que deseja revogar o acesso a este admin?")) {
-      try { await deleteDoc(doc(db, "admins", id)); } catch (err) { console.error(err); }
+      try {
+        await deleteDoc(doc(db, "admins", id));
+      } catch (err) {
+        console.error(err);
+      }
     }
   };
 
@@ -763,8 +1054,15 @@ document.addEventListener("DOMContentLoaded", function () {
       link.addEventListener("click", (e) => {
         e.preventDefault();
         const selectedView = link.dataset.view;
-        navLinks.forEach((item) => item.classList.toggle("is-active", item === link));
-        views.forEach((view) => view.classList.toggle("is-visible", view.dataset.view === selectedView));
+        navLinks.forEach((item) =>
+          item.classList.toggle("is-active", item === link),
+        );
+        views.forEach((view) =>
+          view.classList.toggle(
+            "is-visible",
+            view.dataset.view === selectedView,
+          ),
+        );
       });
     });
   }

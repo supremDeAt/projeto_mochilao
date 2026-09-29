@@ -123,6 +123,8 @@ Documento: "hero"
 ├── heroTitle: string
 ├── heroSubtitle: string
 ├── featureLabel: string
+├── heroImageUrl: string (opcional)
+├── heroImagePath: string (opcional)
 ├── ultimaAtualizacao: timestamp
 └── atualizadoPor: string (UID do admin)
 ```
@@ -133,9 +135,11 @@ Vá a https://console.firebase.google.com/project/omochilao/firestore/rules e co
 
 O arquivo oficial aplica as permissões por role e limita as atualizações de `messages` e `reservations` ao campo `status`.
 
+Para permitir a alteração da foto de fundo do Hero, aceda a https://console.firebase.google.com/project/omochilao/storage e publique também as regras do arquivo [storage.rules](storage.rules). Os uploads ficam em `site-content/` e só podem ser alterados por Super Admin ou Gestor de Conteúdo.
+
 ## 📱 Próximos Passos
 
-1. **Configure as regras de segurança** (ver acima)
+1. **Configure as regras do Firestore e do Storage** (ver acima)
 2. **Teste o login** com as credenciais do primeiro admin
 3. **Implemente os CRUDs** no painel administrativo
 4. **Configure o EmailJS** para notificações

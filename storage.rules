@@ -16,5 +16,10 @@ service firebase.storage {
       allow read: if true;
       allow create, update, delete: if canManagePrograms();
     }
+
+    match /site-content/{fileName} {
+      allow read: if true;
+      allow create, update, delete: if canManagePrograms();
+    }
   }
 }
