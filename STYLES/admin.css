@@ -109,6 +109,20 @@ textarea {
   flex-direction: column;
   gap: 0.5rem;
 }
+.admin-menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+}
 .admin-nav__link {
   display: flex;
   align-items: center;
@@ -986,17 +1000,16 @@ textarea {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 799px) {
   .admin-page {
     grid-template-columns: minmax(0, 1fr);
   }
   .admin-sidebar {
     min-width: 0;
     padding: 1rem 1.25rem;
-    flex-direction: row;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
-    justify-content: space-between;
     gap: 0.75rem;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     position: sticky;
@@ -1007,32 +1020,45 @@ textarea {
     padding-bottom: 0;
     margin-bottom: 0;
   }
+  .admin-menu-toggle {
+    display: inline-flex;
+    grid-column: 2;
+  }
   .admin-nav {
-    flex-direction: row;
+    display: none;
+    grid-column: 1 / -1;
+    flex-direction: column;
     width: 100%;
     min-width: 0;
-    overflow-x: auto;
-    padding: 0.25rem 0 0.5rem;
-    margin-top: 0.25rem;
-    scrollbar-width: thin;
+    overflow: visible;
+    padding: 0;
+    margin-top: 0;
+  }
+  .admin-sidebar.is-menu-open .admin-nav {
+    display: flex;
+  }
+  .admin-sidebar.is-menu-open .admin-sidebar__footer {
+    display: block;
   }
   .admin-nav__link {
     flex: 0 0 auto;
-    white-space: nowrap;
-    border-left: none;
-    border-bottom: 3px solid transparent;
+    white-space: normal;
+    border-left: 3px solid transparent;
+    border-bottom: none;
   }
   .admin-nav__link.is-active {
-    border-left: none;
-    border-bottom-color: var(--clr-gold);
+    border-left-color: var(--clr-gold);
+    border-bottom: none;
   }
   .admin-sidebar__footer {
+    display: none;
+    grid-column: 1 / -1;
     border-top: none;
     margin-top: 0;
     padding-top: 0;
   }
   .admin-logout {
-    width: auto;
+    width: 100%;
     padding: 0.6rem 1rem;
   }
   .admin-main {

@@ -392,7 +392,7 @@
       "team.title": "Conheça a Equipa",
       "team.desc": "Quem pilota as aventuras por trás dos bastidores.",
       "tips.tag": "Dicas de Viagem",
-      "tips.title": "Prepare-se<br>para a aventura.",
+      "tips.title": "Prepara-te",
       "tips.subtitle":
         "Pequenos detalhes que fazem a diferença entre uma boa viagem e uma viagem inesquecível.",
       "footer.tagline": "A experiência é o percurso.",

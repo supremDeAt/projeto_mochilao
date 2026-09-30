@@ -1049,6 +1049,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const navLinks = document.querySelectorAll(".admin-nav__link");
     const views = document.querySelectorAll(".admin-view");
+    const adminSidebar = document.querySelector(".admin-sidebar");
+    const menuToggle = document.getElementById("adminMenuToggle");
+
+    const closeAdminMenu = () => {
+      adminSidebar?.classList.remove("is-menu-open");
+      menuToggle?.setAttribute("aria-expanded", "false");
+      const icon = menuToggle?.querySelector("i");
+      icon?.classList.replace("fa-xmark", "fa-bars");
+    };
+
+    menuToggle?.addEventListener("click", () => {
+      const isOpen = adminSidebar?.classList.toggle("is-menu-open") ?? false;
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      const icon = menuToggle.querySelector("i");
+      icon?.classList.toggle("fa-bars", !isOpen);
+      icon?.classList.toggle("fa-xmark", isOpen);
+    });
 
     navLinks.forEach((link) => {
       link.addEventListener("click", (e) => {
@@ -1063,6 +1080,7 @@ document.addEventListener("DOMContentLoaded", function () {
             view.dataset.view === selectedView,
           ),
         );
+        closeAdminMenu();
       });
     });
   }

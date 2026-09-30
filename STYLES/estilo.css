@@ -26,6 +26,9 @@
 }
 
 :root {
+  --content-max-width: 1200px;
+  --pad-lateral: 7rem;
+
   /* Cores principais */
   --clr-black: #0d0a06;
   --clr-dark: #1a1208;
@@ -382,7 +385,15 @@ p {
   z-index: 900;
   display: flex;
   align-items: center;
-  padding: 1rem 2.5rem;
+  padding-bottom: 7rem;
+  padding-left: max(
+    var(--pad-lateral),
+    calc((100vw - var(--content-max-width)) / 2)
+  );
+  padding-right: max(
+    var(--pad-lateral),
+    calc((100vw - var(--content-max-width)) / 2)
+  );
   transition:
     background var(--ease-std),
     padding var(--ease-std),
@@ -392,7 +403,6 @@ p {
 /* Estado ao fazer scroll — adicionado via JS */
 .navbar.scrolled {
   background: rgba(13, 10, 6, 0);
-  padding: 0.65rem 2.5rem;
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0);
 }
 
@@ -748,7 +758,16 @@ p {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  padding: 5rem 7rem 14rem;
+  padding-top: 5rem;
+  padding-bottom: 14rem;
+  padding-left: max(
+    var(--pad-lateral),
+    calc((100vw - var(--content-max-width)) / 2)
+  );
+  padding-right: max(
+    var(--pad-lateral),
+    calc((100vw - var(--content-max-width)) / 2)
+  );
   background-image:
     linear-gradient(to bottom, #5d2d171e 0%, #5d2d171e 100%),
     var(--hero-image, url("../imagens/fundo_kifuka2.jpeg"));
@@ -765,7 +784,6 @@ p {
   width: 100%;
   display: flex;
   justify-content: center;
-
   position: relative;
   z-index: 20;
 }
@@ -774,13 +792,20 @@ p {
   position: absolute;
   bottom: -300px;
   left: 50%;
-  gap: 1.5rem;
   transform: translateX(-50%);
-  width: min(1200px, calc(100% - 4rem));
+  width: 100%;
+  padding-left: max(
+    var(--pad-lateral),
+    calc((100vw - var(--content-max-width)) / 2)
+  );
+  padding-right: max(
+    var(--pad-lateral),
+    calc((100vw - var(--content-max-width)) / 2)
+  );
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   z-index: 20;
-  gap: 1.5rem;
+  gap: 2rem;
 }
 
 /* Textura de grão */
@@ -1109,7 +1134,16 @@ p {
   grid-template-columns: 1fr 1fr;
   align-items: center;
   gap: 5rem;
-  padding: 5rem 7rem 7rem;
+  padding-top: 5rem;
+  padding-bottom: 7rem;
+  padding-left: max(
+    var(--pad-lateral),
+    calc((100vw - var(--content-max-width)) / 2)
+  );
+  padding-right: max(
+    var(--pad-lateral),
+    calc((100vw - var(--content-max-width)) / 2)
+  );
   background: #0808080b; /* cream quente — fiel ao template */
 }
 
@@ -1238,7 +1272,8 @@ p {
 /* ── Responsive ── */
 @media (max-width: 1024px) {
   .reserve {
-    padding: 4rem 4rem 5rem;
+    padding-top: 4rem;
+    padding-bottom: 5rem;
     gap: 3.5rem;
   }
 }
@@ -1246,7 +1281,8 @@ p {
 @media (max-width: 768px) {
   .reserve {
     grid-template-columns: 1fr;
-    padding: 3.5rem 2rem 4rem;
+    padding-top: 3.5rem;
+    padding-bottom: 4rem;
     gap: 2.5rem;
   }
   .reserve__img-wrap {
@@ -1259,7 +1295,8 @@ p {
 
 @media (max-width: 480px) {
   .reserve {
-    padding: 3rem 1.25rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
   }
   .reserve__contacts {
     grid-template-columns: 1fr;
@@ -1277,7 +1314,16 @@ p {
   gap: 4rem;
   min-height: 80vh;
   background: #e4d7bd;
-  padding: 5rem 7rem 14rem;
+  padding-top: 5rem;
+  padding-bottom: 14rem;
+  padding-left: max(
+    var(--pad-lateral),
+    calc((100vw - var(--content-max-width)) / 2)
+  );
+  padding-right: max(
+    var(--pad-lateral),
+    calc((100vw - var(--content-max-width)) / 2)
+  );
 }
 
 /* ── Conteúdo (texto, esquerda) ── */
@@ -1422,7 +1468,8 @@ p {
   .about {
     grid-template-columns: 1fr;
     gap: 3.5rem;
-    padding: var(--space-lg) 1.5rem calc(var(--space-lg) + 2rem);
+    padding-top: var(--space-lg);
+    padding-bottom: calc(var(--space-lg) + 2rem);
   }
   .about__image {
     min-height: 420px;
@@ -1490,7 +1537,16 @@ p {
   grid-template-columns: 42% 58%;
   background: var(--clr-warm-white);
   overflow: hidden;
-  padding: 5rem 7rem 14rem;
+  padding-top: 5rem;
+  padding-bottom: 14rem;
+  padding-left: max(
+    var(--pad-lateral),
+    calc((100vw - var(--content-max-width)) / 2)
+  );
+  padding-right: max(
+    var(--pad-lateral),
+    calc((100vw - var(--content-max-width)) / 2)
+  );
   min-height: 820px;
 }
 
@@ -1667,7 +1723,8 @@ p {
 }
 @media (max-width: 640px) {
   .gallery {
-    padding: 3rem 0 5rem;
+    padding-top: 3rem;
+    padding-bottom: 5rem;
     row-gap: 1.5rem;
   }
   .gallery__right {
@@ -1690,7 +1747,16 @@ p {
   grid-template-columns: 1fr 1fr;
   align-items: start;
   gap: 4rem;
-  padding: 5rem 7rem 14rem;
+  padding-top: 5rem;
+  padding-bottom: 14rem;
+  padding-left: max(
+    var(--pad-lateral),
+    calc((100vw - var(--content-max-width)) / 2)
+  );
+  padding-right: max(
+    var(--pad-lateral),
+    calc((100vw - var(--content-max-width)) / 2)
+  );
   background: var(--clr-warm-white);
 }
 
@@ -1881,7 +1947,14 @@ p {
   grid-template-columns: 38% 1fr;
   gap: 0;
   background-color: #0101010a;
-  padding: 7rem 7rem 6rem;
+  padding-left: max(
+    var(--pad-lateral),
+    calc((100vw - var(--content-max-width)) / 2)
+  );
+  padding-right: max(
+    var(--pad-lateral),
+    calc((100vw - var(--content-max-width)) / 2)
+  );
   align-items: stretch;
 }
 
@@ -2129,7 +2202,16 @@ p {
   16. DICAS DE VIAGEM
    ───────────────────────────────────────── */
 .tips {
-  padding: 8rem 7rem 16rem;
+  padding-top: 8rem;
+  padding-bottom: 16rem;
+  padding-left: max(
+    var(--pad-lateral),
+    calc((100vw - var(--content-max-width)) / 2)
+  );
+  padding-right: max(
+    var(--pad-lateral),
+    calc((100vw - var(--content-max-width)) / 2)
+  );
   background: var(--clr-cream);
   position: relative;
 }
@@ -2310,7 +2392,8 @@ p {
 /* Responsive tips */
 @media (max-width: 1024px) {
   .tips {
-    padding: 8rem 3rem 16rem;
+    padding-top: 8rem;
+    padding-bottom: 16rem;
   }
   .tips__grid {
     grid-template-columns: repeat(3, 1fr);
@@ -2327,7 +2410,8 @@ p {
 
 @media (max-width: 640px) {
   .tips {
-    padding: 7rem 1.25rem 12rem;
+    padding-top: 7rem;
+    padding-bottom: 12rem;
   }
   .tips__grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -2359,7 +2443,16 @@ p {
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
   align-items: start;
-  padding: 5rem 7rem 14rem;
+  padding-top: 5rem;
+  padding-bottom: 14rem;
+  padding-left: max(
+    var(--pad-lateral),
+    calc((100vw - var(--content-max-width)) / 2)
+  );
+  padding-right: max(
+    var(--pad-lateral),
+    calc((100vw - var(--content-max-width)) / 2)
+  );
   background: var(--clr-white);
 }
 
@@ -2507,7 +2600,16 @@ input[type="number"]::-webkit-inner-spin-button {
 .footer {
   background: var(--clr-dark);
   color: var(--clr-white);
-  padding: var(--space-lg) var(--space-md) var(--space-md);
+  padding-top: var(--space-lg);
+  padding-bottom: var(--space-md);
+  padding-left: max(
+    var(--pad-lateral),
+    calc((100vw - var(--content-max-width)) / 2)
+  );
+  padding-right: max(
+    var(--pad-lateral),
+    calc((100vw - var(--content-max-width)) / 2)
+  );
 }
 
 .footer__main {
@@ -2638,7 +2740,16 @@ input[type="number"]::-webkit-inner-spin-button {
   20. VIAGENS EM GRUPO — cards de pacotes
    ───────────────────────────────────────── */
 .packages {
-  padding: 5rem 7rem 3rem;
+  padding-top: 5rem;
+  padding-bottom: 3rem;
+  padding-left: max(
+    var(--pad-lateral),
+    calc((100vw - var(--content-max-width)) / 2)
+  );
+  padding-right: max(
+    var(--pad-lateral),
+    calc((100vw - var(--content-max-width)) / 2)
+  );
   background: var(--clr-cream);
 }
 
@@ -2763,7 +2874,8 @@ input[type="number"]::-webkit-inner-spin-button {
 /* Responsividade dos cards de pacotes */
 @media (max-width: 640px) {
   .packages {
-    padding: var(--space-lg) 1.25rem;
+    padding-top: var(--space-lg);
+    padding-bottom: var(--space-lg);
   }
   .packages__grid {
     grid-template-columns: 1fr;
@@ -2780,6 +2892,10 @@ input[type="number"]::-webkit-inner-spin-button {
 
 /* Tablet grande — layout geral, hero e cards */
 @media (max-width: 1024px) {
+  :root {
+    --pad-lateral: 4rem;
+  }
+
   .navbar {
     padding: 1rem 1.5rem;
   }
@@ -2788,7 +2904,8 @@ input[type="number"]::-webkit-inner-spin-button {
   }
 
   .hero {
-    padding: 5rem 3rem 16rem;
+    padding-top: 5rem;
+    padding-bottom: 16rem;
   }
   /* Cards do hero: três colunas com menor sobreposição */
   .hero__cards-overlap {
@@ -2828,7 +2945,8 @@ input[type="number"]::-webkit-inner-spin-button {
 
   .contact {
     grid-template-columns: 1fr;
-    padding: var(--space-lg) var(--space-md);
+    padding-top: var(--space-lg);
+    padding-bottom: var(--space-lg);
   }
 
   .footer__main {
@@ -2850,6 +2968,10 @@ input[type="number"]::-webkit-inner-spin-button {
 
 /* Tablet pequeno — layout geral, hero e cards */
 @media (max-width: 768px) {
+  :root {
+    --pad-lateral: 2rem;
+  }
+
   /* Navbar */
   .navbar {
     padding: 1rem;
@@ -2857,7 +2979,8 @@ input[type="number"]::-webkit-inner-spin-button {
 
   /* Hero — cards em 2 colunas, overlap mais curto */
   .hero {
-    padding: 6rem 1.5rem 13rem;
+    padding-top: 6rem;
+    padding-bottom: 13rem;
     background-attachment: scroll;
     align-items: flex-start;
   }
@@ -2885,14 +3008,12 @@ input[type="number"]::-webkit-inner-spin-button {
   /* Equipa */
   .team {
     grid-template-columns: 1fr;
-    padding: 0rem 0rem 20rem;
+    padding-top: 0rem;
+    padding-bottom: 20rem;
     gap: 3rem;
-
   }
 
   .team__left {
-    
-
     align-items: left;
     text-align: left;
   }
@@ -2945,8 +3066,18 @@ input[type="number"]::-webkit-inner-spin-button {
   }
 }
 
+@media (max-width: 640px) {
+  :root {
+    --pad-lateral: 1.25rem;
+  }
+}
+
 /* Mobile — layout geral, hero e cards */
 @media (max-width: 540px) {
+  :root {
+    --pad-lateral: 1rem;
+  }
+
   .section-title,
   .about__title {
     font-size: 40px;
@@ -2959,7 +3090,6 @@ input[type="number"]::-webkit-inner-spin-button {
   }
 
   .about {
-    padding-inline: 1rem;
     gap: 7rem;
   }
 
@@ -2969,7 +3099,8 @@ input[type="number"]::-webkit-inner-spin-button {
 
   /* Hero — cards em coluna, saem do overlap absoluto */
   .hero {
-    padding: 0;
+    padding-top: 0;
+    padding-bottom: 0;
     min-height: 110svh;
     flex-direction: column;
     justify-content: flex-end;
@@ -3047,7 +3178,8 @@ input[type="number"]::-webkit-inner-spin-button {
   /* Equipa — mobile: coluna única, padding de 1rem nas bordas */
   .team {
     grid-template-columns: 1fr;
-    padding: 3rem 1rem 4rem;
+    padding-top: 3rem;
+    padding-bottom: 4rem;
     gap: 2.5rem;
   }
 
