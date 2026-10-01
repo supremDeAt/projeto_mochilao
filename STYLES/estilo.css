@@ -948,7 +948,7 @@ p {
   background: var(--clr-cream);
   position: relative;
   z-index: 10;
-  height: 60vh; /* Apenas para visualização do grid durante o desenvolvimento */
+  height: 50vh; /* Apenas para visualização do grid durante o desenvolvimento */
 }
 
 /* O grid fica vazio agora — cards estão no hero__cards-overlap */
@@ -1313,8 +1313,7 @@ p {
   align-items: center;
   gap: 4rem;
   min-height: 80vh;
-  background: #e4d7bd;
-  padding-top: 5rem;
+  background: var(--clr-cream);
   padding-bottom: 14rem;
   padding-left: max(
     var(--pad-lateral),
@@ -1354,13 +1353,13 @@ p {
   gap: 1rem;
 }
 .about_line {
-  width: 8px;
+  width: 0.1rem;
   height: 130px;
   background-color: var(--clr-brown-deep);
 }
 .about__quote {
   position: relative;
-  color: rgb(255, 255, 255);
+  color: var(--clr-brown-mid);
   font-family: var(--font-body);
   font-size: 0.92rem;
   font-style: normal;
@@ -1429,7 +1428,7 @@ p {
 .counter {
   flex: 1;
   text-align: center;
-  background: var(--clr-white);
+  background: var(--clr-tan);
   border-radius: 12px;
   padding: 1.1rem 0.75rem;
   box-shadow: 0 14px 34px rgba(13, 10, 6, 0.18);
@@ -2220,13 +2219,14 @@ p {
 .tips__header {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 1rem;
   max-width: 1280px;
   margin: 0 auto var(--space-lg);
   padding-bottom: 2.5rem;
   border-bottom: 1px solid rgba(90, 67, 45, 0.12);
+  text-align: center;
 }
 
 .tips__title {
@@ -2400,11 +2400,12 @@ p {
   }
   .tips__header {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: 1rem;
   }
   .tips__subtitle {
     max-width: 100%;
+    margin-inline: auto;
   }
 }
 
