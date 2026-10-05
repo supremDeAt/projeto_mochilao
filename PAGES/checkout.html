@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Finalizar Reserva — O Mochilão Aventuras</title>
+    <link rel="icon" href="../imagens/logo5.png" />
+    <link rel="stylesheet" href="../STYLES/estilo.css" />
+    <link rel="stylesheet" href="../STYLES/checkout.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="checkout-page">
+    <!-- ======= HEADER SIMPLIFICADO ======= -->
+    <header class="checkout-header">
+      <a href="../index.html" class="checkout-header__brand" aria-label="O Mochilão — Início">
+        <img
+          src="../imagens/Sem Título-3.png"
+          alt="O Mochilão Aventuras"
+          class="checkout-header__logo"
+        />
+      </a>
+    </header>
+
+    <main class="checkout" id="checkout">
+      <!-- Título -->
+      <div class="checkout__intro">
+        <a href="../index.html" class="checkout__back">
+          <i class="fa-solid fa-arrow-left"></i> Continuar a explorar
+        </a>
+        <span class="section-tag">Último passo</span>
+        <h1 class="section-title checkout__title">Finalizar Reserva</h1>
+      </div>
+
+      <div class="checkout__grid">
+        <!-- ======= ESQUERDA: FORMULÁRIO ======= -->
+        <form class="checkout-form" id="checkoutForm" novalidate>
+          <!-- Dados do Viajante -->
+          <fieldset class="checkout-form__section">
+            <legend class="checkout-form__legend">
+              <span class="checkout-form__step">1</span>
+              Dados do Viajante
+            </legend>
+            <p class="checkout-form__hint">
+              Usaremos estes dados para confirmar a sua reserva e adicioná-lo ao
+              chat da viagem.
+            </p>
+
+            <div class="checkout-form__field">
+              <label for="clienteNome" class="checkout-form__label">
+                Nome completo <span class="checkout-form__req">*</span>
+              </label>
+              <input
+                type="text"
+                id="clienteNome"
+                name="nome"
+                class="checkout-form__input"
+                placeholder="O seu nome completo"
+                autocomplete="name"
+                required
+              />
+              <span class="checkout-form__error" data-error-for="clienteNome"></span>
+            </div>
+
+            <div class="checkout-form__row">
+              <div class="checkout-form__field">
+                <label for="clienteEmail" class="checkout-form__label">
+                  Email <span class="checkout-form__req">*</span>
+                </label>
+                <input
+                  type="email"
+                  id="clienteEmail"
+                  name="email"
+                  class="checkout-form__input"
+                  placeholder="exemplo@gmail.com"
+                  autocomplete="email"
+                  required
+                />
+                <span class="checkout-form__error" data-error-for="clienteEmail"></span>
+              </div>
+
+              <div class="checkout-form__field">
+                <label for="clienteTelefone" class="checkout-form__label">
+                  Telefone / WhatsApp <span class="checkout-form__req">*</span>
+                </label>
+                <input
+                  type="tel"
+                  id="clienteTelefone"
+                  name="telefone"
+                  class="checkout-form__input"
+                  placeholder="+244 9XX XXX XXX"
+                  autocomplete="tel"
+                  inputmode="tel"
+                  required
+                />
+                <span class="checkout-form__error" data-error-for="clienteTelefone"></span>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Método de Pagamento -->
+          <fieldset class="checkout-form__section">
+            <legend class="checkout-form__legend">
+              <span class="checkout-form__step">2</span>
+              Método de Pagamento
+            </legend>
+
+            <div class="checkout-payment">
+              <span class="checkout-payment__radio" aria-hidden="true"></span>
+              <span class="checkout-payment__icon">
+                <i class="fa-solid fa-building-columns"></i>
+              </span>
+              <div class="checkout-payment__info">
+                <strong class="checkout-payment__title">Transferência Bancária</strong>
+                <span class="checkout-payment__text">
+                  O IBAN será fornecido na próxima etapa.
+                </span>
+              </div>
+            </div>
+
+            <ul class="checkout-form__notes">
+              <li>
+                <i class="fa-solid fa-circle-info"></i>
+                A vaga só fica garantida após o pagamento. Pode pagar 30% (não
+                reembolsáveis) agora e os restantes 70% até 10 dias antes da viagem.
+              </li>
+              <li>
+                <i class="fa-brands fa-whatsapp"></i>
+                Envie o comprovativo pelo WhatsApp +244 926 509 821.
+              </li>
+            </ul>
+          </fieldset>
+        </form>
+
+        <!-- ======= DIREITA: RESUMO ======= -->
+        <aside class="checkout-summary" aria-labelledby="summaryTitle">
+          <div class="checkout-summary__card">
+            <h2 class="checkout-summary__title" id="summaryTitle">
+              <i class="fa-solid fa-person-hiking"></i> A Sua Mochila
+            </h2>
+
+            <!-- Populado pelo checkout-firestore.js (Passo 3) -->
+            <ul class="checkout-summary__list" id="checkoutItems">
+              <li class="checkout-summary__loading">A carregar os seus itens…</li>
+            </ul>
+
+            <div class="checkout-summary__totals">
+              <div class="checkout-summary__row">
+                <span>Subtotal</span>
+                <span id="checkoutSubtotal">—</span>
+              </div>
+              <div class="checkout-summary__row checkout-summary__row--total">
+                <span>Total a Pagar</span>
+                <strong id="checkoutTotal">—</strong>
+              </div>
+            </div>
+
+            <!-- Botão final — submete o formulário da esquerda -->
+            <button
+              type="submit"
+              form="checkoutForm"
+              class="checkout-summary__submit"
+              id="checkoutSubmitBtn"
+            >
+              <span class="checkout-summary__submit-text">Confirmar Reserva</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+
+            <p class="checkout-summary__secure">
+              <i class="fa-solid fa-lock"></i>
+              Os seus dados são usados apenas para gerir a reserva.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <!-- ======= SUCESSO (mostrado pelo Passo 3) ======= -->
+    <div
+      class="checkout-success"
+      id="checkoutSuccess"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="successTitle"
+      hidden
+    >
+      <div class="checkout-success__card">
+        <span class="checkout-success__ring">
+          <i class="fa-solid fa-check"></i>
+        </span>
+        <h2 class="checkout-success__title" id="successTitle">
+          Reserva Registada com Sucesso!
+        </h2>
+        <p class="checkout-success__msg">
+          Transfira o valor de
+          <strong id="successTotal">—</strong> para o IBAN abaixo e envie o
+          comprovativo para o nosso WhatsApp com o seu nome.
+        </p>
+
+        <div class="checkout-success__iban">
+          <span class="checkout-success__iban-label">IBAN</span>
+          <code class="checkout-success__iban-value" id="successIban">AO06.XXXXXXXX</code>
+          <button
+            type="button"
+            class="checkout-success__copy"
+            id="copyIbanBtn"
+            aria-label="Copiar IBAN"
+          >
+            <i class="fa-regular fa-copy"></i>
+          </button>
+        </div>
+
+        <p class="checkout-success__ref">
+          Referência da reserva: <strong id="successRef">—</strong>
+        </p>
+
+        <div class="checkout-success__actions">
+          <a
+            href="https://wa.me/244926509821"
+            target="_blank"
+            rel="noopener"
+            class="btn btn--full checkout-success__wpp"
+            id="successWhatsapp"
+          >
+            <i class="fa-brands fa-whatsapp"></i> Enviar comprovativo (+244 926 509 821)
+          </a>
+          <a href="../index.html" class="btn btn--outline-dark btn--full" id="successHomeBtn">
+            Voltar ao Início
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="../SCRIPT/checkout-firestore.js"></script>
+  </body>
+</html>

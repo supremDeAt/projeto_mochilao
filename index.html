@@ -202,24 +202,45 @@
       </div>
     </div>
 
-    <!-- ======= BOTÕES FLUTUANTES ======= -->
-    <div class="float-btns">
-      <a
-        href="#hero"
-        class="float-btn float-btn--top"
-        aria-label="Voltar ao topo"
-      >
-        <i class="fa-solid fa-arrow-up"></i>
-      </a>
-      <a
-        href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0"
-        target="_blank"
-        class="float-btn float-btn--wpp"
-        aria-label="WhatsApp"
-      >
-        <i class="fa-brands fa-whatsapp"></i>
-      </a>
+   <!-- ======= BOTÕES FLUTUANTES ======= -->
+<div class="float-btns">
+  <a href="#hero" class="float-btn float-btn--top" aria-label="Voltar ao topo">
+    <i class="fa-solid fa-arrow-up"></i>
+  </a>
+  <button type="button" class="float-btn float-btn--cart" id="cartFab"
+          aria-label="Abrir mochila" aria-controls="cartDrawer" aria-expanded="false">
+    <i class="fa-solid fa-bag-shopping"></i>
+    <span class="float-btn__badge" id="cartBadge" hidden>0</span>
+  </button>
+</div>
+
+<!-- ======= CARRINHO / MOCHILA ======= -->
+<div class="cart-drawer__overlay" id="cartOverlay"></div>
+<aside class="cart-drawer" id="cartDrawer" role="dialog" aria-modal="true"
+       aria-labelledby="cartDrawerTitle" aria-hidden="true">
+  <header class="cart-drawer__header">
+    <div>
+      <span class="cart-drawer__eyebrow">A sua</span>
+      <h2 class="cart-drawer__title" id="cartDrawerTitle">Mochila</h2>
     </div>
+    <button type="button" class="cart-drawer__close" id="cartCloseBtn" aria-label="Fechar mochila">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </header>
+
+  <div class="cart-drawer__body" id="cartItems"><!-- Populado pelo cart.js --></div>
+
+  <footer class="cart-drawer__footer" id="cartFooter" hidden>
+    <div class="cart-drawer__total">
+      <span>Total</span>
+      <strong id="cartTotal">0 Kz</strong>
+    </div>
+    <p class="cart-drawer__note">O pagamento é feito por transferência bancária após confirmar a reserva.</p>
+    <a href="PAGES/checkout.html" class="btn btn--primary btn--full cart-drawer__checkout" id="cartCheckoutBtn">
+      Finalizar Reserva <i class="fa-solid fa-arrow-right"></i>
+    </a>
+  </footer>
+</aside>
 
     <!-- ======= TOURS ======= -->
     <section class="tours" id="tours"></section>
@@ -242,10 +263,10 @@
             </p>
 
             <p class="about__text">
-              O Mochilão nasceu da paixão e do <br> desejo de explorar Angola em toda <br>
-              a sua grandiosidade. Mais do que uma <br> empresa, somos movidos pelo
-              fascínio <br> de revelar as maravilhas naturais, os <br> povos, as culturas
-              e a rica gastronomia <br> que  compõem o vasto mosaico cultural <br>
+              O Mochilão nasceu da paixão e do  desejo de explorar Angola em toda 
+              a sua grandiosidade. Mais do que uma  empresa, somos movidos pelo
+              fascínio  de revelar as maravilhas naturais, os povos, as culturas
+              e a rica gastronomia  que  compõem o vasto mosaico cultural 
               angolano.
             </p>
             <button type="button" class="btn btn--primary about__cta">
@@ -1270,7 +1291,8 @@
         <p>Desenvolvido por <strong>Valganho</strong></p>
       </div>
     </footer>
-
+    
+    <script src="SCRIPT/cart.js"></script>
     <script type="module" src="SCRIPT/firebase-config.js"></script>
     <script type="module" src="SCRIPT/site-content.js"></script>
     <script type="module" src="SCRIPT/programs-public.js"></script>

@@ -506,14 +506,10 @@ const PROGRAMAS = {
     heroSection.style.backgroundSize = "cover";
     heroSection.style.backgroundPosition = "center";
   }
-  document.querySelector(".pkg-breadcrumb span").textContent = prog.nome;
   document.querySelector(".pkg-hero__title").textContent = prog.nome;
   document.querySelector(".pkg-hero__desc").textContent = prog.slogan;
 
-  /* 5. Título intro + foto secundária */
-  const introTitle = document.getElementById("pkgTitle");
-  if (introTitle) introTitle.textContent = prog.nome;
-
+  /* 5. Foto secundária */
   const imgBox = document.querySelector(".pkg-img-box");
   if (imgBox && prog.fotoSecundaria) {
     imgBox.innerHTML =

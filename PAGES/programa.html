@@ -24,13 +24,14 @@
     <header class="navbar" id="navbar">
       <a href="../index.html" class="navbar__brand">
         <img
-          src="../imagens/Sem Título-3.png"
+          src="../imagens/Sem Título-3.png"
           alt="O Mochilão Aventuras"
           class="navbar__logo"
         />
       </a>
       <nav class="navbar__links" id="navLinks">
-        <a href="../index.html#packages" class="navbar__link">Pacotes</a>
+        <a href="../index.html#tours" class="navbar__link">Viagens</a>
+        <a href="../index.html#gallery" class="navbar__link">Galeria</a>
         <a href="../index.html#about" class="navbar__link">Sobre</a>
         <a href="../index.html#tips" class="navbar__link">Dicas</a>
         <a href="../index.html#contact" class="navbar__link navbar__link--cta"
@@ -57,16 +58,24 @@
       </button>
       <nav class="sidebar__nav">
         <a href="../index.html" class="sidebar__link">Início</a>
-        <a href="../index.html#packages" class="sidebar__link">Pacotes</a>
+        <a href="../index.html#tours" class="sidebar__link">Viagens</a>
+        <a href="../index.html#gallery" class="sidebar__link">Galeria</a>
         <a href="../index.html#about" class="sidebar__link">Sobre</a>
+        <a href="../index.html#team" class="sidebar__link">Equipa</a>
+        <a href="../index.html#tips" class="sidebar__link">Dicas</a>
         <a href="../index.html#contact" class="sidebar__link">Fale Connosco</a>
       </nav>
       <div class="sidebar__footer">
         <a href="https://www.instagram.com/o_mochilao/" target="_blank"
           ><i class="fa-brands fa-instagram"></i
         ></a>
-        <a href="https://www.whatsapp.com/catalog/244926509821/" target="_blank"
+        <a
+          href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0"
+          target="_blank"
           ><i class="fa-brands fa-whatsapp"></i
+        ></a>
+        <a href="https://www.tiktok.com/@o.mochilao" target="_blank"
+          ><i class="fa-brands fa-tiktok"></i
         ></a>
       </div>
     </aside>
@@ -75,9 +84,11 @@
     <section class="pkg-hero">
       <div class="pkg-hero__content">
         <nav class="pkg-breadcrumb" aria-label="breadcrumb">
-          <span>Programa</span>
+          <a href="../index.html">Início</a>
+          
         </nav>
         <h1 class="pkg-hero__title">Carregando...</h1>
+        
         <p class="pkg-hero__desc"></p>
       </div>
     </section>
@@ -85,8 +96,7 @@
     <!-- ======= INTRO: texto + foto + detalhes ======= -->
     <section class="pkg-intro">
       <div class="pkg-intro__left">
-        <span class="pkg-eyebrow">Destaque</span>
-
+        <span class="section-tag">Sobre a Viagem</span>
         <div class="pkg-descricao">Carregando...</div>
 
         <!-- Roteiro -->
@@ -153,6 +163,10 @@
 
     <!-- ======= INCLUI / NÃO INCLUI ======= -->
     <section class="pkg-includes">
+      <div class="section-header">
+        <span class="section-tag">Tudo Pensado</span>
+        <h2 class="section-title">O Que Está Incluído</h2>
+      </div>
       <div class="pkg-includes__inner">
         <div class="pkg-includes__col pkg-includes__col--yes">
           <h2 class="pkg-includes__title">
@@ -176,7 +190,8 @@
       <div class="pkg-itinerary-section__inner">
         <!-- Esquerda: accordion -->
         <div class="pkg-itinerary">
-          <h2 class="pkg-section-title">Itinerário</h2>
+          <span class="section-tag">O Percurso</span>
+          <h2 class="section-title">Itinerário</h2>
           <p class="pkg-itinerary__intro">
             Este itinerário foi pensado para transformar cada momento da viagem
             numa verdadeira experiência de descoberta — combinando aventura,
@@ -198,16 +213,72 @@
             <ul class="pkg-precos__list"></ul>
           </div>
 
-          <a
-            href="https://wa.me/244926509821"
-            target="_blank"
-            class="pkg-cta-card__btn"
-          >
+          <!-- ======= RESERVA → MOCHILA ======= -->
+          <form class="pkg-booking" id="bookingForm" novalidate>
+            <div class="pkg-booking__field">
+              <label for="tourDate" class="pkg-booking__label"
+                >Data da viagem</label
+              >
+              <input
+                type="date"
+                id="tourDate"
+                name="tourDate"
+                class="pkg-booking__input"
+                required
+              />
+              <span
+                class="pkg-booking__error"
+                id="tourDateError"
+                aria-live="polite"
+              ></span>
+            </div>
+
+            <div class="pkg-booking__field">
+              <span class="pkg-booking__label" id="paxLabel">Pessoas</span>
+              <div class="pkg-pax" role="group" aria-labelledby="paxLabel">
+                <button
+                  type="button"
+                  class="pkg-pax__btn"
+                  id="paxMinus"
+                  aria-label="Menos uma pessoa"
+                >
+                  <i class="fa-solid fa-minus"></i>
+                </button>
+                <output class="pkg-pax__value" id="paxValue" aria-live="polite"
+                  >1 Pessoa</output
+                >
+                <button
+                  type="button"
+                  class="pkg-pax__btn"
+                  id="paxPlus"
+                  aria-label="Mais uma pessoa"
+                >
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="pkg-booking__summary">
+              <div class="pkg-booking__summary-row">
+                <span>Preço por pessoa</span>
+                <span id="bookingUnit">—</span>
+              </div>
+              <div
+                class="pkg-booking__summary-row pkg-booking__summary-row--total"
+              >
+                <span>Total</span>
+                <strong id="bookingTotal">—</strong>
+              </div>
+            </div>
+
+            <button type="submit" id="addToCartBtn" class="pkg-cta-card__btn">
+              <i class="fa-solid fa-cart-plus"></i>
+              <span class="pkg-cta-card__btn-text">Adicionar à Mochila</span>
+            </button>
+          </form>
+
+          <a href="https://wa.me/244926509821" target="_blank" class="pkg-cta-card__link">
             <i class="fa-brands fa-whatsapp"></i>
-            Embarcar
-          </a>
-          <a href="../index.html#contact" class="pkg-cta-card__link">
-            <i class="fa-regular fa-envelope"></i>
             Tenho uma dúvida
           </a>
 
@@ -229,24 +300,95 @@
     </section>
 
     <!-- ======= OUTROS DESTINOS ======= -->
-    <section class="pkg-more">
+    <section class="packages pkg-more">
       <div class="section-header">
         <span class="section-tag">Veja Mais</span>
-        <h2 class="section-title">Conheça Outros Destinos</h2>
+        <h2 class="section-title">
+          Conheça outros <br />
+          destinos
+        </h2>
+        <p class="section-desc">
+          Cada canto de Angola guarda uma história. <br />
+          Escolhe a tua próxima aventura.
+        </p>
       </div>
       <div class="packages__grid"></div>
     </section>
+
+    <!-- ======= BOTÕES FLUTUANTES ======= -->
+    <div class="float-btns">
+      <a href="#" class="float-btn float-btn--top" aria-label="Voltar ao topo">
+        <i class="fa-solid fa-arrow-up"></i>
+      </a>
+      <button
+        type="button"
+        class="float-btn float-btn--cart"
+        id="cartFab"
+        aria-label="Abrir mochila"
+        aria-controls="cartDrawer"
+        aria-expanded="false"
+      >
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="float-btn__badge" id="cartBadge" hidden>0</span>
+      </button>
+    </div>
+
+    <!-- ======= CARRINHO ======= -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <aside
+      class="cart-drawer"
+      id="cartDrawer"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="cartDrawerTitle"
+      aria-hidden="true"
+    >
+      <header class="cart-drawer__header">
+        <h2 class="cart-drawer__title" id="cartDrawerTitle">
+          <i class="fa-solid fa-person-hiking"></i> A Minha Mochila
+        </h2>
+        <button
+          type="button"
+          class="cart-drawer__close"
+          id="cartCloseBtn"
+          aria-label="Fechar mochila"
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </header>
+
+      <div class="cart-drawer__body" id="cartItems"></div>
+
+      <footer class="cart-drawer__footer" id="cartFooter" hidden>
+        <div class="cart-drawer__total">
+          <span class="cart-drawer__total-label">Total</span>
+          <strong class="cart-drawer__total-value" id="cartTotal">0 Kz</strong>
+        </div>
+        <p class="cart-drawer__note">
+          Pagamento por transferência bancária após confirmar a reserva.
+        </p>
+        <button
+          type="button"
+          class="btn btn--primary btn--full cart-drawer__checkout"
+          id="cartCheckoutBtn"
+        >
+          Finalizar Reserva <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </footer>
+    </aside>
 
     <!-- ======= FOOTER ======= -->
     <footer class="footer">
       <div class="footer__main">
         <div class="footer__brand">
           <img
-            src="../imagens/Sem Título-3.png"
+            src="../imagens/branco2.png"
             alt="O Mochilão"
             class="footer__logo"
           />
-          <p class="footer__tagline">A experiência é o percurso.</p>
+          <p class="footer__tagline">
+            Seus companheiros das aventuras por Angola
+          </p>
           <div class="footer__socials">
             <a
               href="https://www.instagram.com/o_mochilao/"
@@ -255,45 +397,53 @@
               ><i class="fa-brands fa-instagram"></i
             ></a>
             <a
-              href="https://www.facebook.com"
-              target="_blank"
-              aria-label="Facebook"
-              ><i class="fa-brands fa-facebook-f"></i
-            ></a>
-            <a
-              href="https://www.whatsapp.com/catalog/244926509821/"
+              href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0"
               target="_blank"
               aria-label="WhatsApp"
               ><i class="fa-brands fa-whatsapp"></i
             ></a>
+            <a
+              href="https://www.tiktok.com/@o.mochilao"
+              target="_blank"
+              aria-label="TikTok"
+              ><i class="fa-brands fa-tiktok"></i
+            ></a>
+            <a
+              href="https://www.facebook.com/OMochilao"
+              target="_blank"
+              aria-label="Facebook"
+              ><i class="fa-brands fa-facebook-f"></i
+            ></a>
           </div>
         </div>
+
         <div class="footer__col">
-          <h4 class="footer__heading">Explore</h4>
-          <ul>
-            <li><a href="../index.html#packages">Pacotes</a></li>
-            <li><a href="../index.html#custom">Viagem Personalizada</a></li>
-            <li><a href="../index.html#about">Sobre Nós</a></li>
-            <li><a href="../index.html#tips">Dicas de Viagem</a></li>
-          </ul>
+          <h4 class="footer__col-title">Navegação</h4>
+          <a href="../index.html#hero">Início</a>
+          <a href="../index.html#tours">Viagens</a>
+          <a href="../index.html#gallery">Galeria</a>
+          <a href="../index.html#about">Sobre Nós</a>
         </div>
+
         <div class="footer__col">
-          <h4 class="footer__heading">Contacto</h4>
-          <ul>
-            <li><a href="tel:+244926509821">+244 926 509 821</a></li>
-            <li><a href="mailto:geral@omochilao.ao">geral@omochilao.ao</a></li>
-            <li>
-              <a href="https://wa.me/244926509821" target="_blank">WhatsApp</a>
-            </li>
-          </ul>
+          <h4 class="footer__col-title">Informações</h4>
+          <a href="../index.html#tips">Dicas de Viagem</a>
+          <a href="../index.html#packages">Viagens em Grupo</a>
+          <a href="../index.html#contact">Fale Connosco</a>
         </div>
       </div>
+
       <div class="footer__bottom">
-        <p>&copy; 2026 O Mochilão Aventuras. Todos os direitos reservados.</p>
+        <p>© 2025 O Mochilão Aventuras. Todos os direitos reservados.</p>
+        <p>Desenvolvido por <strong>Valganho</strong></p>
       </div>
     </footer>
 
+    <!-- Carrinho global primeiro -->
+    <script src="../SCRIPT/cart.js"></script>
     <script src="../SCRIPT/programas.js"></script>
     <script type="module" src="../SCRIPT/programa-firestore.js"></script>
+    <!-- Formulário "Adicionar à Mochila" -->
+    <script src="../SCRIPT/programa-cart.js"></script>
   </body>
 </html>

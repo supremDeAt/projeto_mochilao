@@ -17,10 +17,8 @@ function setHtml(selector, value) {
 
 function renderProgram(program) {
   document.title = `${program.nome || "Programa"} — O Mochilão Aventuras`;
-  setText(".pkg-breadcrumb span", program.nome);
   setText(".pkg-hero__title", program.nome);
   setText(".pkg-hero__desc", program.slogan);
-  setText("#pkgTitle", program.nome);
   setHtml(".pkg-descricao", program.descricao);
   setHtml(".pkg-descricao-cta", program.descricao);
   setText(".pkg-detail--dur .pkg-detail__value", program.duracao);
