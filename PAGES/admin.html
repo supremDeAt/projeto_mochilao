@@ -103,77 +103,86 @@
             class="admin-view is-visible"
             data-view="dashboard"
           >
-            <div class="admin-grid">
-              <article class="stat-card" data-stat="messages">
-                <div class="stat-card__header">
-                  <span class="stat-card__label">Mensagens</span>
-                  <div class="stat-card__icon">
-                    <i class="fa-solid fa-envelope"></i>
-                  </div>
-                </div>
-                <span class="stat-card__value">0</span>
-                <span class="stat-card__sub" id="dashMsgPending"
-                  >0 pendentes</span
-                >
-              </article>
-              <article
-                class="stat-card stat-card--blue"
-                data-stat="reservations"
-              >
-                <div class="stat-card__header">
-                  <span class="stat-card__label">Reservas</span>
-                  <div class="stat-card__icon stat-card__icon--blue">
-                    <i class="fa-solid fa-calendar-check"></i>
-                  </div>
-                </div>
-                <span class="stat-card__value">0</span>
-                <span class="stat-card__sub" id="dashResConfirmed"
-                  >0 confirmadas</span
-                >
-              </article>
-              <article class="stat-card stat-card--green" data-stat="programs">
-                <div class="stat-card__header">
-                  <span class="stat-card__label">Programas</span>
-                  <div class="stat-card__icon stat-card__icon--green">
-                    <i class="fa-solid fa-map-location-dot"></i>
-                  </div>
-                </div>
-                <span class="stat-card__value">0</span>
-                <span class="stat-card__sub" id="dashProgCats"
-                  >0 categorias</span
-                >
-              </article>
-              <article class="stat-card stat-card--dark" data-stat="admins">
-                <div class="stat-card__header">
-                  <span class="stat-card__label">Equipa Admin</span>
-                  <div class="stat-card__icon stat-card__icon--dark">
-                    <i class="fa-solid fa-users-gear"></i>
-                  </div>
-                </div>
-                <span class="stat-card__value">0</span>
-                <span class="stat-card__sub" id="dashAdminRole">–</span>
-              </article>
+            <div class="dash-hello">
+              <h2 class="dash-hello__title" id="dashGreeting">Olá!</h2>
+              <p class="dash-hello__date" id="dashToday"></p>
             </div>
 
-            <div class="dashboard-bottom">
-              <div class="panel dashboard-alerts">
+            <div class="admin-grid">
+              <button type="button" class="stat-card stat-card--green" data-goto="reservas">
+                <div class="stat-card__header">
+                  <span class="stat-card__label">Receita confirmada</span>
+                  <div class="stat-card__icon stat-card__icon--green"><i class="fa-solid fa-sack-dollar"></i></div>
+                </div>
+                <span class="stat-card__value stat-card__value--money" id="kpiRevenue">0 Kz</span>
+                <span class="stat-card__sub" id="kpiRevenueSub">–</span>
+              </button>
+              <button type="button" class="stat-card" data-goto="reservas">
+                <div class="stat-card__header">
+                  <span class="stat-card__label">Reservas pendentes</span>
+                  <div class="stat-card__icon"><i class="fa-solid fa-hourglass-half"></i></div>
+                </div>
+                <span class="stat-card__value" id="kpiPending">0</span>
+                <span class="stat-card__sub" id="kpiPendingSub">–</span>
+              </button>
+              <button type="button" class="stat-card stat-card--blue" data-goto="mensagens">
+                <div class="stat-card__header">
+                  <span class="stat-card__label">Mensagens por responder</span>
+                  <div class="stat-card__icon stat-card__icon--blue"><i class="fa-solid fa-envelope"></i></div>
+                </div>
+                <span class="stat-card__value" id="kpiMessages">0</span>
+                <span class="stat-card__sub" id="kpiMessagesSub">–</span>
+              </button>
+              <button type="button" class="stat-card stat-card--dark" data-goto="reservas">
+                <div class="stat-card__header">
+                  <span class="stat-card__label">Viajantes (30 dias)</span>
+                  <div class="stat-card__icon stat-card__icon--dark"><i class="fa-solid fa-person-hiking"></i></div>
+                </div>
+                <span class="stat-card__value" id="kpiTravelers">0</span>
+                <span class="stat-card__sub" id="kpiTravelersSub">–</span>
+              </button>
+            </div>
+
+            <div class="dash-grid">
+              <div class="panel dash-grid__chart">
+                <div class="panel__header">
+                  <h2 class="panel__title">Reservas por mês</h2>
+                  <span class="panel__meta">Últimos 6 meses · sem canceladas</span>
+                </div>
+                <div class="panel__body-padded" id="dashMonthly"></div>
+              </div>
+
+              <div class="panel dash-grid__top">
+                <div class="panel__header">
+                  <h2 class="panel__title">Mais procurados</h2>
+                  <span class="panel__meta">Pessoas por programa</span>
+                </div>
+                <div class="panel__body-padded" id="dashTopPrograms"></div>
+              </div>
+
+              <div class="panel dash-grid__alerts">
                 <div class="panel__header">
                   <h2 class="panel__title">Atenção necessária</h2>
-                  <i
-                    class="fa-solid fa-triangle-exclamation"
-                    style="color: var(--clr-gold); font-size: 1.1rem"
-                  ></i>
+                  <i class="fa-solid fa-triangle-exclamation" style="color: var(--clr-gold); font-size: 1.1rem"></i>
                 </div>
                 <div style="padding: 1.5rem">
                   <ul id="dashAlertsList" class="alerts-list">
                     <li class="alerts-list__empty">
-                      <i class="fa-solid fa-circle-check"></i> Tudo em ordem!
-                      Sem alertas de momento.
+                      <i class="fa-solid fa-circle-check"></i> Tudo em ordem! Sem alertas de momento.
                     </li>
                   </ul>
                 </div>
               </div>
-              <div class="panel dashboard-recent">
+
+              <div class="panel dash-grid__upcoming">
+                <div class="panel__header">
+                  <h2 class="panel__title">Próximas viagens</h2>
+                  <span class="panel__meta">60 dias</span>
+                </div>
+                <ul class="trip-list" id="dashUpcoming"></ul>
+              </div>
+
+              <div class="panel dash-grid__recent">
                 <div class="panel__header">
                   <h2 class="panel__title">Atividade recente</h2>
                 </div>
@@ -596,23 +605,17 @@
             <div class="panel">
               <div class="panel__header">
                 <h2 class="panel__title">Caixa de Entrada</h2>
+                <label class="search-box">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                  <input type="search" id="msgSearch" placeholder="Pesquisar nome, email, assunto..." aria-label="Pesquisar mensagens" />
+                </label>
               </div>
-              <div class="panel__body">
-                <div class="table-wrap">
-                  <table class="admin-table">
-                    <thead>
-                      <tr>
-                        <th>Cliente</th>
-                        <th>Telefone / Email</th>
-                        <th>Data</th>
-                        <th>Status</th>
-                        <th>Ação</th>
-                      </tr>
-                    </thead>
-                    <tbody id="messagesList"></tbody>
-                  </table>
-                </div>
+              <div class="toolbar">
+                <div class="filter-chips" id="msgTabs" role="tablist"></div>
               </div>
+              <ul class="inbox" id="messagesList">
+                <li class="inbox__empty">A carregar mensagens...</li>
+              </ul>
             </div>
           </section>
 
@@ -621,19 +624,32 @@
             <div class="panel">
               <div class="panel__header">
                 <h2 class="panel__title">Gestão de Reservas</h2>
+                <div class="panel__actions">
+                  <label class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="search" id="resSearch" placeholder="Pesquisar ref., cliente, programa..." aria-label="Pesquisar reservas" />
+                  </label>
+                  <button type="button" id="resExportBtn" class="btn btn--outline btn--sm" title="Exportar a lista filtrada para Excel">
+                    <i class="fa-solid fa-file-csv"></i> Exportar
+                  </button>
+                </div>
+              </div>
+              <div class="toolbar">
+                <div class="filter-chips" id="resFilters"></div>
+                <span class="toolbar__summary" id="resSummary"></span>
               </div>
               <div class="panel__body">
                 <div class="table-wrap">
-                  <table class="admin-table">
+                  <table class="admin-table admin-table--res">
                     <thead>
                       <tr>
+                        <th>Reserva</th>
                         <th>Cliente</th>
-                        <th>Destino</th>
-                        <th>Data Desejada</th>
-                        <th>Pax</th>
-                        <th>Telefone</th>
-                        <th>Status</th>
-                        <th>Ação</th>
+                        <th>Programa</th>
+                        <th>Viagem</th>
+                        <th style="text-align:center">Pax</th>
+                        <th>Total</th>
+                        <th>Estado</th>
                       </tr>
                     </thead>
                     <tbody id="reservationsList"></tbody>
@@ -826,112 +842,91 @@
           <section id="admins" class="admin-view" data-view="admins">
             <div class="panel">
               <div class="panel__header">
-                <h2 class="panel__title">Administradores</h2>
-                <button
-                  type="button"
-                  id="addAdminBtn"
-                  class="btn btn--primary btn--sm"
-                  style="display: none"
-                >
-                  Adicionar Novo
-                </button>
-              </div>
-              <div class="panel__body admins-layout">
-                <form id="adminForm" class="form-stack admin-form-panel">
-                  <h3
-                    id="adminFormTitle"
-                    style="
-                      font-family: var(--font-display);
-                      font-size: 2rem;
-                      color: var(--clr-brown-deep);
-                    "
-                  >
-                    Novo Admin
-                  </h3>
-                  <input type="hidden" id="adminId" name="adminId" />
-                  <div class="field">
-                    <label for="adminName">Nome</label>
-                    <input
-                      id="adminName"
-                      name="adminName"
-                      type="text"
-                      placeholder="Nome completo"
-                      required
-                    />
-                  </div>
-                  <div class="field">
-                    <label for="adminEmail">Email</label>
-                    <input
-                      id="adminEmail"
-                      name="adminEmail"
-                      type="email"
-                      placeholder="nome@omochilao.ao"
-                      required
-                    />
-                  </div>
-                  <div class="field">
-                    <label for="adminPhone">Telefone</label>
-                    <input
-                      id="adminPhone"
-                      name="adminPhone"
-                      type="tel"
-                      placeholder="+244 900 000 000"
-                    />
-                  </div>
-                  <div class="field">
-                    <label for="adminPassword"
-                      >Senha <small>(Apenas para novos)</small></label
-                    >
-                    <input
-                      id="adminPassword"
-                      name="adminPassword"
-                      type="password"
-                      placeholder="Min 6 caracteres"
-                    />
-                  </div>
-                  <div class="field">
-                    <label for="adminRole">Nível de acesso</label>
-                    <select id="adminRole" name="adminRole">
-                      <option value="Super Admin">Super Admin</option>
-                      <option value="Gestor de Conteúdo">
-                        Gestor de Conteúdo
-                      </option>
-                      <option value="Atendente">Atendente</option>
-                      <option value="Visualizador">Visualizador</option>
-                    </select>
-                  </div>
-                  <div style="display: flex; gap: 1rem; margin-top: 1rem">
-                    <button
-                      type="submit"
-                      class="btn btn--primary"
-                      id="saveAdminBtn"
-                    >
-                      Salvar
-                    </button>
-                    <button
-                      type="button"
-                      class="btn btn--outline"
-                      id="cancelAdminBtn"
-                    >
-                      Cancelar
-                    </button>
-                  </div>
-                </form>
-
-                <div class="table-wrap admin-table-panel">
-                  <table class="admin-table">
-                    <thead>
-                      <tr>
-                        <th>Nome</th>
-                        <th>Email</th>
-                        <th>Nível</th>
-                        <th>Ação</th>
-                      </tr>
-                    </thead>
-                    <tbody id="adminsList"></tbody>
-                  </table>
+                <div>
+                  <h2 class="panel__title">Administradores</h2>
+                  <p class="team-admin__hint" id="adminsCount">Contas com acesso a este painel.</p>
+                </div>
+                <div class="panel__actions">
+                  <label class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="search" id="adminSearch" placeholder="Pesquisar nome, email, nível..." aria-label="Pesquisar administradores" />
+                  </label>
+                  <button type="button" id="addAdminBtn" class="btn btn--primary btn--sm" hidden>
+                    <i class="fa-solid fa-user-plus"></i> Adicionar
+                  </button>
                 </div>
               </div>
+
+              <p class="content-readonly" id="adminsReadonly" hidden>
+                <i class="fa-solid fa-lock"></i> Só o Super Admin pode gerir administradores. Aqui vê o seu perfil.
+              </p>
+
+              <div class="admins-wrap">
+                <div class="admins-grid" id="adminsGrid" aria-live="polite">
+                  <p class="team-admin__loading">A carregar...</p>
+                </div>
+
+                <aside class="roles-panel">
+                  <h3 class="roles-panel__title">Níveis de acesso</h3>
+                  <ul class="roles-panel__list" id="rolesGuide"></ul>
+                </aside>
+              </div>
+
+              <!-- ═══════════ FORMULÁRIO DESLIZANTE ═══════════ -->
+              <form id="adminForm" class="form-drawer form-stack admin-form" novalidate>
+                <div class="form-drawer__header">
+                  <div>
+                    <span class="form-drawer__eyebrow">Acesso ao painel</span>
+                    <h3 id="adminFormTitle">Novo administrador</h3>
+                  </div>
+                  <button type="button" class="drawer-close drawer-cancel-action" aria-label="Fechar">
+                    <i class="fa-solid fa-xmark"></i>
+                  </button>
+                </div>
+
+                <input type="hidden" id="adminId" />
+
+                <div class="field">
+                  <label for="adminName">Nome completo</label>
+                  <input id="adminName" type="text" maxlength="60" placeholder="Ex: Edneia Santos" required />
+                </div>
+
+                <div class="field">
+                  <label for="adminEmail">Email (login)</label>
+                  <input id="adminEmail" type="email" placeholder="nome@omochilao.ao" autocomplete="off" required />
+                  <small id="adminEmailHint" hidden>O email é o login e não pode ser alterado aqui.</small>
+                </div>
+
+                <div class="field">
+                  <label for="adminPhone">Telefone <small>(opcional)</small></label>
+                  <input id="adminPhone" type="tel" placeholder="+244 900 000 000" />
+                </div>
+
+                <div class="field" id="adminPasswordField">
+                  <label for="adminPassword">Senha inicial</label>
+                  <div class="pass-input">
+                    <input id="adminPassword" type="password" minlength="6" placeholder="Mínimo 6 caracteres" autocomplete="new-password" />
+                    <button type="button" id="adminPassToggle" class="pass-input__btn" aria-label="Mostrar senha"><i class="fa-solid fa-eye"></i></button>
+                  </div>
+                  <button type="button" id="adminPassGen" class="btn-link">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Gerar senha segura
+                  </button>
+                  <small>Depois a pessoa pode mudá-la com "Redefinir senha".</small>
+                </div>
+
+                <fieldset class="field role-fieldset">
+                  <legend>Nível de acesso</legend>
+                  <div class="role-options" id="adminRoleOptions"></div>
+                  <small id="adminSelfHint" hidden>Não pode alterar o seu próprio nível.</small>
+                </fieldset>
+
+                <div class="form-drawer__actions">
+                  <button type="submit" id="saveAdminBtn" class="btn btn--primary">
+                    Salvar <i class="fa-solid fa-check"></i>
+                  </button>
+                  <button type="button" class="btn btn--outline drawer-cancel-action">Cancelar</button>
+                </div>
+              </form>
             </div>
           </section>
 
@@ -939,85 +934,139 @@
           <section id="conteudo" class="admin-view" data-view="conteudo">
             <div class="panel">
               <div class="panel__header">
-                <h2 class="panel__title">Textos Principais (Site)</h2>
+                <h2 class="panel__title">Site Web</h2>
+                <a href="../index.html" target="_blank" rel="noopener" class="btn btn--outline btn--sm">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i> Ver site
+                </a>
               </div>
-              <div
-                class="panel__body panel__body-padded"
-                style="display: grid; gap: 3rem; grid-template-columns: 1fr 1fr"
-              >
+
+              <p class="content-readonly" id="contentReadonly" hidden>
+                <i class="fa-solid fa-lock"></i> O seu nível de acesso só permite ver estes dados.
+              </p>
+
+              <div class="content-tabs" role="tablist">
+                <button type="button" class="content-tab is-active" role="tab" aria-selected="true" data-content-tab="hero">
+                  <i class="fa-solid fa-image"></i> Hero (topo)
+                </button>
+                <button type="button" class="content-tab" role="tab" aria-selected="false" data-content-tab="numeros">
+                  <i class="fa-solid fa-chart-simple"></i> Números
+                </button>
+                <button type="button" class="content-tab" role="tab" aria-selected="false" data-content-tab="contactos">
+                  <i class="fa-solid fa-address-book"></i> Contactos e redes
+                </button>
+              </div>
+
+              <!-- ─── HERO ─── -->
+              <div class="content-pane" data-content-pane="hero">
                 <form id="contentForm" class="form-stack">
                   <div class="field">
-                    <label for="contentHeroLabel">Badge / Slogan</label>
-                    <input
-                      id="contentHeroLabel"
-                      name="contentHeroLabel"
-                      type="text"
-                      required
-                    />
+                    <label for="contentHeroLabel">Badge <small data-count-for="contentHeroLabel"></small></label>
+                    <input id="contentHeroLabel" type="text" maxlength="40" placeholder="BEM-VINDO AO MOCHILÃO" />
                   </div>
                   <div class="field">
-                    <label for="contentHeroTitle">Título do Hero</label>
-                    <textarea
-                      id="contentHeroTitle"
-                      name="contentHeroTitle"
-                      rows="2"
-                      required
-                    ></textarea>
+                    <label for="contentHeroTitle">Título <small data-count-for="contentHeroTitle"></small></label>
+                    <textarea id="contentHeroTitle" rows="3" maxlength="120" placeholder="Descubra Angola através de experiências que ficam para a vida"></textarea>
+                    <small>Cada Enter é uma nova linha no título.</small>
                   </div>
                   <div class="field">
-                    <label for="contentHeroSubtitle">Subtítulo do Hero</label>
-                    <textarea
-                      id="contentHeroSubtitle"
-                      name="contentHeroSubtitle"
-                      rows="3"
-                      required
-                    ></textarea>
+                    <label for="contentHeroSubtitle">Subtítulo <small data-count-for="contentHeroSubtitle"></small></label>
+                    <textarea id="contentHeroSubtitle" rows="3" maxlength="200"></textarea>
                   </div>
                   <div class="field">
-                    <label for="contentHeroImage">Foto de fundo do Hero</label>
-                    <input
-                      id="contentHeroImage"
-                      name="contentHeroImage"
-                      type="file"
-                      accept="image/*"
-                    />
-                    <small
-                      >Escolha uma imagem para substituir o fundo atual.</small
-                    >
+                    <label>Foto de fundo</label>
+                    <div class="content-image-actions">
+                      <label for="contentHeroImage" class="btn btn--outline btn--sm">
+                        <i class="fa-solid fa-camera"></i> Escolher nova foto
+                      </label>
+                      <input id="contentHeroImage" type="file" accept="image/*" class="visually-hidden" />
+                      <button type="button" id="contentHeroImageReset" class="btn-link-danger" hidden>
+                        Repor foto padrão
+                      </button>
+                    </div>
+                    <small>Horizontal, de preferência 1920×1080. É otimizada automaticamente.</small>
                   </div>
-                  <button
-                    type="submit"
-                    id="saveContentBtn"
-                    class="btn btn--primary"
-                  >
-                    Salvar Alterações no Site
-                  </button>
+                  <div class="content-actions">
+                    <button type="submit" id="saveContentBtn" class="btn btn--primary">
+                      Publicar no site <i class="fa-solid fa-check"></i>
+                    </button>
+                    <button type="button" class="btn btn--outline content-reset" data-reset="hero">Descartar</button>
+                    <span class="content-dirty" id="heroDirty" hidden>
+                      <i class="fa-solid fa-circle"></i> Alterações por publicar
+                    </span>
+                  </div>
                 </form>
 
-                <div class="preview-box">
-                  <img
-                    id="heroImagePreview"
-                    class="preview-box__image"
-                    src="../imagens/fundo_kifuka2.jpeg"
-                    alt="Pré-visualização da foto de fundo do Hero"
-                  />
-                  <span
-                    id="heroLabelPreview"
-                    class="preview-box__label"
-                    style="
-                      display: block;
-                      margin-bottom: 0.5rem;
-                      color: var(--clr-gold);
-                    "
-                    >Carregando...</span
-                  >
-                  <h3 id="heroTitlePreview" class="preview-box__title">
-                    Carregando...
-                  </h3>
-                  <p id="heroSubtitlePreview" class="preview-box__text">
-                    Carregando...
-                  </p>
+                <div class="hero-preview-wrap">
+                  <span class="hero-preview-wrap__label">Pré-visualização</span>
+                  <div class="hero-preview" id="heroPreview">
+                    <span class="hero-preview__badge" id="heroLabelPreview"></span>
+                    <h3 class="hero-preview__title" id="heroTitlePreview"></h3>
+                    <span class="hero-preview__divider"></span>
+                    <p class="hero-preview__text" id="heroSubtitlePreview"></p>
+                    <span class="hero-preview__btns"><i></i><i></i></span>
+                  </div>
                 </div>
+              </div>
+
+              <!-- ─── NÚMEROS ─── -->
+              <div class="content-pane" data-content-pane="numeros" hidden>
+                <form id="contentStatsForm" class="form-stack">
+                  <p class="content-help">Os contadores que aparecem por cima da foto na secção "Sobre o Mochilão".</p>
+                  <div class="stats-fields">
+                    <div class="field">
+                      <label for="statTrips">Viagens realizadas</label>
+                      <input id="statTrips" type="number" min="0" step="1" />
+                      <small>Aparece como "120+"</small>
+                    </div>
+                    <div class="field">
+                      <label for="statClients">Clientes</label>
+                      <input id="statClients" type="number" min="0" step="1" />
+                    </div>
+                    <div class="field">
+                      <label for="statSatisfaction">Satisfação (%)</label>
+                      <input id="statSatisfaction" type="number" min="0" max="100" step="1" />
+                    </div>
+                  </div>
+                  <div class="content-actions">
+                    <button type="submit" class="btn btn--primary">Publicar no site <i class="fa-solid fa-check"></i></button>
+                  </div>
+                </form>
+              </div>
+
+              <!-- ─── CONTACTOS ─── -->
+              <div class="content-pane" data-content-pane="contactos" hidden>
+                <form id="contentContactsForm" class="form-stack">
+                  <p class="content-help">Atualiza todos os botões e links de contacto do site (secção de reserva, contacto, menu e rodapé). Campos vazios ficam como estão.</p>
+                  <div class="stats-fields stats-fields--2">
+                    <div class="field">
+                      <label for="contact_telefone"><i class="fa-solid fa-phone"></i> Telefone</label>
+                      <input id="contact_telefone" type="tel" placeholder="+244 926 509 821" />
+                    </div>
+                    <div class="field">
+                      <label for="contact_email"><i class="fa-solid fa-envelope"></i> Email</label>
+                      <input id="contact_email" type="email" placeholder="geral@omochilao.ao" />
+                    </div>
+                    <div class="field">
+                      <label for="contact_whatsapp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</label>
+                      <input id="contact_whatsapp" type="tel" placeholder="244926509821" />
+                    </div>
+                    <div class="field">
+                      <label for="contact_instagram"><i class="fa-brands fa-instagram"></i> Instagram</label>
+                      <input id="contact_instagram" type="url" placeholder="https://www.instagram.com/o_mochilao/" />
+                    </div>
+                    <div class="field">
+                      <label for="contact_tiktok"><i class="fa-brands fa-tiktok"></i> TikTok</label>
+                      <input id="contact_tiktok" type="url" placeholder="https://www.tiktok.com/@o.mochilao" />
+                    </div>
+                    <div class="field">
+                      <label for="contact_facebook"><i class="fa-brands fa-facebook-f"></i> Facebook</label>
+                      <input id="contact_facebook" type="url" placeholder="https://www.facebook.com/OMochilao" />
+                    </div>
+                  </div>
+                  <div class="content-actions">
+                    <button type="submit" class="btn btn--primary">Publicar no site <i class="fa-solid fa-check"></i></button>
+                  </div>
+                </form>
               </div>
             </div>
           </section>
