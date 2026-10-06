@@ -14,17 +14,15 @@ import {
   onSnapshot,
   getDoc,
   setDoc,
-  addDoc,
   updateDoc,
   deleteDoc,
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
-import {
-  deleteObject,
-  getDownloadURL,
-  ref,
-  uploadBytes,
-} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-storage.js";
-import { app, auth, db, storage } from "./firebase-config.js";
+import { app, auth, db } from "./firebase-config.js";
+import { initProgramFormUI, populateProgramForm } from "./program-form-ui.js";
+import { saveProgram, deleteProgramFully, describeError } from "./program-save.js";
+import { compressToDataURL, loadProgramImages } from "./image-store.js";
+import { initTeamAdmin } from "./team-admin.js";
+import { initServicesAdmin } from "./services-admin.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   let currentUser = null;
@@ -470,8 +468,6 @@ document.addEventListener("DOMContentLoaded", function () {
   function renderMessages() {
     const list = document.getElementById("messagesList");
     if (!list) return;
-    const perms =
-      rolesPermissions[currentUserRole] || rolesPermissions["Visualizador"];
 
     if (!messagesList.length) {
       list.innerHTML = `<tr><td colspan="5" class="admin-empty-state">A caixa de entrada está limpa. Sem mensagens de clientes.</td></tr>`;
@@ -563,7 +559,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .join("");
 
     document.querySelectorAll(".status-select").forEach((sel) => {
-      sel.addEventListener("change", async (e) => {
+      sel.addEventListener("change", async () => {
         const id = sel.dataset.id;
         const newStatus = sel.value;
         sel.disabled = true;
@@ -679,56 +675,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  async function uploadProgramImage(file) {
-    if (!file) return null;
-    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "-");
-    const imagePath = `programs/${Date.now()}-${safeName}`;
-    const imageRef = ref(storage, imagePath);
-    await uploadBytes(imageRef, file, { contentType: file.type });
-    return { imagemURL: await getDownloadURL(imageRef), imagemPath: imagePath };
-  }
-
-  async function uploadHeroImage(file) {
-    if (!file) return null;
-    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "-");
-    const imagePath = `site-content/${Date.now()}-${safeName}`;
-    const imageRef = ref(storage, imagePath);
-    await uploadBytes(imageRef, file, { contentType: file.type });
-    return { imagemURL: await getDownloadURL(imageRef), imagemPath: imagePath };
-  }
-
-  function withTimeout(promise, milliseconds, message) {
-    let timeoutId;
-    const timeout = new Promise((_, reject) => {
-      timeoutId = setTimeout(() => reject(new Error(message)), milliseconds);
-    });
-
-    return Promise.race([promise, timeout]).finally(() =>
-      clearTimeout(timeoutId),
-    );
-  }
-
-  async function removeProgramImage(imagePath) {
-    if (!imagePath) return;
-    try {
-      await deleteObject(ref(storage, imagePath));
-    } catch (error) {
-      if (error.code !== "storage/object-not-found") throw error;
-    }
-  }
-
-  async function removeHeroImage(imagePath) {
-    if (!imagePath) return;
-    try {
-      await deleteObject(ref(storage, imagePath));
-    } catch (error) {
-      if (error.code !== "storage/object-not-found") throw error;
-    }
-  }
-
   // --- Forms & Actions ---
   function setupForms() {
-    // Programs Form Drawer
+    // ═══════════ PROGRAMAS ═══════════
+    initProgramFormUI();
     const addProgramBtn = document.getElementById("addProgramBtn");
     const programForm = document.getElementById("programForm");
     const cancelProgramBtn = document.getElementById("cancelProgramBtn");
@@ -751,73 +701,44 @@ document.addEventListener("DOMContentLoaded", function () {
             programForm.classList.remove("is-open");
           });
         });
+
       programForm.addEventListener("submit", async (e) => {
         e.preventDefault();
         const btn = document.getElementById("saveProgramBtn");
+        if (btn.disabled) return;
         const originalButtonContent = btn.innerHTML;
-        btn.textContent = "A guardar...";
-        btn.disabled = true;
 
         const id = document.getElementById("programId").value;
-        const imageFile = document.getElementById("progImage").files[0];
-        const existingProgram = programsList.find(
-          (program) => program.id === id,
-        );
-        let uploadedImage = null;
+        const existing = programsList.find((p) => p.id === id) || null;
 
-        const data = {
-          nome: document.getElementById("progName").value.trim(),
-          slogan: document.getElementById("progSlogan").value.trim(),
-          preco: document.getElementById("progPrice").value.trim(),
-          duracao: document.getElementById("progDuration").value.trim(),
-          categoria: document.getElementById("progCategory").value.trim(),
-          descricao: document.getElementById("progDesc").value.trim(),
-        };
+        btn.disabled = true;
+        btn.textContent = "A preparar...";
 
         try {
-          if (!id && !imageFile) {
-            alert("Selecione uma imagem para criar o programa.");
-            btn.innerHTML = 'Salvar <i class="fa-solid fa-check"></i>';
-            btn.disabled = false;
+          const result = await saveProgram({
+            db,
+            id,
+            existing,
+            onStatus: (msg) => (btn.textContent = msg),
+          });
+
+          if (!result.ok) {
+            alert(
+              "Corrija os campos assinalados:\n\n• " + result.errors.join("\n• "),
+            );
             return;
           }
-
-          if (imageFile) {
-            uploadedImage = await withTimeout(
-              uploadProgramImage(imageFile),
-              30000,
-              "O envio da imagem demorou demasiado. Verifique a ligação e as regras do Firebase Storage.",
-            );
-            Object.assign(data, uploadedImage);
-          } else if (existingProgram) {
-            data.imagemURL = existingProgram.imagemURL || "";
-            data.imagemPath = existingProgram.imagemPath || "";
-          }
-
-          if (id) {
-            await withTimeout(
-              updateDoc(doc(db, "programs", id), data),
-              15000,
-              "A atualização do programa demorou demasiado. Verifique a ligação e as permissões da conta.",
-            );
-            if (imageFile && existingProgram?.imagemPath)
-              await removeProgramImage(existingProgram.imagemPath);
-          } else {
-            await withTimeout(
-              addDoc(collection(db, "programs"), data),
-              15000,
-              "A criação do programa demorou demasiado. Verifique a ligação e as permissões da conta.",
+          if (result.cleanupFailures) {
+            console.warn(
+              `[programs] ${result.cleanupFailures} imagem(ns) antiga(s) não apagada(s).`,
             );
           }
+
+          programForm.reset();
           programForm.classList.remove("is-open");
         } catch (err) {
-          if (uploadedImage?.imagemPath) {
-            await removeProgramImage(uploadedImage.imagemPath).catch(() => {});
-          }
-          console.error(err);
-          alert(
-            `Erro ao salvar programa: ${err.message || "operação não concluída."}`,
-          );
+          console.error("[programs] Erro ao salvar:", err.code, err);
+          alert("Erro ao salvar programa:\n" + describeError(err));
         } finally {
           btn.innerHTML = originalButtonContent;
           btn.disabled = false;
@@ -825,7 +746,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
 
-    // Admins
+    // ═══════════ ADMINS ═══════════
     const addAdminBtn = document.getElementById("addAdminBtn");
     const adminForm = document.getElementById("adminForm");
     const adminsLayout = document.querySelector(".admins-layout");
@@ -905,7 +826,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
 
-    // Content
+    // ═══════════ CONTEÚDO (Hero) → Base64 no Firestore ═══════════
     const contentForm = document.getElementById("contentForm");
     if (contentForm) {
       const imageInput = document.getElementById("contentHeroImage");
@@ -923,57 +844,37 @@ document.addEventListener("DOMContentLoaded", function () {
       contentForm.addEventListener("submit", async (e) => {
         e.preventDefault();
         const btn = document.getElementById("saveContentBtn");
+        if (btn.disabled) return;
         btn.textContent = "A guardar...";
         btn.disabled = true;
-        const previousImagePath = siteConfig.heroImagePath;
-        let uploadedImagePath = null;
+
         const data = {
           featureLabel: document.getElementById("contentHeroLabel").value,
           heroTitle: document.getElementById("contentHeroTitle").value,
           heroSubtitle: document.getElementById("contentHeroSubtitle").value,
         };
+
         try {
           const imageFile = imageInput.files?.[0];
           if (imageFile) {
-            const uploadedImage = await uploadHeroImage(imageFile);
-            uploadedImagePath = uploadedImage.imagemPath;
-            data.heroImageUrl = uploadedImage.imagemURL;
-            data.heroImagePath = uploadedImage.imagemPath;
+            btn.textContent = "A otimizar imagem...";
+            // A nova foto substitui a anterior no mesmo campo (a antiga desaparece)
+            data.heroImageUrl = await compressToDataURL(imageFile, {
+              maxPx: 1920,
+              maxChars: 800000,
+            });
           }
+
+          btn.textContent = "A guardar...";
           await setDoc(doc(db, "siteConfig", "hero"), data, { merge: true });
           siteConfig = { ...siteConfig, ...data };
           imageInput.value = "";
           if (previewObjectUrl) URL.revokeObjectURL(previewObjectUrl);
           previewObjectUrl = null;
           renderContent();
-
-          if (
-            previousImagePath &&
-            uploadedImagePath &&
-            previousImagePath !== uploadedImagePath
-          ) {
-            try {
-              await removeHeroImage(previousImagePath);
-            } catch (error) {
-              console.warn(
-                "Não foi possível remover a foto anterior do Hero.",
-                error,
-              );
-            }
-          }
         } catch (err) {
           console.error(err);
-          if (uploadedImagePath) {
-            try {
-              await removeHeroImage(uploadedImagePath);
-            } catch (cleanupError) {
-              console.warn(
-                "Não foi possível remover a foto não guardada.",
-                cleanupError,
-              );
-            }
-          }
-          alert("Erro ao atualizar conteúdo.");
+          alert("Erro ao atualizar conteúdo:\n" + describeError(err));
         } finally {
           btn.textContent = "Salvar Alterações no Site";
           btn.disabled = false;
@@ -982,31 +883,50 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  window.editProgram = function (id) {
+  window.editProgram = async function (id) {
     const prog = programsList.find((p) => p.id === id);
     if (!prog) return;
-    document.getElementById("programId").value = prog.id;
-    document.getElementById("progName").value = prog.nome || "";
-    document.getElementById("progSlogan").value = prog.slogan || "";
-    document.getElementById("progPrice").value = prog.preco || "";
-    document.getElementById("progDuration").value = prog.duracao || "";
-    document.getElementById("progCategory").value = prog.categoria || "";
-    document.getElementById("progImage").value = ""; // não se carrega o ficheiro
-    document.getElementById("progDesc").value = prog.descricao || "";
+
+    // As fotos da galeria estão na subcoleção "imagens" → carregar primeiro
+    document.body.style.cursor = "progress";
+    let galeria = [];
+    try {
+      const imgs = await loadProgramImages(db, prog.id);
+      galeria = (prog.galeria || [])
+        .map((g) => ({ url: imgs[g.id]?.data, publicId: g.id }))
+        .filter((g) => g.url);
+    } catch (err) {
+      console.error("[programs] Erro ao carregar imagens:", err);
+      alert("Não foi possível carregar as fotos da galeria:\n" + describeError(err));
+    } finally {
+      document.body.style.cursor = "";
+    }
+
+    populateProgramForm({ ...prog, galeria }); // campos + listas + roteiro + capa + galeria
     document.getElementById("programFormTitle").textContent = "Editar Programa";
     document.getElementById("programForm").classList.add("is-open");
-    window.location.hash = "#programas";
   };
 
   window.deleteProgram = async function (id) {
-    if (confirm("Tem certeza que deseja eliminar este destino?")) {
-      try {
-        const program = programsList.find((item) => item.id === id);
-        await deleteDoc(doc(db, "programs", id));
-        if (program?.imagemPath) await removeProgramImage(program.imagemPath);
-      } catch (err) {
-        console.error(err);
+    const program = programsList.find((p) => p.id === id);
+    if (!program) return;
+    if (
+      !confirm(
+        `Eliminar "${program.nome}"?\nA capa e todas as fotos da galeria também serão apagadas.`,
+      )
+    )
+      return;
+
+    try {
+      const { failed } = await deleteProgramFully({ db, program });
+      if (failed) {
+        alert(
+          `Programa eliminado, mas ${failed} imagem(ns) não foram apagadas. Pode apagá-las na consola do Firestore (programs/${program.id}/imagens).`,
+        );
       }
+    } catch (err) {
+      console.error("[programs] Erro ao eliminar:", err);
+      alert("Erro ao eliminar programa:\n" + describeError(err));
     }
   };
 
@@ -1046,6 +966,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     subscribeAll();
     setupForms();
+
+    // Equipa do Site — quem edita conteúdos pode gerir os cards
+    const perms =
+      rolesPermissions[currentUserRole] || rolesPermissions["Visualizador"];
+    initTeamAdmin({ db, canEdit: perms.canEditContent });
+    initServicesAdmin({ db, canEdit: perms.canEditContent });
 
     const navLinks = document.querySelectorAll(".admin-nav__link");
     const views = document.querySelectorAll(".admin-view");

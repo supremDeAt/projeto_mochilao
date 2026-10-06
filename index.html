@@ -51,6 +51,7 @@
         <a href="#custom" class="navbar__link" data-i18n="nav.custom"
           >Personalizado</a
         >
+        <a href="#services" class="navbar__link" data-i18n="nav.services">Serviços</a>
         <a href="#about" class="navbar__link" data-i18n="nav.about">Sobre</a>
         <a href="#tips" class="navbar__link" data-i18n="nav.tips">Dicas</a>
         <a
@@ -102,6 +103,7 @@
         <a href="#tours" class="sidebar__link">Viagens</a>
         <a href="#gallery" class="sidebar__link">Galeria</a>
         <a href="#custom" class="sidebar__link">Personalizado</a>
+        <a href="#services" class="sidebar__link">Serviços</a>
         <a href="#about" class="sidebar__link">Sobre</a>
         <a href="#team" class="sidebar__link">Equipa</a>
         <a href="#tips" class="sidebar__link">Dicas</a>
@@ -307,6 +309,86 @@
             <p class="counter__label" data-i18n="about.counter3">Satisfação</p>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ======= SERVIÇOS =======
+         Os cards vêm da coleção "services" do Firestore (services-public.js),
+         geridos no painel admin. Os 4 cards abaixo são o conteúdo de reserva. -->
+    <section class="services" id="services">
+      <div class="section-header services__header reveal-up">
+        <span class="section-tag" data-i18n="services.tag">Os Nossos Serviços</span>
+        <h2 class="section-title" data-i18n="services.title">Tudo para a sua viagem</h2>
+        <p class="section-desc" data-i18n="services.desc">
+          Do aeroporto ao alojamento, tratamos de cada detalhe para que só tenha de aproveitar.
+        </p>
+      </div>
+
+      <div class="services__grid reveal-up" id="servicesGrid">
+        <a class="service-card" href="PAGES/servico.html?s=transfer" style="--i: 0">
+          <span class="service-card__icon">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor"
+            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6 40V31l7-11h26l11 11h6a2 2 0 0 1 2 2v7"/>
+            <path d="M6 40h5M21 40h20M51 40h7"/>
+            <circle cx="16" cy="41" r="5"/><circle cx="46" cy="41" r="5"/>
+            <path d="M11 31h39M28 20v11"/>
+            <path d="M36 52h18M50 48l4 4-4 4"/></svg>
+          </span>
+          <h3 class="service-card__title">Transfer</h3>
+          <p class="service-card__desc">
+            Recolha no aeroporto, no hotel ou onde precisar, com motoristas de confiança e viaturas confortáveis em Luanda e nas províncias.
+          </p>
+          <span class="service-card__more">Saber mais <i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+
+        <a class="service-card" href="PAGES/servico.html?s=hoteis" style="--i: 1">
+          <span class="service-card__icon">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor"
+            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M14 56V12h24v44M38 24h12v32M8 56h48"/>
+            <path d="M20 20h4M28 20h4M20 28h4M28 28h4M20 36h4M28 36h4M43 32h2M43 40h2"/>
+            <path d="M23 56v-8h6v8"/></svg>
+          </span>
+          <h3 class="service-card__title">Hotéis</h3>
+          <p class="service-card__desc">
+            Reservamos o alojamento certo para a sua viagem, de hotéis e resorts a pousadas e lodges, sempre ao melhor preço.
+          </p>
+          <span class="service-card__more">Saber mais <i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+
+        <a class="service-card" href="PAGES/servico.html?s=aluguer-autocarro" style="--i: 2">
+          <span class="service-card__icon">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor"
+            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="14" y="8" width="36" height="42" rx="5"/>
+            <path d="M18 14h28v14H18zM14 32h36"/>
+            <circle cx="21" cy="41" r="2"/><circle cx="43" cy="41" r="2"/><path d="M28 41h8"/>
+            <path d="M18 50v5h6v-5M40 50v5h6v-5M14 18h-4v8M50 18h4v8"/></svg>
+          </span>
+          <h3 class="service-card__title">Aluguer de Autocarro</h3>
+          <p class="service-card__desc">
+            Autocarros com motorista para grupos, empresas, eventos e excursões, com rotas planeadas à sua medida.
+          </p>
+          <span class="service-card__more">Saber mais <i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+
+        <a class="service-card" href="PAGES/servico.html?s=city-tour-tuk-tuk" style="--i: 3">
+          <span class="service-card__icon">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor"
+            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M14 42V28c0-9 7-16 16-16h12c6 0 10 4 10 10v20"/>
+            <path d="M14 42h1M25 42h18M52 42h4"/>
+            <circle cx="20" cy="43" r="5"/><circle cx="48" cy="43" r="5"/>
+            <path d="M27 18h13a4 4 0 0 1 4 4v10H27z"/>
+            <path d="M14 30H7M7 26v8"/></svg>
+          </span>
+          <h3 class="service-card__title">City Tour Tuk-Tuk</h3>
+          <p class="service-card__desc">
+            Descubra Luanda de uma forma diferente: um passeio de tuk-tuk pelos pontos mais emblemáticos da cidade, com guia local.
+          </p>
+          <span class="service-card__more">Saber mais <i class="fa-solid fa-arrow-right"></i></span>
+        </a>
       </div>
     </section>
 
@@ -551,8 +633,8 @@
           em Angola
         </h2>
         <p class="section-desc">
-          Roteiros com data marcada, feitos <br />
-          para viver em grupo. Escolhe o teu próximo destino.
+          Roteiros com data marcada, feitos 
+          para viver em grupo. <br /> Escolhe o teu próximo destino.
         </p>
       </div>
 
@@ -809,79 +891,57 @@
       </div>
     </section>
 
-    <!-- ======= EQUIPA ======= -->
+    <!-- ======= EQUIPA =======
+         Os cards vêm da coleção "team" do Firestore (team-public.js).
+         Os 3 cards abaixo são o conteúdo de reserva: aparecem se o
+         Firestore estiver vazio ou sem ligação. -->
     <section class="team" id="team">
-      <div class="team__left reveal-left">
-        <div class="section-header">
+      <header class="team__header reveal-up">
+        <div class="team__header-left">
           <span class="section-tag" data-i18n="team.tag">Quem Somos</span>
           <h2 class="section-title" data-i18n="team.title">Conheça a Equipa</h2>
-          <p class="section-desc" data-i18n="team.desc">
-            Quem pilota as aventuras por trás dos bastidores.
-          </p>
         </div>
-      </div>
+        <p class="team__subtitle" data-i18n="team.desc">
+          Quem pilota as aventuras por trás dos bastidores.
+        </p>
+      </header>
 
-      <div class="team__right reveal-right">
-        <div class="team-carousel">
-          <div class="team-carousel__cards" id="teamCards">
-            <!-- Card 1 -->
-            <div class="team-card" data-member="perpetuo" data-pos="0">
-              <div class="team-card__info">
-                <h3 class="team-card__name">Perpétuo de Assis</h3>
-                <p class="team-card__role">Fundador &amp; Guia Principal</p>
-                <a
-                  href="#"
-                  target="_blank"
-                  class="team-card__social"
-                  aria-label="Instagram"
-                >
-                  <i class="fa-brands fa-instagram"></i>
-                </a>
-              </div>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="team-card" data-member="matias" data-pos="1">
-              <div class="team-card__info">
-                <h3 class="team-card__name">Matias Matis</h3>
-                <p class="team-card__role">Coordenador de Viagens</p>
-                <a
-                  href="#"
-                  target="_blank"
-                  class="team-card__social"
-                  aria-label="Instagram"
-                >
-                  <i class="fa-brands fa-instagram"></i>
-                </a>
-              </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="team-card" data-member="funeno" data-pos="2">
-              <div class="team-card__info">
-                <h3 class="team-card__name">Funeno Puca</h3>
-                <p class="team-card__role">Guia &amp; Logística</p>
-                <a
-                  href="#"
-                  target="_blank"
-                  class="team-card__social"
-                  aria-label="Instagram"
-                >
-                  <i class="fa-brands fa-instagram"></i>
-                </a>
-              </div>
+      <div class="team__grid reveal-up" id="teamGrid">
+        <article class="team-card" style="--i: 0">
+          <div class="team-card__media">
+            <img src="imagens/assis.webp" alt="Perpétuo de Assis" class="team-card__img" loading="lazy" />
+          </div>
+          <div class="team-card__info">
+            <div class="team-card__text">
+              <h3 class="team-card__name">Perpétuo de Assis</h3>
+              <p class="team-card__role">Fundador &amp; Guia Principal</p>
             </div>
           </div>
+        </article>
 
-          <div class="team-carousel__dots" id="teamDots">
-            <button
-              class="team-carousel__dot active"
-              aria-label="Membro 1"
-            ></button>
-            <button class="team-carousel__dot" aria-label="Membro 2"></button>
-            <button class="team-carousel__dot" aria-label="Membro 3"></button>
+        <article class="team-card" style="--i: 1">
+          <div class="team-card__media">
+            <img src="imagens/matias.webp" alt="Matias Matis" class="team-card__img" loading="lazy" />
           </div>
-        </div>
+          <div class="team-card__info">
+            <div class="team-card__text">
+              <h3 class="team-card__name">Matias Matis</h3>
+              <p class="team-card__role">Coordenador de Viagens</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="team-card" style="--i: 2">
+          <div class="team-card__media">
+            <img src="imagens/guia.webp" alt="Funeno Puca" class="team-card__img" loading="lazy" />
+          </div>
+          <div class="team-card__info">
+            <div class="team-card__text">
+              <h3 class="team-card__name">Funeno Puca</h3>
+              <p class="team-card__role">Guia &amp; Logística</p>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -1296,6 +1356,8 @@
     <script type="module" src="SCRIPT/firebase-config.js"></script>
     <script type="module" src="SCRIPT/site-content.js"></script>
     <script type="module" src="SCRIPT/programs-public.js"></script>
+    <script type="module" src="SCRIPT/team-public.js"></script>
+    <script type="module" src="SCRIPT/services-public.js"></script>
     <script type="module" src="SCRIPT/forms.js"></script>
     <script type="module" src="SCRIPT/script.js"></script>
   </body>

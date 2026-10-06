@@ -60,8 +60,14 @@
           <a class="admin-nav__link" href="#reservas" data-view="reservas">
             <i class="fa-solid fa-calendar-check"></i> Reservas
           </a>
+          <a class="admin-nav__link" href="#servicos" data-view="servicos">
+            <i class="fa-solid fa-bell-concierge"></i> Serviços
+          </a>
+          <a class="admin-nav__link" href="#equipa" data-view="equipa">
+            <i class="fa-solid fa-people-group"></i> Equipa do Site
+          </a>
           <a class="admin-nav__link" href="#admins" data-view="admins">
-            <i class="fa-solid fa-user-shield"></i> Equipa
+            <i class="fa-solid fa-user-shield"></i> Administradores
           </a>
           <a class="admin-nav__link" href="#conteudo" data-view="conteudo">
             <i class="fa-solid fa-image"></i> Site Web
@@ -192,95 +198,291 @@
                 </button>
               </div>
 
-              <!-- Formulário Deslizante -->
-              <form id="programForm" class="form-drawer form-stack">
-                <div class="form-drawer__header">
-                  <div>
-                    <span class="form-drawer__eyebrow">Gestão de destinos</span>
-                    <h3 id="programFormTitle">Novo Programa</h3>
+              <!-- ═══════════ FORMULÁRIO DESLIZANTE (COMPLETO) ═══════════ -->
+              <form
+                id="programForm"
+                class="form-drawer form-stack program-form"
+                novalidate
+              >
+                <!-- Topo fixo: título + navegação por secções -->
+                <div class="program-form__top">
+                  <div class="form-drawer__header">
+                    <div>
+                      <span class="form-drawer__eyebrow">Gestão de destinos</span>
+                      <h3 id="programFormTitle">Novo Programa</h3>
+                    </div>
+                    <button
+                      type="button"
+                      id="cancelProgramBtn"
+                      class="drawer-close"
+                      aria-label="Fechar formulário"
+                      title="Fechar formulário"
+                    >
+                      <i class="fa-solid fa-xmark"></i>
+                    </button>
                   </div>
-                  <button
-                    type="button"
-                    id="cancelProgramBtn"
-                    class="drawer-close"
-                    aria-label="Fechar formulário"
-                    title="Fechar formulário"
-                  >
-                    <i class="fa-solid fa-xmark"></i>
-                  </button>
+
+                  <nav class="program-form__nav" aria-label="Secções do formulário">
+                    <a href="#progSecBasic" class="program-form__nav-link">
+                      <i class="fa-solid fa-circle-info"></i> Básico
+                    </a>
+                    <a href="#progSecImages" class="program-form__nav-link">
+                      <i class="fa-regular fa-images"></i> Imagens
+                    </a>
+                    <a href="#progSecLists" class="program-form__nav-link">
+                      <i class="fa-solid fa-list-check"></i> Inclui
+                    </a>
+                    <a href="#progSecItinerary" class="program-form__nav-link">
+                      <i class="fa-solid fa-route"></i> Roteiro
+                    </a>
+                  </nav>
                 </div>
+
                 <input type="hidden" id="programId" name="programId" />
 
-                <div class="program-form__fields">
-                  <div class="field">
-                    <label for="progName">Nome do Destino</label>
-                    <input
-                      id="progName"
-                      name="progName"
-                      type="text"
-                      placeholder="Ex: Cabo Ledo"
-                      required
-                    />
+                <!-- ─── 1. INFORMAÇÕES BÁSICAS ─── -->
+                <fieldset class="program-form__section" id="progSecBasic">
+                  <legend class="program-form__legend">
+                    <span class="program-form__step">1</span>
+                    Informações Básicas
+                  </legend>
+                  <p class="program-form__hint">
+                    Aparecem no hero, no card de detalhes e nos cards de
+                    "Outros destinos".
+                  </p>
+
+                  <div class="program-form__fields">
+                    <div class="field">
+                      <label for="progName">Nome do Destino *</label>
+                      <input
+                        id="progName"
+                        name="progName"
+                        type="text"
+                        placeholder="Ex: Cabo Ledo Sobre Rodas"
+                        required
+                      />
+                    </div>
+                    <div class="field">
+                      <label for="progSlogan">Slogan *</label>
+                      <input
+                        id="progSlogan"
+                        name="progSlogan"
+                        type="text"
+                        placeholder="Ex: A estrada é o caminho."
+                        required
+                      />
+                    </div>
+                    <div class="field">
+                      <label for="progCategory">Categoria *</label>
+                      <select id="progCategory" name="progCategory" required>
+                        <option value="Praia">Praia</option>
+                        <option value="Safari">Safari</option>
+                        <option value="Acampamento">Acampamento</option>
+                        <option value="Cultura">Cultura</option>
+                        <option value="Aventura">Aventura</option>
+                        <option value="Natureza">Natureza</option>
+                        <option value="Cidade">Cidade</option>
+                      </select>
+                    </div>
+                    <div class="field">
+                      <label for="progDuration">Duração *</label>
+                      <input
+                        id="progDuration"
+                        name="progDuration"
+                        type="text"
+                        placeholder="Ex: 2 Dias"
+                        required
+                      />
+                    </div>
+                    <div class="field">
+                      <label for="progPrice">Preço *</label>
+                      <input
+                        id="progPrice"
+                        name="progPrice"
+                        type="text"
+                        placeholder="Ex: A partir de 90.000 Kz"
+                        required
+                      />
+                    </div>
+                    <div class="field">
+                      <label for="progStartPoint">Ponto de Partida *</label>
+                      <input
+                        id="progStartPoint"
+                        name="progStartPoint"
+                        type="text"
+                        placeholder="Ex: Luanda"
+                        required
+                      />
+                    </div>
+                    <div class="field field--full">
+                      <label for="progDesc">Descrição Completa *</label>
+                      <textarea
+                        id="progDesc"
+                        name="progDesc"
+                        rows="6"
+                        required
+                        placeholder="Descreva a experiência. Deixe uma linha em branco entre parágrafos."
+                      ></textarea>
+                      <small>Linha em branco = novo parágrafo no site.</small>
+                    </div>
                   </div>
-                  <div class="field">
-                    <label for="progSlogan">Slogan (Badge)</label>
-                    <input
-                      id="progSlogan"
-                      name="progSlogan"
-                      type="text"
-                      placeholder="Ex: Sobre Rodas"
-                      required
-                    />
+                </fieldset>
+
+                <!-- ─── 2. IMAGENS ─── -->
+                <fieldset class="program-form__section" id="progSecImages">
+                  <legend class="program-form__legend">
+                    <span class="program-form__step">2</span>
+                    Imagens
+                  </legend>
+
+                  <!-- Capa -->
+                  <div class="upload-block">
+                    <span class="upload-block__label">Capa (Hero) *</span>
+                    <div class="cover-upload">
+                      <div class="cover-upload__preview" id="progCoverPreview">
+                        <span class="cover-upload__ph">
+                          <i class="fa-regular fa-image"></i>
+                          Sem capa
+                        </span>
+                      </div>
+                      <div class="cover-upload__picker">
+                        <input
+                          id="progImage"
+                          name="progImage"
+                          type="file"
+                          accept="image/*"
+                          class="upload-drop__input"
+                        />
+                        <label for="progImage" class="upload-drop">
+                          <i class="fa-solid fa-cloud-arrow-up"></i>
+                          <strong>Escolher imagem de capa</strong>
+                          <small>
+                            JPG, PNG ou WEBP · horizontal (1920×1080).<br />
+                            Obrigatória ao criar; opcional ao editar.
+                          </small>
+                        </label>
+                      </div>
+                    </div>
                   </div>
-                  <div class="field">
-                    <label for="progPrice">Preço</label>
+
+                  <!-- Galeria -->
+                  <div class="upload-block">
+                    <div class="upload-block__row">
+                      <span class="upload-block__label">Galeria</span>
+                      <span class="upload-block__count" id="progGalleryCount"
+                        >0 fotos</span
+                      >
+                    </div>
                     <input
-                      id="progPrice"
-                      name="progPrice"
-                      type="text"
-                      placeholder="Ex: 45.000 Kz"
-                      required
-                    />
-                  </div>
-                  <div class="field">
-                    <label for="progDuration">Duração</label>
-                    <input
-                      id="progDuration"
-                      name="progDuration"
-                      type="text"
-                      placeholder="Ex: 2 Dias"
-                      required
-                    />
-                  </div>
-                  <div class="field">
-                    <label for="progCategory">Categoria</label>
-                    <select id="progCategory" name="progCategory" required>
-                      <option value="Praia">Praia</option>
-                      <option value="Safari">Safari</option>
-                      <option value="Acampamento">Acampamento</option>
-                      <option value="Cultura">Cultura</option>
-                    </select>
-                  </div>
-                  <div class="field">
-                    <label for="progImage">Imagem do programa</label>
-                    <input
-                      id="progImage"
-                      name="progImage"
+                      id="progGallery"
+                      name="progGallery"
                       type="file"
                       accept="image/*"
+                      multiple
+                      class="upload-drop__input"
                     />
-                    <small>Obrigatória ao criar; opcional ao editar.</small>
+                    <label
+                      for="progGallery"
+                      class="upload-drop upload-drop--inline"
+                    >
+                      <i class="fa-solid fa-images"></i>
+                      <span>
+                        <strong>Adicionar fotos à galeria</strong>
+                        <small>Pode seleccionar várias de uma vez.</small>
+                      </span>
+                    </label>
+
+                    <!-- Miniaturas (existentes + novas) — preenchido pelo JS -->
+                    <ul class="gallery-manager" id="progGalleryPreview"></ul>
+                    <p class="gallery-manager__empty">
+                      Ainda sem fotos na galeria.
+                    </p>
                   </div>
-                </div>
-                <div class="field">
-                  <label for="progDesc">Descrição Completa</label>
-                  <textarea
-                    id="progDesc"
-                    name="progDesc"
-                    required
-                    placeholder="Descreva a experiência..."
-                  ></textarea>
-                </div>
+                </fieldset>
+
+                <!-- ─── 3. O QUE INCLUI / NÃO INCLUI ─── -->
+                <fieldset class="program-form__section" id="progSecLists">
+                  <legend class="program-form__legend">
+                    <span class="program-form__step">3</span>
+                    O Que Inclui
+                  </legend>
+
+                  <div class="dyn-lists">
+                    <!-- Inclui -->
+                    <div class="dyn-list dyn-list--yes">
+                      <div class="dyn-list__header">
+                        <h4 class="dyn-list__title">
+                          <i class="fa-solid fa-circle-check"></i> Inclui
+                        </h4>
+                      </div>
+                      <ul
+                        class="dyn-list__items"
+                        id="progIncludeList"
+                        data-list="inclui"
+                      ></ul>
+                      <p class="dyn-list__empty">Ainda sem itens.</p>
+                      <button
+                        type="button"
+                        class="dyn-add"
+                        id="addIncludeBtn"
+                        data-target="progIncludeList"
+                      >
+                        <i class="fa-solid fa-plus"></i> Adicionar Item
+                      </button>
+                    </div>
+
+                    <!-- Não inclui -->
+                    <div class="dyn-list dyn-list--no">
+                      <div class="dyn-list__header">
+                        <h4 class="dyn-list__title">
+                          <i class="fa-solid fa-circle-xmark"></i> Não Inclui
+                        </h4>
+                      </div>
+                      <ul
+                        class="dyn-list__items"
+                        id="progExcludeList"
+                        data-list="naoInclui"
+                      ></ul>
+                      <p class="dyn-list__empty">Ainda sem itens.</p>
+                      <button
+                        type="button"
+                        class="dyn-add"
+                        id="addExcludeBtn"
+                        data-target="progExcludeList"
+                      >
+                        <i class="fa-solid fa-plus"></i> Adicionar Item
+                      </button>
+                    </div>
+                  </div>
+                </fieldset>
+
+                <!-- ─── 4. ROTEIRO (ITINERÁRIO) ─── -->
+                <fieldset class="program-form__section" id="progSecItinerary">
+                  <legend class="program-form__legend">
+                    <span class="program-form__step">4</span>
+                    Roteiro (Itinerário)
+                  </legend>
+                  <p class="program-form__hint">
+                    Cada bloco é um item do acordeão "Itinerário" na página do
+                    programa.
+                  </p>
+
+                  <ol class="itinerary-builder" id="progItineraryList"></ol>
+                  <p class="itinerary-builder__empty">
+                    <i class="fa-solid fa-route"></i>
+                    Ainda sem dias. Clique em "Adicionar Dia" para começar.
+                  </p>
+
+                  <button
+                    type="button"
+                    class="dyn-add dyn-add--block"
+                    id="addItineraryDayBtn"
+                  >
+                    <i class="fa-solid fa-plus"></i> Adicionar Dia
+                  </button>
+                </fieldset>
+
+                <!-- Acções fixas no fundo -->
                 <div class="form-drawer__actions">
                   <button
                     type="submit"
@@ -297,6 +499,78 @@
                   </button>
                 </div>
               </form>
+
+              <!-- ═══════════ TEMPLATES (clonados pelo JS no Passo 2) ═══════════ -->
+              <template id="tplListItem">
+                <li class="dyn-item">
+                  <input
+                    type="text"
+                    class="dyn-item__input"
+                    placeholder="Ex: Guias + Motoristas + Assistência 24/24h"
+                    maxlength="160"
+                    aria-label="Item"
+                  />
+                  <button
+                    type="button"
+                    class="dyn-item__remove"
+                    aria-label="Remover item"
+                    title="Remover"
+                  >
+                    <i class="fa-regular fa-trash-can"></i>
+                  </button>
+                </li>
+              </template>
+
+              <template id="tplItineraryDay">
+                <li class="day-card">
+                  <div class="day-card__header">
+                    <span class="day-card__index" aria-hidden="true"></span>
+                    <input
+                      type="text"
+                      class="day-card__input day-card__dia"
+                      placeholder="Dia 1"
+                      maxlength="20"
+                      aria-label="Dia"
+                    />
+                    <input
+                      type="text"
+                      class="day-card__input day-card__titulo"
+                      placeholder="Título do dia — Ex: Luanda → Pedras Negras"
+                      maxlength="120"
+                      aria-label="Título do dia"
+                    />
+                    <button
+                      type="button"
+                      class="day-card__remove"
+                      aria-label="Remover dia"
+                      title="Remover dia"
+                    >
+                      <i class="fa-regular fa-trash-can"></i>
+                    </button>
+                  </div>
+                  <textarea
+                    class="day-card__input day-card__descricao"
+                    rows="3"
+                    placeholder="O que vai acontecer neste dia..."
+                    aria-label="Descrição do dia"
+                  ></textarea>
+                </li>
+              </template>
+
+              <template id="tplGalleryItem">
+                <li class="gallery-manager__item">
+                  <img class="gallery-manager__img" alt="" />
+                  <span class="gallery-manager__tag">Nova</span>
+                  <button
+                    type="button"
+                    class="gallery-manager__remove"
+                    aria-label="Remover foto"
+                    title="Remover"
+                  >
+                    <i class="fa-solid fa-xmark"></i>
+                  </button>
+                </li>
+              </template>
 
               <div class="panel__body">
                 <div class="table-wrap">
@@ -369,11 +643,190 @@
             </div>
           </section>
 
+          <!-- VIEW: SERVIÇOS (cards da secção "Serviços" do site) -->
+          <section id="servicos" class="admin-view" data-view="servicos">
+            <div class="panel">
+              <div class="panel__header">
+                <div>
+                  <h2 class="panel__title">Serviços</h2>
+                  <p class="team-admin__hint">
+                    Cada card abre a página do serviço. A ordem aqui é a ordem no site.
+                  </p>
+                </div>
+                <button type="button" id="addServiceBtn" class="btn btn--primary btn--sm">
+                  Adicionar Serviço
+                </button>
+              </div>
+
+              <div class="panel__body panel__body-padded">
+                <div class="svc-admin__grid" id="serviceAdminGrid" aria-live="polite">
+                  <p class="team-admin__loading">A carregar os serviços...</p>
+                </div>
+              </div>
+
+              <!-- ═══════════ FORMULÁRIO DESLIZANTE ═══════════ -->
+              <form id="serviceForm" class="form-drawer form-stack svc-form" novalidate>
+                <div class="form-drawer__header">
+                  <div>
+                    <span class="form-drawer__eyebrow">Secção "Serviços"</span>
+                    <h3 id="serviceFormTitle">Novo Serviço</h3>
+                  </div>
+                  <button type="button" class="drawer-close drawer-cancel-action" aria-label="Fechar">
+                    <i class="fa-solid fa-xmark"></i>
+                  </button>
+                </div>
+
+                <input type="hidden" id="serviceId" />
+
+                <!-- Pré-visualização igual ao card do site -->
+                <div class="svc-admin-card svc-admin-card--preview" aria-hidden="true">
+                  <span class="svc-admin-card__icon" id="servicePreviewIcon"></span>
+                  <strong class="svc-admin-card__title" id="servicePreviewName">Nome do serviço</strong>
+                  <p class="svc-admin-card__desc" id="servicePreviewDesc">Descrição curta do serviço.</p>
+                </div>
+
+                <div class="field">
+                  <label for="serviceName">Nome</label>
+                  <input id="serviceName" type="text" maxlength="50" placeholder="Ex: Transfer" required />
+                </div>
+
+                <div class="field">
+                  <label for="serviceDesc">Descrição <small id="serviceDescCount">0/180</small></label>
+                  <textarea id="serviceDesc" rows="3" maxlength="180" placeholder="Uma ou duas frases sobre o serviço." required></textarea>
+                </div>
+
+                <fieldset class="field svc-form__icons">
+                  <legend>Ícone</legend>
+                  <div class="svc-icon-picker" id="serviceIconPicker" role="radiogroup"></div>
+                </fieldset>
+
+                <div class="field">
+                  <label for="serviceSlug">Endereço da página</label>
+                  <div class="svc-form__slug">
+                    <span>servico.html?s=</span>
+                    <input id="serviceSlug" type="text" maxlength="60" placeholder="transfer" />
+                  </div>
+                  <small>Preenchido a partir do nome. Só letras, números e hífens.</small>
+                </div>
+
+                <div class="field">
+                  <label for="serviceLink">Link personalizado <small>(opcional)</small></label>
+                  <input id="serviceLink" type="text" placeholder="Ex: https://wa.me/244926509821" />
+                  <small>Se preenchido, o card abre este link em vez da página do serviço.</small>
+                </div>
+
+                <label class="team-form__switch">
+                  <input id="serviceActive" type="checkbox" checked />
+                  <span>Mostrar no site</span>
+                </label>
+
+                <div class="form-drawer__actions">
+                  <button type="submit" id="saveServiceBtn" class="btn btn--primary">
+                    Salvar <i class="fa-solid fa-check"></i>
+                  </button>
+                  <button type="button" class="btn btn--outline drawer-cancel-action">Cancelar</button>
+                </div>
+              </form>
+            </div>
+          </section>
+
+          <!-- VIEW: EQUIPA DO SITE (cards da secção "Conheça a Equipa") -->
+          <section id="equipa" class="admin-view" data-view="equipa">
+            <div class="panel">
+              <div class="panel__header">
+                <div>
+                  <h2 class="panel__title">Equipa do Site</h2>
+                  <p class="team-admin__hint">
+                    Os cards aparecem no site por esta ordem, da esquerda para a direita.
+                  </p>
+                </div>
+                <button type="button" id="addTeamMemberBtn" class="btn btn--primary btn--sm">
+                  Adicionar Membro
+                </button>
+              </div>
+
+              <div class="panel__body panel__body-padded">
+                <div class="team-admin__grid" id="teamAdminGrid" aria-live="polite">
+                  <p class="team-admin__loading">A carregar a equipa...</p>
+                </div>
+              </div>
+
+              <!-- ═══════════ FORMULÁRIO DESLIZANTE ═══════════ -->
+              <form id="teamForm" class="form-drawer form-stack team-form" novalidate>
+                <div class="form-drawer__header">
+                  <div>
+                    <span class="form-drawer__eyebrow">Secção "Conheça a Equipa"</span>
+                    <h3 id="teamFormTitle">Novo Membro</h3>
+                  </div>
+                  <button type="button" class="drawer-close drawer-cancel-action" aria-label="Fechar">
+                    <i class="fa-solid fa-xmark"></i>
+                  </button>
+                </div>
+
+                <input type="hidden" id="teamMemberId" />
+
+                <div class="team-form__layout">
+                  <!-- Pré-visualização igual ao card do site -->
+                  <div class="team-form__preview">
+                    <div class="team-admin-card team-admin-card--preview">
+                      <div class="team-admin-card__media">
+                        <img id="teamPhotoPreview" class="team-admin-card__img" alt="" hidden />
+                        <div id="teamPhotoPh" class="team-admin-card__ph">
+                          <i class="fa-solid fa-user"></i>
+                        </div>
+                        <div class="team-admin-card__overlay">
+                          <strong id="teamPreviewName" class="team-admin-card__name">Nome</strong>
+                          <span id="teamPreviewRole" class="team-admin-card__role">Cargo</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="team-form__photo-actions">
+                      <label for="teamPhoto" class="btn btn--outline btn--sm">
+                        <i class="fa-solid fa-camera"></i> Escolher foto
+                      </label>
+                      <input id="teamPhoto" type="file" accept="image/*" class="visually-hidden" />
+                      <button type="button" id="teamPhotoRemove" class="table-action table-action--danger" hidden>
+                        Remover foto
+                      </button>
+                    </div>
+                    <small class="team-form__tip">Foto vertical (retrato) fica melhor.</small>
+                  </div>
+
+                  <div class="form-stack">
+                    <div class="field">
+                      <label for="teamName">Nome</label>
+                      <input id="teamName" type="text" maxlength="60" placeholder="Ex: Perpétuo de Assis" required />
+                    </div>
+                    <div class="field">
+                      <label for="teamRole">Cargo / Função</label>
+                      <input id="teamRole" type="text" maxlength="60" placeholder="Ex: Fundador & Guia Principal" required />
+                    </div>
+                    <div class="field">
+                      <label for="teamInstagram">Instagram <small>(opcional)</small></label>
+                      <input id="teamInstagram" type="url" placeholder="https://www.instagram.com/..." />
+                    </div>
+                    <label class="team-form__switch">
+                      <input id="teamActive" type="checkbox" checked />
+                      <span>Mostrar no site</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="form-drawer__actions">
+                  <button type="submit" id="saveTeamBtn" class="btn btn--primary">
+                    Salvar <i class="fa-solid fa-check"></i>
+                  </button>
+                  <button type="button" class="btn btn--outline drawer-cancel-action">Cancelar</button>
+                </div>
+              </form>
+            </div>
+          </section>
+
           <!-- VIEW: ADMINS -->
           <section id="admins" class="admin-view" data-view="admins">
             <div class="panel">
               <div class="panel__header">
-                <h2 class="panel__title">Gestão da Equipa</h2>
+                <h2 class="panel__title">Administradores</h2>
                 <button
                   type="button"
                   id="addAdminBtn"

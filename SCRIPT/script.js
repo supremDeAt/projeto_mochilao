@@ -342,6 +342,7 @@
       "nav.tours": "Viagens",
       "nav.gallery": "Galeria",
       "nav.custom": "Personalizado",
+      "nav.services": "Serviços",
       "nav.about": "Sobre",
       "nav.team": "Equipa",
       "nav.tips": "Dicas",
@@ -388,6 +389,10 @@
         "Tudo tratado — logística, guias e suporte durante toda a viagem.",
       "custom.btn": "Iniciar o meu programa",
       "custom.wpp": "Falar com a equipa",
+      "services.tag": "Os Nossos Serviços",
+      "services.title": "Tudo para a sua viagem",
+      "services.desc":
+        "Do aeroporto ao alojamento, tratamos de cada detalhe para que só tenha de aproveitar.",
       "team.tag": "Quem Somos",
       "team.title": "Conheça a Equipa",
       "team.desc": "Quem pilota as aventuras por trás dos bastidores.",
@@ -402,6 +407,7 @@
       "nav.tours": "Trips",
       "nav.gallery": "Gallery",
       "nav.custom": "Custom",
+      "nav.services": "Services",
       "nav.about": "About",
       "nav.team": "Team",
       "nav.tips": "Tips",
@@ -449,6 +455,10 @@
         "Everything handled — logistics, guides and support throughout the trip.",
       "custom.btn": "Start my programme",
       "custom.wpp": "Talk to the team",
+      "services.tag": "Our Services",
+      "services.title": "Everything for your trip",
+      "services.desc":
+        "From the airport to your stay, we take care of every detail so you only have to enjoy it.",
       "team.tag": "Who We Are",
       "team.title": "Meet the Team",
       "team.desc": "The people who drive the adventures behind the scenes.",
@@ -543,69 +553,4 @@
   });
 })();
 
-/* ─────────────────────────────────────────
-     7. TEAM CAROUSEL
-     ───────────────────────────────────────── */
-const teamCardsContainer = document.getElementById("teamCards");
-const teamDotsContainer = document.getElementById("teamDots");
-
-if (teamCardsContainer && teamDotsContainer) {
-  const cards = Array.from(teamCardsContainer.querySelectorAll(".team-card"));
-  const dots = Array.from(
-    teamDotsContainer.querySelectorAll(".team-carousel__dot"),
-  );
-  let currentIndex = 0;
-  let autoplayTimer;
-
-  function updateCarousel(index) {
-    const total = cards.length;
-    currentIndex = (index + total) % total;
-
-    cards.forEach((card, i) => {
-      let diff = i - currentIndex;
-      // Permite o loop contínuo garantindo valores positivos
-      if (diff < 0) diff += total;
-      card.setAttribute("data-pos", diff);
-    });
-
-    dots.forEach((dot, i) => {
-      dot.classList.toggle("active", i === currentIndex);
-    });
-  }
-
-  function startAutoplay() {
-    clearInterval(autoplayTimer);
-    autoplayTimer = setInterval(function () {
-      updateCarousel(currentIndex + 1);
-    }, 5000);
-  }
-
-  function goToSlide(index) {
-    updateCarousel(index);
-    startAutoplay();
-  }
-
-  // Clique nas bolinhas
-  dots.forEach((dot, i) => {
-    dot.addEventListener("click", () => {
-      goToSlide(i);
-    });
-  });
-
-  // Clique direto no cartão de trás para trazê-lo para a frente
-  cards.forEach((card) => {
-    card.addEventListener("click", function () {
-      const pos = parseInt(this.getAttribute("data-pos"), 10);
-      if (pos === 0) return; // Já está ativo e na frente
-
-      const cardIndex = cards.indexOf(this);
-      goToSlide(cardIndex);
-    });
-  });
-
-  teamCardsContainer.addEventListener("mouseenter", function () {
-    clearInterval(autoplayTimer);
-  });
-  teamCardsContainer.addEventListener("mouseleave", startAutoplay);
-  startAutoplay();
-}
+/* 7. EQUIPA — os cards são desenhados pelo team-public.js (Firestore). */

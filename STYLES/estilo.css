@@ -228,7 +228,7 @@ p {
 
 /* Cabeçalho de secção */
 .section-header {
-  text-align: left;
+  text-align: center;
   max-width: 640px;
   margin-top: auto;
   height: 100%;
@@ -364,16 +364,6 @@ p {
   transition-delay: 0.4s;
 }
 
-.team__grid .team-card:nth-child(1) {
-  transition-delay: 0.05s;
-}
-.team__grid .team-card:nth-child(2) {
-  transition-delay: 0.15s;
-}
-.team__grid .team-card:nth-child(3) {
-  transition-delay: 0.25s;
-}
-
 /* ─────────────────────────────────────────
    6. NAVBAR
    ───────────────────────────────────────── */
@@ -475,6 +465,9 @@ p {
 .navbar__links.is-open .navbar__link:nth-last-child(6) {
   transition-delay: 0.27s;
 }
+.navbar__links.is-open .navbar__link:nth-last-child(7) {
+  transition-delay: 0.32s;
+}
 
 /* Ao fechar, a saída é inversa — o mais próximo do botão sai por último,
    reforçando que tudo "recolhe" para dentro dele */
@@ -493,7 +486,8 @@ p {
 .navbar__links:not(.is-open) .navbar__link:nth-last-child(5) {
   transition-delay: 0.02s;
 }
-.navbar__links:not(.is-open) .navbar__link:nth-last-child(6) {
+.navbar__links:not(.is-open) .navbar__link:nth-last-child(6),
+.navbar__links:not(.is-open) .navbar__link:nth-last-child(7) {
   transition-delay: 0s;
 }
 .navbar__link::after {
@@ -1741,14 +1735,13 @@ p {
 
 /* ─────────────────────────────────────────
   14. EQUIPA
+   Cabeçalho em cima, cards lado a lado em baixo.
+   Os cards são gerados pelo team-public.js a partir
+   da coleção "team" (geridos no painel admin).
    ───────────────────────────────────────── */
 .team {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: start;
-  gap: 4rem;
   padding-top: 5rem;
-  padding-bottom: 14rem;
+  padding-bottom: 10rem;
   padding-left: max(
     var(--pad-lateral),
     calc((100vw - var(--content-max-width)) / 2)
@@ -1760,124 +1753,132 @@ p {
   background: var(--clr-warm-white);
 }
 
-.team__left {
+/* ── Cabeçalho: título à esquerda, texto à direita ── */
+.team__header {
   display: flex;
-  flex-direction: column;
-  align-self: start;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding-bottom: var(--space-md);
+  margin-bottom: var(--space-lg);
+  border-bottom: 1px solid rgba(77, 53, 30, 0.18);
 }
 
-.team__left .section-header {
-  margin-top: 0;
-  height: auto;
+.team__header .section-title {
+  margin-bottom: 0;
 }
 
-.team__right {
-  display: flex;
-  justify-content: center;
-  width: 100%;
+.team__subtitle {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--clr-text-mid);
+  line-height: 1.75;
+  max-width: 340px;
+  padding-bottom: 0.4rem;
 }
 
-.team-carousel {
-  position: relative;
-  width: 100%;
-  max-width: 460px;
-  max-height: 90vh;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+/* ── Grelha de cards ──
+   auto-fit: 3 membros → 3 colunas, 4 → 4 colunas;
+   a partir daí passa para a linha seguinte. */
+.team__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
 }
 
-.team-carousel__cards {
-  position: relative;
-  height: 500px;
-  width: 100%;
+/* Grelha vazia enquanto o Firestore responde (sem cards de reserva) */
+.team__grid:empty {
+  min-height: 420px;
 }
 
+/* ── Card ── */
 .team-card {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: var(--clr-brown-mid);
-  background-size: cover;
-  background-position: center;
+  --i: 0; /* posição na grelha → atraso da entrada */
+  position: relative;
+  aspect-ratio: 3 / 4;
   border-radius: var(--radius-md);
   overflow: hidden;
-  box-shadow: var(--shadow-md);
+  background: var(--clr-brown-mid);
+  box-shadow: var(--shadow-sm);
   transition:
-    transform 0.35s var(--ease-slow),
-    opacity 0.35s var(--ease-slow),
-    box-shadow 0.35s var(--ease-slow);
-  cursor: pointer;
+    transform var(--ease-std),
+    box-shadow var(--ease-std);
 }
 
-.team-card::before {
+/* Entrada escalonada quando a grelha fica visível */
+.team__grid.is-visible .team-card {
+  animation: teamCardIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  animation-delay: calc(var(--i) * 0.1s);
+}
+
+@keyframes teamCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.team-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Degradê por cima da foto para o texto ler bem */
+.team-card::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(13, 10, 6, 0.72), transparent 58%);
+  background: linear-gradient(to top, rgba(13, 10, 6, 0.78) 0%, transparent 55%);
   pointer-events: none;
 }
 
-.team-card[data-member="perpetuo"] {
-  background-image: url("../imagens/assis.webp");
+.team-card__media {
+  position: absolute;
+  inset: 0;
 }
 
-.team-card[data-member="matias"] {
-  background-image: url("../imagens/matias.webp");
+.team-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.team-card[data-member="funeno"] {
-  background-image: url("../imagens/guia.webp");
+.team-card:hover .team-card__img {
+  transform: scale(1.05);
 }
 
-.team-card[data-pos="0"] {
-  transform: translateX(0) scale(1);
-  opacity: 1;
-  z-index: 3;
-  pointer-events: auto;
-}
-
-.team-card[data-pos="1"] {
-  transform: translateX(12%) scale(0.95);
-  opacity: 1;
-  z-index: 2;
-  box-shadow: var(--shadow-sm);
-  pointer-events: auto;
-}
-
-.team-card[data-pos="2"] {
-  transform: translateX(24%) scale(0.9);
-  opacity: 1;
-  z-index: 1;
-  box-shadow: var(--shadow-sm);
-  pointer-events: auto;
-}
-
-.team-card[data-pos="3"],
-.team-card[data-pos="-1"] {
-  transform: translateX(36%) scale(0.85);
-  opacity: 0;
-  z-index: 0;
-  pointer-events: none;
+/* Sem foto */
+.team-card__ph {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 3rem;
 }
 
 .team-card__info {
   position: absolute;
+  left: 0;
   right: 0;
   bottom: 0;
-  left: 0;
   z-index: 1;
-  padding: 1.1rem 1.5rem;
-  background: rgba(13, 10, 6, 0.42);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  align-items: right;
-  text-align: left;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 1.25rem 1.25rem 1.1rem;
+}
+
+.team-card__text {
+  min-width: 0;
 }
 
 .team-card__name {
@@ -1885,54 +1886,248 @@ p {
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--clr-white);
+  line-height: 1.25;
 }
 
 .team-card__role {
   font-family: var(--font-ui);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: rgba(255, 255, 255, 0.78);
-  margin-bottom: 0.5rem;
+  line-height: 1.4;
+  margin-top: 0.2rem;
 }
 
 .team-card__social {
-  color: var(--clr-gold-light);
-  font-size: 1.2rem;
-  width: fit-content;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: var(--clr-white);
+  font-size: 1rem;
   transition:
-    color var(--ease-std),
+    background var(--ease-std),
     transform var(--ease-std);
 }
 
 .team-card__social:hover {
-  color: var(--clr-white);
-  transform: scale(1.15);
+  background: var(--clr-gold);
+  transform: scale(1.1);
 }
 
-/* Bolinhas de Controlo */
-.team-carousel__dots {
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .team {
+    padding-top: var(--space-lg);
+    padding-bottom: var(--space-xl);
+  }
+  .team__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: var(--space-md);
+  }
+  .team__subtitle {
+    max-width: 100%;
+  }
+}
+
+/* Telemóvel: cards continuam lado a lado, com scroll horizontal */
+@media (max-width: 640px) {
+  .team {
+    padding-left: 1rem;
+    padding-right: 0;
+    padding-bottom: var(--space-lg);
+  }
+  .team__header {
+    margin-right: 1rem;
+  }
+  .team__grid {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 0 1rem 1rem 0;
+    scrollbar-width: none;
+  }
+  .team__grid::-webkit-scrollbar {
+    display: none;
+  }
+  .team-card {
+    flex: 0 0 72%;
+    scroll-snap-align: start;
+  }
+}
+
+/* ─────────────────────────────────────────
+  14b. SERVIÇOS
+   Grelha de cards clicáveis (ícone de linha + título + texto).
+   Os cards vêm da coleção "services" (services-public.js),
+   geridos no painel admin.
+   ───────────────────────────────────────── */
+.services {
+  padding-top: 6rem;
+  padding-bottom: 7rem;
+  padding-left: max(
+    var(--pad-lateral),
+    calc((100vw - var(--content-max-width)) / 2)
+  );
+  padding-right: max(
+    var(--pad-lateral),
+    calc((100vw - var(--content-max-width)) / 2)
+  );
+  background: #0808080b;
+}
+
+.services__header {
+  margin: 0 auto var(--space-lg);
+  padding-bottom: 0;
+  height: auto;
+}
+
+/* auto-fit: 4 serviços → 4 colunas; mais do que isso passa à linha seguinte */
+.services__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.service-card {
+  --i: 0;
+  position: relative;
   display: flex;
-  justify-content: center;
-  gap: 0.6rem;
-}
-
-.team-carousel__dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: rgba(77, 53, 30, 0.2);
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.9rem;
+  padding: 2.75rem 1.75rem 2.25rem;
+  border: 1px solid rgba(77, 53, 30, 0.14);
+  border-radius: var(--radius-md);
+  background: var(--clr-white);
+  color: var(--clr-text-dark);
   transition:
-    background var(--ease-std),
+    border-color var(--ease-std),
+    box-shadow var(--ease-std),
     transform var(--ease-std);
-  padding: 0;
 }
 
-.team-carousel__dot:hover {
-  background: rgba(77, 53, 30, 0.5);
+/* Entrada escalonada quando a grelha fica visível */
+.services__grid.is-visible .service-card {
+  animation: serviceCardIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  animation-delay: calc(var(--i) * 0.08s);
 }
 
-.team-carousel__dot.active {
-  background: var(--clr-brown-deep);
-  transform: scale(1.2);
+@keyframes serviceCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.service-card:hover,
+.service-card:focus-visible {
+  border-color: var(--clr-brown-deep);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.service-card__icon {
+  display: flex;
+  width: 72px;
+  height: 72px;
+  margin-bottom: 0.5rem;
+  color: var(--clr-gold);
+  transition: transform var(--ease-slow);
+}
+.service-card__icon svg {
+  width: 100%;
+  height: 100%;
+}
+.service-card:hover .service-card__icon {
+  transform: translateY(-4px) scale(1.06);
+}
+
+.service-card__title {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--clr-text-dark);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.3em;
+  text-decoration-color: rgba(26, 18, 8, 0.35);
+  transition: text-decoration-color var(--ease-std);
+}
+.service-card:hover .service-card__title {
+  text-decoration-color: var(--clr-text-dark);
+}
+
+.service-card__desc {
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--clr-text-muted);
+  max-width: 32ch;
+}
+
+.service-card__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: auto;
+  padding-top: 0.5rem;
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--clr-brown-deep);
+  transition: gap var(--ease-std);
+}
+.service-card:hover .service-card__more {
+  gap: 0.8rem;
+}
+
+@media (max-width: 900px) {
+  .services {
+    padding-top: var(--space-lg);
+    padding-bottom: var(--space-lg);
+  }
+  .services__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .services {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .services__header {
+    margin-bottom: var(--space-md);
+  }
+}
+
+@media (max-width: 540px) {
+  .services__grid {
+    grid-template-columns: 1fr;
+  }
+  .service-card {
+    padding: 2rem 1.25rem 1.75rem;
+  }
+  .service-card__icon {
+    width: 60px;
+    height: 60px;
+  }
 }
 
 /* ─────────────────────────────────────────
@@ -2474,7 +2669,6 @@ p {
   color: var(--clr-text-muted);
   line-height: 1.9;
   margin-bottom: 1rem;
-  border: 3px solid red;
 }
 
 .contact__line {
@@ -2759,6 +2953,10 @@ input[type="number"]::-webkit-inner-spin-button {
     calc((100vw - var(--content-max-width)) / 2)
   );
   background: var(--clr-cream);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .packages__grid {
@@ -2767,6 +2965,7 @@ input[type="number"]::-webkit-inner-spin-button {
   gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
+ 
 }
 
 .package-card {
@@ -3013,32 +3212,6 @@ input[type="number"]::-webkit-inner-spin-button {
     grid-auto-rows: 180px;
   }
 
-  /* Equipa */
-  .team {
-    grid-template-columns: 1fr;
-    padding-top: 0rem;
-    padding-bottom: 20rem;
-    gap: 3rem;
-  }
-
-  .team__left {
-    align-items: left;
-    text-align: left;
-  }
-
-  .team__right {
-    justify-content: center;
-  }
-
-  .team-carousel {
-    max-width: 100%;
-    width: calc(100% - 2rem);
-  }
-
-  .team-card {
-    width: 100%;
-  }
-
   /* Contadores — alinhados lado a lado */
   .counters {
     display: flex;
@@ -3183,37 +3356,6 @@ input[type="number"]::-webkit-inner-spin-button {
     grid-auto-rows: 150px;
   }
 
-  /* Equipa — mobile: coluna única, padding de 1rem nas bordas */
-  .team {
-    grid-template-columns: 1fr;
-    padding-top: 3rem;
-    padding-bottom: 4rem;
-    gap: 2.5rem;
-  }
-
-  .team__left {
-    align-items: center;
-    text-align: center;
-  }
-
-  .team__right {
-    justify-content: center;
-  }
-
-  .team-carousel {
-    max-width: 100%;
-    width: 100%;
-  }
-
-  .team-carousel__cards {
-    height: 420px;
-  }
-
-  .team-card {
-    width: 100%;
-    max-width: unset;
-  }
-
   /* Tips grid mobile — 3 colunas */
   .tips__grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -3230,9 +3372,6 @@ input[type="number"]::-webkit-inner-spin-button {
   /* Section headers */
   .section-header {
     padding: 0 1rem;
-  }
-  .team__left .section-header {
-    padding: 0;
   }
 
   /* Contadores — alinhados lado a lado */

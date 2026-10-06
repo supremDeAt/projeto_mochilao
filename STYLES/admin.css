@@ -1215,3 +1215,1102 @@ textarea {
     gap: 1rem;
   }
 }
+
+/* ─────────────────────────────────────────
+   FORMULÁRIO COMPLETO DE PROGRAMAS
+   (colar no FIM do admin.css)
+   ───────────────────────────────────────── */
+
+/* ══════ Drawer mais largo + layout em coluna ══════ */
+.program-form.form-drawer {
+  --drawer-w: min(780px, 100vw);
+  --drawer-pad: 2rem;
+  width: var(--drawer-w);
+  padding: var(--drawer-pad);
+  scroll-behavior: smooth;
+}
+.program-form.form-drawer::before {
+  right: var(--drawer-w);
+}
+.program-form.form-drawer.is-open {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+/* Topo fixo (título + navegação) */
+.program-form__top {
+  position: sticky;
+  top: calc(var(--drawer-pad) * -1);
+  z-index: 5;
+  margin: calc(var(--drawer-pad) * -1) calc(var(--drawer-pad) * -1) 0;
+  padding: var(--drawer-pad) var(--drawer-pad) 0;
+  background: var(--clr-surface);
+  border-bottom: 1px solid var(--clr-line);
+}
+.program-form__top .form-drawer__header {
+  border-bottom: 0;
+  padding-bottom: 1rem;
+}
+
+.program-form__nav {
+  display: flex;
+  gap: 0.35rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin-bottom: -1px;
+}
+.program-form__nav::-webkit-scrollbar {
+  display: none;
+}
+.program-form__nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.7rem 1rem;
+  border-bottom: 2px solid transparent;
+  color: var(--clr-text-muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  transition:
+    color var(--ease-std),
+    border-color var(--ease-std);
+}
+.program-form__nav-link i {
+  font-size: 0.85rem;
+}
+.program-form__nav-link:hover {
+  color: var(--clr-brown-deep);
+  border-bottom-color: var(--clr-gold);
+}
+
+/* ══════ Secções ══════ */
+.program-form__section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin: 0;
+  padding: 1.75rem;
+  border: 1px solid var(--clr-line);
+  border-radius: 16px;
+  background: #fff;
+  scroll-margin-top: 150px; /* compensa o topo fixo ao clicar no menu */
+}
+.program-form__legend {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  float: left; /* tira a legend da borda do fieldset */
+  width: 100%;
+  padding: 0;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--clr-brown-deep);
+}
+.program-form__legend + * {
+  clear: both;
+}
+.program-form__step {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--clr-brown-deep);
+  color: #fff;
+  font-size: 0.78rem;
+  letter-spacing: 0;
+}
+.program-form__hint {
+  margin-top: -0.5rem;
+  font-size: 0.82rem;
+  color: var(--clr-text-muted);
+}
+
+/* 6 campos em 2 colunas — anula a regra "último campo = largura total" */
+.program-form .program-form__fields .field:last-child {
+  grid-column: auto;
+}
+.program-form .program-form__fields .field--full {
+  grid-column: 1 / -1;
+}
+
+/* ══════ Input base partilhado pelos campos dinâmicos ══════ */
+.dyn-item__input,
+.day-card__input {
+  width: 100%;
+  min-width: 0;
+  border: 1.5px solid rgba(90, 67, 45, 0.15);
+  border-radius: 8px;
+  padding: 0.7rem 0.9rem;
+  background: #fff;
+  color: var(--clr-text-main);
+  font-size: 0.9rem;
+  outline: none;
+  transition:
+    border-color var(--ease-std),
+    box-shadow var(--ease-std);
+}
+.dyn-item__input:focus,
+.day-card__input:focus {
+  border-color: var(--clr-gold);
+  box-shadow: 0 0 0 3px rgba(201, 150, 42, 0.15);
+}
+.dyn-item__input.is-invalid,
+.day-card__input.is-invalid {
+  border-color: var(--clr-red);
+}
+
+/* Botão de remover (lixo) partilhado */
+.dyn-item__remove,
+.day-card__remove {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 8px;
+  background: rgba(165, 72, 42, 0.08);
+  color: var(--clr-red);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition:
+    background var(--ease-std),
+    color var(--ease-std);
+}
+.dyn-item__remove:hover,
+.day-card__remove:hover {
+  background: var(--clr-red);
+  color: #fff;
+}
+
+/* Botão "Adicionar" */
+.dyn-add {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1.5px dashed rgba(90, 67, 45, 0.3);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--clr-brown-deep);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition:
+    border-color var(--ease-std),
+    background var(--ease-std),
+    color var(--ease-std);
+}
+.dyn-add:hover {
+  border-color: var(--clr-gold);
+  background: rgba(201, 150, 42, 0.08);
+  color: #8c6717;
+}
+.dyn-add--block {
+  padding: 1rem;
+  font-size: 0.88rem;
+}
+
+/* ══════ Imagens ══════ */
+.upload-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.upload-block + .upload-block {
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--clr-line);
+}
+.upload-block__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.upload-block__label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--clr-text-muted);
+}
+.upload-block__count {
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(201, 150, 42, 0.12);
+  color: #8c6717;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.cover-upload {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 1rem;
+  align-items: stretch;
+}
+.cover-upload__preview {
+  aspect-ratio: 16 / 10;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f1ece4;
+  border: 1px solid var(--clr-line);
+}
+.cover-upload__preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.cover-upload__ph {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  color: var(--clr-text-muted);
+  font-size: 0.75rem;
+}
+.cover-upload__ph i {
+  font-size: 1.5rem;
+  opacity: 0.5;
+}
+.cover-upload__picker {
+  display: flex;
+}
+
+/* Input de ficheiro escondido mas acessível (teclado/leitor de ecrã) */
+.upload-drop__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+.upload-drop {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 1.25rem;
+  border: 1.5px dashed rgba(90, 67, 45, 0.3);
+  border-radius: 12px;
+  background: #faf8f4;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    border-color var(--ease-std),
+    background var(--ease-std);
+}
+.upload-drop:hover,
+.upload-drop__input:focus-visible + .upload-drop {
+  border-color: var(--clr-gold);
+  background: rgba(201, 150, 42, 0.08);
+}
+.upload-drop i {
+  font-size: 1.4rem;
+  color: var(--clr-gold);
+}
+.upload-drop strong {
+  font-size: 0.88rem;
+  color: var(--clr-brown-deep);
+}
+.upload-drop small {
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--clr-text-muted);
+}
+.upload-drop--inline {
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 0.9rem;
+  padding: 0.9rem 1.1rem;
+  text-align: left;
+}
+.upload-drop--inline span {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Galeria — grelha de miniaturas */
+.gallery-manager {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+  gap: 0.75rem;
+}
+.gallery-manager:empty {
+  display: none;
+}
+.gallery-manager__empty {
+  display: none;
+  font-size: 0.82rem;
+  color: var(--clr-text-muted);
+}
+.gallery-manager:empty + .gallery-manager__empty {
+  display: block;
+}
+.gallery-manager__item {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f1ece4;
+  border: 1px solid var(--clr-line);
+}
+.gallery-manager__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.gallery-manager__tag {
+  display: none;
+  position: absolute;
+  left: 6px;
+  bottom: 6px;
+  padding: 0.12rem 0.5rem;
+  border-radius: 999px;
+  background: var(--clr-gold);
+  color: var(--clr-dark);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.gallery-manager__item--new .gallery-manager__tag {
+  display: block;
+}
+.gallery-manager__item--new {
+  border-color: var(--clr-gold);
+}
+.gallery-manager__remove {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(13, 10, 6, 0.65);
+  color: #fff;
+  font-size: 0.75rem;
+  cursor: pointer;
+  opacity: 0;
+  transition:
+    opacity var(--ease-std),
+    background var(--ease-std);
+}
+.gallery-manager__item:hover .gallery-manager__remove,
+.gallery-manager__remove:focus-visible {
+  opacity: 1;
+}
+.gallery-manager__remove:hover {
+  background: var(--clr-red);
+}
+
+/* ══════ Listas Inclui / Não Inclui (2 colunas) ══════ */
+.dyn-lists {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+.dyn-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.1rem;
+  border-radius: 12px;
+  background: #faf8f4;
+  border-top: 3px solid var(--clr-green);
+}
+.dyn-list--no {
+  border-top-color: var(--clr-red);
+}
+.dyn-list__title {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--clr-brown-deep);
+}
+.dyn-list--yes .dyn-list__title i {
+  color: var(--clr-green);
+}
+.dyn-list--no .dyn-list__title i {
+  color: var(--clr-red);
+}
+.dyn-list__items {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.dyn-list__items:empty {
+  display: none;
+}
+.dyn-list__empty {
+  display: none;
+  font-size: 0.8rem;
+  color: var(--clr-text-muted);
+}
+.dyn-list__items:empty + .dyn-list__empty {
+  display: block;
+}
+
+.dyn-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  animation: dynIn 0.25s ease-out;
+}
+
+/* ══════ Roteiro — cards de dia ══════ */
+.itinerary-builder {
+  list-style: none;
+  counter-reset: day;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+.itinerary-builder:empty {
+  display: none;
+}
+.itinerary-builder__empty {
+  display: none;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1.25rem;
+  border-radius: 12px;
+  background: #faf8f4;
+  font-size: 0.85rem;
+  color: var(--clr-text-muted);
+}
+.itinerary-builder__empty i {
+  color: var(--clr-gold);
+}
+.itinerary-builder:empty + .itinerary-builder__empty {
+  display: flex;
+}
+
+.day-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: 1rem;
+  border: 1px solid var(--clr-line);
+  border-left: 3px solid var(--clr-gold);
+  border-radius: 12px;
+  background: #faf8f4;
+  animation: dynIn 0.25s ease-out;
+}
+.day-card__header {
+  display: grid;
+  grid-template-columns: 32px 110px minmax(0, 1fr) 38px;
+  gap: 0.5rem;
+  align-items: center;
+}
+/* Numeração automática 1, 2, 3… */
+.day-card__index {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--clr-brown-deep);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+.day-card__index::before {
+  counter-increment: day;
+  content: counter(day);
+}
+.day-card__dia {
+  font-weight: 700;
+}
+.day-card__descricao {
+  min-height: 84px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+@keyframes dynIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ══════ Acções fixas no fundo ══════ */
+.program-form .form-drawer__actions {
+  position: sticky;
+  bottom: calc(var(--drawer-pad) * -1);
+  z-index: 5;
+  margin: 0 calc(var(--drawer-pad) * -1) calc(var(--drawer-pad) * -1);
+  padding: 1rem var(--drawer-pad) 1.25rem;
+  background: var(--clr-surface);
+  border-top: 1px solid var(--clr-line);
+  box-shadow: 0 -10px 24px rgba(13, 10, 6, 0.05);
+}
+
+/* ══════ Responsive ══════ */
+@media (max-width: 799px) {
+  .program-form.form-drawer {
+    --drawer-w: 100vw;
+    --drawer-pad: 1.5rem;
+  }
+  .program-form__section {
+    padding: 1.25rem;
+  }
+  .program-form .program-form__fields .field--full {
+    grid-column: auto;
+  }
+  .cover-upload {
+    grid-template-columns: 1fr;
+  }
+  .dyn-lists {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .program-form.form-drawer {
+    --drawer-pad: 1rem;
+  }
+  .program-form__section {
+    padding: 1rem;
+    border-radius: 12px;
+  }
+  .program-form__nav-link {
+    padding: 0.6rem 0.75rem;
+  }
+  .day-card__header {
+    grid-template-columns: 32px minmax(0, 1fr) 38px;
+  }
+  .day-card__titulo {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+  .gallery-manager {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .gallery-manager__remove {
+    opacity: 1; /* sem hover no telemóvel */
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dyn-item,
+  .day-card {
+    animation: none;
+  }
+  .program-form.form-drawer {
+    scroll-behavior: auto;
+  }
+}
+
+.program-form__nav-link.is-active {
+  color: var(--clr-brown-deep);
+  border-bottom-color: var(--clr-gold);
+}
+
+/* =====================================================
+   ADMIN — EQUIPA DO SITE
+   
+   ===================================================== */
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.team-admin__hint {
+  margin-top: 0.35rem;
+  color: var(--clr-text-muted);
+  font-size: 0.85rem;
+}
+
+/* ── Grelha de cards ── */
+.team-admin__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+  transition: opacity var(--ease-std);
+}
+.team-admin__grid.is-busy {
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.team-admin__loading,
+.team-admin__empty {
+  grid-column: 1 / -1;
+  color: var(--clr-text-muted);
+  text-align: center;
+  padding: 2.5rem 1rem;
+}
+.team-admin__empty {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  border: 1.5px dashed rgba(90, 67, 45, 0.2);
+  border-radius: 16px;
+  line-height: 1.6;
+}
+.team-admin__empty > i {
+  font-size: 2rem;
+  color: var(--clr-gold);
+}
+.team-admin__empty strong {
+  color: var(--clr-brown-deep);
+}
+
+/* ── Card (igual ao do site, com barra de ações) ── */
+.team-admin-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-line);
+  box-shadow: var(--shadow-sm);
+  transition:
+    box-shadow var(--ease-std),
+    transform var(--ease-std);
+}
+.team-admin-card:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-3px);
+}
+
+.team-admin-card__media {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  background: var(--clr-brown-mid);
+  overflow: hidden;
+}
+.team-admin-card__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(13, 10, 6, 0.78) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+.team-admin-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.team-admin-card__ph {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 3rem;
+}
+
+.team-admin-card__overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  display: grid;
+  gap: 0.15rem;
+  padding: 1rem;
+  color: #fff;
+}
+.team-admin-card__name {
+  font-size: 1rem;
+  line-height: 1.25;
+}
+.team-admin-card__role {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.team-admin-card__pos {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--clr-brown-deep);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.team-admin-card__badge {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 1;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  background: var(--clr-dark);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Escondido do site: foto a preto e branco */
+.team-admin-card.is-hidden .team-admin-card__media {
+  filter: grayscale(1);
+  opacity: 0.6;
+}
+
+.team-admin-card__actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  border-top: 1px solid var(--clr-line);
+}
+
+.team-admin-card__btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 34px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--clr-brown-mid);
+  cursor: pointer;
+  transition:
+    background var(--ease-std),
+    color var(--ease-std);
+}
+.team-admin-card__btn:hover:not(:disabled) {
+  background: rgba(90, 67, 45, 0.08);
+  color: var(--clr-brown-deep);
+}
+.team-admin-card__btn--danger:hover:not(:disabled) {
+  background: rgba(165, 72, 42, 0.1);
+  color: var(--clr-red);
+}
+.team-admin-card__btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* ── Formulário ── */
+.team-form__layout {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.team-form__preview {
+  display: grid;
+  gap: 0.75rem;
+}
+.team-admin-card--preview:hover {
+  transform: none;
+}
+.team-admin-card--preview .team-admin-card__media img[hidden] {
+  display: none;
+}
+
+.team-form__photo-actions {
+  display: grid;
+  gap: 0.5rem;
+}
+.team-form__photo-actions .btn {
+  justify-content: center;
+  cursor: pointer;
+}
+.team-form__photo-actions .table-action {
+  justify-self: center;
+  width: auto;
+  padding: 0 0.85rem;
+  white-space: nowrap;
+  font-size: 0.8rem;
+}
+/* Foco no botão "Escolher foto" quando o input escondido tem foco */
+.team-form__photo-actions input:focus-visible + .btn,
+.team-form__photo-actions label:has(+ input:focus-visible) {
+  outline: 2px solid var(--clr-gold);
+  outline-offset: 3px;
+}
+
+.team-form__tip {
+  color: var(--clr-text-muted);
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.team-form__switch {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--clr-text-main);
+}
+.team-form__switch input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--clr-brown-deep);
+}
+
+@media (max-width: 560px) {
+  .team-form__layout {
+    grid-template-columns: 1fr;
+  }
+  .team-form__preview {
+    max-width: 220px;
+    margin-inline: auto;
+    width: 100%;
+  }
+  .team-admin__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+}
+
+/* =====================================================
+   ADMIN — SERVIÇOS
+   Colar no fim do admin.css (depois do bloco "Equipa do Site",
+   porque reaproveita algumas classes dele)
+   ===================================================== */
+
+.svc-admin__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 1.5rem;
+  transition: opacity var(--ease-std);
+}
+.svc-admin__grid.is-busy {
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* ── Card (igual ao do site) ── */
+.svc-admin-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 2.25rem 1.25rem 0;
+  text-align: center;
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-line);
+  border-radius: 14px;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition:
+    box-shadow var(--ease-std),
+    transform var(--ease-std);
+}
+.svc-admin-card:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-3px);
+}
+.svc-admin-card.is-hidden > :not(.svc-admin-card__actions):not(.team-admin-card__badge) {
+  opacity: 0.45;
+  filter: grayscale(1);
+}
+
+/* O número e a etiqueta ficam sobre fundo claro aqui */
+.svc-admin-card .team-admin-card__pos {
+  background: rgba(90, 67, 45, 0.08);
+}
+
+.svc-admin-card__icon {
+  display: flex;
+  width: 56px;
+  height: 56px;
+  color: var(--clr-gold);
+}
+.svc-admin-card__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.svc-admin-card__title {
+  color: var(--clr-text-main);
+  font-size: 1.05rem;
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+  text-decoration-color: rgba(26, 18, 8, 0.3);
+}
+
+.svc-admin-card__desc {
+  color: var(--clr-text-muted);
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+.svc-admin-card__link {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  background: rgba(90, 67, 45, 0.06);
+  color: var(--clr-brown-mid);
+  font-size: 0.72rem;
+}
+
+.svc-admin-card__actions {
+  align-self: stretch;
+  margin: auto -1.25rem 0;
+}
+
+/* Pré-visualização no formulário */
+.svc-admin-card--preview {
+  overflow: visible; /* evita que a grelha do formulário o encolha */
+  padding-bottom: 1.75rem;
+  background: #faf8f4;
+  box-shadow: none;
+}
+.svc-admin-card--preview:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* ── Formulário ── */
+/* O .form-drawer.is-open usa display:block; aqui queremos espaçamento em grelha */
+.svc-form.is-open {
+  display: grid;
+  align-content: start;
+  gap: 1.25rem;
+}
+
+.svc-form__icons {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+.svc-form__icons legend {
+  margin-bottom: 0.5rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--clr-text-muted);
+  font-weight: 700;
+}
+
+.svc-icon-picker {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 58px);
+  gap: 0.5rem;
+}
+
+.svc-icon-picker__opt {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  padding: 0.6rem;
+  border: 1.5px solid rgba(90, 67, 45, 0.15);
+  border-radius: 10px;
+  color: var(--clr-brown-mid);
+  cursor: pointer;
+  transition:
+    border-color var(--ease-std),
+    background var(--ease-std),
+    color var(--ease-std);
+}
+.svc-icon-picker__opt svg {
+  width: 100%;
+  height: 100%;
+}
+.svc-icon-picker__opt:hover {
+  border-color: var(--clr-gold);
+}
+.svc-icon-picker__opt:has(input:checked) {
+  border-color: var(--clr-brown-deep);
+  background: rgba(201, 150, 42, 0.12);
+  color: var(--clr-gold);
+}
+.svc-icon-picker__opt:has(input:focus-visible) {
+  outline: 2px solid var(--clr-gold);
+  outline-offset: 2px;
+}
+
+.svc-form__slug {
+  display: flex;
+  align-items: stretch;
+  border: 1.5px solid rgba(90, 67, 45, 0.15);
+  border-radius: 8px;
+  overflow: hidden;
+  transition:
+    border-color var(--ease-std),
+    box-shadow var(--ease-std);
+}
+.svc-form__slug:focus-within {
+  border-color: var(--clr-gold);
+  box-shadow: 0 0 0 3px rgba(201, 150, 42, 0.15);
+}
+.svc-form__slug span {
+  display: flex;
+  align-items: center;
+  padding: 0 0.75rem;
+  background: rgba(90, 67, 45, 0.05);
+  color: var(--clr-text-muted);
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+.field .svc-form__slug input {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+@media (max-width: 560px) {
+  .svc-admin__grid {
+    grid-template-columns: 1fr;
+  }
+}

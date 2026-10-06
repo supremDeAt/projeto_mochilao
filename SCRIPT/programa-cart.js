@@ -120,6 +120,9 @@
   }
 
   function getProgramImage() {
+    // Programas do Firestore: miniatura leve (não guardar a foto grande no carrinho)
+    const thumb = document.querySelector(".pkg-img-box")?.dataset.cartImg;
+    if (thumb) return thumb;
     const img =
       document.querySelector(".pkg-img-box img") ||
       document.querySelector(".pkg-gallery__img");
