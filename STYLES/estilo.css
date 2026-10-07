@@ -1981,7 +1981,7 @@ p {
     var(--pad-lateral),
     calc((100vw - var(--content-max-width)) / 2)
   );
-  background: #0808080b;
+  
 }
 
 .services__header {
