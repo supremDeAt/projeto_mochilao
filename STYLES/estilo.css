@@ -368,7 +368,7 @@ p {
    6. NAVBAR
    ───────────────────────────────────────── */
 .navbar {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -1757,11 +1757,12 @@ p {
 .team__header {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: center;
   justify-content: space-between;
   padding-bottom: var(--space-md);
   margin-bottom: var(--space-lg);
   border-bottom: 1px solid rgba(77, 53, 30, 0.18);
+  text-align: center;
 }
 
 .team__header .section-title {
@@ -1928,7 +1929,7 @@ p {
   }
   .team__header {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: 0.75rem;
     margin-bottom: var(--space-md);
   }

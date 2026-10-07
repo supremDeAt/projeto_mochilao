@@ -165,4 +165,4 @@ export function describeError(err) {
     unavailable: "Sem ligação ao Firebase. Verifique a internet.",
   };
   return map[code] || err?.message || "Operação não concluída.";
-}
+} 
