@@ -13,6 +13,17 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 /* ─────────────────────────────────────────
+   Aviso por email à equipa (EmailJS)
+   Import dinâmico: se o EmailJS não carregar (sem internet,
+   bloqueador de anúncios…), o formulário continua a funcionar.
+   ───────────────────────────────────────── */
+function notifyTeam(fn, data) {
+  import("./notify-admin.js")
+    .then((m) => m[fn](data))
+    .catch((err) => console.warn("[forms.js] Aviso por email não enviado:", err));
+}
+
+/* ─────────────────────────────────────────
    Utilitário: feedback de botão
    ───────────────────────────────────────── */
 function setButtonState(btn, state, originalHTML) {
@@ -63,6 +74,9 @@ function setButtonState(btn, state, originalHTML) {
         lido: false,
       });
 
+      // Avisar a equipa (não espera pela resposta do EmailJS)
+      notifyTeam("notifyNewMessage", { nome, email, telefone, assunto, mensagem });
+
       // Mostrar mensagem de sucesso + limpar form
       form.reset();
       if (successMsg) {
@@ -109,7 +123,7 @@ function setButtonState(btn, state, originalHTML) {
     const telefone = document.getElementById("reserveTelefone").value.trim();
 
     try {
-      await addDoc(collection(db, "reservations"), {
+      const docRef = await addDoc(collection(db, "reservations"), {
         nome,
         destino,
         data,           // string ISO "YYYY-MM-DD"
@@ -117,6 +131,16 @@ function setButtonState(btn, state, originalHTML) {
         telefone,
         status: "Pendente",
         criadoEm: serverTimestamp(),
+      });
+
+      // Avisar a equipa (mesma referência que aparece no painel)
+      notifyTeam("notifyNewReservation", {
+        ref: "MCH-" + docRef.id.slice(0, 6).toUpperCase(),
+        clienteInfo: { nome, telefone },
+        itens: [{ nome: destino, data, pax: pessoas, total: 0 }],
+        total: 0,
+        estado: "Pedido por analisar",
+        intro: `${nome || "Um cliente"} pediu uma reserva pelo formulário do site. Contacte-o para confirmar os detalhes e o valor, e atualize o estado no painel, separador “Reservas”.`,
       });
 
       // Mostrar mensagem de sucesso + limpar form
@@ -133,4 +157,3 @@ function setButtonState(btn, state, originalHTML) {
     }
   });
 })();
-

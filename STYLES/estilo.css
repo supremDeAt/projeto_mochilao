@@ -1753,15 +1753,22 @@ p {
   background: var(--clr-warm-white);
 }
 
-/* ── Cabeçalho: título à esquerda, texto à direita ── */
+/* ── Cabeçalho: textos empilhados e centrados ── */
 .team__header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  gap: 0.75rem;
   padding-bottom: var(--space-md);
   margin-bottom: var(--space-lg);
   border-bottom: 1px solid rgba(77, 53, 30, 0.18);
+  text-align: center;
+}
+
+.team__header-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
 }
 
@@ -1776,6 +1783,8 @@ p {
   line-height: 1.75;
   max-width: 340px;
   padding-bottom: 0.4rem;
+  text-align: center;
+  margin-inline: auto;
 }
 
 /* ── Grelha de cards ──
@@ -1928,9 +1937,7 @@ p {
     padding-bottom: var(--space-xl);
   }
   .team__header {
-    flex-direction: column;
     align-items: center;
-    gap: 0.75rem;
     margin-bottom: var(--space-md);
   }
   .team__subtitle {
@@ -1982,7 +1989,7 @@ p {
     var(--pad-lateral),
     calc((100vw - var(--content-max-width)) / 2)
   );
-  
+  background: #0808080b;
 }
 
 .services__header {
@@ -4524,5 +4531,64 @@ body.cart-is-open {
   .float-btn__badge.is-pulsing {
     transition: none;
     animation: none;
+  }
+}
+/* ─────────────────────────────────────────
+   FAQ — atalho na página inicial
+   (as perguntas completas estão em PAGES/faq.html → faq.css)
+   ───────────────────────────────────────── */
+.faq-teaser {
+  padding: 3.5rem max(var(--pad-lateral), calc((100vw - var(--content-max-width)) / 2));
+  background: #0101010a;
+}
+.faq-teaser__inner {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  padding: 2rem 2.5rem;
+  border-radius: var(--radius-lg);
+  background: var(--clr-white);
+  border: 1px solid rgba(77, 53, 30, 0.12);
+  box-shadow: var(--shadow-sm);
+}
+.faq-teaser__icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(201, 150, 42, 0.12);
+  color: var(--clr-gold);
+  font-size: 1.8rem;
+}
+.faq-teaser__text {
+  flex: 1;
+}
+.faq-teaser__title {
+  font-family: var(--font-display);
+  font-weight: 100;
+  font-size: 2.6rem;
+  line-height: 1;
+  color: var(--clr-brown-deep);
+  margin-bottom: 0.35rem;
+}
+.faq-teaser__text p {
+  color: var(--clr-text-mid);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+@media (max-width: 768px) {
+  .faq-teaser {
+    padding: 2.5rem 1rem;
+  }
+  .faq-teaser__inner {
+    flex-direction: column;
+    text-align: center;
+    padding: 2rem 1.5rem;
+  }
+  .faq-teaser__btn {
+    width: 100%;
+    justify-content: center;
+    white-space: normal;
   }
 }
