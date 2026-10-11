@@ -1842,7 +1842,11 @@ p {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(13, 10, 6, 0.78) 0%, transparent 55%);
+  background: linear-gradient(
+    to top,
+    rgba(13, 10, 6, 0.78) 0%,
+    transparent 55%
+  );
   pointer-events: none;
 }
 
@@ -2431,8 +2435,6 @@ p {
   padding-bottom: 2.5rem;
   border-bottom: 1px solid rgba(90, 67, 45, 0.12);
   text-align: center;
- 
-
 }
 
 .tips__header .section-title {
@@ -2973,7 +2975,6 @@ input[type="number"]::-webkit-inner-spin-button {
   gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
- 
 }
 
 .package-card {
@@ -4186,9 +4187,15 @@ body.cart-is-open {
 }
 
 @keyframes cartBadgePulse {
-  0% { transform: scale(1); }
-  40% { transform: scale(1.45); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.45);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 /* ── Overlay ── */
@@ -4538,7 +4545,8 @@ body.cart-is-open {
    (as perguntas completas estão em PAGES/faq.html → faq.css)
    ───────────────────────────────────────── */
 .faq-teaser {
-  padding: 3.5rem max(var(--pad-lateral), calc((100vw - var(--content-max-width)) / 2));
+  padding: 3.5rem
+    max(var(--pad-lateral), calc((100vw - var(--content-max-width)) / 2));
   background: #0101010a;
 }
 .faq-teaser__inner {
