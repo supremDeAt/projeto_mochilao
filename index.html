@@ -51,7 +51,9 @@
         <a href="#custom" class="navbar__link" data-i18n="nav.custom"
           >Personalizado</a
         >
-        <a href="#services" class="navbar__link" data-i18n="nav.services">Serviços</a>
+        <a href="#services" class="navbar__link" data-i18n="nav.services"
+          >Serviços</a
+        >
         <a href="#about" class="navbar__link" data-i18n="nav.about">Sobre</a>
         <a href="#tips" class="navbar__link" data-i18n="nav.tips">Dicas</a>
         <a
@@ -110,6 +112,27 @@
         <a href="PAGES/faq.html" class="sidebar__link">Perguntas Frequentes</a>
         <a href="#contact" class="sidebar__link">Fale Connosco</a>
       </nav>
+
+      <div class="sidebar__lang-wrap">
+        <button
+          class="navbar__lang"
+          type="button"
+          aria-label="Mudar idioma"
+          title="Mudar idioma"
+        >
+          <span
+            class="navbar__lang-flag navbar__lang-pt"
+            aria-label="Português"
+          >
+            <span class="fi fi-ao" role="img" aria-label="Angola"></span>
+            <span class="navbar__lang-label">PT</span>
+          </span>
+          <span class="navbar__lang-flag navbar__lang-en" aria-label="English">
+            <span class="fi fi-gb" role="img" aria-label="English"></span>
+            <span class="navbar__lang-label">EN</span>
+          </span>
+        </button>
+      </div>
 
       <div class="sidebar__footer">
         <a href="https://www.instagram.com/o_mochilao/" target="_blank"
@@ -205,45 +228,75 @@
       </div>
     </div>
 
-   <!-- ======= BOTÕES FLUTUANTES ======= -->
-<div class="float-btns">
-  <a href="#hero" class="float-btn float-btn--top" aria-label="Voltar ao topo">
-    <i class="fa-solid fa-arrow-up"></i>
-  </a>
-  <button type="button" class="float-btn float-btn--cart" id="cartFab"
-          aria-label="Abrir mochila" aria-controls="cartDrawer" aria-expanded="false">
-    <i class="fa-solid fa-bag-shopping"></i>
-    <span class="float-btn__badge" id="cartBadge" hidden>0</span>
-  </button>
-</div>
-
-<!-- ======= CARRINHO / MOCHILA ======= -->
-<div class="cart-drawer__overlay" id="cartOverlay"></div>
-<aside class="cart-drawer" id="cartDrawer" role="dialog" aria-modal="true"
-       aria-labelledby="cartDrawerTitle" aria-hidden="true">
-  <header class="cart-drawer__header">
-    <div>
-      <span class="cart-drawer__eyebrow">A sua</span>
-      <h2 class="cart-drawer__title" id="cartDrawerTitle">Mochila</h2>
+    <!-- ======= BOTÕES FLUTUANTES ======= -->
+    <div class="float-btns">
+      <a
+        href="#hero"
+        class="float-btn float-btn--top"
+        aria-label="Voltar ao topo"
+      >
+        <i class="fa-solid fa-arrow-up"></i>
+      </a>
+      <button
+        type="button"
+        class="float-btn float-btn--cart"
+        id="cartFab"
+        aria-label="Abrir mochila"
+        aria-controls="cartDrawer"
+        aria-expanded="false"
+      >
+        <i class="fa-solid fa-bag-shopping"></i>
+        <span class="float-btn__badge" id="cartBadge" hidden>0</span>
+      </button>
     </div>
-    <button type="button" class="cart-drawer__close" id="cartCloseBtn" aria-label="Fechar mochila">
-      <i class="fa-solid fa-xmark"></i>
-    </button>
-  </header>
 
-  <div class="cart-drawer__body" id="cartItems"><!-- Populado pelo cart.js --></div>
+    <!-- ======= CARRINHO / MOCHILA ======= -->
+    <div class="cart-drawer__overlay" id="cartOverlay"></div>
+    <aside
+      class="cart-drawer"
+      id="cartDrawer"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="cartDrawerTitle"
+      aria-hidden="true"
+    >
+      <header class="cart-drawer__header">
+        <div>
+          <span class="cart-drawer__eyebrow">A sua</span>
+          <h2 class="cart-drawer__title" id="cartDrawerTitle">Mochila</h2>
+        </div>
+        <button
+          type="button"
+          class="cart-drawer__close"
+          id="cartCloseBtn"
+          aria-label="Fechar mochila"
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </header>
 
-  <footer class="cart-drawer__footer" id="cartFooter" hidden>
-    <div class="cart-drawer__total">
-      <span>Total</span>
-      <strong id="cartTotal">0 Kz</strong>
-    </div>
-    <p class="cart-drawer__note">O pagamento é feito por transferência bancária após confirmar a reserva.</p>
-    <a href="PAGES/checkout.html" class="btn btn--primary btn--full cart-drawer__checkout" id="cartCheckoutBtn">
-      Finalizar Reserva <i class="fa-solid fa-arrow-right"></i>
-    </a>
-  </footer>
-</aside>
+      <div class="cart-drawer__body" id="cartItems">
+        <!-- Populado pelo cart.js -->
+      </div>
+
+      <footer class="cart-drawer__footer" id="cartFooter" hidden>
+        <div class="cart-drawer__total">
+          <span>Total</span>
+          <strong id="cartTotal">0 Kz</strong>
+        </div>
+        <p class="cart-drawer__note">
+          O pagamento é feito por transferência bancária após confirmar a
+          reserva.
+        </p>
+        <a
+          href="PAGES/checkout.html"
+          class="btn btn--primary btn--full cart-drawer__checkout"
+          id="cartCheckoutBtn"
+        >
+          Finalizar Reserva <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </footer>
+    </aside>
 
     <!-- ======= TOURS ======= -->
     <section class="tours" id="tours"></section>
@@ -260,16 +313,18 @@
           <div class="about_line"></div>
           <span>
             <p class="about__quote">
-              Acreditamos que cada passo da <br> viagem  importa 
-              tanto quanto o <br> lugar a que chegamos.  É 
-              nessa <br> jornada que nascem as histórias <br> que ficam.
+              Acreditamos que cada passo da 
+              viagem <br> importa tanto quanto o 
+              lugar a que chegamos. <br> É nessa 
+              jornada que nascem as histórias 
+              que ficam.
             </p>
 
             <p class="about__text">
-              O Mochilão nasceu da paixão e do  desejo de explorar Angola em toda 
-              a sua grandiosidade. Mais do que uma  empresa, somos movidos pelo
-              fascínio  de revelar as maravilhas naturais, os povos, as culturas
-              e a rica gastronomia  que  compõem o vasto mosaico cultural 
+              O Mochilão nasceu da paixão e do desejo de explorar Angola em toda
+              a sua grandiosidade. Mais do que uma empresa, somos movidos pelo
+              fascínio de revelar as maravilhas naturais, os povos, as culturas
+              e a rica gastronomia que compõem o vasto mosaico cultural
               angolano.
             </p>
             <button type="button" class="btn btn--primary about__cta">
@@ -318,77 +373,148 @@
          geridos no painel admin. Os 4 cards abaixo são o conteúdo de reserva. -->
     <section class="services" id="services">
       <div class="section-header services__header reveal-up">
-        <span class="section-tag" data-i18n="services.tag">Os Nossos Serviços</span>
-        <h2 class="section-title" data-i18n="services.title">Tudo para a sua viagem</h2>
+        <span class="section-tag" data-i18n="services.tag"
+          >Os Nossos Serviços</span
+        >
+        <h2 class="section-title" data-i18n="services.title">
+          Tudo para a sua viagem
+        </h2>
         <p class="section-desc" data-i18n="services.desc">
-          Do aeroporto ao alojamento, tratamos de cada detalhe para que só tenha de aproveitar.
+          Do aeroporto ao alojamento, tratamos de cada detalhe para que só tenha
+          de aproveitar.
         </p>
       </div>
 
       <div class="services__grid reveal-up" id="servicesGrid">
-        <a class="service-card" href="PAGES/servico.html?s=transfer" style="--i: 0">
+        <a
+          class="service-card"
+          href="PAGES/servico.html?s=transfer"
+          style="--i: 0"
+        >
           <span class="service-card__icon">
-            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor"
-            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M6 40V31l7-11h26l11 11h6a2 2 0 0 1 2 2v7"/>
-            <path d="M6 40h5M21 40h20M51 40h7"/>
-            <circle cx="16" cy="41" r="5"/><circle cx="46" cy="41" r="5"/>
-            <path d="M11 31h39M28 20v11"/>
-            <path d="M36 52h18M50 48l4 4-4 4"/></svg>
+            <svg
+              viewBox="0 0 64 64"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M6 40V31l7-11h26l11 11h6a2 2 0 0 1 2 2v7" />
+              <path d="M6 40h5M21 40h20M51 40h7" />
+              <circle cx="16" cy="41" r="5" />
+              <circle cx="46" cy="41" r="5" />
+              <path d="M11 31h39M28 20v11" />
+              <path d="M36 52h18M50 48l4 4-4 4" />
+            </svg>
           </span>
           <h3 class="service-card__title">Transfer</h3>
           <p class="service-card__desc">
-            Recolha no aeroporto, no hotel ou onde precisar, com motoristas de confiança e viaturas confortáveis em Luanda e nas províncias.
+            Recolha no aeroporto, no hotel ou onde precisar, com motoristas de
+            confiança e viaturas confortáveis em Luanda e nas províncias.
           </p>
-          <span class="service-card__more">Saber mais <i class="fa-solid fa-arrow-right"></i></span>
+          <span class="service-card__more"
+            >Saber mais <i class="fa-solid fa-arrow-right"></i
+          ></span>
         </a>
 
-        <a class="service-card" href="PAGES/servico.html?s=hoteis" style="--i: 1">
+        <a
+          class="service-card"
+          href="PAGES/servico.html?s=hoteis"
+          style="--i: 1"
+        >
           <span class="service-card__icon">
-            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor"
-            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M14 56V12h24v44M38 24h12v32M8 56h48"/>
-            <path d="M20 20h4M28 20h4M20 28h4M28 28h4M20 36h4M28 36h4M43 32h2M43 40h2"/>
-            <path d="M23 56v-8h6v8"/></svg>
+            <svg
+              viewBox="0 0 64 64"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M14 56V12h24v44M38 24h12v32M8 56h48" />
+              <path
+                d="M20 20h4M28 20h4M20 28h4M28 28h4M20 36h4M28 36h4M43 32h2M43 40h2"
+              />
+              <path d="M23 56v-8h6v8" />
+            </svg>
           </span>
           <h3 class="service-card__title">Hotéis</h3>
           <p class="service-card__desc">
-            Reservamos o alojamento certo para a sua viagem, de hotéis e resorts a pousadas e lodges, sempre ao melhor preço.
+            Reservamos o alojamento certo para a sua viagem, de hotéis e resorts
+            a pousadas e lodges, sempre ao melhor preço.
           </p>
-          <span class="service-card__more">Saber mais <i class="fa-solid fa-arrow-right"></i></span>
+          <span class="service-card__more"
+            >Saber mais <i class="fa-solid fa-arrow-right"></i
+          ></span>
         </a>
 
-        <a class="service-card" href="PAGES/servico.html?s=aluguer-autocarro" style="--i: 2">
+        <a
+          class="service-card"
+          href="PAGES/servico.html?s=aluguer-autocarro"
+          style="--i: 2"
+        >
           <span class="service-card__icon">
-            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor"
-            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="14" y="8" width="36" height="42" rx="5"/>
-            <path d="M18 14h28v14H18zM14 32h36"/>
-            <circle cx="21" cy="41" r="2"/><circle cx="43" cy="41" r="2"/><path d="M28 41h8"/>
-            <path d="M18 50v5h6v-5M40 50v5h6v-5M14 18h-4v8M50 18h4v8"/></svg>
+            <svg
+              viewBox="0 0 64 64"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <rect x="14" y="8" width="36" height="42" rx="5" />
+              <path d="M18 14h28v14H18zM14 32h36" />
+              <circle cx="21" cy="41" r="2" />
+              <circle cx="43" cy="41" r="2" />
+              <path d="M28 41h8" />
+              <path d="M18 50v5h6v-5M40 50v5h6v-5M14 18h-4v8M50 18h4v8" />
+            </svg>
           </span>
           <h3 class="service-card__title">Aluguer de Autocarro</h3>
           <p class="service-card__desc">
-            Autocarros com motorista para grupos, empresas, eventos e excursões, com rotas planeadas à sua medida.
+            Autocarros com motorista para grupos, empresas, eventos e excursões,
+            com rotas planeadas à sua medida.
           </p>
-          <span class="service-card__more">Saber mais <i class="fa-solid fa-arrow-right"></i></span>
+          <span class="service-card__more"
+            >Saber mais <i class="fa-solid fa-arrow-right"></i
+          ></span>
         </a>
 
-        <a class="service-card" href="PAGES/servico.html?s=city-tour-tuk-tuk" style="--i: 3">
+        <a
+          class="service-card"
+          href="PAGES/servico.html?s=city-tour-tuk-tuk"
+          style="--i: 3"
+        >
           <span class="service-card__icon">
-            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor"
-            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M14 42V28c0-9 7-16 16-16h12c6 0 10 4 10 10v20"/>
-            <path d="M14 42h1M25 42h18M52 42h4"/>
-            <circle cx="20" cy="43" r="5"/><circle cx="48" cy="43" r="5"/>
-            <path d="M27 18h13a4 4 0 0 1 4 4v10H27z"/>
-            <path d="M14 30H7M7 26v8"/></svg>
+            <svg
+              viewBox="0 0 64 64"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M14 42V28c0-9 7-16 16-16h12c6 0 10 4 10 10v20" />
+              <path d="M14 42h1M25 42h18M52 42h4" />
+              <circle cx="20" cy="43" r="5" />
+              <circle cx="48" cy="43" r="5" />
+              <path d="M27 18h13a4 4 0 0 1 4 4v10H27z" />
+              <path d="M14 30H7M7 26v8" />
+            </svg>
           </span>
           <h3 class="service-card__title">City Tour Tuk-Tuk</h3>
           <p class="service-card__desc">
-            Descubra Luanda de uma forma diferente: um passeio de tuk-tuk pelos pontos mais emblemáticos da cidade, com guia local.
+            Descubra Luanda de uma forma diferente: um passeio de tuk-tuk pelos
+            pontos mais emblemáticos da cidade, com guia local.
           </p>
-          <span class="service-card__more">Saber mais <i class="fa-solid fa-arrow-right"></i></span>
+          <span class="service-card__more"
+            >Saber mais <i class="fa-solid fa-arrow-right"></i
+          ></span>
         </a>
       </div>
     </section>
@@ -629,13 +755,10 @@
     <section class="packages" id="packages">
       <div class="section-header reveal-up">
         <span class="section-tag" data-i18n="pkg.tag">Viagens em Grupo</span>
-        <h2 class="section-title">
-          Experiências únicas <br />
-          em Angola
-        </h2>
+        <h2 class="section-title">Experiências únicas em Angola</h2>
         <p class="section-desc">
-          Roteiros com data marcada, feitos 
-          para viver em grupo. <br /> Escolhe o teu próximo destino.
+          Roteiros com data marcada, feitos para viver em grupo. <br />
+          Escolhe o teu próximo destino.
         </p>
       </div>
 
@@ -910,7 +1033,12 @@
       <div class="team__grid reveal-up" id="teamGrid">
         <article class="team-card" style="--i: 0">
           <div class="team-card__media">
-            <img src="imagens/assis.webp" alt="Perpétuo de Assis" class="team-card__img" loading="lazy" />
+            <img
+              src="imagens/assis.webp"
+              alt="Perpétuo de Assis"
+              class="team-card__img"
+              loading="lazy"
+            />
           </div>
           <div class="team-card__info">
             <div class="team-card__text">
@@ -922,7 +1050,12 @@
 
         <article class="team-card" style="--i: 1">
           <div class="team-card__media">
-            <img src="imagens/matias.webp" alt="Matias Matis" class="team-card__img" loading="lazy" />
+            <img
+              src="imagens/matias.webp"
+              alt="Matias Matis"
+              class="team-card__img"
+              loading="lazy"
+            />
           </div>
           <div class="team-card__info">
             <div class="team-card__text">
@@ -934,7 +1067,12 @@
 
         <article class="team-card" style="--i: 2">
           <div class="team-card__media">
-            <img src="imagens/guia.webp" alt="Funeno Puca" class="team-card__img" loading="lazy" />
+            <img
+              src="imagens/guia.webp"
+              alt="Funeno Puca"
+              class="team-card__img"
+              loading="lazy"
+            />
           </div>
           <div class="team-card__info">
             <div class="team-card__text">
@@ -949,10 +1087,15 @@
     <!-- ======= FAQ (atalho — as perguntas estão em PAGES/faq.html) ======= -->
     <section class="faq-teaser" id="faq">
       <div class="faq-teaser__inner reveal-up">
-        <span class="faq-teaser__icon" aria-hidden="true"><i class="fa-regular fa-circle-question"></i></span>
+        <span class="faq-teaser__icon" aria-hidden="true"
+          ><i class="fa-regular fa-circle-question"></i
+        ></span>
         <div class="faq-teaser__text">
           <h2 class="faq-teaser__title">Tem dúvidas antes de partir?</h2>
-          <p>Pagamentos, alojamento, crianças, voos… reunimos as respostas às perguntas mais comuns dos Mochileiros.</p>
+          <p>
+            Pagamentos, alojamento, crianças, voos… reunimos as respostas às
+            perguntas mais comuns dos Mochileiros.
+          </p>
         </div>
         <a href="PAGES/faq.html" class="btn btn--primary faq-teaser__btn">
           Ver perguntas frequentes <i class="fa-solid fa-arrow-right"></i>
@@ -1168,7 +1311,7 @@
         <p>Desenvolvido por <strong>Valganho</strong></p>
       </div>
     </footer>
-    
+
     <script src="SCRIPT/cart.js"></script>
     <script type="module" src="SCRIPT/firebase-config.js"></script>
     <script type="module" src="SCRIPT/site-content.js"></script>

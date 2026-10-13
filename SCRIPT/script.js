@@ -470,7 +470,7 @@
     },
   };
 
-  const langBtn = document.getElementById("langBtn");
+  const langButtons = document.querySelectorAll(".navbar__lang");
   const htmlEl = document.documentElement;
   let currentLang = localStorage.getItem("mochilao-lang") || "pt";
 
@@ -483,22 +483,24 @@
     htmlEl.setAttribute("lang", lang === "en" ? "en" : "pt-BR");
 
     /* Actualizar bandeiras — destaca a activa */
-    if (langBtn) {
-      langBtn
+    langButtons.forEach(function (button) {
+      button
         .querySelector(".navbar__lang-pt")
         .classList.toggle("lang--active", lang === "pt");
-      langBtn
+      button
         .querySelector(".navbar__lang-en")
         .classList.toggle("lang--active", lang === "en");
-    }
+    });
 
     currentLang = lang;
     localStorage.setItem("mochilao-lang", lang);
   }
 
-  if (langBtn) {
-    langBtn.addEventListener("click", function () {
-      applyLang(currentLang === "pt" ? "en" : "pt");
+  if (langButtons.length > 0) {
+    langButtons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        applyLang(currentLang === "pt" ? "en" : "pt");
+      });
     });
   }
 

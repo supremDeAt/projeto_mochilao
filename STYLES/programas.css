@@ -24,7 +24,7 @@
 
   --pg-border: rgba(77, 53, 30, 0.12);
   --pg-border-soft: rgba(77, 53, 30, 0.08);
-  --pg-soft-bg: #0101010a; /* mesmo fundo suave do FAQ */
+  --pg-soft-bg: #e4d7bd;; /* mesmo fundo suave do FAQ */
   --pg-icon-bg: rgba(201, 150, 42, 0.1); /* mesmo dos ícones das Dicas */
 }
 
@@ -114,6 +114,8 @@
 .pkg-hero__desc {
   font-size: 18px;
   line-height: 1.7;
+  width: 100%;
+  text-align: center;
   color: var(--clr-white);
   max-width: 46ch;
   animation: slideUp 0.65s 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
@@ -363,10 +365,16 @@
 ══════════════════════════════════════════ */
 .pkg-includes {
   padding: 6rem var(--pg-gutter);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background: var(--pg-soft-bg);
 }
 .pkg-includes .section-header {
   margin-bottom: 1rem;
+  align-items: center;
+  justify-content: center;
 }
 .pkg-includes__inner {
   display: grid;

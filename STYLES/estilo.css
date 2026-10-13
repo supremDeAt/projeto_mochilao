@@ -697,6 +697,12 @@ p {
   flex: 1;
 }
 
+.sidebar__lang-wrap {
+  display: none;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
 .sidebar__link {
   font-family: var(--font-ui);
   font-size: 1rem;
@@ -735,6 +741,16 @@ p {
 }
 .sidebar__footer a:hover {
   color: var(--clr-gold);
+}
+
+@media (max-width: 640px) {
+  .navbar > .navbar__lang {
+    display: none;
+  }
+
+  .sidebar__lang-wrap {
+    display: flex;
+  }
 }
 
 /* ─────────────────────────────────────────
@@ -1344,7 +1360,7 @@ p {
 .about_content span {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 2rem;
 }
 .about_line {
   width: 0.1rem;
@@ -1355,7 +1371,7 @@ p {
   position: relative;
   color: var(--clr-brown-mid);
   font-family: var(--font-body);
-  font-size: 0.92rem;
+  font-size: 17px;
   font-style: normal;
   line-height: 1.2;
   letter-spacing: 0.01em;
@@ -1364,12 +1380,12 @@ p {
 }
 
 .about__text {
-  font-size: 0.93rem;
+ font-size: 17px;
   color: var(--clr-text-mid);
   line-height: 1.2;
-  letter-spacing: 0.01em;
-  padding: 0 0.5rem;
-  max-width: 320px;
+  letter-spacing: 0.03em;
+  padding: 0 0.3rem;
+  max-width: 420px;
 }
 
 .about__cta {
@@ -1993,7 +2009,7 @@ p {
     var(--pad-lateral),
     calc((100vw - var(--content-max-width)) / 2)
   );
-  background: #0808080b;
+ 
 }
 
 .services__header {
@@ -2153,7 +2169,7 @@ p {
   display: grid;
   grid-template-columns: 38% 1fr;
   gap: 0;
-  background-color: #0101010a;
+  background: #e4d7bd;
   padding-left: max(
     var(--pad-lateral),
     calc((100vw - var(--content-max-width)) / 2)
@@ -4547,7 +4563,7 @@ body.cart-is-open {
 .faq-teaser {
   padding: 3.5rem
     max(var(--pad-lateral), calc((100vw - var(--content-max-width)) / 2));
-  background: #0101010a;
+  background: #e4d7bd;
 }
 .faq-teaser__inner {
   display: flex;
