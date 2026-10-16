@@ -25,6 +25,16 @@
   --pg-border: rgba(77, 53, 30, 0.12);
   --pg-border-soft: rgba(77, 53, 30, 0.08);
   --pg-soft-bg: #e4d7bd;; /* mesmo fundo suave do FAQ */
+   --clr-black: #0d0a06;
+  --clr-dark: #1a1208;
+  --clr-brown-deep: #4d351e;
+  --clr-brown-mid: #775f43;
+  --clr-brown-light: #a07d55;
+  --clr-tan: #c8aa80;
+  --clr-cream: #ffffff;
+  --clr-warm-white: #ffffff;
+  --clr-white: #ffffff;
+  
   --pg-icon-bg: rgba(201, 150, 42, 0.1); /* mesmo dos ícones das Dicas */
 }
 
@@ -444,7 +454,7 @@
 }
 .pkg-itinerary-section__inner {
   display: grid;
-  grid-template-columns: 1fr 400px;
+  grid-template-columns: 1fr 550px;
   gap: 4rem;
   align-items: start;
 }
@@ -637,7 +647,7 @@
   color: rgba(255, 255, 255, 0.6);
 }
 .pkg-precos__list li strong {
-  color: var(--clr-gold-light);
+  color: var(--clr-brown-light);
   font-weight: 700;
 }
 
@@ -760,7 +770,7 @@
 }
 .pkg-booking__summary-row--total strong {
   font-size: 1.25rem;
-  color: var(--clr-gold-light);
+  color: var(--clr-brown-light);
 }
 
 /* Botão principal — "pill" como os botões do index */
@@ -773,23 +783,22 @@
   padding: 1rem 1.8rem;
   border: 0;
   border-radius: var(--radius-pill);
-  background: var(--clr-gold);
-  color: var(--clr-dark);
+  background: var(--clr-brown-deep);
+  color: var(--clr-white);
   font-family: var(--font-ui);
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.04em;
   cursor: pointer;
-  box-shadow: 0 4px 20px rgba(201, 150, 42, 0.3);
+  box-shadow: 0 4px 20px rgba(201, 151, 42, 0.044);
   transition:
     transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
     box-shadow 0.18s cubic-bezier(0.16, 1, 0.3, 1),
     background-color 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .pkg-cta-card__btn:hover {
-  background: var(--clr-gold-light);
+  background: var( --clr-brown-mid);
   transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(201, 150, 42, 0.4);
 }
 .pkg-cta-card__btn:active {
   transform: translateY(0);

@@ -15,6 +15,7 @@
   "use strict";
 
   const STORAGE_KEY = "mochilao-cart";
+  const PAX_PER_ADD = 1;
   const PAX_MIN = 1;
   const PAX_MAX = 20;
 
@@ -25,11 +26,7 @@
     form: document.getElementById("bookingForm"),
     date: document.getElementById("tourDate"),
     dateError: document.getElementById("tourDateError"),
-    minus: document.getElementById("paxMinus"),
-    plus: document.getElementById("paxPlus"),
-    paxValue: document.getElementById("paxValue"),
     unit: document.getElementById("bookingUnit"),
-    total: document.getElementById("bookingTotal"),
     btn: document.getElementById("addToCartBtn"),
     precos: document.querySelector(".pkg-precos__list"),
   };
@@ -89,7 +86,9 @@
 
     if (!tiers.length) {
       // Fallback: "A partir de 760.000 Kz" no card de detalhes
-      const det = document.querySelector(".pkg-detail--preco .pkg-detail__value");
+      const det = document.querySelector(
+        ".pkg-detail--preco .pkg-detail__value",
+      );
       return det ? toNumber(det.textContent) : 0;
     }
 
@@ -131,13 +130,8 @@
 
   /* ── Render ── */
   function render() {
-    els.paxValue.textContent = pax + (pax === 1 ? " Pessoa" : " Pessoas");
-    els.minus.disabled = pax <= PAX_MIN;
-    els.plus.disabled = pax >= PAX_MAX;
-
-    const unit = getUnitPrice(pax);
+    const unit = getUnitPrice(PAX_PER_ADD);
     els.unit.textContent = unit > 0 ? formatKz(unit) : "A consultar";
-    els.total.textContent = unit > 0 ? formatKz(unit * pax) : "A consultar";
   }
 
   function setError(msg) {
@@ -186,16 +180,6 @@
   }
 
   /* ── Eventos ── */
-  els.minus.addEventListener("click", function () {
-    pax = Math.max(PAX_MIN, pax - 1);
-    render();
-  });
-
-  els.plus.addEventListener("click", function () {
-    pax = Math.min(PAX_MAX, pax + 1);
-    render();
-  });
-
   els.date.addEventListener("change", function () {
     if (els.date.value) setError("");
   });
@@ -222,6 +206,7 @@
       return;
     }
 
+    const pax = PAX_PER_ADD;
     const precoUnitario = getUnitPrice(pax);
 
     addToCart({
