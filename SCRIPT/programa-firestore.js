@@ -184,7 +184,7 @@ async function renderMedia(p) {
     grid.innerHTML = media.galeria
       .map(
         (src, i) => `
-        <div class="pkg-gallery__item${i === 0 ? " pkg-gallery__item--tall" : ""}">
+        <div class="pkg-gallery__item">
           <img src="${src}" alt="${esc(p.nome)} — foto ${i + 1}" class="pkg-gallery__img" loading="lazy">
         </div>`,
       )

@@ -15,7 +15,6 @@
   "use strict";
 
   const STORAGE_KEY = "mochilao-cart";
-  const PAX_PER_ADD = 1;
   const PAX_MIN = 1;
   const PAX_MAX = 20;
 
@@ -26,7 +25,11 @@
     form: document.getElementById("bookingForm"),
     date: document.getElementById("tourDate"),
     dateError: document.getElementById("tourDateError"),
+    minus: document.getElementById("paxMinus"),
+    plus: document.getElementById("paxPlus"),
+    paxValue: document.getElementById("paxValue"),
     unit: document.getElementById("bookingUnit"),
+    total: document.getElementById("bookingTotal"),
     btn: document.getElementById("addToCartBtn"),
     precos: document.querySelector(".pkg-precos__list"),
   };
@@ -86,9 +89,7 @@
 
     if (!tiers.length) {
       // Fallback: "A partir de 760.000 Kz" no card de detalhes
-      const det = document.querySelector(
-        ".pkg-detail--preco .pkg-detail__value",
-      );
+      const det = document.querySelector(".pkg-detail--preco .pkg-detail__value");
       return det ? toNumber(det.textContent) : 0;
     }
 
@@ -129,9 +130,17 @@
   }
 
   /* ── Render ── */
+  /* Os controlos de pessoas e o total são opcionais: se não existirem
+     no HTML, cada clique em "Embarcar" junta 1 pessoa à Mochila
+     (o número de pessoas ajusta-se depois na própria Mochila). */
   function render() {
-    const unit = getUnitPrice(PAX_PER_ADD);
-    els.unit.textContent = unit > 0 ? formatKz(unit) : "A consultar";
+    if (els.paxValue) els.paxValue.textContent = pax + (pax === 1 ? " Pessoa" : " Pessoas");
+    if (els.minus) els.minus.disabled = pax <= PAX_MIN;
+    if (els.plus) els.plus.disabled = pax >= PAX_MAX;
+
+    const unit = getUnitPrice(pax);
+    if (els.unit) els.unit.textContent = unit > 0 ? formatKz(unit) : "A consultar";
+    if (els.total) els.total.textContent = unit > 0 ? formatKz(unit * pax) : "A consultar";
   }
 
   function setError(msg) {
@@ -172,14 +181,25 @@
   function flashButton() {
     const text = els.btn.querySelector(".pkg-cta-card__btn-text");
     els.btn.classList.add("is-added");
+    const original = text ? text.textContent : "";
     if (text) text.textContent = "Adicionado à Mochila";
     setTimeout(function () {
       els.btn.classList.remove("is-added");
-      if (text) text.textContent = "Adicionar à Mochila";
+      if (text) text.textContent = original;
     }, 1800);
   }
 
   /* ── Eventos ── */
+  els.minus?.addEventListener("click", function () {
+    pax = Math.max(PAX_MIN, pax - 1);
+    render();
+  });
+
+  els.plus?.addEventListener("click", function () {
+    pax = Math.min(PAX_MAX, pax + 1);
+    render();
+  });
+
   els.date.addEventListener("change", function () {
     if (els.date.value) setError("");
   });
@@ -206,7 +226,6 @@
       return;
     }
 
-    const pax = PAX_PER_ADD;
     const precoUnitario = getUnitPrice(pax);
 
     addToCart({

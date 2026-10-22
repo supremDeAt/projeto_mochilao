@@ -470,7 +470,8 @@
     },
   };
 
-  const langButtons = document.querySelectorAll(".navbar__lang");
+  // Todos os botões de idioma: o da navbar (#langBtn) e o da sidebar (telemóvel)
+  const langBtns = document.querySelectorAll(".navbar__lang");
   const htmlEl = document.documentElement;
   let currentLang = localStorage.getItem("mochilao-lang") || "pt";
 
@@ -482,27 +483,21 @@
     });
     htmlEl.setAttribute("lang", lang === "en" ? "en" : "pt-BR");
 
-    /* Actualizar bandeiras — destaca a activa */
-    langButtons.forEach(function (button) {
-      button
-        .querySelector(".navbar__lang-pt")
-        .classList.toggle("lang--active", lang === "pt");
-      button
-        .querySelector(".navbar__lang-en")
-        .classList.toggle("lang--active", lang === "en");
+    /* Actualizar bandeiras em todos os botões — destaca a activa */
+    langBtns.forEach(function (btn) {
+      btn.querySelector(".navbar__lang-pt")?.classList.toggle("lang--active", lang === "pt");
+      btn.querySelector(".navbar__lang-en")?.classList.toggle("lang--active", lang === "en");
     });
 
     currentLang = lang;
     localStorage.setItem("mochilao-lang", lang);
   }
 
-  if (langButtons.length > 0) {
-    langButtons.forEach(function (button) {
-      button.addEventListener("click", function () {
-        applyLang(currentLang === "pt" ? "en" : "pt");
-      });
+  langBtns.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      applyLang(currentLang === "pt" ? "en" : "pt");
     });
-  }
+  });
 
   applyLang(currentLang);
 

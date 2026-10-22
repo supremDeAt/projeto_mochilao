@@ -24,7 +24,10 @@
   /* Altura real da navbar → as categorias (telemóvel) ficam logo por baixo */
   const navbar = document.getElementById("navbar");
   function syncNavbarHeight() {
-    if (navbar) document.documentElement.style.setProperty("--faq-navbar-h", navbar.offsetHeight + "px");
+    // Só conta a altura se a navbar acompanhar o scroll (position: fixed/sticky)
+    const pos = navbar ? getComputedStyle(navbar).position : "";
+    const h = pos === "fixed" || pos === "sticky" ? navbar.offsetHeight : 0;
+    document.documentElement.style.setProperty("--faq-navbar-h", h + "px");
   }
   syncNavbarHeight();
   window.addEventListener("resize", syncNavbarHeight);
