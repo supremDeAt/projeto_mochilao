@@ -4,7 +4,7 @@
    secção "Sobre" e contactos/redes sociais do site.
 
    siteConfig/hero      → featureLabel, heroTitle, heroSubtitle, heroImageUrl
-   siteConfig/sobre     → contadores { viagens, clientes, satisfacao }
+   siteConfig/sobre     → secção "Sobre" (gerida pelo admin-sobre.js)
    siteConfig/contactos → telefone, email, whatsapp, instagram, tiktok, facebook
    (os dois últimos são aplicados ao index pelo site-extras.js)
    ===================================================== */
@@ -185,50 +185,7 @@ export function initContentAdmin({ db, canEdit = false }) {
     }
   });
 
-  /* ─────────────────────────────────────────
-     2. NÚMEROS ("Sobre")
-     ───────────────────────────────────────── */
-  const stats = {
-    form: $("contentStatsForm"),
-    viagens: $("statTrips"),
-    clientes: $("statClients"),
-    satisfacao: $("statSatisfaction"),
-  };
-  onSnapshot(doc(db, "siteConfig", "sobre"), (snap) => {
-    const c = (snap.exists() && snap.data().contadores) || {};
-    if (document.activeElement?.closest("#contentStatsForm")) return;
-    stats.viagens.value = c.viagens ?? 120;
-    stats.clientes.value = c.clientes ?? 300;
-    stats.satisfacao.value = c.satisfacao ?? 98;
-  });
-
-  stats.form?.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    if (!canEdit) return;
-    const n = (el) => Math.max(0, parseInt(el.value, 10) || 0);
-    const btn = stats.form.querySelector("[type=submit]");
-    btn.disabled = true;
-    try {
-      await setDoc(
-        doc(db, "siteConfig", "sobre"),
-        {
-          contadores: {
-            viagens: n(stats.viagens),
-            clientes: n(stats.clientes),
-            satisfacao: Math.min(100, n(stats.satisfacao)),
-          },
-          atualizadoEm: serverTimestamp(),
-        },
-        { merge: true },
-      );
-      toast("Números atualizados no site.");
-    } catch (err) {
-      console.error("[conteúdo] números:", err);
-      toast("Erro ao guardar: " + errorMessage(err), "error");
-    } finally {
-      btn.disabled = false;
-    }
-  });
+  /* 2. SECÇÃO "SOBRE" (textos, foto, números, tamanhos) → admin-sobre.js */
 
   /* ─────────────────────────────────────────
      3. CONTACTOS E REDES

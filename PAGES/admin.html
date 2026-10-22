@@ -7,6 +7,7 @@
     <link rel="icon" href="../imagens/logo5.png" />
     <link rel="stylesheet" href="../STYLES/estilo.css" />
     <link rel="stylesheet" href="../STYLES/admin.css" />
+    <link rel="stylesheet" href="../STYLES/admin-controlo.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -948,11 +949,17 @@
                 <button type="button" class="content-tab is-active" role="tab" aria-selected="true" data-content-tab="hero">
                   <i class="fa-solid fa-image"></i> Hero (topo)
                 </button>
-                <button type="button" class="content-tab" role="tab" aria-selected="false" data-content-tab="numeros">
-                  <i class="fa-solid fa-chart-simple"></i> Números
+                <button type="button" class="content-tab" role="tab" aria-selected="false" data-content-tab="sobre">
+                  <i class="fa-solid fa-circle-info"></i> Sobre
                 </button>
                 <button type="button" class="content-tab" role="tab" aria-selected="false" data-content-tab="contactos">
                   <i class="fa-solid fa-address-book"></i> Contactos e redes
+                </button>
+                <button type="button" class="content-tab" role="tab" aria-selected="false" data-content-tab="galeria">
+                  <i class="fa-solid fa-images"></i> Galeria
+                </button>
+                <button type="button" class="content-tab" role="tab" aria-selected="false" data-content-tab="aparencia">
+                  <i class="fa-solid fa-sliders"></i> Aparência
                 </button>
               </div>
 
@@ -1008,30 +1015,8 @@
                 </div>
               </div>
 
-              <!-- ─── NÚMEROS ─── -->
-              <div class="content-pane" data-content-pane="numeros" hidden>
-                <form id="contentStatsForm" class="form-stack">
-                  <p class="content-help">Os contadores que aparecem por cima da foto na secção "Sobre o Mochilão".</p>
-                  <div class="stats-fields">
-                    <div class="field">
-                      <label for="statTrips">Viagens realizadas</label>
-                      <input id="statTrips" type="number" min="0" step="1" />
-                      <small>Aparece como "120+"</small>
-                    </div>
-                    <div class="field">
-                      <label for="statClients">Clientes</label>
-                      <input id="statClients" type="number" min="0" step="1" />
-                    </div>
-                    <div class="field">
-                      <label for="statSatisfaction">Satisfação (%)</label>
-                      <input id="statSatisfaction" type="number" min="0" max="100" step="1" />
-                    </div>
-                  </div>
-                  <div class="content-actions">
-                    <button type="submit" class="btn btn--primary">Publicar no site <i class="fa-solid fa-check"></i></button>
-                  </div>
-                </form>
-              </div>
+              <!-- ─── SOBRE (foto, textos, números, tamanhos) ─── -->
+              <div class="content-pane" data-content-pane="sobre" id="aboutRoot" hidden></div>
 
               <!-- ─── CONTACTOS ─── -->
               <div class="content-pane" data-content-pane="contactos" hidden>
@@ -1068,6 +1053,20 @@
                   </div>
                 </form>
               </div>
+
+              <!-- ─── GALERIA DO INDEX ─── -->
+              <div class="content-pane" data-content-pane="galeria" hidden>
+                <div class="form-stack">
+                  <p class="content-help">
+                    As 5 fotos da secção <strong>"Galeria de Aventuras"</strong> da página inicial, na mesma posição em que aparecem no site.
+                    Cada foto é publicada assim que a escolher. A foto grande fica melhor na <strong>vertical</strong>; as outras quatro na <strong>horizontal</strong>.
+                  </p>
+                  <div class="hg-grid" id="homeGalleryGrid"></div>
+                </div>
+              </div>
+
+              <!-- ─── APARÊNCIA (tamanhos) ─── -->
+              <div class="content-pane" data-content-pane="aparencia" id="appearanceRoot" hidden></div>
             </div>
           </section>
         </div>

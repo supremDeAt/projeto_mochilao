@@ -1,7 +1,6 @@
 /* =====================================================
    O MOCHILÃO — site-extras.js  (ES module)
    Aplica ao index.html o que se edita no admin → "Site Web":
-   • siteConfig/sobre     → números da secção "Sobre"
    • siteConfig/contactos → telefone, email, WhatsApp e redes sociais
    Se o Firestore não responder, fica tudo como está no HTML.
    ===================================================== */
@@ -9,20 +8,7 @@
 import { db } from "./firebase-config.js";
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
-/* ── Números (Viagens, Clientes, Satisfação) ── */
-async function applyCounters() {
-  const snap = await getDoc(doc(db, "siteConfig", "sobre"));
-  const c = snap.exists() ? snap.data().contadores : null;
-  if (!c) return;
-  const values = [c.viagens, c.clientes, c.satisfacao];
-  document.querySelectorAll("#counters .counter__num").forEach((el, i) => {
-    const v = parseInt(values[i], 10);
-    if (!Number.isFinite(v)) return;
-    el.dataset.target = String(v);
-    // Se a animação já correu, mostra logo o valor novo
-    if (el.textContent.trim() !== "0") el.textContent = String(v);
-  });
-}
+/* Números e restante secção "Sobre" → about-section.js */
 
 /* ── Contactos e redes ── */
 const SOCIAL = {
@@ -68,5 +54,4 @@ async function applyContacts() {
   });
 }
 
-applyCounters().catch((err) => console.warn("[site] números:", err));
 applyContacts().catch((err) => console.warn("[site] contactos:", err));

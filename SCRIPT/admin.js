@@ -22,6 +22,9 @@ import { createDashboard } from "./admin-dashboard.js";
 import { initContentAdmin } from "./admin-conteudo.js";
 import { toast } from "./admin-utils.js";
 import { initAdminsAdmin } from "./admin-admins.js";
+import { initGalleryAdmin } from "./admin-galeria.js";
+import { initAppearanceAdmin } from "./admin-aparencia.js";
+import { initAboutAdmin } from "./admin-sobre.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   let currentUser = null;
@@ -407,6 +410,9 @@ document.addEventListener("DOMContentLoaded", function () {
     initTeamAdmin({ db, canEdit: perms.canEditContent });
     initServicesAdmin({ db, canEdit: perms.canEditContent });
     initContentAdmin({ db, canEdit: perms.canEditContent });
+    initAboutAdmin({ db, canEdit: perms.canEditContent });
+    initGalleryAdmin({ db, canEdit: perms.canEditContent });
+    initAppearanceAdmin({ db, canEdit: perms.canEditContent });
     initAdminsAdmin({
       db,
       app,
