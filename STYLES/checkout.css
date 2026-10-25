@@ -9,11 +9,6 @@
     var(--pad-lateral),
     calc((100vw - var(--content-max-width)) / 2)
   );
-  --co-border: rgba(77, 53, 30, 0.12);
-  --co-border-soft: rgba(77, 53, 30, 0.08);
-  --co-soft-bg: #faf8f4;
-  --co-icon-bg: rgba(201, 150, 42, 0.1);
-  --co-error: #d93025;
 }
 
 .checkout-page {
@@ -170,18 +165,18 @@
     box-shadow var(--ease-std);
 }
 .checkout-form__input::placeholder {
-  color: rgba(26, 18, 8, 0.3);
+  color: var(--clr-dark-30);
 }
 .checkout-form__input:hover {
-  border-color: rgba(77, 53, 30, 0.25);
+  border-color: var(--clr-brown-deep-25);
 }
 .checkout-form__input:focus {
   border-color: var(--clr-brown-mid);
-  box-shadow: 0 0 0 3px rgba(119, 95, 67, 0.12);
+  box-shadow: 0 0 0 3px var(--clr-brown-mid-12);
 }
 .checkout-form__input.is-invalid {
   border-color: var(--co-error);
-  box-shadow: 0 0 0 3px rgba(217, 48, 37, 0.08);
+  box-shadow: 0 0 0 3px var(--clr-red-error-08);
 }
 
 .checkout-form__error {
@@ -338,7 +333,7 @@
   align-items: center;
   justify-content: center;
   background: linear-gradient(160deg, var(--clr-brown-mid), var(--clr-dark));
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--clr-white-60);
 }
 /* Badge com nº de pessoas sobre a miniatura */
 .checkout-item__qty {
@@ -428,7 +423,7 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
   cursor: pointer;
-  box-shadow: 0 10px 30px rgba(77, 53, 30, 0.3);
+  box-shadow: 0 10px 30px var(--clr-brown-deep-30);
   transition:
     transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
     box-shadow 0.18s cubic-bezier(0.16, 1, 0.3, 1),
@@ -440,7 +435,7 @@
 .checkout-summary__submit:hover:not(:disabled) {
   background: var(--clr-brown-mid);
   transform: translateY(-2px);
-  box-shadow: 0 16px 40px rgba(77, 53, 30, 0.4);
+  box-shadow: 0 16px 40px var(--clr-brown-deep-40);
 }
 .checkout-summary__submit:hover:not(:disabled) i {
   transform: translateX(4px);
@@ -476,7 +471,7 @@
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
-  background: rgba(13, 10, 6, 0.72);
+  background: var(--clr-black-72);
   backdrop-filter: blur(8px);
   animation: fadeIn 0.25s ease-out both;
   overflow-y: auto;
@@ -494,7 +489,7 @@
   border-radius: 20px;
   text-align: center;
   overflow: hidden;
-  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 32px 80px var(--clr-black-pure-40);
   animation: coPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 .checkout-success__card::before {
@@ -518,10 +513,10 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: linear-gradient(135deg, #34b86a, #1d8a48);
+  background: linear-gradient(135deg, var(--clr-green-light), var(--clr-green-dark));
   color: var(--clr-white);
   font-size: 2.2rem;
-  box-shadow: 0 10px 30px rgba(52, 184, 106, 0.4);
+  box-shadow: 0 10px 30px var(--clr-green-light-40);
   animation: popIn 0.6s 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 .checkout-success__title {
@@ -578,7 +573,7 @@
   justify-content: center;
   border-radius: 50%;
   color: var(--clr-brown-deep);
-  background: rgba(77, 53, 30, 0.07);
+  background: var(--clr-brown-deep-07);
   transition:
     background var(--ease-std),
     color var(--ease-std);
@@ -610,11 +605,11 @@
   white-space: normal;
 }
 .checkout-success__wpp {
-  background: #25d366;
+  background: var(--clr-whatsapp);
   color: var(--clr-white);
 }
 .checkout-success__wpp:hover {
-  background: #1ebe5a;
+  background: var(--clr-whatsapp-hover-b);
   transform: translateY(-2px);
 }
 

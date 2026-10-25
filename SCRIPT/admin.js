@@ -16,6 +16,7 @@ import { saveProgram, deleteProgramFully, describeError } from "./program-save.j
 import { loadProgramImages } from "./image-store.js";
 import { initTeamAdmin } from "./team-admin.js";
 import { initServicesAdmin } from "./services-admin.js";
+import { initPartnersAdmin } from "./partners-admin.js";
 import { createReservationsView } from "./admin-reservas.js";
 import { createMessagesView } from "./admin-mensagens.js";
 import { createDashboard } from "./admin-dashboard.js";
@@ -409,6 +410,7 @@ document.addEventListener("DOMContentLoaded", function () {
       rolesPermissions[currentUserRole] || rolesPermissions["Visualizador"];
     initTeamAdmin({ db, canEdit: perms.canEditContent });
     initServicesAdmin({ db, canEdit: perms.canEditContent });
+    initPartnersAdmin({ db, canEdit: perms.canEditContent });
     initContentAdmin({ db, canEdit: perms.canEditContent });
     initAboutAdmin({ db, canEdit: perms.canEditContent });
     initGalleryAdmin({ db, canEdit: perms.canEditContent });

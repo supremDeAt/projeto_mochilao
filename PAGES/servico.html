@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Serviços — O Mochilão Aventuras</title>
+    <meta name="description" content="Conheça os parceiros com quem o O Mochilão trabalha em Angola." />
+
+    <link rel="icon" href="../imagens/logo5.png" />
+    <link rel="stylesheet" href="../STYLES/estilo.css" />
+    <link rel="stylesheet" href="../STYLES/servico.css" />
+
+    <!-- Flag icons (bandeiras reais, funciona em todos os browsers) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/6.11.0/css/flag-icons.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Google Fonts — fallback caso Nekst não carregue -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+  </head>
+  <body class="svc-page">
+    <!-- ======= NAVBAR ======= -->
+    <header class="navbar" id="navbar">
+      <a href="../index.html" class="navbar__brand">
+       
+        <img src="../imagens/Sem Título-3.png" alt="" class="navbar__logo" />
+      </a>
+
+      <nav class="navbar__links" id="navLinks">
+        <a href="../index.html#tours" class="navbar__link" data-i18n="nav.tours">Viagens</a>
+        <a href="../index.html#gallery" class="navbar__link" data-i18n="nav.gallery"
+          >Galeria</a
+        >
+        <a href="../index.html#contact" class="navbar__link" data-i18n="nav.custom"
+          >Personalizado</a
+        >
+        <a href="../index.html#services" class="navbar__link" data-i18n="nav.services"
+          >Serviços</a
+        >
+        <a href="../index.html#about" class="navbar__link" data-i18n="nav.about">Sobre</a>
+        <a href="../index.html#tips" class="navbar__link" data-i18n="nav.tips">Dicas</a>
+        <a
+          href="../index.html#contact"
+          class="navbar__link navbar__link--cta"
+          data-i18n="nav.contact"
+          >Fale Connosco</a
+        >
+      </nav>
+
+      <button
+        class="navbar__lang"
+        id="langBtn"
+        aria-label="Mudar idioma"
+        title="Mudar idioma"
+      >
+        <!-- Bandeira Angola (PT) -->
+        <span class="navbar__lang-flag navbar__lang-pt" aria-label="Português">
+          <span class="fi fi-ao" role="img" aria-label="Angola"></span>
+          <span class="navbar__lang-label">PT</span>
+        </span>
+        <!-- Bandeira UK (EN) -->
+        <span class="navbar__lang-flag navbar__lang-en" aria-label="English">
+          <span class="fi fi-gb" role="img" aria-label="English"></span>
+          <span class="navbar__lang-label">EN</span>
+        </span>
+      </button>
+
+      <button
+        class="navbar__burger"
+        id="burgerBtn"
+        aria-label="Abrir menu"
+        aria-expanded="false"
+      >
+        <span class="navbar__burger-line"></span>
+        <span class="navbar__burger-line"></span>
+        <span class="navbar__burger-line"></span>
+      </button>
+    </header>
+
+    <!-- ======= SIDEBAR / DRAWER DE NAVEGAÇÃO ======= -->
+    <div class="sidebar__overlay" id="sidebarOverlay"></div>
+    <aside class="sidebar" id="sidebar">
+      <button class="sidebar__close" id="closeBtn" aria-label="Fechar menu">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <nav class="sidebar__nav">
+        <a href="../index.html#hero" class="sidebar__link">Início</a>
+        <a href="../index.html#tours" class="sidebar__link">Viagens</a>
+        <a href="../index.html#gallery" class="sidebar__link">Galeria</a>
+        <a href="../index.html#contact" class="sidebar__link">Personalizado</a>
+        <a href="../index.html#services" class="sidebar__link sidebar__link--active">Serviços</a>
+        <a href="../index.html#about" class="sidebar__link">Sobre</a>
+        <a href="../index.html#team" class="sidebar__link">Equipa</a>
+        <a href="../index.html#tips" class="sidebar__link">Dicas</a>
+        <a href="faq.html" class="sidebar__link">Perguntas Frequentes</a>
+        <a href="../index.html#contact" class="sidebar__link">Fale Connosco</a>
+      </nav>
+
+      <div class="sidebar__lang-wrap">
+        <button
+          class="navbar__lang"
+          type="button"
+          aria-label="Mudar idioma"
+          title="Mudar idioma"
+        >
+          <span
+            class="navbar__lang-flag navbar__lang-pt"
+            aria-label="Português"
+          >
+            <span class="fi fi-ao" role="img" aria-label="Angola"></span>
+            <span class="navbar__lang-label">PT</span>
+          </span>
+          <span class="navbar__lang-flag navbar__lang-en" aria-label="English">
+            <span class="fi fi-gb" role="img" aria-label="English"></span>
+            <span class="navbar__lang-label">EN</span>
+          </span>
+        </button>
+      </div>
+
+      <div class="sidebar__footer">
+        <a href="https://www.instagram.com/o_mochilao/" target="_blank"
+          ><i class="fa-brands fa-instagram"></i
+        ></a>
+        <a
+          href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0"
+          target="_blank"
+          ><i class="fa-brands fa-whatsapp"></i
+        ></a>
+        <a href="https://www.tiktok.com/@o.mochilao" target="_blank"
+          ><i class="fa-brands fa-tiktok"></i
+        ></a>
+      </div>
+    </aside>
+
+    <!-- ======= HERO DO SERVIÇO ======= -->
+    <header class="svc-hero">
+      <div class="svc-hero__inner">
+        <nav class="svc-hero__crumbs" aria-label="Caminho">
+          <a href="../index.html">Início</a> <span aria-hidden="true">/</span>
+          <a href="../index.html#services">Serviços</a> <span aria-hidden="true">/</span>
+          <span id="svcCrumb">…</span>
+        </nav>
+        <span class="svc-hero__icon" id="svcIcon" aria-hidden="true" hidden></span>
+        <span class="svc-hero__tag">Os nossos parceiros</span>
+        <h1 class="svc-hero__title" id="svcTitle">Serviços</h1>
+        <p class="svc-hero__text" id="svcText"></p>
+        <span class="svc-hero__count" id="svcCount" hidden></span>
+      </div>
+    </header>
+
+    <!-- ======= PARCEIROS ======= -->
+    <main class="svc-main">
+      <nav class="svc-others" id="svcOthers" aria-label="Outros serviços" hidden></nav>
+
+      <ul class="partners-grid" id="partnersGrid" aria-live="polite"></ul>
+      <div id="partnersStatus">
+        <div class="svc-loading" aria-label="A carregar os parceiros"><span></span><span></span><span></span></div>
+      </div>
+    </main>
+
+    <!-- Janela do parceiro: fotos + informações -->
+    <div class="partner-modal" id="partnerModal" role="dialog" aria-modal="true" aria-labelledby="pmName" hidden>
+      <div class="partner-modal__box">
+        <button type="button" class="partner-modal__close" id="pmClose" aria-label="Fechar">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="partner-modal__gallery">
+          <div class="partner-modal__stage" id="pmStage">
+            <img id="pmImg" alt="" />
+            <button type="button" class="partner-modal__nav partner-modal__nav--prev" id="pmPrev" aria-label="Foto anterior">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button type="button" class="partner-modal__nav partner-modal__nav--next" id="pmNext" aria-label="Foto seguinte">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+            <span class="partner-modal__counter" id="pmCounter"></span>
+            <span class="partner-modal__loading" id="pmLoading" hidden><i class="fa-solid fa-spinner fa-spin"></i> A carregar fotos…</span>
+          </div>
+          <div class="partner-modal__thumbs" id="pmThumbs"></div>
+        </div>
+        <div class="partner-modal__info">
+          <span class="partner-modal__service" id="pmService"></span>
+          <h2 class="partner-modal__name" id="pmName"></h2>
+          <p class="partner-modal__loc" id="pmLoc"></p>
+          <p class="partner-modal__desc" id="pmDesc"></p>
+          <ul class="partner-modal__tags" id="pmTags"></ul>
+        </div>
+      </div>
+    </div>
+
+    <a href="#" class="float-btn float-btn--top" aria-label="Voltar ao topo"><i class="fa-solid fa-arrow-up"></i></a>
+
+    <!-- ======= FOOTER ======= -->
+    <footer class="footer">
+      <div class="footer__main">
+        <div class="footer__brand">
+          <!--
+          LOGO DO FOOTER:
+          Substitua o src pelo logo branco (branco2.png ou outro)
+        -->
+          <img
+            src="../imagens/branco2.png"
+            alt="O Mochilão"
+            class="footer__logo"
+          />
+          <p class="footer__tagline">
+            Seus companheiros das aventuras por Angola
+          </p>
+          <div class="footer__socials">
+            <a
+              href="https://www.instagram.com/o_mochilao/"
+              target="_blank"
+              aria-label="Instagram"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+            <a
+              href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0"
+              target="_blank"
+              aria-label="WhatsApp"
+              ><i class="fa-brands fa-whatsapp"></i
+            ></a>
+            <a
+              href="https://www.tiktok.com/@o.mochilao"
+              target="_blank"
+              aria-label="TikTok"
+              ><i class="fa-brands fa-tiktok"></i
+            ></a>
+            <a
+              href="https://www.facebook.com/OMochilao"
+              target="_blank"
+              aria-label="Facebook"
+              ><i class="fa-brands fa-facebook-f"></i
+            ></a>
+          </div>
+        </div>
+
+        <div class="footer__col">
+          <h4 class="footer__col-title">Navegação</h4>
+          <a href="../index.html#hero">Início</a>
+          <a href="../index.html#tours">Viagens</a>
+          <a href="../index.html#gallery">Galeria</a>
+          <a href="../index.html#about">Sobre Nós</a>
+        </div>
+
+        <div class="footer__col">
+          <h4 class="footer__col-title">Informações</h4>
+          <a href="../index.html#tips">Dicas de Viagem</a>
+          <a href="../index.html#packages">Viagens em Grupo</a>
+          <a href="faq.html">Perguntas Frequentes</a>
+          <a href="../index.html#contact">Fale Connosco</a>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <p>© 2025 O Mochilão Aventuras. Todos os direitos reservados.</p>
+        <p>Desenvolvido por <strong>Valganho</strong></p>
+      </div>
+    </footer>
+
+    <script type="module" src="../SCRIPT/firebase-config.js"></script>
+    <script type="module" src="../SCRIPT/site-appearance.js"></script>
+    <script type="module" src="../SCRIPT/site-extras.js"></script>
+    <script type="module" src="../SCRIPT/script.js"></script>
+    <script type="module" src="../SCRIPT/servico.js"></script>
+  </body>
+</html>

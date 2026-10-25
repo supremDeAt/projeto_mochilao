@@ -1,0 +1,310 @@
+/* =====================================================
+   O MOCHILÃO — variaveis.css
+   TODAS as cores do site e do painel admin, num só lugar.
+   É carregado pelo estilo.css e pelo admin.css (@import).
+
+   Para mudar uma cor: altere-a só aqui.
+   ===================================================== */
+
+:root {
+  /* Paleta principal */
+  --clr-black: #0d0a06;
+  --clr-dark: #1a1208;
+  --clr-brown-deep: #4d351e;
+  --clr-brown-mid: #775f43;
+  --clr-brown-light: #a07d55;
+  --clr-tan: #c8aa80;
+  --clr-cream: #ffffff;
+  --clr-warm-white: #ffffff;
+  --clr-white: #ffffff;
+
+  /* Acento dourado */
+  --clr-gold: #c9962a;
+  --clr-gold-light: #e8c56e;
+
+  /* Texto */
+  --clr-text-dark: #1a1208;
+  --clr-text-mid: #4a3728;
+  --clr-text-muted: #7a6552;
+  --clr-text-main: #1a1208;
+
+  /* Painel admin */
+  --clr-bg: #f8f5f0;
+  --clr-surface: #ffffff;
+  --clr-line: var(--clr-brown-earth-12);
+  --clr-green: #2e7d5b;
+  --clr-blue: #3a5f8a;
+  --clr-red: #a5482a;
+
+  /* Carrinho */
+  --clr-badge: #d93025;
+
+  /* Cores próprias de programas.css */
+  --pg-border: var(--clr-brown-deep-12);
+  --pg-border-soft: var(--clr-brown-deep-08);
+  --pg-soft-bg: var(--clr-beige);
+  --pg-icon-bg: var(--clr-gold-10);
+
+  /* Cores próprias de checkout.css */
+  --co-border: var(--clr-brown-deep-12);
+  --co-border-soft: var(--clr-brown-deep-08);
+  --co-soft-bg: var(--clr-off-white);
+  --co-icon-bg: var(--clr-gold-10);
+  --co-error: var(--clr-red-error);
+
+  /* Cores próprias de login.css */
+  --auth-bg: var(--clr-espresso-52);
+  --auth-card: var(--clr-white-92);
+  --auth-border: var(--clr-brown-earth-10);
+
+  /* ═══════════ cores escritas à mão ═══════════
+     Cores que estavam escritas diretamente no CSS.
+     Nome = cor; o número no fim é a transparência
+     (ex.: --clr-white-08 = branco a 8%). */
+  --clr-almond: #f4ece1;
+
+  --clr-beige: #e4d7bd;
+
+  --clr-black-00: rgba(13, 10, 6, 0);
+  --clr-black-05: rgba(13, 10, 6, 0.05);
+  --clr-black-06: rgba(13, 10, 6, 0.06);
+  --clr-black-08: rgba(13, 10, 6, 0.08);
+  --clr-black-12: rgba(13, 10, 6, 0.12);
+  --clr-black-14: rgba(13, 10, 6, 0.14);
+  --clr-black-16: rgba(13, 10, 6, 0.16);
+  --clr-black-18: rgba(13, 10, 6, 0.18);
+  --clr-black-22: rgba(13, 10, 6, 0.22);
+  --clr-black-35: rgba(13, 10, 6, 0.35);
+  --clr-black-38: rgba(13, 10, 6, 0.38);
+  --clr-black-45: rgba(13, 10, 6, 0.45);
+  --clr-black-55: rgba(13, 10, 6, 0.55);
+  --clr-black-60: rgba(13, 10, 6, 0.6);
+  --clr-black-62: rgba(13, 10, 6, 0.62);
+  --clr-black-65: rgba(13, 10, 6, 0.65);
+  --clr-black-70: rgba(13, 10, 6, 0.7);
+  --clr-black-72: rgba(13, 10, 6, 0.72);
+  --clr-black-78: rgba(13, 10, 6, 0.78);
+  --clr-black-80: rgba(13, 10, 6, 0.8);
+  --clr-black-82: rgba(13, 10, 6, 0.82);
+  --clr-black-94: rgba(13, 10, 6, 0.94);
+
+  --clr-black-pure-00: rgba(0, 0, 0, 0);
+  --clr-black-pure-06: rgba(0, 0, 0, 0.06);
+  --clr-black-pure-08: rgba(0, 0, 0, 0.08);
+  --clr-black-pure-10: rgba(0, 0, 0, 0.1);
+  --clr-black-pure-12: rgba(0, 0, 0, 0.12);
+  --clr-black-pure-18: rgba(0, 0, 0, 0.18);
+  --clr-black-pure-20: rgba(0, 0, 0, 0.2);
+  --clr-black-pure-25: rgba(0, 0, 0, 0.25);
+  --clr-black-pure-278: rgba(0, 0, 0, 0.278);
+  --clr-black-pure-28: rgba(0, 0, 0, 0.28);
+  --clr-black-pure-30: rgba(0, 0, 0, 0.3);
+  --clr-black-pure-35: rgba(0, 0, 0, 0.35);
+  --clr-black-pure-40: rgba(0, 0, 0, 0.4);
+  --clr-black-pure-45: rgba(0, 0, 0, 0.45);
+  --clr-black-pure-55: rgba(0, 0, 0, 0.55);
+
+  --clr-blue-08: rgba(58, 95, 138, 0.08);
+  --clr-blue-10: rgba(58, 95, 138, 0.1);
+  --clr-blue-12: rgba(58, 95, 138, 0.12);
+
+  --clr-bronze-53: #654c1f53;
+
+  --clr-brown-deep-025: rgba(77, 53, 30, 0.025);
+  --clr-brown-deep-05: rgba(77, 53, 30, 0.05);
+  --clr-brown-deep-07: rgba(77, 53, 30, 0.07);
+  --clr-brown-deep-08: rgba(77, 53, 30, 0.08);
+  --clr-brown-deep-10: rgba(77, 53, 30, 0.1);
+  --clr-brown-deep-12: rgba(77, 53, 30, 0.12);
+  --clr-brown-deep-14: rgba(77, 53, 30, 0.14);
+  --clr-brown-deep-18: rgba(77, 53, 30, 0.18);
+  --clr-brown-deep-20: rgba(77, 53, 30, 0.2);
+  --clr-brown-deep-22: rgba(77, 53, 30, 0.22);
+  --clr-brown-deep-25: rgba(77, 53, 30, 0.25);
+  --clr-brown-deep-30: rgba(77, 53, 30, 0.3);
+  --clr-brown-deep-35: rgba(77, 53, 30, 0.35);
+  --clr-brown-deep-40: rgba(77, 53, 30, 0.4);
+
+  --clr-brown-earth-03: rgba(90, 67, 45, 0.03);
+  --clr-brown-earth-05: rgba(90, 67, 45, 0.05);
+  --clr-brown-earth-06: rgba(90, 67, 45, 0.06);
+  --clr-brown-earth-07: rgba(90, 67, 45, 0.07);
+  --clr-brown-earth-08: rgba(90, 67, 45, 0.08);
+  --clr-brown-earth-10: rgba(90, 67, 45, 0.1);
+  --clr-brown-earth-12: rgba(90, 67, 45, 0.12);
+  --clr-brown-earth-15: rgba(90, 67, 45, 0.15);
+  --clr-brown-earth-18: rgba(90, 67, 45, 0.18);
+  --clr-brown-earth-20: rgba(90, 67, 45, 0.2);
+  --clr-brown-earth-30: rgba(90, 67, 45, 0.3);
+  --clr-brown-earth-40: rgba(90, 67, 45, 0.4);
+
+  --clr-brown-mid-06: rgba(119, 95, 67, 0.06);
+  --clr-brown-mid-10: rgba(119, 95, 67, 0.1);
+  --clr-brown-mid-12: rgba(119, 95, 67, 0.12);
+
+  --clr-brown-mid-b-12: rgba(120, 95, 67, 0.12);
+
+  --clr-cinnamon-40: rgba(72, 44, 22, 0.4);
+
+  --clr-coffee-68: rgba(30, 20, 12, 0.68);
+
+  --clr-coffee-dark-08: rgba(22, 14, 8, 0.08);
+
+  --clr-coral: #ff8a80;
+
+  --clr-dark-30: rgba(26, 18, 8, 0.3);
+  --clr-dark-35: rgba(26, 18, 8, 0.35);
+  --clr-dark-60: rgba(26, 18, 8, 0.6);
+  --clr-dark-94: rgba(26, 18, 8, 0.94);
+
+  --clr-espresso-52: rgba(16, 10, 7, 0.52);
+  --clr-espresso-70: rgba(16, 10, 7, 0.7);
+
+  --clr-espresso-b-70: rgba(17, 10, 7, 0.7);
+
+  --clr-facebook: #1877f2;
+
+  --clr-floral-white: #fffaf0;
+
+  --clr-gold-05: rgba(201, 150, 42, 0.05);
+  --clr-gold-08: rgba(201, 150, 42, 0.08);
+  --clr-gold-10: rgba(201, 150, 42, 0.1);
+  --clr-gold-12: rgba(201, 150, 42, 0.12);
+  --clr-gold-15: rgba(201, 150, 42, 0.15);
+  --clr-gold-16: rgba(201, 150, 42, 0.16);
+  --clr-gold-80: rgba(201, 150, 42, 0.8);
+
+  --clr-gold-b-044: rgba(201, 151, 42, 0.044);
+
+  --clr-gold-dark: #8c6717;
+
+  --clr-gold-deep: #94680e;
+
+  --clr-gold-light-18: rgba(232, 197, 110, 0.18);
+  --clr-gold-light-30: rgba(232, 197, 110, 0.3);
+  --clr-gold-light-45: rgba(232, 197, 110, 0.45);
+  --clr-gold-light-55: rgba(232, 197, 110, 0.55);
+  --clr-gold-light-60: rgba(232, 197, 110, 0.6);
+
+  --clr-green-10: rgba(46, 125, 91, 0.1);
+  --clr-green-12: rgba(46, 125, 91, 0.12);
+  --clr-green-35: rgba(46, 125, 91, 0.35);
+
+  --clr-green-dark: #1d8a48;
+
+  --clr-green-light-40: rgba(52, 184, 106, 0.4);
+  --clr-green-light: #34b86a;
+
+  --clr-instagram-1: #f09433;
+
+  --clr-instagram-2: #e6683c;
+
+  --clr-instagram-3: #dc2743;
+
+  --clr-instagram-4: #cc2366;
+
+  --clr-instagram-5: #bc1888;
+
+  --clr-ivory: #faf6f0;
+
+  --clr-linen: #f3ece2;
+
+  --clr-linen-light: #f3efe8;
+
+  --clr-linen-soft: #f5efe6;
+
+  --clr-maroon: #5a2414;
+
+  --clr-mint: #6fd3a3;
+
+  --clr-off-white: #faf8f4;
+
+  --clr-off-white-b-95: rgba(250, 247, 241, 0.95);
+
+  --clr-off-white-c: #faf7f2;
+
+  --clr-orange-burnt: #b85a1a;
+
+  --clr-parchment: #f1ece4;
+
+  --clr-red-08: rgba(165, 72, 42, 0.08);
+  --clr-red-10: rgba(165, 72, 42, 0.1);
+  --clr-red-12: rgba(165, 72, 42, 0.12);
+  --clr-red-15: rgba(165, 72, 42, 0.15);
+
+  --clr-red-alert: #b3261e;
+
+  --clr-red-blush: #fdecea;
+
+  --clr-red-blush-b: #fde7e5;
+
+  --clr-red-error-08: rgba(217, 48, 37, 0.08);
+  --clr-red-error-10: rgba(217, 48, 37, 0.1);
+  --clr-red-error-40: rgba(217, 48, 37, 0.4);
+  --clr-red-error: #d93025;
+
+  --clr-red-soft-10: rgba(224, 80, 80, 0.1);
+  --clr-red-soft: #e05050;
+
+  --clr-rust-1e: #5d2d171e;
+
+  --clr-salmon: #ffb199;
+
+  --clr-sand: #e0d3c1;
+
+  --clr-sand-light: #eee4d6;
+
+  --clr-sand-line: #e7ddd0;
+
+  --clr-sand-soft: #efe8dd;
+
+  --clr-stone: #b5a690;
+
+  --clr-taupe-08: rgba(122, 101, 82, 0.08);
+
+  --clr-tiktok: #010101;
+
+  --clr-umber-00: #34190c00;
+  --clr-umber-85: #34190c85;
+
+  --clr-whatsapp: #25d366;
+
+  --clr-whatsapp-hover: #1ebe5b;
+
+  --clr-whatsapp-hover-b: #1ebe5a;
+
+  --clr-white-00: rgba(255, 255, 255, 0);
+  --clr-white-04: rgba(255, 255, 255, 0.04);
+  --clr-white-05: rgba(255, 255, 255, 0.05);
+  --clr-white-06: rgba(255, 255, 255, 0.06);
+  --clr-white-07: rgba(255, 255, 255, 0.07);
+  --clr-white-08: rgba(255, 255, 255, 0.08);
+  --clr-white-09: rgba(255, 255, 255, 0.09);
+  --clr-white-10: rgba(255, 255, 255, 0.1);
+  --clr-white-12: rgba(255, 255, 255, 0.12);
+  --clr-white-14: rgba(255, 255, 255, 0.14);
+  --clr-white-15: rgba(255, 255, 255, 0.15);
+  --clr-white-18: rgba(255, 255, 255, 0.18);
+  --clr-white-20: rgba(255, 255, 255, 0.2);
+  --clr-white-22: rgba(255, 255, 255, 0.22);
+  --clr-white-25: rgba(255, 255, 255, 0.25);
+  --clr-white-30: rgba(255, 255, 255, 0.3);
+  --clr-white-35: rgba(255, 255, 255, 0.35);
+  --clr-white-5e: #ffffff5e;
+  --clr-white-40: rgba(255, 255, 255, 0.4);
+  --clr-white-50: rgba(255, 255, 255, 0.5);
+  --clr-white-55: rgba(255, 255, 255, 0.55);
+  --clr-white-60: rgba(255, 255, 255, 0.6);
+  --clr-white-70: rgba(255, 255, 255, 0.7);
+  --clr-white-72: rgba(255, 255, 255, 0.72);
+  --clr-white-75: rgba(255, 255, 255, 0.75);
+  --clr-white-78: rgba(255, 255, 255, 0.78);
+  --clr-white-80: rgba(255, 255, 255, 0.8);
+  --clr-white-82: rgba(255, 255, 255, 0.82);
+  --clr-white-85: rgba(255, 255, 255, 0.85);
+  --clr-white-86: rgba(255, 255, 255, 0.86);
+  --clr-white-90: rgba(255, 255, 255, 0.9);
+  --clr-white-92: rgba(255, 255, 255, 0.92);
+  --clr-white-94: rgba(255, 255, 255, 0.94);
+  --clr-white-ff: #ffffffff;
+}

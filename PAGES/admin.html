@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../STYLES/estilo.css" />
     <link rel="stylesheet" href="../STYLES/admin.css" />
     <link rel="stylesheet" href="../STYLES/admin-controlo.css" />
+    <link rel="stylesheet" href="../STYLES/admin-parceiros.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -63,6 +64,9 @@
           </a>
           <a class="admin-nav__link" href="#servicos" data-view="servicos">
             <i class="fa-solid fa-bell-concierge"></i> Serviços
+          </a>
+          <a class="admin-nav__link" href="#parceiros" data-view="parceiros">
+            <i class="fa-solid fa-handshake"></i> Parceiros
           </a>
           <a class="admin-nav__link" href="#equipa" data-view="equipa">
             <i class="fa-solid fa-people-group"></i> Equipa do Site
@@ -739,6 +743,93 @@
 
                 <div class="form-drawer__actions">
                   <button type="submit" id="saveServiceBtn" class="btn btn--primary">
+                    Salvar <i class="fa-solid fa-check"></i>
+                  </button>
+                  <button type="button" class="btn btn--outline drawer-cancel-action">Cancelar</button>
+                </div>
+              </form>
+            </div>
+          </section>
+
+          <!-- VIEW: PARCEIROS (montra de cada serviço) -->
+          <section id="parceiros" class="admin-view" data-view="parceiros">
+            <div class="panel">
+              <div class="panel__header">
+                <div>
+                  <h2 class="panel__title">Parceiros</h2>
+                  <p class="team-admin__hint">
+                    Aparecem na página de cada serviço, com fotos, nome e informações básicas (sem contactos nem reservas).
+                  </p>
+                </div>
+                <button type="button" id="addPartnerBtn" class="btn btn--primary btn--sm">
+                  Adicionar Parceiro
+                </button>
+              </div>
+
+              <div class="panel__body panel__body-padded">
+                <div class="pt-filter" id="partnerFilter" role="toolbar" aria-label="Filtrar por serviço"></div>
+                <div id="partnerAdminGrid" aria-live="polite">
+                  <p class="team-admin__loading">A carregar os parceiros...</p>
+                </div>
+              </div>
+
+              <!-- ═══════════ FORMULÁRIO DESLIZANTE ═══════════ -->
+              <form id="partnerForm" class="form-drawer form-stack pt-form" novalidate>
+                <div class="form-drawer__header">
+                  <div>
+                    <span class="form-drawer__eyebrow">Página do serviço</span>
+                    <h3 id="partnerFormTitle">Novo Parceiro</h3>
+                  </div>
+                  <button type="button" class="drawer-close drawer-cancel-action" aria-label="Fechar">
+                    <i class="fa-solid fa-xmark"></i>
+                  </button>
+                </div>
+
+                <input type="hidden" id="partnerId" />
+
+                <div class="field">
+                  <label for="partnerService">Serviço</label>
+                  <select id="partnerService" required></select>
+                </div>
+
+                <div class="field">
+                  <label for="partnerName">Nome do parceiro</label>
+                  <input id="partnerName" type="text" maxlength="60" placeholder="Ex: Hotel Baía Azul" required />
+                </div>
+
+                <div class="field">
+                  <label for="partnerLoc">Localização <small>(opcional)</small></label>
+                  <input id="partnerLoc" type="text" maxlength="60" placeholder="Ex: Ilha de Luanda" />
+                </div>
+
+                <div class="field">
+                  <label for="partnerDesc">Descrição <small id="partnerDescCount">0/600</small></label>
+                  <textarea id="partnerDesc" rows="5" placeholder="O que torna este parceiro especial. Enter = nova linha."></textarea>
+                </div>
+
+                <div class="field">
+                  <label for="partnerTagInput">Destaques <small>(até 8)</small></label>
+                  <div class="pt-tags">
+                    <div class="pt-tags__list" id="partnerTags"></div>
+                    <input id="partnerTagInput" type="text" maxlength="40" />
+                  </div>
+                  <div class="pt-suggest" id="partnerSuggest"></div>
+                </div>
+
+                <div class="field">
+                  <label>Fotos</label>
+                  <div class="pt-photos" id="partnerPhotos"></div>
+                  <input id="partnerPhotoInput" type="file" accept="image/*" multiple class="visually-hidden" />
+                  <small id="partnerPhotoHint"></small>
+                </div>
+
+                <label class="team-form__switch">
+                  <input id="partnerActive" type="checkbox" checked />
+                  <span>Mostrar no site</span>
+                </label>
+
+                <div class="form-drawer__actions">
+                  <button type="submit" id="savePartnerBtn" class="btn btn--primary">
                     Salvar <i class="fa-solid fa-check"></i>
                   </button>
                   <button type="button" class="btn btn--outline drawer-cancel-action">Cancelar</button>
