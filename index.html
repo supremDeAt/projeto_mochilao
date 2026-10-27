@@ -882,58 +882,112 @@
       </div>
     </section>
 
-    <!-- ======= RESERVA CTA ======= -->
-    <section class="reserve" id="reserve">
-      <!-- Esquerda: texto + contactos -->
-      <div class="reserve__content reveal-left">
-        <span class="section-tag" data-i18n="reserve.tag"
-          >Faça já a sua reserva</span
-        >
-
-        <h2 class="section-title" data-i18n="reserve.title">
-          Reserve agora e crie memórias únicas!
-        </h2>
-
-        <div class="reserve__divider"></div>
-
-        <p class="reserve__desc" data-i18n="reserve.desc">
-          Embarque connosco em busca de experiências autênticas que nos conectam
-          profundamente à cultura e às paisagens únicas desta região fascinante.
+    <!-- ======= VIAGENS PERSONALIZADAS =======
+         Texto + botão de WhatsApp. Antes de abrir o WhatsApp, uma janela
+         curta regista o pedido no painel admin (custom-trip.js). -->
+    <section class="custom" id="custom">
+      <div class="custom__content reveal-left">
+        <span class="section-tag">Viagens Personalizadas</span>
+        <h2 class="section-title">A viagem é sua,<br />o roteiro também</h2>
+        <p class="custom__text">
+          Quer viajar só com a família, com os amigos ou com a sua empresa, nas datas
+          que lhe dão jeito? Desenhamos o programa à sua medida: destino, alojamento,
+          transporte, guias e experiências, tudo pensado para si.
         </p>
 
-        <!-- Contactos: telefone + email -->
-        <div class="reserve__contacts">
-          <div class="reserve__contact-item">
-            <span class="reserve__contact-label" data-i18n="reserve.phoneLabel"
-              >Telefone</span
-            >
-            <a href="tel:+244926509821" class="reserve__contact-value"
-              >+244 926 509 821</a
-            >
-          </div>
-          <div class="reserve__contact-item">
-            <span class="reserve__contact-label" data-i18n="reserve.emailLabel"
-              >E-mail</span
-            >
-            <a href="mailto:geral@omochilao.ao" class="reserve__contact-value"
-              >geral@omochilao.ao</a
-            >
-          </div>
-        </div>
+        <ol class="custom__steps">
+          <li class="custom__step">
+            <span class="custom__step-num">1</span>
+            <div>
+              <strong>Conte-nos a ideia</strong>
+              <p>Destino, datas, número de pessoas e o que gostam de fazer.</p>
+            </div>
+          </li>
+          <li class="custom__step">
+            <span class="custom__step-num">2</span>
+            <div>
+              <strong>Recebe a proposta</strong>
+              <p>Preparamos um roteiro com alojamento, transporte e preço.</p>
+            </div>
+          </li>
+          <li class="custom__step">
+            <span class="custom__step-num">3</span>
+            <div>
+              <strong>Ajustamos juntos</strong>
+              <p>Mudamos o que for preciso até ficar perfeito.</p>
+            </div>
+          </li>
+          <li class="custom__step">
+            <span class="custom__step-num">4</span>
+            <div>
+              <strong>É só partir</strong>
+              <p>Tratamos de tudo do início ao fim da viagem.</p>
+            </div>
+          </li>
+        </ol>
       </div>
 
-      <!-- Direita: imagem da secção de reserva -->
-      <div
-        class="reserve__image-wrap reveal-right"
-        aria-label="Imagem de reserva"
-      >
-        <img
-          src="imagens/assis.webp"
-          alt="Reserva O Mochilão"
-          class="reserve__image"
-        />
-      </div>
+      <aside class="custom__card reveal-right">
+        <span class="custom__card-icon" aria-hidden="true"><i class="fa-solid fa-map-location-dot"></i></span>
+        <h3 class="custom__card-title">Planeie connosco</h3>
+        <p class="custom__card-text">
+          Fale com a nossa equipa no WhatsApp e receba uma proposta sem compromisso.
+        </p>
+        <ul class="custom__card-list">
+          <li><i class="fa-solid fa-check"></i> Para grupos, famílias, casais e empresas</li>
+          <li><i class="fa-solid fa-check"></i> Em todo o território nacional e na Namíbia</li>
+          <li><i class="fa-solid fa-check"></i> Resposta rápida da equipa</li>
+        </ul>
+        <button type="button" class="btn custom__wpp" data-custom-open>
+          <i class="fa-brands fa-whatsapp"></i> Planear no WhatsApp
+        </button>
+      </aside>
     </section>
+
+    <!-- Janela curta antes do WhatsApp (pedido fica registado no painel) -->
+    <div class="custom-modal" id="customModal" role="dialog" aria-modal="true" aria-labelledby="customModalTitle" hidden>
+      <form class="custom-modal__box" id="customForm" novalidate>
+        <button type="button" class="custom-modal__close" data-custom-close aria-label="Fechar">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <span class="custom-modal__tag">Viagem personalizada</span>
+        <h3 class="custom-modal__title" id="customModalTitle">Só mais um passo</h3>
+        <p class="custom-modal__text">Deixe-nos estes dados para a equipa preparar a proposta. A seguir abrimos o WhatsApp com a mensagem já escrita.</p>
+
+        <div class="custom-modal__row">
+          <label class="custom-modal__field">
+            <span>Nome *</span>
+            <input type="text" name="nome" maxlength="80" autocomplete="name" required />
+          </label>
+          <label class="custom-modal__field">
+            <span>Telefone / WhatsApp *</span>
+            <input type="tel" name="telefone" maxlength="20" autocomplete="tel" inputmode="tel" placeholder="9XX XXX XXX" required />
+          </label>
+        </div>
+        <label class="custom-modal__field">
+          <span>Para onde gostaria de ir?</span>
+          <input type="text" name="destino" maxlength="120" placeholder="Ex: Malanje e Kalandula, ou ainda não sei" />
+        </label>
+        <div class="custom-modal__row">
+          <label class="custom-modal__field">
+            <span>Quantas pessoas?</span>
+            <input type="number" name="pessoas" min="1" max="500" inputmode="numeric" placeholder="Ex: 4" />
+          </label>
+          <label class="custom-modal__field">
+            <span>Quando?</span>
+            <input type="text" name="quando" maxlength="60" placeholder="Ex: Dezembro, 5 dias" />
+          </label>
+        </div>
+        <p class="custom-modal__error" id="customError" role="alert" hidden></p>
+
+        <button type="submit" class="btn custom__wpp custom-modal__submit">
+          <i class="fa-brands fa-whatsapp"></i> Continuar no WhatsApp
+        </button>
+        <a href="#" class="custom-modal__skip" data-custom-skip>Prefiro ir direto ao WhatsApp</a>
+      </form>
+    </div>
+
+   
 
     <!-- ======= GALERIA ======= -->
     <section class="gallery" id="gallery">
@@ -1297,7 +1351,7 @@
         <div class="footer__col">
           <h4 class="footer__col-title">Informações</h4>
           <a href="#tips">Dicas de Viagem</a>
-          <a href="#places">Lugares e Culturas</a>
+          <a href="#packages">Viagens em Grupo</a>
           <a href="PAGES/faq.html">Perguntas Frequentes</a>
           <a href="#contact">Fale Connosco</a>
         </div>
@@ -1319,6 +1373,7 @@
     <script type="module" src="SCRIPT/site-appearance.js"></script>
     <script type="module" src="SCRIPT/home-gallery.js"></script>
     <script type="module" src="SCRIPT/about-section.js"></script>
+    <script type="module" src="SCRIPT/custom-trip.js"></script>
     <script type="module" src="SCRIPT/forms.js"></script>
     <script type="module" src="SCRIPT/script.js"></script>
   </body>

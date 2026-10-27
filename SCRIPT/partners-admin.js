@@ -8,7 +8,7 @@
    ===================================================== */
 
 import { collection, onSnapshot } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
-import { compressToDataURL } from "./image-store.js";
+import { compressToDataURL, isCloudinaryUrl, cldResize } from "./image-store.js";
 import { SERVICES_COLLECTION } from "./services-store.js";
 import { serviceIconSVG } from "./services-icons.js";
 import {
@@ -450,6 +450,8 @@ export function initPartnersAdmin({ db, canEdit = false }) {
   });
 
   async function makeThumb(photo) {
+    // Foto no Cloudinary → a capa é só outro tamanho do mesmo link
+    if (isCloudinaryUrl(photo.data)) return cldResize(photo.data, COVER_SIZE.maxPx * 2);
     const file = photo.file || (await dataURLtoFile(photo.data));
     return compressToDataURL(file, COVER_SIZE);
   }

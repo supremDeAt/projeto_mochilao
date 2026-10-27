@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../STYLES/admin.css" />
     <link rel="stylesheet" href="../STYLES/admin-controlo.css" />
     <link rel="stylesheet" href="../STYLES/admin-parceiros.css" />
+    <link rel="stylesheet" href="../STYLES/admin-personalizadas.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -61,6 +62,9 @@
           </a>
           <a class="admin-nav__link" href="#reservas" data-view="reservas">
             <i class="fa-solid fa-calendar-check"></i> Reservas
+          </a>
+          <a class="admin-nav__link" href="#personalizadas" data-view="personalizadas">
+            <i class="fa-solid fa-route"></i> Personalizadas
           </a>
           <a class="admin-nav__link" href="#servicos" data-view="servicos">
             <i class="fa-solid fa-bell-concierge"></i> Serviços
@@ -661,6 +665,28 @@
                   </table>
                 </div>
               </div>
+            </div>
+          </section>
+
+          <!-- VIEW: VIAGENS PERSONALIZADAS (pedidos da secção #custom do index) -->
+          <section id="personalizadas" class="admin-view" data-view="personalizadas">
+            <div class="panel">
+              <div class="panel__header">
+                <div>
+                  <h2 class="panel__title">Viagens Personalizadas</h2>
+                  <p class="team-admin__hint">Pedidos feitos no botão "Planear no WhatsApp" do site. A conversa continua no WhatsApp; aqui fica o registo.</p>
+                </div>
+                <label class="search-box">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                  <input type="search" id="customSearch" placeholder="Pesquisar nome, telefone, destino..." aria-label="Pesquisar pedidos" />
+                </label>
+              </div>
+              <div class="toolbar">
+                <div class="filter-chips" id="customTabs" role="tablist"></div>
+              </div>
+              <ul class="inbox" id="customTripsList">
+                <li class="inbox__empty">A carregar pedidos...</li>
+              </ul>
             </div>
           </section>
 

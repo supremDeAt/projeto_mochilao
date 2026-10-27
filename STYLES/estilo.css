@@ -1121,180 +1121,10 @@ p {
    descrição + contactos à direita.
    ───────────────────────────────────────── */
 
-.reserve {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  gap: 5rem;
-  padding-top: 5rem;
-  padding-bottom: 7rem;
-  padding-left: max(
-    var(--pad-lateral),
-    calc((100vw - var(--content-max-width)) / 2)
-  );
-  padding-right: max(
-    var(--pad-lateral),
-    calc((100vw - var(--content-max-width)) / 2)
-  );
- 
-}
 
-/* ── Foto (esquerda) ── */
-.reserve__img-wrap {
-  border-radius: 16px;
-  overflow: hidden;
-  aspect-ratio: 4/3;
-  background: var(--clr-brown-mid);
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  /* Sombra suave para dar profundidade como na referência */
-  box-shadow: 0 12px 40px var(--clr-brown-deep-18);
-}
 
-/* Imagem real quando adicionada */
-.reserve__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.55s ease;
-}
-.reserve__img-wrap:hover .reserve__img {
-  transform: scale(1.04);
-}
 
-/* Placeholder */
-.reserve__img-ph {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--clr-white-22);
-  font-size: 3rem;
-}
 
-/* ── Conteúdo (direita) ── */
-.reserve__content {
-  display: flex;
-  flex-direction: column;
-  gap: 1.4rem;
-}
-
-/* Eyebrow — laranja/castanho claro uppercase, como na referência */
-.reserve__eyebrow {
-  font-family: var(--font-ui);
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--clr-orange-burnt); /* tom laranja da referência */
-  display: block;
-}
-
-/* Título grande — mesma tipografia da referência */
-.reserve__title {
-  font-family: var(--font-display);
-  font-weight: normal;
-  font-size: clamp(2rem, 3.8vw, 3.2rem);
-  color: var(--clr-text-dark);
-  line-height: 1.1;
-  letter-spacing: 0.01em;
-  margin: 0;
-}
-
-/* Divisor fino — idêntico ao da referência */
-.reserve__divider {
-  width: 100%;
-  height: 1px;
-  background: var(--clr-brown-deep-18);
-}
-
-/* Descrição */
-.reserve__desc {
-  font-family: var(--font-body);
-  font-size: 0.94rem;
-  color: var(--clr-text-muted);
-  line-height: 1.8;
-  max-width: 52ch;
-  margin: 0;
-}
-
-/* Contactos: 2 colunas lado a lado */
-.reserve__contacts {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  margin-top: 0.5rem;
-}
-
-.reserve__contact-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
-
-.reserve__contact-label {
-  font-family: var(--font-ui);
-  font-size: 0.8rem;
-  color: var(--clr-text-muted);
-  font-weight: 400;
-}
-
-/* Link clicável com underline — fiel à referência */
-.reserve__contact-value {
-  font-family: var(--font-body);
-  font-size: 0.96rem;
-  font-weight: 500;
-  color: var(--clr-text-dark);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-color: var(--clr-brown-deep-40);
-  transition:
-    color var(--ease-std),
-    text-decoration-color var(--ease-std);
-  width: fit-content;
-}
-.reserve__contact-value:hover {
-  color: var(--clr-brown-deep);
-  text-decoration-color: var(--clr-brown-deep);
-}
-
-/* ── Responsive ── */
-@media (max-width: 1024px) {
-  .reserve {
-    padding-top: 4rem;
-    padding-bottom: 5rem;
-    gap: 3.5rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .reserve {
-    grid-template-columns: 1fr;
-    padding-top: 3.5rem;
-    padding-bottom: 4rem;
-    gap: 2.5rem;
-  }
-  .reserve__img-wrap {
-    aspect-ratio: 16/10;
-  }
-  .reserve__title {
-    font-size: clamp(1.9rem, 7vw, 2.6rem);
-  }
-}
-
-@media (max-width: 480px) {
-  .reserve {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-  }
-  .reserve__contacts {
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
-  }
-}
 
 /* ─────────────────────────────────────────
   12. SECÇÃO SOBRE
@@ -4595,5 +4425,283 @@ body.cart-is-open {
     width: 100%;
     justify-content: center;
     white-space: normal;
+  }
+}
+
+/* ─────────────────────────────────────────
+  26. VIAGENS PERSONALIZADAS (#custom)
+   Texto + passos à esquerda, card escuro com
+   botão de WhatsApp à direita (custom-trip.js).
+   ───────────────────────────────────────── */
+.custom {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  gap: 4.5rem;
+  align-items: center;
+  padding-top: 6rem;
+  padding-bottom: 7rem;
+  padding-left: max(var(--pad-lateral), calc((100vw - var(--content-max-width)) / 2));
+  padding-right: max(var(--pad-lateral), calc((100vw - var(--content-max-width)) / 2));
+  background: var(--clr-warm-white);
+}
+
+.custom__content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.custom__content .section-title {
+  margin-bottom: 0;
+}
+.custom__text {
+  max-width: 56ch;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--clr-text-mid);
+}
+
+.custom__steps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem 2rem;
+  margin-top: 1rem;
+}
+.custom__step {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+.custom__step-num {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+ 
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--clr-brown-deep);
+}
+.custom__step strong {
+  display: block;
+  margin-bottom: 0.2rem;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--clr-brown-deep);
+}
+.custom__step p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--clr-text-muted);
+}
+
+/* Card escuro (mesmo tom do card de reserva do programa) */
+.custom__card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  padding: 2.5rem 2.25rem;
+  border-radius: var(--radius-lg);
+  background: var(--clr-dark);
+  color: var(--clr-white);
+  box-shadow: var(--shadow-lg);
+}
+.custom__card-icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--clr-white-08);
+  color: var(--clr-tan);
+  font-size: 1.35rem;
+}
+.custom__card-title {
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: 2.8rem;
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+}
+.custom__card-text {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--clr-white-75);
+}
+.custom__card-list {
+  display: grid;
+  gap: 0.55rem;
+  padding: 1rem 0 0.25rem;
+  border-top: 1px solid var(--clr-white-10);
+}
+.custom__card-list li {
+  display: flex;
+  gap: 0.6rem;
+  font-size: 0.88rem;
+  color: var(--clr-white-85);
+}
+.custom__card-list i {
+  margin-top: 0.3rem;
+  font-size: 0.75rem;
+  color: var(--clr-tan);
+}
+
+.custom__wpp {
+  justify-content: center;
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 1rem 1.5rem;
+  background: var(--clr-brown-light);
+  color: var(--clr-white);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+.custom__wpp:hover {
+  transform: translateY(-2px);
+}
+.custom__wpp:disabled {
+  opacity: 0.7;
+  cursor: wait;
+  transform: none;
+}
+
+/* ── Janela antes do WhatsApp ── */
+body.custom-modal-open {
+  overflow: hidden;
+}
+.custom-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+  background: var(--clr-black-72);
+  backdrop-filter: blur(6px);
+  overflow-y: auto;
+}
+.custom-modal__box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: min(520px, 100%);
+  padding: 2.25rem 2rem 1.75rem;
+  border-radius: var(--radius-lg);
+  background: var(--clr-white);
+  box-shadow: var(--shadow-lg);
+  animation: fadeIn 0.25s ease-out both;
+}
+.custom-modal__close {
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--clr-brown-deep-07);
+  color: var(--clr-brown-deep);
+}
+.custom-modal__close:hover {
+  background: var(--clr-brown-deep);
+  color: var(--clr-white);
+}
+.custom-modal__tag {
+  font: 700 0.7rem var(--font-ui);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--clr-brown-mid);
+}
+.custom-modal__title {
+  margin-top: -0.4rem;
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: 2.4rem;
+  line-height: 0.95;
+  color: var(--clr-brown-deep);
+}
+.custom-modal__text {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--clr-text-muted);
+}
+.custom-modal__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.9rem;
+}
+.custom-modal__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.custom-modal__field span {
+  font: 700 0.72rem var(--font-ui);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--clr-text-mid);
+}
+.custom-modal__field input {
+  width: 100%;
+  height: 48px;
+  padding: 0 0.95rem;
+  border: 1.5px solid var(--clr-brown-deep-12);
+  border-radius: var(--radius-sm);
+  background: var(--clr-white);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--clr-text-dark);
+  outline: none;
+  transition: border-color var(--ease-std), box-shadow var(--ease-std);
+}
+.custom-modal__field input:focus {
+  border-color: var(--clr-brown-mid);
+  box-shadow: 0 0 0 3px var(--clr-brown-mid-12);
+}
+.custom-modal__field input.is-invalid {
+  border-color: var(--clr-red-error);
+}
+.custom-modal__error {
+  font-size: 0.82rem;
+  color: var(--clr-red-error);
+}
+.custom-modal__submit {
+  margin-top: 0.25rem;
+}
+.custom-modal__skip {
+  align-self: center;
+  font-size: 0.82rem;
+  color: var(--clr-text-muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.custom-modal__skip:hover {
+  color: var(--clr-brown-deep);
+}
+
+@media (max-width: 1024px) {
+  .custom {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    padding-top: 4.5rem;
+    padding-bottom: 5rem;
+  }
+}
+@media (max-width: 640px) {
+  .custom__steps {
+    grid-template-columns: 1fr;
+  }
+  .custom__card {
+    padding: 2rem 1.5rem;
+  }
+  .custom-modal__row {
+    grid-template-columns: 1fr;
+  }
+  .custom-modal__box {
+    padding: 2rem 1.25rem 1.5rem;
   }
 }

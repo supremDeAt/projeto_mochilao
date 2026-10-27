@@ -19,6 +19,7 @@ import { initServicesAdmin } from "./services-admin.js";
 import { initPartnersAdmin } from "./partners-admin.js";
 import { createReservationsView } from "./admin-reservas.js";
 import { createMessagesView } from "./admin-mensagens.js";
+import { initCustomTripsAdmin } from "./admin-personalizadas.js";
 import { createDashboard } from "./admin-dashboard.js";
 import { initContentAdmin } from "./admin-conteudo.js";
 import { toast } from "./admin-utils.js";
@@ -187,6 +188,19 @@ document.addEventListener("DOMContentLoaded", function () {
     openModal,
     closeModal,
   });
+  let customTripsStarted = false;
+  function startCustomTrips() {
+    if (customTripsStarted) return;
+    customTripsStarted = true;
+    initCustomTripsAdmin({
+      db,
+      getPerms,
+      getRole: () => currentUserRole,
+      getUser: () => currentUser,
+      openModal,
+      closeModal,
+    });
+  }
   const dashboard = createDashboard({
     getUserName: () => currentUserName,
     onOpenReservation: (id) => reservationsView.openDetail(id),
@@ -403,6 +417,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     subscribeAll();
+    startCustomTrips();
     setupForms();
 
     // Equipa do Site — quem edita conteúdos pode gerir os cards
