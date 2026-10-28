@@ -33,9 +33,7 @@
   align-items: center;
   justify-content: center;
   padding: 9rem var(--pg-gutter) 5.5rem;
-  background-image:
-    linear-gradient(to bottom, var(--clr-rust-1e) 0%, var(--clr-rust-1e) 100%),
-    url("../imagens/assis.webp");
+ 
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -988,4 +986,39 @@
   .pkg-gallery__col {
     gap: 0.6rem;
   }
+}
+/* ══════════════════════════════════════════
+   GALERIA — abrir foto em grande (lightbox.js)
+   O visualizador em si está em estilo.css → 13b.
+   ══════════════════════════════════════════ */
+.pkg-gallery__item--photo {
+  position: relative;
+  cursor: zoom-in;
+}
+.pkg-gallery__item--photo::after {
+  content: "\f065"; /* ícone "expandir" do Font Awesome */
+  font-family: "Font Awesome 6 Free", "Font Awesome 7 Free";
+  font-weight: 900;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--clr-black-45);
+  color: var(--clr-white);
+  font-size: 1.4rem;
+  opacity: 0;
+  transition: opacity 0.18s ease-out;
+  pointer-events: none;
+}
+.pkg-gallery__item--photo:hover::after,
+.pkg-gallery__item--photo:focus-visible::after {
+  opacity: 1;
+}
+.pkg-gallery__item--photo:focus-visible {
+  outline: 3px solid var(--clr-brown-light);
+  outline-offset: 3px;
+}
+@media (hover: none) {
+  .pkg-gallery__item--photo::after { display: none; }
 }

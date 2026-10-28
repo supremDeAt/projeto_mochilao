@@ -2,6 +2,8 @@
    O MOCHILÃO — admin-galeria.js  (ES module)
    Admin → Site Web → Galeria
    As 5 fotos da secção "Galeria de Aventuras" do index.
+   Aceita fotos em qualquer formato: no site aparecem inteiras,
+   em mosaico, e abrem em grande ao clicar.
    ===================================================== */
 
 import {
@@ -12,7 +14,7 @@ import {
   serverTimestamp,
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 import { compressToDataURL } from "./image-store.js";
-import { GALLERY_SLOTS, DEFAULT_LINK, slotDocId } from "./home-gallery.js";
+import { GALLERY_SLOTS, slotDocId } from "./home-gallery.js";
 import { esc, toast } from "./admin-utils.js";
 
 // Tamanho máximo: o documento do Firestore aceita até 1 MB
@@ -24,10 +26,19 @@ export function initGalleryAdmin({ db, canEdit = false }) {
 
   const state = {}; // key → dados do Firestore
 
+  // Texto de ajuda por cima das fotos
+  const help = grid.parentElement?.querySelector(".content-help");
+  if (help) {
+    help.innerHTML =
+      'As 5 fotos da secção <strong>"Galeria de Aventuras"</strong> da página inicial, pela ordem em que aparecem. ' +
+      "Pode usar fotos <strong>verticais, horizontais ou quadradas</strong>: no site aparecem inteiras, sem cortes, " +
+      "e abrem em grande ao clicar. Cada foto é publicada assim que a escolher.";
+  }
+
   grid.innerHTML = GALLERY_SLOTS.map(
     (s) => `
     <article class="hg-slot hg-slot--${s.key}" data-slot="${s.key}">
-      <div class="hg-slot__media hg-slot__media--${s.shape}">
+      <div class="hg-slot__media">
         <div class="hg-slot__ph"><i class="fa-regular fa-image"></i><span>Sem foto</span></div>
         <img class="hg-slot__img" alt="" hidden />
         <span class="hg-slot__busy" hidden><i class="fa-solid fa-spinner fa-spin"></i> A otimizar…</span>
@@ -51,10 +62,6 @@ export function initGalleryAdmin({ db, canEdit = false }) {
           <span>Descrição da foto</span>
           <input type="text" maxlength="120" data-alt placeholder="Ex: Pôr do sol em Cabo Ledo" ${canEdit ? "" : "disabled"} />
         </label>
-        <label class="hg-slot__field">
-          <span>Link ao clicar</span>
-          <input type="url" data-link placeholder="${DEFAULT_LINK}" ${canEdit ? "" : "disabled"} />
-        </label>
       </div>
     </article>`,
   ).join("");
@@ -76,9 +83,7 @@ export function initGalleryAdmin({ db, canEdit = false }) {
     if (label) label.textContent = has ? "Trocar foto" : "Escolher foto";
     // Não apagar o que está a ser escrito
     const alt = el.querySelector("[data-alt]");
-    const link = el.querySelector("[data-link]");
     if (document.activeElement !== alt) alt.value = d.alt || "";
-    if (document.activeElement !== link) link.value = d.link || "";
   }
 
   GALLERY_SLOTS.forEach((s) => {
@@ -116,8 +121,7 @@ export function initGalleryAdmin({ db, canEdit = false }) {
     busy.hidden = false;
     try {
       const data = await compressToDataURL(file, PHOTO);
-      const extra = state[key]?.link ? {} : { link: DEFAULT_LINK };
-      await save(key, { data, ...extra }, "Foto publicada na galeria.");
+      await save(key, { data }, "Foto publicada na galeria.");
     } catch (err) {
       console.error("[galeria]", err);
       toast(err?.message || "Não foi possível usar esta imagem.", "error");
@@ -126,22 +130,16 @@ export function initGalleryAdmin({ db, canEdit = false }) {
     }
   });
 
-  // Descrição e link → guardam ao sair do campo
+  // Descrição → guarda ao sair do campo (aparece por baixo da foto em grande)
   grid.addEventListener(
     "blur",
     (e) => {
-      const input = e.target.closest("[data-alt], [data-link]");
+      const input = e.target.closest("[data-alt]");
       if (!input) return;
       const key = input.closest("[data-slot]").dataset.slot;
-      const field = input.hasAttribute("data-alt") ? "alt" : "link";
       const value = input.value.trim();
-      if ((state[key]?.[field] || "") === value) return;
-      if (field === "link" && value && !/^https?:\/\//i.test(value)) {
-        toast("O link tem de começar por https://", "error");
-        input.value = state[key]?.link || "";
-        return;
-      }
-      save(key, { [field]: value }, field === "alt" ? "Descrição guardada." : "Link guardado.");
+      if ((state[key]?.alt || "") === value) return;
+      save(key, { alt: value }, "Descrição guardada.");
     },
     true,
   );

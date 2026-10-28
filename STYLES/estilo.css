@@ -260,8 +260,8 @@ p {
 .reveal-fade {
   opacity: 0;
   transition:
-    opacity 0.7s var(--ease-slow),
-    transform 0.7s var(--ease-slow);
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); /* antes: var(--ease-slow) aqui somava 0,55s de atraso */
 }
 
 .reveal-up {
@@ -1038,18 +1038,18 @@ p {
   opacity: 0;
   transform: translateY(calc(var(--parallax-y) + 60px));
   transition:
-    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
     box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .hero__cards-overlap .tour-card:nth-child(1).reveal-up {
-  transition-delay: 0.15s;
+  transition-delay: 0s;
 }
 .hero__cards-overlap .tour-card:nth-child(2).reveal-up {
-  transition-delay: 0.35s;
+  transition-delay: 0.1s;
 }
 .hero__cards-overlap .tour-card:nth-child(3).reveal-up {
-  transition-delay: 0.55s;
+  transition-delay: 0.2s;
 }
 
 .hero__cards-overlap .tour-card.reveal-up.is-visible {
@@ -1121,9 +1121,204 @@ p {
    descrição + contactos à direita.
    ───────────────────────────────────────── */
 
+.reserve {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 5rem;
+  padding-top: 5rem;
+  padding-bottom: 7rem;
+  padding-left: max(
+    var(--pad-lateral),
+    calc((100vw - var(--content-max-width)) / 2)
+  );
+  padding-right: max(
+    var(--pad-lateral),
+    calc((100vw - var(--content-max-width)) / 2)
+  );
+ 
+}
 
+/* ── Foto (esquerda) ── */
+.reserve__img-wrap {
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  background: var(--clr-brown-mid);
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  /* Sombra suave para dar profundidade como na referência */
+  box-shadow: 0 12px 40px var(--clr-brown-deep-18);
+}
 
+/* Imagem real quando adicionada */
+.reserve__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.55s ease;
+}
+.reserve__img-wrap:hover .reserve__img {
+  transform: scale(1.04);
+}
 
+/* Placeholder */
+.reserve__img-ph {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--clr-white-22);
+  font-size: 3rem;
+}
+
+/* ── Conteúdo (direita) ── */
+.reserve__content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+/* Eyebrow — laranja/castanho claro uppercase, como na referência */
+.reserve__eyebrow {
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--clr-orange-burnt); /* tom laranja da referência */
+  display: block;
+}
+
+/* Título grande — mesma tipografia da referência */
+.reserve__title {
+  font-family: var(--font-display);
+  font-weight: normal;
+  font-size: clamp(2rem, 3.8vw, 3.2rem);
+  color: var(--clr-text-dark);
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  margin: 0;
+}
+
+/* Divisor fino — idêntico ao da referência */
+.reserve__divider {
+  width: 100%;
+  height: 1px;
+  background: var(--clr-brown-deep-18);
+}
+
+/* Descrição */
+.reserve__desc {
+  font-family: var(--font-body);
+  font-size: 0.94rem;
+  color: var(--clr-text-muted);
+  line-height: 1.8;
+  max-width: 52ch;
+  margin: 0;
+}
+
+/* Contactos: 2 colunas lado a lado */
+.reserve__contacts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.reserve__contact-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.reserve__contact-label {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  color: var(--clr-text-muted);
+  font-weight: 400;
+}
+
+/* Link clicável com underline — fiel à referência */
+.reserve__contact-value {
+  font-family: var(--font-body);
+  font-size: 0.96rem;
+  font-weight: 500;
+  color: var(--clr-text-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--clr-brown-deep-40);
+  transition:
+    color var(--ease-std),
+    text-decoration-color var(--ease-std);
+  width: fit-content;
+}
+.reserve__contact-value:hover {
+  color: var(--clr-brown-deep);
+  text-decoration-color: var(--clr-brown-deep);
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .reserve {
+    padding-top: 4rem;
+    padding-bottom: 5rem;
+    gap: 3.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .reserve {
+    grid-template-columns: 1fr;
+    padding-top: 3.5rem;
+    padding-bottom: 4rem;
+    gap: 2.5rem;
+  }
+  .reserve__img-wrap {
+    aspect-ratio: 16/10;
+  }
+  .reserve__title {
+    font-size: clamp(1.9rem, 7vw, 2.6rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .reserve {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  .reserve__contacts {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
+
+/* Foto da secção (o HTML usa reserve__image-wrap / reserve__image) */
+.reserve__image-wrap {
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: var(--clr-brown-mid);
+  box-shadow: 0 12px 40px var(--clr-brown-deep-18);
+}
+.reserve__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.55s ease;
+}
+.reserve__image-wrap:hover .reserve__image {
+  transform: scale(1.04);
+}
+@media (max-width: 768px) {
+  .reserve__image-wrap {
+    aspect-ratio: 16 / 10;
+    order: -1;
+  }
+}
 
 
 /* ─────────────────────────────────────────
@@ -1342,23 +1537,19 @@ p {
 }
 
 /* ─────────────────────────────────────────
-  13. GALERIA — layout Calgary Art Gallery
+  13. GALERIA — mosaico + visualizador
    ─────────────────────────────────────────
-
-   COMO ADICIONAR FOTOS:
-   .gallery__item--tall { background-image: url('../imagens/foto1.webp'); }
-   .gallery__item--sm2  { background-image: url('../imagens/foto2.webp'); }
-   .gallery__item--sm3  { background-image: url('../imagens/foto3.webp'); }
-   .gallery__item--sm4  { background-image: url('../imagens/foto4.webp'); }
-   .gallery__item--sm5  { background-image: url('../imagens/foto5.webp'); }
+   As fotos vêm do painel admin (home-gallery.js).
+   Cada foto aparece no seu formato original — vertical,
+   horizontal ou quadrada — sem cortes. Ao clicar abre
+   em grande (.lightbox, mais abaixo).
    ───────────────────────────────────────── */
 
-/* Contentor principal — flex horizontal */
 .gallery {
   display: grid;
-  grid-template-columns: 42% 58%;
+  grid-template-columns: 38% 62%;
+  align-items: start;
   background: var(--clr-warm-white);
-  overflow: hidden;
   padding-top: 5rem;
   padding-bottom: 14rem;
   padding-left: max(
@@ -1369,23 +1560,23 @@ p {
     var(--pad-lateral),
     calc((100vw - var(--content-max-width)) / 2)
   );
-  min-height: 820px;
 }
 
-/* ── COLUNA ESQUERDA ── */
+/* ── COLUNA ESQUERDA: título e texto (ficam fixos ao fazer scroll) ── */
 .gallery__left {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .gallery__left-body {
+  position: sticky;
+  top: 7rem;
   display: flex;
   flex-direction: column;
-  gap: 0;
-  flex: 1;
+  padding-right: 2rem;
 }
 
-/* Título grande */
 .gallery__heading {
   font-family: "Heaters", sans-serif;
   font-weight: normal;
@@ -1402,14 +1593,13 @@ p {
   display: block;
 }
 
-/* Texto */
 .gallery__text {
   font-family: var(--font-body);
   font-size: 0.95rem;
   color: var(--clr-text-black);
   line-height: 1.85;
   max-width: 340px;
-  margin-bottom: 5rem;
+  margin-bottom: 2rem;
 }
 
 .gallery__more:hover {
@@ -1420,59 +1610,58 @@ p {
   font-size: 1rem;
 }
 
-/* Foto grande vertical — preenche o resto da coluna esquerda */
-.gallery__item--main {
-  flex: 1;
-  min-height: 360px;
-  border-radius: 4px;
-  background-color: var(--clr-brown-mid);
-  display: block;
-  position: relative;
-  overflow: hidden;
-}
-
-/* ── COLUNA DIREITA — grid 2×2 ── */
+/* ── COLUNA DIREITA: mosaico ──
+   --gallery-cols = nº de colunas (lido também pelo home-gallery.js) */
+.gallery__masonry,
 .gallery__right {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 55% 45%;
-  gap: 1rem;
-  padding: 0rem 0rem 0 1rem;
-  height: 100%;
-  overflow: hidden;
+  --gallery-cols: 2;
+  --gallery-gap: 1rem;
+  column-count: var(--gallery-cols);
+  column-gap: var(--gallery-gap);
+}
+/* Com fotos do painel: colunas montadas pelo home-gallery.js */
+.gallery__masonry.is-js {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gallery-gap);
+  column-count: auto;
+}
+.gallery__col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gallery-gap);
+}
+.gallery__col .gallery__item {
+  margin: 0;
 }
 
-.gallery__item--r1 {
-  background-color: var(--clr-brown-deep);
-  border-radius: 4px;
-}
-.gallery__item--r2 {
-  background-color: var(--clr-tan);
-  border-radius: 4px;
-}
-.gallery__item--r3 {
-  background-color: var(--clr-brown-mid);
-  border-radius: 4px;
-}
-.gallery__item--r4 {
-  background-color: var(--clr-brown-light);
-  border-radius: 4px;
-}
-
-/* Base item */
+/* Cada foto (ou quadrado de exemplo) */
 .gallery__item {
   position: relative;
   display: block;
+  width: 100%;
+  margin: 0 0 var(--gallery-gap, 1rem);
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
   overflow: hidden;
-  background-size: cover;
-  background-position: center;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.gallery__item:hover {
-  transform: scale(1.015);
+  break-inside: avoid;
+  background-color: var(--clr-brown-mid);
+  font: inherit;
+  color: inherit;
+  text-align: left;
 }
 
-/* Placeholder icon */
+/* Quadrados de exemplo (antes de haver fotos no painel):
+   formatos variados para mostrar o efeito de mosaico */
+.gallery__item--main { aspect-ratio: 4 / 5; }
+.gallery__item--r1 { aspect-ratio: 4 / 3; background-color: var(--clr-brown-deep); }
+.gallery__item--r2 { aspect-ratio: 3 / 4; background-color: var(--clr-tan); }
+.gallery__item--r3 { aspect-ratio: 1 / 1; }
+.gallery__item--r4 { aspect-ratio: 4 / 3; background-color: var(--clr-brown-light); }
+
 .gallery__ph {
   position: absolute;
   inset: 0;
@@ -1481,25 +1670,41 @@ p {
   justify-content: center;
   color: var(--clr-white-18);
   font-size: 2rem;
-  z-index: 1;
 }
 
-/* Imagem real */
-.gallery__item img {
+/* Foto real: altura conforme o formato da própria imagem */
+.gallery__item--photo {
+  cursor: zoom-in;
+}
+.gallery__item--photo:not(.is-loaded) {
+  aspect-ratio: 4 / 3; /* reserva espaço enquanto a foto carrega */
+}
+.gallery__item--photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  opacity: 0;
+  transition:
+    opacity 0.5s ease,
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.gallery__item--photo.is-loaded img {
+  opacity: 1;
+}
+.gallery__item--photo:not(.is-loaded) img {
   position: absolute;
   inset: 0;
-  width: 100%;
   height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 1;
 }
-.gallery__item:hover img {
-  transform: scale(1.06);
+.gallery__item--photo:hover img {
+  transform: scale(1.05);
+}
+.gallery__item--photo:focus-visible {
+  outline: 3px solid var(--clr-brown-light);
+  outline-offset: 3px;
 }
 
-/* Hover overlay */
+/* Camada escura com o ícone de ampliar */
 .gallery__hover {
   position: absolute;
   inset: 0;
@@ -1508,57 +1713,194 @@ p {
   justify-content: center;
   background: var(--clr-black-45);
   color: var(--clr-white);
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   opacity: 0;
   transition: opacity 0.18s ease-out;
-  z-index: 3;
+  pointer-events: none;
 }
-.gallery__item:hover .gallery__hover {
+.gallery__item--photo:hover .gallery__hover,
+.gallery__item--photo:focus-visible .gallery__hover {
   opacity: 1;
 }
+/* Nos ecrãs táteis não há "hover": o ícone fica escondido */
+@media (hover: none) {
+  .gallery__hover { display: none; }
+}
 
-/* ── RESPONSIVE ── */
+/* ── RESPONSIVO ── */
 @media (max-width: 1100px) {
   .gallery {
     grid-template-columns: 1fr;
-    min-height: auto;
+    padding-bottom: 8rem;
   }
   .gallery__left {
-    padding: 3.5rem 2rem 2rem;
-  }
-  .gallery__item--main {
-    min-height: 280px;
-    border-radius: 12px;
-  }
-  .gallery__right {
-    grid-template-rows: 260px 200px;
-    padding: 1rem 2rem 2rem;
-    gap: 0.75rem;
     height: auto;
   }
-  .gallery__item--r1,
-  .gallery__item--r2,
-  .gallery__item--r3,
-  .gallery__item--r4 {
-    border-radius: 10px;
+  .gallery__left-body {
+    position: static;
+    padding: 3.5rem 2rem 0;
+  }
+  .gallery__masonry,
+  .gallery__right {
+    --gallery-cols: 3;
+    padding: 0 2rem 2rem;
+  }
+}
+@media (max-width: 760px) {
+  .gallery__masonry,
+  .gallery__right {
+    --gallery-cols: 2;
   }
 }
 @media (max-width: 640px) {
   .gallery {
     padding-top: 3rem;
     padding-bottom: 5rem;
-    row-gap: 1.5rem;
   }
+  .gallery__left-body {
+    padding: 0 1.25rem;
+  }
+  .gallery__masonry,
   .gallery__right {
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(4, 200px);
-  }
-  .gallery__left {
-    padding: 3rem 1.25rem 2rem;
-  }
-  .gallery__right {
+    --gallery-gap: 0.6rem;
     padding: 0 1.25rem 2rem;
   }
+  .gallery__item {
+    border-radius: 8px;
+  }
+}
+
+/* ─────────────────────────────────────────
+  13b. VISUALIZADOR DE FOTOS (lightbox)
+   Abre ao clicar numa foto da galeria.
+   ───────────────────────────────────────── */
+html.lightbox-open {
+  overflow: hidden;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-rows: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0 1rem;
+  padding: 1rem 1.5rem 1.5rem;
+  background: var(--clr-black-94);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.lightbox[hidden] {
+  display: none;
+}
+.lightbox.is-open {
+  opacity: 1;
+}
+
+.lightbox__top {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 48px;
+}
+.lightbox__counter {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  color: var(--clr-white-70);
+}
+
+.lightbox__stage {
+  grid-column: 2;
+  margin: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  min-height: 0;
+}
+.lightbox__img {
+  display: block;
+  max-width: 100%;
+  max-height: calc(100dvh - 9rem);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 4px;
+  opacity: 0;
+  transform: scale(0.98);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.lightbox__img.is-loaded {
+  opacity: 1;
+  transform: none;
+}
+.lightbox__caption {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--clr-white-70);
+  text-align: center;
+  max-width: 60ch;
+}
+.lightbox__caption:empty {
+  display: none;
+}
+
+.lightbox__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--clr-white-12);
+  color: var(--clr-white);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.lightbox__btn:hover {
+  background: var(--clr-white-25);
+}
+.lightbox__btn:focus-visible {
+  outline: 2px solid var(--clr-white);
+  outline-offset: 2px;
+}
+.lightbox__btn[hidden] {
+  display: none;
+}
+.lightbox__nav--prev { grid-column: 1; grid-row: 2; }
+.lightbox__nav--next { grid-column: 3; grid-row: 2; }
+
+/* Telemóvel: setas por cima da foto, nos cantos de baixo */
+@media (max-width: 640px) {
+  .lightbox {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 0.75rem 0.75rem 1rem;
+  }
+  .lightbox__stage {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .lightbox__img {
+    max-height: calc(100dvh - 10rem);
+  }
+  .lightbox__nav {
+    position: absolute;
+    bottom: 1rem;
+    width: 44px;
+    height: 44px;
+  }
+  .lightbox__nav--prev { left: 1rem; }
+  .lightbox__nav--next { right: 1rem; }
 }
 
 /* ─────────────────────────────────────────
@@ -2135,7 +2477,7 @@ p {
     background var(--ease-std),
     color var(--ease-std),
     border-color var(--ease-std),
-    transform 0.35s var(--ease-slow);
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Estado aberto — ícone fica dourado e gira */
@@ -2799,7 +3141,8 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .packages__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  width: 100%; /* sem isto, dentro do flex centrado, a grelha passava a largura do ecrã */
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
   gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
@@ -4703,5 +5046,62 @@ body.custom-modal-open {
   }
   .custom-modal__box {
     padding: 2rem 1.25rem 1.5rem;
+  }
+}
+
+/* ─────────────────────────────────────────
+  27. AJUSTES DE RESPONSIVIDADE
+   ───────────────────────────────────────── */
+
+/* Títulos grandes descem de forma gradual entre o computador e o telemóvel */
+@media (max-width: 1024px) and (min-width: 541px) {
+  .hero__title {
+    font-size: clamp(56px, 8vw, 85px);
+  }
+  .section-title {
+    font-size: clamp(52px, 7.5vw, 80px);
+  }
+}
+
+/* Tablet: os cards do hero passam ao fluxo normal (deixam de ficar
+   "pendurados" por cima do texto e dos botões do hero) */
+@media (max-width: 900px) and (min-width: 541px) {
+  .hero {
+    padding-bottom: 9rem;
+  }
+  .hero-cards-container {
+    margin-top: -6rem;
+    padding: 0 var(--pad-lateral);
+  }
+  .hero__cards-overlap {
+    position: static;
+    transform: none;
+    width: 100%;
+    padding: 0;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .hero__cards-overlap .tour-card {
+    min-height: 240px;
+  }
+  .tour-card__badge {
+    font-size: 20px;
+  }
+  .tours {
+    height: auto;
+    padding: 3rem 1rem 2rem;
+  }
+}
+
+/* Menos movimento para quem o pede no sistema */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-up,
+  .reveal-left,
+  .reveal-right,
+  .reveal-fade,
+  .hero__cards-overlap .tour-card.reveal-up {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
