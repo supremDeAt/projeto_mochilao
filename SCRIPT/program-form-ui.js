@@ -28,8 +28,8 @@ let keySeq = 0;
 const state = {
   coverFile: null, // File novo da capa (ou null)
   coverObjectUrl: null, // URL temporário da pré-visualização
-  gallery: [], // [{ key, kind: "existing"|"new", url, path?, file? }]
-  removedGallery: [], // [{ url, path }] existentes marcados para apagar
+  gallery: [], // [{ key, kind: "existing"|"new", url, publicId?, file? }]
+  removedGallery: [], // [{ url, publicId }] existentes marcados para apagar
 };
 
 const $ = (id) => document.getElementById(id);
@@ -293,8 +293,8 @@ function removeGalleryItem(li) {
   if (item.kind === "new") {
     URL.revokeObjectURL(item.url);
   } else {
-    // Só é apagado do Storage quando o programa for gravado (Passo 3)
-    state.removedGallery.push({ url: item.url, path: item.path || "" });
+    // Só é apagado quando o programa for gravado
+    state.removedGallery.push({ url: item.url, publicId: item.publicId || "" });
   }
   renderGallery();
 }
@@ -323,15 +323,17 @@ function renderGallery() {
 
 /**
  * Para o Passo 3:
- *  keep     → [{url, path}] fotos já guardadas que continuam
- *  toUpload → [File]        fotos novas a enviar para o Storage
- *  toDelete → [{url, path}] fotos removidas a apagar do Storage
+ *  keep     → [{url, publicId}] fotos já guardadas que continuam
+ *  toUpload → [File]            fotos novas a gravar
+ *  toDelete → [{url, publicId}] fotos removidas a apagar
+ *  (publicId = id da foto; o program-save.js usa-o para saber
+ *   quais fotos manter — sem ele, todas desapareciam ao gravar)
  */
 export function getGalleryChanges() {
   return {
     keep: state.gallery
       .filter((g) => g.kind === "existing")
-      .map(({ url, path }) => ({ url, path: path || "" })),
+      .map(({ url, publicId }) => ({ url, publicId: publicId || "" })),
     toUpload: state.gallery.filter((g) => g.kind === "new").map((g) => g.file),
     toDelete: [...state.removedGallery],
   };
@@ -425,7 +427,7 @@ export function populateProgramForm(program = {}) {
       key: `g${++keySeq}`,
       kind: "existing",
       url: g.url,
-      path: g.path || "",
+      publicId: g.publicId || "",
     }));
   renderGallery();
 }

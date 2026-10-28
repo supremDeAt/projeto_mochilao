@@ -112,12 +112,16 @@
         <span class="section-tag">Sobre a Viagem</span>
         <div class="pkg-descricao">Carregando...</div>
 
-        <!-- Roteiro -->
-        <div class="pkg-roteiro">
-          <h3 class="pkg-roteiro__title">
-            <i class="fa-solid fa-route"></i> Roteiro
-          </h3>
-          <ul class="pkg-roteiro__list"></ul>
+        <!-- Itinerário (dia a dia) — antes ficava numa secção mais abaixo -->
+        <div class="pkg-itinerary">
+          <span class="section-tag">O Percurso</span>
+          <h2 class="section-title">Itinerário</h2>
+          <p class="pkg-itinerary__intro">
+            Este itinerário foi pensado para transformar cada momento da viagem
+            numa verdadeira experiência de descoberta — combinando aventura,
+            natureza, cultura e momentos de descanso.
+          </p>
+          <div class="pkg-accordion"></div>
         </div>
       </div>
 
@@ -126,8 +130,20 @@
         <div class="pkg-img-box">
           <div class="pkg-img-ph"><i class="fa-regular fa-image"></i></div>
         </div>
+      </div>
+    </section>
 
-        <!-- Card de detalhes logo abaixo da foto -->
+    <!-- ======= GALERIA ======= -->
+    <section class="pkg-gallery">
+      <div class="pkg-gallery__grid" id="pkgGallery">
+        <!-- Populado pelo JS -->
+      </div>
+    </section>
+
+    <!-- ======= DETALHES + RESERVA (lado a lado) ======= -->
+    <section class="pkg-booking-section">
+      <div class="pkg-booking-section__inner">
+        <!-- Detalhes da viagem -->
         <div class="pkg-details-card">
           <p class="pkg-details-card__title">Detalhes da Viagem</p>
           <p class="pkg-details-card__sub">
@@ -164,56 +180,8 @@
             </li>
           </ul>
         </div>
-      </div>
-    </section>
 
-    <!-- ======= GALERIA ======= -->
-    <section class="pkg-gallery">
-      <div class="pkg-gallery__grid" id="pkgGallery">
-        <!-- Populado pelo JS -->
-      </div>
-    </section>
-
-    <!-- ======= INCLUI / NÃO INCLUI ======= -->
-    <section class="pkg-includes">
-      <div class="section-header">
-        <span class="section-tag">Tudo Pensado</span>
-        <h2 class="section-title">O Que Está Incluído</h2>
-      </div>
-      <div class="pkg-includes__inner">
-        <div class="pkg-includes__col pkg-includes__col--yes">
-          <h2 class="pkg-includes__title">
-            <i class="fa-solid fa-circle-check"></i>
-            Esta Viagem Inclui
-          </h2>
-          <ul class="pkg-inclui__list"></ul>
-        </div>
-        <div class="pkg-includes__col pkg-includes__col--no">
-          <h2 class="pkg-includes__title">
-            <i class="fa-solid fa-circle-xmark"></i>
-            Esta Viagem Não Inclui
-          </h2>
-          <ul class="pkg-nao-inclui__list"></ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- ======= ITINERÁRIO + CTA CARD ======= -->
-    <section class="pkg-itinerary-section">
-      <div class="pkg-itinerary-section__inner">
-        <!-- Esquerda: accordion -->
-        <div class="pkg-itinerary">
-          <span class="section-tag">O Percurso</span>
-          <h2 class="section-title">Itinerário</h2>
-          <p class="pkg-itinerary__intro">
-            Este itinerário foi pensado para transformar cada momento da viagem
-            numa verdadeira experiência de descoberta — combinando aventura,
-            natureza, cultura e momentos de descanso.
-          </p>
-          <div class="pkg-accordion"></div>
-        </div>
-
-        <!-- Direita: card CTA escuro -->
+        <!-- Card de reserva -->
         <div class="pkg-cta-card">
           <h3 class="pkg-cta-card__title" id="pkgCtaTitle">Juntar-se</h3>
           <p class="pkg-cta-card__desc pkg-descricao-cta">—</p>
@@ -279,6 +247,30 @@
               ><i class="fa-brands fa-instagram"></i
             ></a>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======= INCLUI / NÃO INCLUI ======= -->
+    <section class="pkg-includes">
+      <div class="section-header">
+        <span class="section-tag">Tudo Pensado</span>
+        <h2 class="section-title">O Que Está Incluído</h2>
+      </div>
+      <div class="pkg-includes__inner">
+        <div class="pkg-includes__col pkg-includes__col--yes">
+          <h2 class="pkg-includes__title">
+            <i class="fa-solid fa-circle-check"></i>
+            Esta Viagem Inclui
+          </h2>
+          <ul class="pkg-inclui__list"></ul>
+        </div>
+        <div class="pkg-includes__col pkg-includes__col--no">
+          <h2 class="pkg-includes__title">
+            <i class="fa-solid fa-circle-xmark"></i>
+            Esta Viagem Não Inclui
+          </h2>
+          <ul class="pkg-nao-inclui__list"></ul>
         </div>
       </div>
     </section>

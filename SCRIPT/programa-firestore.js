@@ -93,21 +93,6 @@ function renderText(p) {
 
   const roteiro = Array.isArray(p.roteiro) ? p.roteiro : [];
 
-  // Lista "Roteiro" (resumo): um ponto por dia
-  const stops = $(".pkg-roteiro__list");
-  if (stops) {
-    stops.innerHTML = roteiro.length
-      ? roteiro
-          .map(
-            (d) =>
-              `<li><i class="fa-solid fa-circle-dot"></i>${esc(
-                [d.dia, d.titulo].filter(Boolean).join(" — "),
-              )}</li>`,
-          )
-          .join("")
-      : `<li><i class="fa-solid fa-circle-dot"></i>Roteiro a anunciar</li>`;
-  }
-
   // Itinerário (acordeão)
   const acc = $(".pkg-accordion");
   if (acc) {
@@ -125,7 +110,7 @@ function renderText(p) {
           </div>
         </div>`,
       )
-      .join("");
+      .join("") || `<p class="pkg-itinerary__intro">Itinerário a anunciar.</p>`;
   }
 
   // Inclui / Não inclui

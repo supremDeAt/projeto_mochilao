@@ -525,13 +525,7 @@ const PROGRAMAS = {
   const descCta = document.querySelector(".pkg-descricao-cta");
   if (descCta) descCta.innerHTML = prog.descricao;
 
-  /* 7. Roteiro */
-  const roteiroEl = document.querySelector(".pkg-roteiro__list");
-  roteiroEl.innerHTML = prog.roteiro
-    .map(function (stop) {
-      return '<li><i class="fa-solid fa-circle-dot"></i>' + stop + "</li>";
-    })
-    .join("");
+  /* 7. (O antigo "Roteiro" foi substituído pelo Itinerário — ver 11.) */
 
   /* 8. Detalhes */
   document.querySelector(".pkg-detail--dur .pkg-detail__value").textContent =

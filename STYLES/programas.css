@@ -33,7 +33,9 @@
   align-items: center;
   justify-content: center;
   padding: 9rem var(--pg-gutter) 5.5rem;
- 
+  background-image:
+    linear-gradient(to bottom, var(--clr-rust-1e) 0%, var(--clr-rust-1e) 100%),
+    url("../imagens/assis.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -154,59 +156,18 @@
   font-weight: 700;
 }
 
-/* Roteiro */
-.pkg-roteiro {
-  margin-top: 0.5rem;
-  padding: 1.75rem 2rem;
-  background: var(--clr-white);
-  border: 1px solid var(--pg-border);
-  border-radius: var(--radius-md);
-}
-.pkg-roteiro__title {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  margin-bottom: 1rem;
-  font-family: var(--font-ui);
-  font-size: 0.8rem;
-  font-weight: 900;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--clr-brown-deep);
-}
-.pkg-roteiro__title i {
-  color: var(--clr-gold);
-  letter-spacing: 0;
-}
-.pkg-roteiro__list {
-  display: flex;
-  flex-direction: column;
-}
-.pkg-roteiro__list li {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  padding: 0.7rem 0;
-  border-bottom: 1px solid var(--pg-border-soft);
-  font-size: 0.95rem;
-  line-height: 1.5;
-  color: var(--clr-text-mid);
-}
-.pkg-roteiro__list li:last-child {
-  border-bottom: none;
-}
-.pkg-roteiro__list li i {
-  flex-shrink: 0;
-  margin-top: 7px;
-  font-size: 0.5rem;
-  color: var(--clr-gold);
-}
-
-/* Coluna direita */
+/* Coluna direita: só a foto vertical.
+   Ocupa a altura toda da secção para a foto poder
+   acompanhar o scroll ao lado do texto e do itinerário. */
 .pkg-intro__right {
+  align-self: stretch;
   display: flex;
   flex-direction: column;
   gap: 2rem;
+}
+.pkg-intro__right .pkg-img-box {
+  position: sticky;
+  top: 90px;
 }
 
 .pkg-img-box {
@@ -429,22 +390,17 @@
 }
 
 /* ══════════════════════════════════════════
-   ITINERÁRIO (visual do FAQ) + CARD CTA
+   ITINERÁRIO (visual do FAQ) — na coluna esquerda
+   do intro, no lugar do antigo "Roteiro"
 ══════════════════════════════════════════ */
-.pkg-itinerary-section {
-  padding: 7rem var(--pg-gutter);
-  background: var(--clr-white);
-}
-.pkg-itinerary-section__inner {
-  display: grid;
-  grid-template-columns: 1fr 550px;
-  gap: 4rem;
-  align-items: start;
-}
-
 .pkg-itinerary {
   display: flex;
   flex-direction: column;
+  margin-top: 2.5rem;
+}
+.pkg-intro .pkg-itinerary .section-title {
+  font-size: clamp(44px, 4.5vw, 64px);
+  margin-bottom: 1rem;
 }
 .pkg-itinerary .section-tag {
   margin-bottom: 0.5rem;
@@ -545,10 +501,22 @@
   color: var(--clr-brown-deep);
 }
 
+/* ══════════════════════════════════════════
+   DETALHES + RESERVA — lado a lado, depois da galeria
+══════════════════════════════════════════ */
+.pkg-booking-section {
+  padding: 0 var(--pg-gutter) 7rem;
+  background: var(--clr-white);
+}
+.pkg-booking-section__inner {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+  align-items: start;
+}
+
 /* ── Card CTA escuro (mesmo tom do formulário de contacto) ── */
 .pkg-cta-card {
-  position: sticky;
-  top: 90px;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -847,17 +815,11 @@
   .pkg-gallery__grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  .pkg-itinerary-section {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
-  }
-  .pkg-itinerary-section__inner {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-  .pkg-cta-card {
+  .pkg-intro__right .pkg-img-box {
     position: static;
-    max-width: 560px;
+  }
+  .pkg-booking-section {
+    padding-bottom: 5rem;
   }
   .pkg-more .packages__grid {
     grid-template-columns: repeat(2, 1fr);
@@ -884,8 +846,9 @@
     grid-template-columns: 1fr;
     gap: 1.25rem;
   }
-  .pkg-cta-card {
-    max-width: none;
+  .pkg-booking-section__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
   }
   .pkg-more .packages__grid {
     grid-template-columns: 1fr;
@@ -906,7 +869,6 @@
   .pkg-intro__title {
     font-size: 40px;
   }
-  .pkg-roteiro,
   .pkg-includes__col {
     padding: 1.5rem 1.25rem;
   }
