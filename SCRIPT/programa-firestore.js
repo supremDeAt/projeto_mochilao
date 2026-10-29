@@ -156,9 +156,9 @@ async function renderMedia(p) {
 
   if (media.capa) setHero(media.capa);
 
-  // Foto vertical ao lado do texto: 1.ª da galeria (ou a capa)
+  // Foto ao lado do texto: a mesma do hero (capa)
   const box = $(".pkg-img-box");
-  const side = media.galeria[0] || media.capa;
+  const side = media.capa || p.imagemURL;
   if (box && side) {
     box.innerHTML = `<img src="${side}" alt="${esc(p.nome)}" class="pkg-img-box__img">`;
   }

@@ -389,7 +389,7 @@
         "Tudo tratado — logística, guias e suporte durante toda a viagem.",
       "custom.btn": "Iniciar o meu programa",
       "custom.wpp": "Falar com a equipa",
-      "services.tag": "Os Nossos Serviços",
+      "services.tag": "Outros Serviços",
       "services.title": "Tudo para a sua viagem",
       "services.desc":
         "Do aeroporto ao alojamento, tratamos de cada detalhe para que só tenha de aproveitar.",
@@ -455,7 +455,7 @@
         "Everything handled — logistics, guides and support throughout the trip.",
       "custom.btn": "Start my programme",
       "custom.wpp": "Talk to the team",
-      "services.tag": "Our Services",
+      "services.tag": "other services",
       "services.title": "Everything for your trip",
       "services.desc":
         "From the airport to your stay, we take care of every detail so you only have to enjoy it.",

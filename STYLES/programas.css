@@ -156,18 +156,11 @@
   font-weight: 700;
 }
 
-/* Coluna direita: só a foto vertical.
-   Ocupa a altura toda da secção para a foto poder
-   acompanhar o scroll ao lado do texto e do itinerário. */
+/* Coluna direita: foto (a mesma do hero) + detalhes da viagem */
 .pkg-intro__right {
-  align-self: stretch;
   display: flex;
   flex-direction: column;
   gap: 2rem;
-}
-.pkg-intro__right .pkg-img-box {
-  position: sticky;
-  top: 90px;
 }
 
 .pkg-img-box {
@@ -502,17 +495,16 @@
 }
 
 /* ══════════════════════════════════════════
-   DETALHES + RESERVA — lado a lado, depois da galeria
+   CARD DE RESERVA — sozinho, centrado, depois da galeria
 ══════════════════════════════════════════ */
 .pkg-booking-section {
   padding: 0 var(--pg-gutter) 7rem;
   background: var(--clr-white);
+  
 }
 .pkg-booking-section__inner {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 2rem;
-  align-items: start;
+  max-width: 640px;
+  margin-left: auto;
 }
 
 /* ── Card CTA escuro (mesmo tom do formulário de contacto) ── */
@@ -815,9 +807,6 @@
   .pkg-gallery__grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  .pkg-intro__right .pkg-img-box {
-    position: static;
-  }
   .pkg-booking-section {
     padding-bottom: 5rem;
   }
@@ -844,10 +833,6 @@
   }
   .pkg-includes__inner {
     grid-template-columns: 1fr;
-    gap: 1.25rem;
-  }
-  .pkg-booking-section__inner {
-    grid-template-columns: minmax(0, 1fr);
     gap: 1.25rem;
   }
   .pkg-more .packages__grid {

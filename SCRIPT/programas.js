@@ -509,12 +509,12 @@ const PROGRAMAS = {
   document.querySelector(".pkg-hero__title").textContent = prog.nome;
   document.querySelector(".pkg-hero__desc").textContent = prog.slogan;
 
-  /* 5. Foto secundária */
+  /* 5. Foto ao lado do texto: a mesma do hero */
   const imgBox = document.querySelector(".pkg-img-box");
-  if (imgBox && prog.fotoSecundaria) {
+  if (imgBox && prog.heroImg) {
     imgBox.innerHTML =
       '<img src="' +
-      prog.fotoSecundaria +
+      prog.heroImg +
       '" alt="' +
       prog.nome +
       '" class="pkg-img-box__img">';
