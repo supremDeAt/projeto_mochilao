@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Viagem Personalizada — O Mochilão Aventuras</title>
+    <meta name="description" content="Peça uma viagem à sua medida em Angola: destino, datas, alojamento e experiências pensados para si." />
+
+    <link rel="icon" href="../imagens/logo5.png" />
+    <link rel="stylesheet" href="../STYLES/estilo.css" />
+    <link rel="stylesheet" href="../STYLES/personalizada.css" />
+
+    <!-- Flag icons (bandeiras reais, funciona em todos os browsers) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/6.11.0/css/flag-icons.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Google Fonts — fallback caso Nekst não carregue -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+  </head>
+  <body class="pc-page">
+    <!-- ======= NAVBAR ======= -->
+    <header class="navbar" id="navbar">
+      <a href="../index.html" class="navbar__brand">
+       
+        <img src="../imagens/Sem Título-3.png" alt="" class="navbar__logo" />
+      </a>
+
+      <nav class="navbar__links" id="navLinks">
+        <a href="../index.html#tours" class="navbar__link" data-i18n="nav.tours">Viagens</a>
+        <a href="../index.html#gallery" class="navbar__link" data-i18n="nav.gallery"
+          >Galeria</a
+        >
+        <a href="personalizada.html" class="navbar__link" data-i18n="nav.custom"
+          >Personalizado</a
+        >
+        <a href="../index.html#services" class="navbar__link" data-i18n="nav.services"
+          >Serviços</a
+        >
+        <a href="../index.html#about" class="navbar__link" data-i18n="nav.about">Sobre</a>
+        <a href="../index.html#tips" class="navbar__link" data-i18n="nav.tips">Dicas</a>
+        <a
+          href="../index.html#contact"
+          class="navbar__link navbar__link--cta"
+          data-i18n="nav.contact"
+          >Fale Connosco</a
+        >
+      </nav>
+
+      <button
+        class="navbar__lang"
+        id="langBtn"
+        aria-label="Mudar idioma"
+        title="Mudar idioma"
+      >
+        <!-- Bandeira Angola (PT) -->
+        <span class="navbar__lang-flag navbar__lang-pt" aria-label="Português">
+          <span class="fi fi-ao" role="img" aria-label="Angola"></span>
+          <span class="navbar__lang-label">PT</span>
+        </span>
+        <!-- Bandeira UK (EN) -->
+        <span class="navbar__lang-flag navbar__lang-en" aria-label="English">
+          <span class="fi fi-gb" role="img" aria-label="English"></span>
+          <span class="navbar__lang-label">EN</span>
+        </span>
+      </button>
+
+      <button
+        class="navbar__burger"
+        id="burgerBtn"
+        aria-label="Abrir menu"
+        aria-expanded="false"
+      >
+        <span class="navbar__burger-line"></span>
+        <span class="navbar__burger-line"></span>
+        <span class="navbar__burger-line"></span>
+      </button>
+    </header>
+
+    <!-- ======= SIDEBAR / DRAWER DE NAVEGAÇÃO ======= -->
+    <div class="sidebar__overlay" id="sidebarOverlay"></div>
+    <aside class="sidebar" id="sidebar">
+      <button class="sidebar__close" id="closeBtn" aria-label="Fechar menu">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <nav class="sidebar__nav">
+        <a href="../index.html#hero" class="sidebar__link">Início</a>
+        <a href="../index.html#tours" class="sidebar__link">Viagens</a>
+        <a href="../index.html#gallery" class="sidebar__link">Galeria</a>
+        <a href="personalizada.html" class="sidebar__link sidebar__link--active">Personalizado</a>
+        <a href="../index.html#services" class="sidebar__link">Serviços</a>
+        <a href="../index.html#about" class="sidebar__link">Sobre</a>
+        <a href="../index.html#team" class="sidebar__link">Equipa</a>
+        <a href="../index.html#tips" class="sidebar__link">Dicas</a>
+        <a href="faq.html" class="sidebar__link">Perguntas Frequentes</a>
+        <a href="../index.html#contact" class="sidebar__link">Fale Connosco</a>
+      </nav>
+
+      <div class="sidebar__lang-wrap">
+        <button
+          class="navbar__lang"
+          type="button"
+          aria-label="Mudar idioma"
+          title="Mudar idioma"
+        >
+          <span
+            class="navbar__lang-flag navbar__lang-pt"
+            aria-label="Português"
+          >
+            <span class="fi fi-ao" role="img" aria-label="Angola"></span>
+            <span class="navbar__lang-label">PT</span>
+          </span>
+          <span class="navbar__lang-flag navbar__lang-en" aria-label="English">
+            <span class="fi fi-gb" role="img" aria-label="English"></span>
+            <span class="navbar__lang-label">EN</span>
+          </span>
+        </button>
+      </div>
+
+      <div class="sidebar__footer">
+        <a href="https://www.instagram.com/o_mochilao/" target="_blank"
+          ><i class="fa-brands fa-instagram"></i
+        ></a>
+        <a
+          href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0"
+          target="_blank"
+          ><i class="fa-brands fa-whatsapp"></i
+        ></a>
+        <a href="https://www.tiktok.com/@o.mochilao" target="_blank"
+          ><i class="fa-brands fa-tiktok"></i
+        ></a>
+      </div>
+    </aside>
+
+    <!-- ======= HERO ======= -->
+    <header class="pc-hero">
+      <div class="pc-hero__inner">
+        <nav class="pc-hero__crumbs" aria-label="Caminho">
+          <a href="../index.html">Início</a> <span aria-hidden="true">/</span>
+          <span>Viagem personalizada</span>
+        </nav>
+        <span class="pc-hero__tag">Viagens Personalizadas</span>
+        <h1 class="pc-hero__title">A viagem é sua,<br />o roteiro também</h1>
+        <p class="pc-hero__text">
+          Conte-nos como imagina a viagem. A nossa equipa prepara uma proposta
+          à sua medida — destino, alojamento, transporte, guias e experiências —
+          sem compromisso.
+        </p>
+      </div>
+    </header>
+
+    <!-- ======= PEDIDO ======= -->
+    <main class="pc-main">
+      <!-- Formulário (os pedidos aparecem no painel → Personalizadas) -->
+      <section class="pc-card" aria-labelledby="pcFormTitle">
+        <form class="pc-form" id="pcForm" novalidate>
+          <h2 class="pc-form__title" id="pcFormTitle">Pedir proposta</h2>
+          <p class="pc-form__lead">Os campos com * são obrigatórios. O resto ajuda-nos a acertar à primeira.</p>
+
+          <!-- 1. Contacto -->
+          <fieldset class="pc-step">
+            <legend class="pc-step__title"><span>1</span> Os seus contactos</legend>
+            <label class="pc-field">
+              <span>Nome *</span>
+              <input type="text" name="nome" maxlength="80" autocomplete="name" required />
+            </label>
+            <div class="pc-row">
+              <label class="pc-field">
+                <span>Telefone / WhatsApp *</span>
+                <input type="tel" name="telefone" maxlength="20" autocomplete="tel" inputmode="tel" placeholder="9XX XXX XXX" required />
+              </label>
+              <label class="pc-field">
+                <span>Email</span>
+                <input type="email" name="email" maxlength="120" autocomplete="email" placeholder="exemplo@gmail.com" />
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- 2. Viagem -->
+          <fieldset class="pc-step">
+            <legend class="pc-step__title"><span>2</span> A viagem</legend>
+            <label class="pc-field">
+              <span>Para onde gostaria de ir?</span>
+              <input type="text" name="destino" maxlength="120" list="pcDestinos" placeholder="Ex: Malanje e Kalandula, ou ainda não sei" />
+              <datalist id="pcDestinos">
+                <option value="Malanje"></option>
+                <option value="Namibe"></option>
+                <option value="Huambo"></option>
+                <option value="Benguela"></option>
+                <option value="Cabo Ledo"></option>
+                <option value="Quiçama"></option>
+                <option value="Bengo"></option>
+                <option value="Namíbia"></option>
+                <option value="Ainda não sei"></option>
+              </datalist>
+            </label>
+            <div class="pc-row pc-row--3">
+              <label class="pc-field">
+                <span>Quando?</span>
+                <input type="text" name="quando" maxlength="60" placeholder="Ex: Dezembro" />
+              </label>
+              <label class="pc-field">
+                <span>Duração</span>
+                <select name="duracao">
+                  <option value="">Escolher…</option>
+                  <option>1 dia</option>
+                  <option>2 a 3 dias</option>
+                  <option>4 a 7 dias</option>
+                  <option>Mais de uma semana</option>
+                  <option>Ainda não sei</option>
+                </select>
+              </label>
+              <label class="pc-field">
+                <span>Quantas pessoas?</span>
+                <input type="number" name="pessoas" min="1" max="500" inputmode="numeric" placeholder="Ex: 4" />
+              </label>
+            </div>
+            <div class="pc-field">
+              <span>Quem vai viajar?</span>
+              <div class="pc-chips" role="radiogroup" aria-label="Quem vai viajar">
+              <label class="pc-chip"><input type="radio" name="tipo" value="Família" /><span>Família</span></label>
+              <label class="pc-chip"><input type="radio" name="tipo" value="Amigos" /><span>Amigos</span></label>
+              <label class="pc-chip"><input type="radio" name="tipo" value="Casal" /><span>Casal</span></label>
+              <label class="pc-chip"><input type="radio" name="tipo" value="Empresa" /><span>Empresa</span></label>
+              <label class="pc-chip"><input type="radio" name="tipo" value="Escola / Grupo" /><span>Escola / Grupo</span></label>
+              <label class="pc-chip"><input type="radio" name="tipo" value="Sozinho(a)" /><span>Sozinho(a)</span></label>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- 3. Preferências -->
+          <fieldset class="pc-step">
+            <legend class="pc-step__title"><span>3</span> Preferências</legend>
+            <div class="pc-field">
+              <span>O que gostariam de fazer? <small>(pode escolher vários)</small></span>
+              <div class="pc-chips">
+              <label class="pc-chip"><input type="checkbox" name="interesses" value="Natureza" /><span>Natureza</span></label>
+              <label class="pc-chip"><input type="checkbox" name="interesses" value="Praia" /><span>Praia</span></label>
+              <label class="pc-chip"><input type="checkbox" name="interesses" value="Aventura" /><span>Aventura</span></label>
+              <label class="pc-chip"><input type="checkbox" name="interesses" value="Cultura" /><span>Cultura</span></label>
+              <label class="pc-chip"><input type="checkbox" name="interesses" value="Gastronomia" /><span>Gastronomia</span></label>
+              <label class="pc-chip"><input type="checkbox" name="interesses" value="Camping" /><span>Camping</span></label>
+              <label class="pc-chip"><input type="checkbox" name="interesses" value="Safari" /><span>Safari</span></label>
+              <label class="pc-chip"><input type="checkbox" name="interesses" value="Descanso" /><span>Descanso</span></label>
+              </div>
+            </div>
+            <div class="pc-field">
+              <span>Alojamento</span>
+              <div class="pc-chips" role="radiogroup" aria-label="Alojamento">
+              <label class="pc-chip"><input type="radio" name="alojamento" value="Hotel" /><span>Hotel</span></label>
+              <label class="pc-chip"><input type="radio" name="alojamento" value="Lodge / Bungalow" /><span>Lodge / Bungalow</span></label>
+              <label class="pc-chip"><input type="radio" name="alojamento" value="Camping" /><span>Camping</span></label>
+              <label class="pc-chip"><input type="radio" name="alojamento" value="Indiferente" /><span>Indiferente</span></label>
+              </div>
+            </div>
+            <label class="pc-field">
+              <span>Orçamento por pessoa</span>
+              <select name="orcamento">
+                <option value="">Escolher…</option>
+                <option>Até 100.000 Kz</option>
+                <option>100.000 a 300.000 Kz</option>
+                <option>300.000 a 600.000 Kz</option>
+                <option>Mais de 600.000 Kz</option>
+                <option>Prefiro falar primeiro</option>
+              </select>
+            </label>
+            <label class="pc-field">
+              <span>Mais alguma coisa?</span>
+              <textarea name="mensagem" rows="4" maxlength="1500" placeholder="Ocasiões especiais, necessidades, ideias…"></textarea>
+            </label>
+          </fieldset>
+
+          <p class="pc-form__error" id="pcError" role="alert" hidden></p>
+
+          <button type="submit" class="btn btn--primary btn--full pc-form__submit" id="pcSubmit">
+            Enviar pedido <i class="fa-solid fa-paper-plane"></i>
+          </button>
+          <p class="pc-form__note">
+            Ao enviar, a nossa equipa recebe o pedido e contacta-o com uma proposta.
+          </p>
+        </form>
+
+        <!-- Confirmação (aparece depois de enviar) -->
+        <div class="pc-done" id="pcDone" hidden tabindex="-1">
+          <span class="pc-done__icon" aria-hidden="true"><i class="fa-solid fa-circle-check"></i></span>
+          <h2 class="pc-done__title">Pedido enviado!</h2>
+          <p class="pc-done__text" id="pcDoneText">
+            Obrigado. A nossa equipa vai preparar a proposta e contactá-lo em breve.
+          </p>
+          <a href="#" class="btn pc-wpp" id="pcDoneWpp" target="_blank" rel="noopener">
+            <i class="fa-brands fa-whatsapp"></i> Falar já no WhatsApp
+          </a>
+          <a href="../index.html" class="pc-done__back">Voltar ao início</a>
+        </div>
+      </section>
+
+      <!-- Lado: como funciona + atalho -->
+      <aside class="pc-aside">
+        <div class="pc-aside__box">
+          <h2 class="pc-aside__title">Como funciona</h2>
+          <ol class="pc-steps">
+            <li><span>1</span><div><strong>Conte-nos a ideia</strong><p>Destino, datas, número de pessoas e o que gostam de fazer.</p></div></li>
+            <li><span>2</span><div><strong>Recebe a proposta</strong><p>Preparamos um roteiro com alojamento, transporte e preço.</p></div></li>
+            <li><span>3</span><div><strong>Ajustamos juntos</strong><p>Mudamos o que for preciso até ficar perfeito.</p></div></li>
+            <li><span>4</span><div><strong>É só partir</strong><p>Tratamos de tudo do início ao fim da viagem.</p></div></li>
+          </ol>
+        </div>
+        <div class="pc-aside__box pc-aside__box--dark">
+          <p class="pc-aside__lead">Prefere falar diretamente?</p>
+          <a href="#" class="btn pc-wpp" id="pcWppDirect" target="_blank" rel="noopener">
+            <i class="fa-brands fa-whatsapp"></i> Falar no WhatsApp
+          </a>
+          <ul class="pc-aside__list">
+            <li><i class="fa-solid fa-check"></i> Grupos, famílias, casais e empresas</li>
+            <li><i class="fa-solid fa-check"></i> Todo o território nacional e Namíbia</li>
+            <li><i class="fa-solid fa-check"></i> Proposta sem compromisso</li>
+          </ul>
+        </div>
+      </aside>
+    </main>
+
+    <a href="#" class="float-btn float-btn--top" aria-label="Voltar ao topo"><i class="fa-solid fa-arrow-up"></i></a>
+
+    <!-- ======= FOOTER ======= -->
+    <footer class="footer">
+      <div class="footer__main">
+        <div class="footer__brand">
+          <!--
+          LOGO DO FOOTER:
+          Substitua o src pelo logo branco (branco2.png ou outro)
+        -->
+          <img
+            src="../imagens/branco2.png"
+            alt="O Mochilão"
+            class="footer__logo"
+          />
+          <p class="footer__tagline">
+            Seus companheiros das aventuras por Angola
+          </p>
+          <div class="footer__socials">
+            <a
+              href="https://www.instagram.com/o_mochilao/"
+              target="_blank"
+              aria-label="Instagram"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+            <a
+              href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0"
+              target="_blank"
+              aria-label="WhatsApp"
+              ><i class="fa-brands fa-whatsapp"></i
+            ></a>
+            <a
+              href="https://www.tiktok.com/@o.mochilao"
+              target="_blank"
+              aria-label="TikTok"
+              ><i class="fa-brands fa-tiktok"></i
+            ></a>
+            <a
+              href="https://www.facebook.com/OMochilao"
+              target="_blank"
+              aria-label="Facebook"
+              ><i class="fa-brands fa-facebook-f"></i
+            ></a>
+          </div>
+        </div>
+
+        <div class="footer__col">
+          <h4 class="footer__col-title">Navegação</h4>
+          <a href="../index.html#hero">Início</a>
+          <a href="../index.html#tours">Viagens</a>
+          <a href="../index.html#gallery">Galeria</a>
+          <a href="../index.html#about">Sobre Nós</a>
+        </div>
+
+        <div class="footer__col">
+          <h4 class="footer__col-title">Informações</h4>
+          <a href="../index.html#tips">Dicas de Viagem</a>
+          <a href="../index.html#packages">Viagens em Grupo</a>
+          <a href="faq.html">Perguntas Frequentes</a>
+          <a href="../index.html#contact">Fale Connosco</a>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <p>© 2025 O Mochilão Aventuras. Todos os direitos reservados.</p>
+        <p>Desenvolvido por <strong>Valganho</strong></p>
+      </div>
+    </footer>
+
+    <script type="module" src="../SCRIPT/firebase-config.js"></script>
+    <script type="module" src="../SCRIPT/site-appearance.js"></script>
+    <script type="module" src="../SCRIPT/site-extras.js"></script>
+    <script type="module" src="../SCRIPT/script.js"></script>
+    <script type="module" src="../SCRIPT/personalizada.js"></script>
+  </body>
+</html>

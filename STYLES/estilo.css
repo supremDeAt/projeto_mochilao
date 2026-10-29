@@ -1537,18 +1537,23 @@ p {
 }
 
 /* ─────────────────────────────────────────
-  13. GALERIA — mosaico + visualizador
+  13. GALERIA — linhas justificadas + visualizador
    ─────────────────────────────────────────
    As fotos vêm do painel admin (home-gallery.js).
-   Cada foto aparece no seu formato original — vertical,
-   horizontal ou quadrada — sem cortes. Ao clicar abre
-   em grande (.lightbox, mais abaixo).
+   Título e texto em cima; as fotos ocupam a largura toda
+   por baixo, em linhas. Todas as fotos de uma linha têm a
+   mesma altura e mantêm o seu formato (sem cortes): a
+   galeria acaba sempre numa linha reta.
+   Ao clicar abre em grande (lightbox.js).
+
+   --r     = largura ÷ altura de cada foto (posto pelo JS)
+   --row-h = altura de referência de cada linha
    ───────────────────────────────────────── */
 
 .gallery {
-  display: grid;
-  grid-template-columns: 38% 62%;
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
   background: var(--clr-warm-white);
   padding-top: 5rem;
   padding-bottom: 14rem;
@@ -1562,19 +1567,17 @@ p {
   );
 }
 
-/* ── COLUNA ESQUERDA: título e texto (ficam fixos ao fazer scroll) ── */
-.gallery__left {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
+/* ── Título + texto, lado a lado ── */
 .gallery__left-body {
-  position: sticky;
-  top: 7rem;
   display: flex;
   flex-direction: column;
-  padding-right: 2rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  
+  flex-wrap: wrap;
+}
+.gallery__left-body .section-title {
+  margin-bottom: 0;
 }
 
 .gallery__heading {
@@ -1598,8 +1601,8 @@ p {
   font-size: 0.95rem;
   color: var(--clr-text-black);
   line-height: 1.85;
-  max-width: 340px;
-  margin-bottom: 2rem;
+  max-width: 380px;
+  margin: 0;
 }
 
 .gallery__more:hover {
@@ -1610,57 +1613,48 @@ p {
   font-size: 1rem;
 }
 
-/* ── COLUNA DIREITA: mosaico ──
-   --gallery-cols = nº de colunas (lido também pelo home-gallery.js) */
+/* ── Fotos em linhas justificadas ── */
 .gallery__masonry,
 .gallery__right {
-  --gallery-cols: 2;
+  --row-h: 280px;
   --gallery-gap: 1rem;
-  column-count: var(--gallery-cols);
-  column-gap: var(--gallery-gap);
-}
-/* Com fotos do painel: colunas montadas pelo home-gallery.js */
-.gallery__masonry.is-js {
   display: flex;
-  align-items: flex-start;
-  gap: var(--gallery-gap);
-  column-count: auto;
-}
-.gallery__col {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: var(--gallery-gap);
 }
-.gallery__col .gallery__item {
-  margin: 0;
+/* Última linha: as fotos ficam com a altura normal, alinhadas à esquerda */
+.gallery__masonry::after,
+.gallery__right::after {
+  content: "";
+  flex: 999 1 0;
 }
 
-/* Cada foto (ou quadrado de exemplo) */
+/* Cada foto (ou quadrado de exemplo).
+   Largura proporcional ao formato → mesma altura na linha. */
 .gallery__item {
+  --r: 1.333;
   position: relative;
   display: block;
-  width: 100%;
-  margin: 0 0 var(--gallery-gap, 1rem);
+  flex: var(--r) 1 calc(var(--r) * var(--row-h));
+  aspect-ratio: var(--r);
+  min-width: 0;
+  margin: 0;
   padding: 0;
   border: 0;
   border-radius: 6px;
   overflow: hidden;
-  break-inside: avoid;
   background-color: var(--clr-brown-mid);
   font: inherit;
   color: inherit;
   text-align: left;
 }
 
-/* Quadrados de exemplo (antes de haver fotos no painel):
-   formatos variados para mostrar o efeito de mosaico */
-.gallery__item--main { aspect-ratio: 4 / 5; }
-.gallery__item--r1 { aspect-ratio: 4 / 3; background-color: var(--clr-brown-deep); }
-.gallery__item--r2 { aspect-ratio: 3 / 4; background-color: var(--clr-tan); }
-.gallery__item--r3 { aspect-ratio: 1 / 1; }
-.gallery__item--r4 { aspect-ratio: 4 / 3; background-color: var(--clr-brown-light); }
+/* Quadrados de exemplo (antes de haver fotos no painel) */
+.gallery__item--main { --r: 0.8; }
+.gallery__item--r1 { --r: 1.5; background-color: var(--clr-brown-deep); }
+.gallery__item--r2 { --r: 0.75; background-color: var(--clr-tan); }
+.gallery__item--r3 { --r: 1; }
+.gallery__item--r4 { --r: 1.5; background-color: var(--clr-brown-light); }
 
 .gallery__ph {
   position: absolute;
@@ -1672,17 +1666,17 @@ p {
   font-size: 2rem;
 }
 
-/* Foto real: altura conforme o formato da própria imagem */
+/* Foto real: o quadro já tem o formato da foto → nada é cortado */
 .gallery__item--photo {
   cursor: zoom-in;
 }
-.gallery__item--photo:not(.is-loaded) {
-  aspect-ratio: 4 / 3; /* reserva espaço enquanto a foto carrega */
-}
 .gallery__item--photo img {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
   opacity: 0;
   transition:
     opacity 0.5s ease,
@@ -1690,11 +1684,6 @@ p {
 }
 .gallery__item--photo.is-loaded img {
   opacity: 1;
-}
-.gallery__item--photo:not(.is-loaded) img {
-  position: absolute;
-  inset: 0;
-  height: 100%;
 }
 .gallery__item--photo:hover img {
   transform: scale(1.05);
@@ -1730,178 +1719,35 @@ p {
 /* ── RESPONSIVO ── */
 @media (max-width: 1100px) {
   .gallery {
-    grid-template-columns: 1fr;
     padding-bottom: 8rem;
   }
-  .gallery__left {
-    height: auto;
-  }
-  .gallery__left-body {
-    position: static;
-    padding: 3.5rem 2rem 0;
-  }
   .gallery__masonry,
   .gallery__right {
-    --gallery-cols: 3;
-    padding: 0 2rem 2rem;
-  }
-}
-@media (max-width: 760px) {
-  .gallery__masonry,
-  .gallery__right {
-    --gallery-cols: 2;
+    --row-h: 220px;
   }
 }
 @media (max-width: 640px) {
   .gallery {
     padding-top: 3rem;
     padding-bottom: 5rem;
-  }
-  .gallery__left-body {
-    padding: 0 1.25rem;
+    gap: 2rem;
   }
   .gallery__masonry,
   .gallery__right {
-    --gallery-gap: 0.6rem;
-    padding: 0 1.25rem 2rem;
+    --row-h: 130px;
+    --gallery-gap: 0.5rem;
   }
   .gallery__item {
-    border-radius: 8px;
+    border-radius: 6px;
   }
 }
+
 
 /* ─────────────────────────────────────────
   13b. VISUALIZADOR DE FOTOS (lightbox)
-   Abre ao clicar numa foto da galeria.
+   O estilo está dentro do SCRIPT/lightbox.js, para o
+   visualizador funcionar em qualquer página.
    ───────────────────────────────────────── */
-html.lightbox-open {
-  overflow: hidden;
-}
-
-.lightbox {
-  position: fixed;
-  inset: 0;
-  z-index: 3000;
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  grid-template-rows: auto minmax(0, 1fr);
-  align-items: center;
-  gap: 0 1rem;
-  padding: 1rem 1.5rem 1.5rem;
-  background: var(--clr-black-94);
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
-.lightbox[hidden] {
-  display: none;
-}
-.lightbox.is-open {
-  opacity: 1;
-}
-
-.lightbox__top {
-  grid-column: 1 / -1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 48px;
-}
-.lightbox__counter {
-  font-family: var(--font-body);
-  font-size: 0.85rem;
-  letter-spacing: 0.12em;
-  color: var(--clr-white-70);
-}
-
-.lightbox__stage {
-  grid-column: 2;
-  margin: 0;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.9rem;
-  min-height: 0;
-}
-.lightbox__img {
-  display: block;
-  max-width: 100%;
-  max-height: calc(100dvh - 9rem);
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  border-radius: 4px;
-  opacity: 0;
-  transform: scale(0.98);
-  transition:
-    opacity 0.3s ease,
-    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.lightbox__img.is-loaded {
-  opacity: 1;
-  transform: none;
-}
-.lightbox__caption {
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  color: var(--clr-white-70);
-  text-align: center;
-  max-width: 60ch;
-}
-.lightbox__caption:empty {
-  display: none;
-}
-
-.lightbox__btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  border: 0;
-  border-radius: 50%;
-  background: var(--clr-white-12);
-  color: var(--clr-white);
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-.lightbox__btn:hover {
-  background: var(--clr-white-25);
-}
-.lightbox__btn:focus-visible {
-  outline: 2px solid var(--clr-white);
-  outline-offset: 2px;
-}
-.lightbox__btn[hidden] {
-  display: none;
-}
-.lightbox__nav--prev { grid-column: 1; grid-row: 2; }
-.lightbox__nav--next { grid-column: 3; grid-row: 2; }
-
-/* Telemóvel: setas por cima da foto, nos cantos de baixo */
-@media (max-width: 640px) {
-  .lightbox {
-    grid-template-columns: minmax(0, 1fr);
-    padding: 0.75rem 0.75rem 1rem;
-  }
-  .lightbox__stage {
-    grid-column: 1;
-    grid-row: 2;
-  }
-  .lightbox__img {
-    max-height: calc(100dvh - 10rem);
-  }
-  .lightbox__nav {
-    position: absolute;
-    bottom: 1rem;
-    width: 44px;
-    height: 44px;
-  }
-  .lightbox__nav--prev { left: 1rem; }
-  .lightbox__nav--next { right: 1rem; }
-}
 
 /* ─────────────────────────────────────────
   14. EQUIPA

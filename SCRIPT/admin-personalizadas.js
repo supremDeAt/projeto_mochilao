@@ -1,10 +1,13 @@
 /* =====================================================
    O MOCHILÃO — admin-personalizadas.js  (ES module)
    Ecrã "Personalizadas": pedidos de viagem à medida
-   feitos na secção "Viagens Personalizadas" do index.
+   feitos na página PAGES/personalizada.html.
 
-   customTrips/{id}: nome, telefone, destino, pessoas, quando,
+   customTrips/{id}: nome, telefone, email, destino, pessoas, quando,
+                     duracao, tipo, interesses[], alojamento,
+                     orcamento, mensagem,
                      status, lido, notas, criadoEm, historico[]
+   (os pedidos antigos só têm nome, telefone, destino, pessoas, quando)
    Estados: Novo → Em proposta → Confirmado · Arquivado
    ===================================================== */
 
@@ -46,13 +49,23 @@ function normalize(raw) {
     destino: t.destino || "",
     pessoas: Number(t.pessoas) || 0,
     quando: t.quando || "",
+    email: t.email || "",
+    duracao: t.duracao || "",
+    tipo: t.tipo || "",
+    interesses: Array.isArray(t.interesses) ? t.interesses : [],
+    alojamento: t.alojamento || "",
+    orcamento: t.orcamento || "",
+    mensagem: t.mensagem || "",
     notas: t.notas || "",
     status: STATUSES.some((s) => s.key === t.status) ? t.status : "Novo",
     lido: t.lido === true || (t.status && t.status !== "Novo"),
     criadoEm: toDate(t.criadoEm),
     historico: Array.isArray(t.historico) ? t.historico : [],
   };
-  trip.search = searchable(trip.nome, trip.telefone, trip.destino, trip.quando, trip.notas);
+  trip.search = searchable(
+    trip.nome, trip.telefone, trip.email, trip.destino, trip.quando,
+    trip.tipo, trip.interesses.join(" "), trip.mensagem, trip.notas,
+  );
   return trip;
 }
 
@@ -201,6 +214,7 @@ export function initCustomTripsAdmin({ db, getPerms, getRole, getUser, openModal
           <div>
             <p class="detail-block__name">${esc(t.nome)}</p>
             <p class="cell-sub">${esc(t.telefone || "sem telefone")}</p>
+            ${t.email ? `<p class="cell-sub"><a href="mailto:${esc(t.email)}">${esc(t.email)}</a></p>` : ""}
             <p class="cell-sub">Pedido ${esc(formatDate(t.criadoEm, true))}</p>
           </div>
         </div>
@@ -209,8 +223,25 @@ export function initCustomTripsAdmin({ db, getPerms, getRole, getUser, openModal
           <div><dt>Destino</dt><dd>${esc(t.destino || "Por definir")}</dd></div>
           <div><dt>Pessoas</dt><dd>${t.pessoas || "–"}</dd></div>
           <div><dt>Quando</dt><dd>${esc(t.quando || "–")}</dd></div>
+          ${t.duracao ? `<div><dt>Duração</dt><dd>${esc(t.duracao)}</dd></div>` : ""}
+          ${t.tipo ? `<div><dt>Grupo</dt><dd>${esc(t.tipo)}</dd></div>` : ""}
+          ${t.alojamento ? `<div><dt>Alojamento</dt><dd>${esc(t.alojamento)}</dd></div>` : ""}
+          ${t.orcamento ? `<div><dt>Orçamento / pessoa</dt><dd>${esc(t.orcamento)}</dd></div>` : ""}
+          ${
+            t.interesses.length
+              ? `<div class="ct-facts__wide"><dt>Interesses</dt><dd class="ct-tags">${t.interesses
+                  .map((i) => `<span>${esc(i)}</span>`)
+                  .join("")}</dd></div>`
+              : ""
+          }
           <div><dt>Estado</dt><dd><span class="status-badge status-badge--${slugClass(t.status)}">${esc(t.status)}</span></dd></div>
         </dl>
+
+        ${
+          t.mensagem
+            ? `<div class="ct-message"><p class="detail-block__title">Mensagem do cliente</p><p>${esc(t.mensagem).replace(/\n/g, "<br>")}</p></div>`
+            : ""
+        }
 
         <div class="detail-actions">
           ${wpp ? `<a href="${esc(wpp)}" target="_blank" rel="noopener" class="btn btn--sm btn--wpp"><i class="fa-brands fa-whatsapp"></i> Falar no WhatsApp</a>` : ""}

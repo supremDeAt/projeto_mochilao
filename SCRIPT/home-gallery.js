@@ -7,15 +7,14 @@
      siteConfig/galeria-main, galeria-r1 … galeria-r4
      { data: "<url da imagem>", alt, atualizadoEm }
 
-   • Mosaico: cada foto aparece no seu formato original
-     (vertical, horizontal ou quadrada), sem cortes.
+   • Linhas justificadas: todas as fotos de uma linha têm a
+     mesma altura e mantêm o seu formato (sem cortes); a
+     galeria acaba sempre numa linha reta.
    • Ao clicar abre-se a foto em grande, com setas para
      avançar e recuar (teclado, botões e deslizar no telemóvel).
    • Sem fotos no Firestore (ou sem ligação) → ficam os
      quadrados de exemplo do HTML.
    ===================================================== */
-
-import { openLightbox } from "./lightbox.js";
 
 export const GALLERY_SLOTS = [
   { key: "main", label: "Foto 1" },
@@ -56,6 +55,57 @@ function getMasonry() {
   return box;
 }
 
+/* Arruma as fotos em linhas: todas as fotos de uma linha ficam com a
+   mesma altura e a linha ocupa a largura toda. Cada linha fica com a
+   altura mais próxima de "alvo". A última linha mantém a altura
+   normal e fica alinhada à esquerda. */
+function justifyRows(box, items, alvo, gap) {
+  const W = box.clientWidth;
+  if (!W || !items.length) return;
+  const ratioOf = (el) => parseFloat(el.style.getPropertyValue("--r")) || 1.333;
+  const place = (row, h) =>
+    row.forEach((el) => {
+      el.style.flex = "0 0 auto";
+      el.style.height = h.toFixed(2) + "px";
+      el.style.width = Math.floor(ratioOf(el) * h * 100) / 100 + "px";
+    });
+  let row = [];
+  let sum = 0;
+  items.forEach((el) => {
+    const r = ratioOf(el);
+    const hWith = (W - gap * row.length) / (sum + r);
+    if (row.length && hWith < alvo) {
+      const hWithout = (W - gap * (row.length - 1)) / sum;
+      // Fica com a opção cuja altura está mais perto do alvo
+      if (Math.abs(hWith - alvo) < Math.abs(hWithout - alvo)) {
+        row.push(el);
+        place(row, hWith);
+        row = [];
+        sum = 0;
+        return;
+      }
+      place(row, hWithout);
+      row = [];
+      sum = 0;
+    }
+    row.push(el);
+    sum += r;
+  });
+  if (row.length) {
+    const h = Math.min(alvo, (W - gap * (row.length - 1)) / sum);
+    place(row, h);
+  }
+}
+
+/** Altura alvo das linhas e espaço entre fotos, lidos do CSS */
+function rowSettings(box) {
+  const cs = getComputedStyle(box);
+  return {
+    alvo: parseFloat(cs.getPropertyValue("--row-h")) || 280,
+    gap: parseFloat(cs.columnGap) || 0,
+  };
+}
+
 function renderMasonry(box, photos) {
   const items = photos.map((p, i) => {
     const btn = document.createElement("button");
@@ -68,56 +118,44 @@ function renderMasonry(box, photos) {
       <span class="gallery__hover" aria-hidden="true"><i class="fa-solid fa-expand"></i></span>`;
     return btn;
   });
+  box.replaceChildren(...items);
 
-  box.innerHTML = "";
-  box.classList.add("is-js");
+  const relayout = () => {
+    const { alvo, gap } = rowSettings(box);
+    justifyRows(box, items, alvo, gap);
+  };
+  relayout();
 
-  /* Coloca cada foto na coluna mais baixa nesse momento, pela ordem
-     do painel: o mosaico fica equilibrado seja qual for o formato. */
-  let cols = 0;
-  function layout(force) {
-    const n = parseInt(getComputedStyle(box).getPropertyValue("--gallery-cols"), 10) || 2;
-    if (n === cols && !force) return;
-    cols = n;
-    const columns = Array.from({ length: n }, () => {
-      const c = document.createElement("div");
-      c.className = "gallery__col";
-      return c;
-    });
-    const heights = new Array(n).fill(0);
-    items.forEach((item) => {
-      const img = item.querySelector("img");
-      const ratio = img.naturalWidth ? img.naturalHeight / img.naturalWidth : 0.75;
-      const k = heights.indexOf(Math.min(...heights));
-      columns[k].appendChild(item);
-      heights[k] += ratio;
-    });
-    box.replaceChildren(...columns);
-  }
-
-  layout(true);
-
-  // Cada foto que carrega: mostra-a e reequilibra as colunas
+  // Cada foto que carrega: passa o seu formato (--r) e reorganiza as linhas
   items.forEach((item) => {
     const img = item.querySelector("img");
     const done = () => {
+      if (img.naturalWidth && img.naturalHeight) {
+        item.style.setProperty("--r", (img.naturalWidth / img.naturalHeight).toFixed(4));
+      }
       item.classList.add("is-loaded");
-      layout(true);
+      relayout();
     };
     if (img.complete && img.naturalWidth) done();
-    else img.addEventListener("load", done, { once: true });
+    else {
+      img.addEventListener("load", done, { once: true });
+      img.addEventListener("error", done, { once: true });
+    }
   });
 
-  // Muda o nº de colunas quando o ecrã muda de largura
+  // Ecrã muda de largura → refaz as linhas
   let t;
   window.addEventListener("resize", () => {
     clearTimeout(t);
-    t = setTimeout(() => layout(false), 150);
+    t = setTimeout(relayout, 120);
   });
 
   box.addEventListener("click", (e) => {
     const item = e.target.closest(".gallery__item--photo");
-    if (item) openLightbox(photos, Number(item.dataset.index), item);
+    if (!item) return;
+    import("./lightbox.js")
+      .then((m) => m.openLightbox(photos, Number(item.dataset.index), item))
+      .catch((err) => console.error("[galeria] Não foi possível abrir o visualizador (falta o SCRIPT/lightbox.js?)", err));
   });
 }
 

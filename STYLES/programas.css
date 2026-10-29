@@ -500,11 +500,10 @@
 .pkg-booking-section {
   padding: 0 var(--pg-gutter) 7rem;
   background: var(--clr-white);
-  
 }
 .pkg-booking-section__inner {
   max-width: 640px;
-  margin-left: auto;
+  margin-left:auto;
 }
 
 /* ── Card CTA escuro (mesmo tom do formulário de contacto) ── */
@@ -892,51 +891,66 @@
 }
 
 /* ══════════════════════════════════════════
-   GALERIA EM MOSAICO (gallery-masonry.js)
-   Cada foto mantém o seu formato: vertical fica
-   vertical, horizontal fica horizontal — sem cortes.
+   GALERIA EM LINHAS (gallery-masonry.js)
+   Todas as fotos de uma linha têm a mesma altura e
+   mantêm o seu formato (sem cortes). A galeria acaba
+   sempre numa linha reta.
+   --r     = largura ÷ altura de cada foto (posto pelo JS)
+   --row-h = altura de referência de cada linha
 ══════════════════════════════════════════ */
-.pkg-gallery__grid.is-masonry {
+.pkg-gallery__grid.is-justified {
+  --row-h: 280px;
+  --pkg-gap: 1rem;
   display: flex;
-  align-items: flex-start;
-  gap: 1rem;
+  flex-wrap: wrap;
+  gap: var(--pkg-gap);
 }
-.pkg-gallery__col {
-  flex: 1 1 0;
+/* Última linha: altura normal, alinhada à esquerda */
+.pkg-gallery__grid.is-justified::after {
+  content: "";
+  flex: 999 1 0;
+}
+.is-justified .pkg-gallery__item,
+.is-justified .pkg-gallery__item--tall {
+  --r: 1.333;
+  position: relative;
+  flex: var(--r) 1 calc(var(--r) * var(--row-h));
+  aspect-ratio: var(--r);
   min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-.is-masonry .pkg-gallery__item,
-.is-masonry .pkg-gallery__item--tall {
-  aspect-ratio: auto;
   grid-row: auto;
   grid-column: auto;
   border-radius: var(--radius-md);
   box-shadow: 0 10px 28px var(--clr-black-12);
 }
-.is-masonry .pkg-gallery__img {
+/* O quadro já tem o formato da foto → nada é cortado */
+.is-justified .pkg-gallery__img {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
-  height: auto; /* altura natural da foto → sem cortes */
-  object-fit: initial;
+  height: 100%;
+  object-fit: cover;
 }
-/* Sem foto (placeholder): mantém um formato horizontal */
-.is-masonry .pkg-gallery__ph {
-  aspect-ratio: 4 / 3;
+.is-justified .pkg-gallery__ph {
+  position: absolute;
+  inset: 0;
   min-height: 0;
 }
 
+@media (max-width: 1024px) {
+  .pkg-gallery__grid.is-justified {
+    --row-h: 220px;
+  }
+}
 @media (max-width: 540px) {
-  .pkg-gallery__grid.is-masonry,
-  .pkg-gallery__col {
-    gap: 0.6rem;
+  .pkg-gallery__grid.is-justified {
+    --row-h: 130px;
+    --pkg-gap: 0.5rem;
   }
 }
 /* ══════════════════════════════════════════
    GALERIA — abrir foto em grande (lightbox.js)
-   O visualizador em si está em estilo.css → 13b.
+   O estilo do visualizador vem dentro do lightbox.js.
    ══════════════════════════════════════════ */
 .pkg-gallery__item--photo {
   position: relative;
