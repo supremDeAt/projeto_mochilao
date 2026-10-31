@@ -1,0 +1,135 @@
+/* =====================================================
+   O MOCHILÃO — admin-personalizada-pagina.css
+   Admin → Site Web → "Pág. Personalizada"
+   (carregado pelo próprio admin-personalizada-pagina.js;
+    usa também os estilos do admin-controlo.css: hg-slot, ap-*, ab-*)
+   ===================================================== */
+
+.content-pane.pc-admin {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+.content-pane.pc-admin[hidden] {
+  display: none;
+}
+
+.pc-admin .content-help a {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.pc-admin__group {
+  display: grid;
+  gap: 1rem;
+}
+
+/* Fotos da secção */
+.pc-admin__photos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(180px, 100%), 1fr));
+  gap: 0.9rem;
+}
+.pc-photo .hg-slot__media {
+  aspect-ratio: 4 / 3;
+}
+.pc-photo .hg-slot__img {
+  object-fit: cover;
+}
+
+/* Campos */
+.pc-admin__fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem 1rem;
+}
+.pc-admin__fields .ab-field:has(textarea) {
+  grid-column: 1 / -1;
+}
+
+/* Programas a mostrar */
+.pc-admin__programs {
+  display: grid;
+  gap: 0.6rem;
+}
+.pc-admin__programs-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--clr-text-dark);
+}
+.pc-admin__programs-title small {
+  font-weight: 500;
+  color: var(--clr-text-muted);
+}
+[data-pc-programs] {
+  display: grid;
+  gap: 0.45rem;
+}
+.pc-admin__prog {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--clr-line);
+  border-radius: 10px;
+  background: var(--clr-white);
+  cursor: pointer;
+  font-size: 0.86rem;
+}
+.pc-admin__prog.is-on {
+  border-color: var(--clr-brown-mid);
+  background: var(--clr-off-white);
+}
+.pc-admin__prog img,
+.pc-admin__prog > i {
+  width: 44px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  object-fit: cover;
+  display: grid;
+  place-items: center;
+  background: var(--clr-brown-mid);
+  color: var(--clr-white);
+}
+.pc-admin__prog span {
+  flex: 1;
+  font-weight: 600;
+}
+.pc-admin__prog em {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--clr-brown-deep);
+  color: var(--clr-white);
+  font-style: normal;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+.pc-admin__prog input:disabled + * {
+  opacity: 0.5;
+}
+
+/* Pré-visualização fixa ao fazer scroll */
+.pc-admin .ap-live {
+  position: sticky;
+  top: 1rem;
+}
+
+@media (max-width: 1100px) {
+  .content-pane.pc-admin {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .pc-admin .ap-live {
+    position: static;
+    order: -1;
+  }
+}
+@media (max-width: 540px) {
+  .pc-admin__fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

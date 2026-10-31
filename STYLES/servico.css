@@ -620,3 +620,15 @@ body.partner-modal-open {
     height: 54px;
   }
 }
+
+/* ─────────────────────────────────────────
+   BOTÃO "VOLTAR AO TOPO"
+   Nesta página o botão não está dentro de .float-btns,
+   por isso ficava no fim do conteúdo em vez de flutuar.
+   ───────────────────────────────────────── */
+.svc-page > .float-btn--top {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 2rem;
+  z-index: 800;
+}

@@ -149,194 +149,104 @@
       </div>
     </aside>
 
-    <!-- ======= HERO ======= -->
-    <header class="pc-hero">
+    <!-- O conteúdo desta página é editado no painel:
+         Site Web → Pág. Personalizada (personalizada-content.js).
+         O texto abaixo é o original, usado enquanto o painel não tem outro. -->
+
+    <!-- ======= 1. TOPO ======= -->
+    <header class="pc-hero" data-pc-bg="hero">
       <div class="pc-hero__inner">
-        <nav class="pc-hero__crumbs" aria-label="Caminho">
+        <nav class="pc-crumbs" aria-label="Caminho">
           <a href="../index.html">Início</a> <span aria-hidden="true">/</span>
-          <span>Viagem personalizada</span>
+          <span>Viagens personalizadas</span>
         </nav>
-        <span class="pc-hero__tag">Viagens Personalizadas</span>
-        <h1 class="pc-hero__title">A viagem é sua,<br />o roteiro também</h1>
-        <p class="pc-hero__text">
-          Conte-nos como imagina a viagem. A nossa equipa prepara uma proposta
-          à sua medida — destino, alojamento, transporte, guias e experiências —
-          sem compromisso.
-        </p>
+        <span class="pc-tag pc-tag--light" data-pc="hero.tag">Viagens Personalizadas</span>
+        <h1 class="pc-hero__title" data-pc="hero.titulo">A viagem é sua,<br />o roteiro também</h1>
+        <p class="pc-hero__text" data-pc="hero.texto">Desenhamos o programa à sua medida: destino, datas, alojamento e experiências — para famílias, amigos, casais e empresas.</p>
       </div>
     </header>
 
-    <!-- ======= PEDIDO ======= -->
-    <main class="pc-main">
-      <!-- Formulário (os pedidos aparecem no painel → Personalizadas) -->
-      <section class="pc-card" aria-labelledby="pcFormTitle">
-        <form class="pc-form" id="pcForm" novalidate>
-          <h2 class="pc-form__title" id="pcFormTitle">Pedir proposta</h2>
-          <p class="pc-form__lead">Os campos com * são obrigatórios. O resto ajuda-nos a acertar à primeira.</p>
+    <!-- ======= 2. DESTINOS À SUA MEDIDA ======= -->
+    <section class="pc-medida">
+      <div class="pc-medida__text reveal-left">
+        <span class="pc-tag" data-pc="medida.tag">Feita à sua medida</span>
+        <h2 class="pc-title" data-pc="medida.titulo">Destinos à<br />sua medida</h2>
+        <p class="pc-text" data-pc="medida.texto">Criamos a viagem de raiz ou adaptamos um dos nossos programas às datas e ao ritmo do seu grupo. Diga-nos o que imagina e nós tratamos do resto.</p>
+        <ul class="pc-facts">
+          <li><strong data-pc="medida.f1v">5 dias</strong><span data-pc="medida.f1t">para receber a proposta</span></li>
+          <li><strong data-pc="medida.f2v">Qualquer</strong><span data-pc="medida.f2t">tamanho de grupo</span></li>
+          <li><strong data-pc="medida.f3v">Angola</strong><span data-pc="medida.f3t">e Namíbia</span></li>
+        </ul>
+      </div>
+      <div class="pc-medida__photos reveal-right">
+        <figure><img src="../imagens/malanje2.webp" alt="" data-pc-img="medida1" /></figure>
+        <figure><img src="../imagens/namibe2.webp" alt="" data-pc-img="medida2" /></figure>
+        <div class="pc-seal">
+          <strong data-pc="medida.seloV">4</strong>
+          <span data-pc="medida.seloT">passos simples</span>
+        </div>
+      </div>
+    </section>
 
-          <!-- 1. Contacto -->
-          <fieldset class="pc-step">
-            <legend class="pc-step__title"><span>1</span> Os seus contactos</legend>
-            <label class="pc-field">
-              <span>Nome *</span>
-              <input type="text" name="nome" maxlength="80" autocomplete="name" required />
-            </label>
-            <div class="pc-row">
-              <label class="pc-field">
-                <span>Telefone / WhatsApp *</span>
-                <input type="tel" name="telefone" maxlength="20" autocomplete="tel" inputmode="tel" placeholder="9XX XXX XXX" required />
-              </label>
-              <label class="pc-field">
-                <span>Email</span>
-                <input type="email" name="email" maxlength="120" autocomplete="email" placeholder="exemplo@gmail.com" />
-              </label>
-            </div>
-          </fieldset>
+    <!-- ======= 3. COMO FUNCIONA ======= -->
+    <section class="pc-como">
+      <div class="pc-como__text reveal-left">
+        <span class="pc-tag" data-pc="como.tag">Como funciona</span>
+        <h2 class="pc-title" data-pc="como.titulo">Simples, do início ao fim</h2>
+        <ol class="pc-steps">
+          <li><span class="pc-steps__num">1</span><div><strong data-pc="como.p1t">Fale connosco</strong><p data-pc="como.p1d">Por WhatsApp ou email: destino, datas, número de pessoas e tipo de viagem.</p></div></li>
+          <li><span class="pc-steps__num">2</span><div><strong data-pc="como.p2t">Recebe a proposta</strong><p data-pc="como.p2d">Preparamos o roteiro com alojamento, transporte e preço.</p></div></li>
+          <li><span class="pc-steps__num">3</span><div><strong data-pc="como.p3t">Ajustamos juntos</strong><p data-pc="como.p3d">Mudamos o que for preciso até ficar perfeito.</p></div></li>
+          <li><span class="pc-steps__num">4</span><div><strong data-pc="como.p4t">É só partir</strong><p data-pc="como.p4d">Confirmada a reserva, tratamos de tudo.</p></div></li>
+        </ol>
+      </div>
+      <figure class="pc-como__photo reveal-right"><img src="../imagens/camelo.jpeg" alt="" data-pc-img="como" /></figure>
+    </section>
 
-          <!-- 2. Viagem -->
-          <fieldset class="pc-step">
-            <legend class="pc-step__title"><span>2</span> A viagem</legend>
-            <label class="pc-field">
-              <span>Para onde gostaria de ir?</span>
-              <input type="text" name="destino" maxlength="120" list="pcDestinos" placeholder="Ex: Malanje e Kalandula, ou ainda não sei" />
-              <datalist id="pcDestinos">
-                <option value="Malanje"></option>
-                <option value="Namibe"></option>
-                <option value="Huambo"></option>
-                <option value="Benguela"></option>
-                <option value="Cabo Ledo"></option>
-                <option value="Quiçama"></option>
-                <option value="Bengo"></option>
-                <option value="Namíbia"></option>
-                <option value="Ainda não sei"></option>
-              </datalist>
-            </label>
-            <div class="pc-row pc-row--3">
-              <label class="pc-field">
-                <span>Quando?</span>
-                <input type="text" name="quando" maxlength="60" placeholder="Ex: Dezembro" />
-              </label>
-              <label class="pc-field">
-                <span>Duração</span>
-                <select name="duracao">
-                  <option value="">Escolher…</option>
-                  <option>1 dia</option>
-                  <option>2 a 3 dias</option>
-                  <option>4 a 7 dias</option>
-                  <option>Mais de uma semana</option>
-                  <option>Ainda não sei</option>
-                </select>
-              </label>
-              <label class="pc-field">
-                <span>Quantas pessoas?</span>
-                <input type="number" name="pessoas" min="1" max="500" inputmode="numeric" placeholder="Ex: 4" />
-              </label>
-            </div>
-            <div class="pc-field">
-              <span>Quem vai viajar?</span>
-              <div class="pc-chips" role="radiogroup" aria-label="Quem vai viajar">
-              <label class="pc-chip"><input type="radio" name="tipo" value="Família" /><span>Família</span></label>
-              <label class="pc-chip"><input type="radio" name="tipo" value="Amigos" /><span>Amigos</span></label>
-              <label class="pc-chip"><input type="radio" name="tipo" value="Casal" /><span>Casal</span></label>
-              <label class="pc-chip"><input type="radio" name="tipo" value="Empresa" /><span>Empresa</span></label>
-              <label class="pc-chip"><input type="radio" name="tipo" value="Escola / Grupo" /><span>Escola / Grupo</span></label>
-              <label class="pc-chip"><input type="radio" name="tipo" value="Sozinho(a)" /><span>Sozinho(a)</span></label>
-              </div>
-            </div>
-          </fieldset>
+    <!-- ======= 4. CONHEÇA ALGUNS DESTINOS ======= -->
+    <section class="pc-destinos">
+      <div class="pc-destinos__head reveal-up">
+        <span class="pc-tag" data-pc="destinos.tag">Inspire-se</span>
+        <h2 class="pc-title" data-pc="destinos.titulo">Conheça alguns destinos</h2>
+      </div>
+      <!-- Programas escolhidos no painel (ou os primeiros 3). Estes são os de reserva. -->
+      <div class="pc-destinos__grid reveal-up" data-pc-destinos>
+        <a class="pc-card" href="programa.html?d=cabo-ledo">
+          <span class="pc-card__media"><img src="../imagens/caboledo.webp" alt="Cabo Ledo Sobre Rodas" loading="lazy" /></span>
+          <span class="pc-card__body"><strong>Cabo Ledo Sobre Rodas</strong><span>A estrada é o caminho. A experiência é o destino.</span></span>
+        </a>
+        <a class="pc-card" href="programa.html?d=malanje">
+          <span class="pc-card__media"><img src="../imagens/malanje_kiari.jpeg" alt="Malanje Tour" loading="lazy" /></span>
+          <span class="pc-card__body"><strong>Malanje Tour</strong><span>Malanje espera por si.</span></span>
+        </a>
+        <a class="pc-card" href="programa.html?d=quicama">
+          <span class="pc-card__media"><img src="../imagens/quicama.webp" alt="Safari na Quiçama" loading="lazy" /></span>
+          <span class="pc-card__body"><strong>Safari na Quiçama</strong><span>Um dia inteiro à procura da vida selvagem angolana.</span></span>
+        </a>
+      </div>
+    </section>
 
-          <!-- 3. Preferências -->
-          <fieldset class="pc-step">
-            <legend class="pc-step__title"><span>3</span> Preferências</legend>
-            <div class="pc-field">
-              <span>O que gostariam de fazer? <small>(pode escolher vários)</small></span>
-              <div class="pc-chips">
-              <label class="pc-chip"><input type="checkbox" name="interesses" value="Natureza" /><span>Natureza</span></label>
-              <label class="pc-chip"><input type="checkbox" name="interesses" value="Praia" /><span>Praia</span></label>
-              <label class="pc-chip"><input type="checkbox" name="interesses" value="Aventura" /><span>Aventura</span></label>
-              <label class="pc-chip"><input type="checkbox" name="interesses" value="Cultura" /><span>Cultura</span></label>
-              <label class="pc-chip"><input type="checkbox" name="interesses" value="Gastronomia" /><span>Gastronomia</span></label>
-              <label class="pc-chip"><input type="checkbox" name="interesses" value="Camping" /><span>Camping</span></label>
-              <label class="pc-chip"><input type="checkbox" name="interesses" value="Safari" /><span>Safari</span></label>
-              <label class="pc-chip"><input type="checkbox" name="interesses" value="Descanso" /><span>Descanso</span></label>
-              </div>
-            </div>
-            <div class="pc-field">
-              <span>Alojamento</span>
-              <div class="pc-chips" role="radiogroup" aria-label="Alojamento">
-              <label class="pc-chip"><input type="radio" name="alojamento" value="Hotel" /><span>Hotel</span></label>
-              <label class="pc-chip"><input type="radio" name="alojamento" value="Lodge / Bungalow" /><span>Lodge / Bungalow</span></label>
-              <label class="pc-chip"><input type="radio" name="alojamento" value="Camping" /><span>Camping</span></label>
-              <label class="pc-chip"><input type="radio" name="alojamento" value="Indiferente" /><span>Indiferente</span></label>
-              </div>
-            </div>
-            <label class="pc-field">
-              <span>Orçamento por pessoa</span>
-              <select name="orcamento">
-                <option value="">Escolher…</option>
-                <option>Até 100.000 Kz</option>
-                <option>100.000 a 300.000 Kz</option>
-                <option>300.000 a 600.000 Kz</option>
-                <option>Mais de 600.000 Kz</option>
-                <option>Prefiro falar primeiro</option>
-              </select>
-            </label>
-            <label class="pc-field">
-              <span>Mais alguma coisa?</span>
-              <textarea name="mensagem" rows="4" maxlength="1500" placeholder="Ocasiões especiais, necessidades, ideias…"></textarea>
-            </label>
-          </fieldset>
-
-          <p class="pc-form__error" id="pcError" role="alert" hidden></p>
-
-          <button type="submit" class="btn btn--primary btn--full pc-form__submit" id="pcSubmit">
-            Enviar pedido <i class="fa-solid fa-paper-plane"></i>
-          </button>
-          <p class="pc-form__note">
-            Ao enviar, a nossa equipa recebe o pedido e contacta-o com uma proposta.
-          </p>
-        </form>
-
-        <!-- Confirmação (aparece depois de enviar) -->
-        <div class="pc-done" id="pcDone" hidden tabindex="-1">
-          <span class="pc-done__icon" aria-hidden="true"><i class="fa-solid fa-circle-check"></i></span>
-          <h2 class="pc-done__title">Pedido enviado!</h2>
-          <p class="pc-done__text" id="pcDoneText">
-            Obrigado. A nossa equipa vai preparar a proposta e contactá-lo em breve.
-          </p>
-          <a href="#" class="btn pc-wpp" id="pcDoneWpp" target="_blank" rel="noopener">
-            <i class="fa-brands fa-whatsapp"></i> Falar já no WhatsApp
+    <!-- ======= 5. CONTACTO ======= -->
+    <section class="pc-contacto-wrap">
+      <div class="pc-contacto reveal-up" data-pc-bg="contacto">
+        <span class="pc-tag pc-tag--light" data-pc="contacto.tag">Vamos planear?</span>
+        <h2 class="pc-title pc-title--light" data-pc="contacto.titulo">Conte-nos a sua ideia</h2>
+        <p class="pc-contacto__text" data-pc="contacto.texto">Escolha a forma mais fácil para si. A nossa equipa responde com rapidez e sem compromisso.</p>
+        <div class="pc-contacto__btns">
+          <a class="pc-btn pc-btn--wpp" href="https://wa.me/244926509821" target="_blank" rel="noopener" data-pc-wpp>
+            <i class="fa-brands fa-whatsapp"></i> <span data-pc="contacto.wpp">WhatsApp</span>
           </a>
-          <a href="../index.html" class="pc-done__back">Voltar ao início</a>
-        </div>
-      </section>
-
-      <!-- Lado: como funciona + atalho -->
-      <aside class="pc-aside">
-        <div class="pc-aside__box">
-          <h2 class="pc-aside__title">Como funciona</h2>
-          <ol class="pc-steps">
-            <li><span>1</span><div><strong>Conte-nos a ideia</strong><p>Destino, datas, número de pessoas e o que gostam de fazer.</p></div></li>
-            <li><span>2</span><div><strong>Recebe a proposta</strong><p>Preparamos um roteiro com alojamento, transporte e preço.</p></div></li>
-            <li><span>3</span><div><strong>Ajustamos juntos</strong><p>Mudamos o que for preciso até ficar perfeito.</p></div></li>
-            <li><span>4</span><div><strong>É só partir</strong><p>Tratamos de tudo do início ao fim da viagem.</p></div></li>
-          </ol>
-        </div>
-        <div class="pc-aside__box pc-aside__box--dark">
-          <p class="pc-aside__lead">Prefere falar diretamente?</p>
-          <a href="#" class="btn pc-wpp" id="pcWppDirect" target="_blank" rel="noopener">
-            <i class="fa-brands fa-whatsapp"></i> Falar no WhatsApp
+          <a class="pc-btn pc-btn--ghost" href="mailto:geral@omochilao.ao" data-pc-mail data-pc-mail-default="geral@omochilao.ao">
+            <i class="fa-regular fa-envelope"></i> <span data-pc="contacto.mail">Email</span>
           </a>
-          <ul class="pc-aside__list">
-            <li><i class="fa-solid fa-check"></i> Grupos, famílias, casais e empresas</li>
-            <li><i class="fa-solid fa-check"></i> Todo o território nacional e Namíbia</li>
-            <li><i class="fa-solid fa-check"></i> Proposta sem compromisso</li>
-          </ul>
         </div>
-      </aside>
-    </main>
+      </div>
+    </section>
 
-    <a href="#" class="float-btn float-btn--top" aria-label="Voltar ao topo"><i class="fa-solid fa-arrow-up"></i></a>
+    <!-- Botão "voltar ao topo" (dentro de .float-btns para flutuar no canto) -->
+    <div class="float-btns">
+      <a href="#" class="float-btn float-btn--top" aria-label="Voltar ao topo"><i class="fa-solid fa-arrow-up"></i></a>
+    </div>
 
     <!-- ======= FOOTER ======= -->
     <footer class="footer">
