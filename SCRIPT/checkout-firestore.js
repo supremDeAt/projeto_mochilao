@@ -4,6 +4,8 @@
 
    1. Lê localStorage("mochilao-cart") e preenche o resumo
       (carrinho vazio → volta para index.html)
+      Cada viagem tem − / + para escolher o nº de pessoas:
+      o preço por pessoa vem da tabela do programa (precos)
    2. Valida Nome / Email / Telefone
    3. Grava em Firestore → colecção "reservations"
    4. Limpa o carrinho e mostra o modal de sucesso
@@ -17,7 +19,7 @@ import {
   collection,
   addDoc,
   serverTimestamp,
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 /* ─────────────────────────────────────────
    1. CONFIGURAÇÃO
@@ -28,6 +30,8 @@ const STATUS_INICIAL = "Aguardando Pagamento";
 const IBAN = "AO06.XXXXXXXX"; // ← substituir pelo IBAN real
 const WHATSAPP = "244926509821";
 const HOME_URL = "../index.html";
+const PAX_MIN = 1;
+const PAX_MAX = 20;
 
 /* ─────────────────────────────────────────
    2. DOM
@@ -90,10 +94,26 @@ function escapeHtml(str) {
     .replace(/'/g, "&#39;");
 }
 
+const clampPax = (n) => Math.min(PAX_MAX, Math.max(PAX_MIN, parseInt(n, 10) || PAX_MIN));
+
+/* Preço por pessoa para N pessoas: escalão com o maior nº de pessoas ≤ N
+   (grupos maiores pagam o preço do último escalão). Sem tabela → preço guardado. */
+function unitPrice(item, pax) {
+  const tiers = (Array.isArray(item.precos) ? item.precos : [])
+    .map((t) => ({ pax: parseInt(t.pax, 10) || 1, valor: toNumber(t.valor) }))
+    .filter((t) => t.valor > 0)
+    .sort((a, b) => a.pax - b.pax);
+  if (!tiers.length) return toNumber(item.precoUnitario ?? item.precoUnit);
+  let chosen = tiers[0];
+  tiers.forEach((t) => {
+    if (t.pax <= pax) chosen = t;
+  });
+  return chosen.valor;
+}
+
 function lineTotal(item) {
-  const total = toNumber(item.total);
-  if (total > 0) return total;
-  return toNumber(item.precoUnitario) * (parseInt(item.pax, 10) || 0);
+  const pax = clampPax(item.pax);
+  return unitPrice(item, pax) * pax;
 }
 
 // O checkout está em /PAGES/ → imagens precisam de "../"
@@ -118,20 +138,36 @@ function getCart() {
 // Firestore não aceita "undefined" → normaliza cada item
 function sanitizeItems(cart) {
   return cart.map((item) => {
-    const pax = parseInt(item.pax, 10) || 1;
-    const precoUnitario = toNumber(item.precoUnitario);
+    const pax = clampPax(item.pax);
+    const precoUnitario = unitPrice(item, pax);
     return {
       id: String(item.id ?? ""),
-      programId: String(item.programId ?? ""),
+      programId: String(item.programId ?? item.programaId ?? ""),
       nome: String(item.nome ?? ""),
-      imagem: String(item.imagem ?? ""),
+      imagem: String(item.imagem ?? item.img ?? ""),
       data: String(item.data ?? ""),
       pax,
       precoUnitario,
-      total: lineTotal({ ...item, pax, precoUnitario }),
+      total: precoUnitario * pax,
     };
   });
 }
+
+/* Muda o nº de pessoas de uma viagem e grava na mochila */
+function setPax(id, pax) {
+  const cart = getCart();
+  const item = cart.find((i) => i.id === id);
+  if (!item) return;
+  item.pax = clampPax(pax);
+  item.precoUnitario = unitPrice(item, item.pax);
+  item.total = item.precoUnitario * item.pax;
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+  window.dispatchEvent(new Event("cartUpdated"));
+  renderSummary(cart);
+  // Leitores de ecrã: mantém o foco no botão carregado
+  els.items.querySelector(`[data-id="${CSS.escape(id)}"][data-pax="${lastAction}"]`)?.focus();
+}
+let lastAction = "";
 
 function getTotal(cart) {
   return cart.reduce((sum, item) => sum + lineTotal(item), 0);
@@ -143,9 +179,11 @@ function getTotal(cart) {
 function renderSummary(cart) {
   els.items.innerHTML = cart
     .map((item) => {
-      const pax = parseInt(item.pax, 10) || 1;
-      const valor = lineTotal(item);
-      const src = imagePath(item.imagem);
+      const pax = clampPax(item.pax);
+      const unit = unitPrice(item, pax);
+      const valor = unit * pax;
+      const src = imagePath(item.imagem ?? item.img);
+      const id = escapeHtml(item.id);
       const media = src
         ? `<img src="${escapeHtml(src)}" alt="" class="checkout-item__img" loading="lazy">`
         : `<span class="checkout-item__ph"><i class="fa-solid fa-mountain-sun"></i></span>`;
@@ -159,8 +197,15 @@ function renderSummary(cart) {
           <div class="checkout-item__info">
             <span class="checkout-item__title">${escapeHtml(item.nome)}</span>
             <span class="checkout-item__meta">
-              ${escapeHtml(formatDate(item.data))} · ${pax} ${pax === 1 ? "pessoa" : "pessoas"}
+              ${escapeHtml(formatDate(item.data))}${unit > 0 ? ` · ${formatKz(unit)} / pessoa` : ""}
             </span>
+            <div class="checkout-pax" role="group" aria-label="Número de pessoas — ${escapeHtml(item.nome)}">
+              <button type="button" class="checkout-pax__btn" data-id="${id}" data-pax="dec"
+                aria-label="Menos uma pessoa" ${pax <= PAX_MIN ? "disabled" : ""}><i class="fa-solid fa-minus"></i></button>
+              <span class="checkout-pax__value" aria-live="polite">${pax} ${pax === 1 ? "pessoa" : "pessoas"}</span>
+              <button type="button" class="checkout-pax__btn" data-id="${id}" data-pax="inc"
+                aria-label="Mais uma pessoa" ${pax >= PAX_MAX ? "disabled" : ""}><i class="fa-solid fa-plus"></i></button>
+            </div>
           </div>
           <span class="checkout-item__price">${valor > 0 ? formatKz(valor) : "A consultar"}</span>
         </li>`;
@@ -213,6 +258,17 @@ function validate() {
   }
   return { nome, email, telefone };
 }
+
+// − / + do número de pessoas em cada viagem
+els.items.addEventListener("click", (e) => {
+  const btn = e.target.closest("[data-pax]");
+  if (!btn || btn.disabled || submitting) return;
+  const id = btn.dataset.id;
+  const item = getCart().find((i) => i.id === id);
+  if (!item) return;
+  lastAction = btn.dataset.pax;
+  setPax(id, clampPax(item.pax) + (lastAction === "inc" ? 1 : -1));
+});
 
 // Limpa o erro assim que o utilizador corrige o campo
 [els.nome, els.email, els.telefone].forEach((input) =>

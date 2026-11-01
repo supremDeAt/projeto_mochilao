@@ -371,6 +371,51 @@
   line-height: 1.4;
   color: var(--clr-text-muted);
 }
+/* Nº de pessoas (− / +) — escolhido aqui, no checkout */
+.checkout-pax {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.45rem;
+  padding: 0.2rem;
+  border: 1.5px solid var(--clr-brown-earth-15);
+  border-radius: 999px;
+  width: fit-content;
+}
+.checkout-pax__btn {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 50%;
+  background: var(--clr-gold-15);
+  color: var(--clr-text-main);
+  font-size: 0.72rem;
+  cursor: pointer;
+  transition: background var(--ease-std), color var(--ease-std);
+}
+.checkout-pax__btn:hover:not(:disabled) {
+  background: var(--clr-gold);
+  color: var(--clr-white);
+}
+.checkout-pax__btn:focus-visible {
+  outline: 2px solid var(--clr-gold);
+  outline-offset: 2px;
+}
+.checkout-pax__btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.checkout-pax__value {
+  min-width: 5.2rem;
+  text-align: center;
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--clr-text-main);
+}
 .checkout-item__price {
   font-family: var(--font-ui);
   font-size: 0.92rem;

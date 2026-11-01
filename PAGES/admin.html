@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../STYLES/admin-controlo.css" />
     <link rel="stylesheet" href="../STYLES/admin-parceiros.css" />
     <link rel="stylesheet" href="../STYLES/admin-personalizadas.css" />
+    <link rel="stylesheet" href="../STYLES/admin-precos.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -244,6 +245,9 @@
                     <a href="#progSecBasic" class="program-form__nav-link">
                       <i class="fa-solid fa-circle-info"></i> Básico
                     </a>
+                    <a href="#progSecPrices" class="program-form__nav-link">
+                      <i class="fa-solid fa-tags"></i> Preços
+                    </a>
                     <a href="#progSecImages" class="program-form__nav-link">
                       <i class="fa-regular fa-images"></i> Imagens
                     </a>
@@ -313,14 +317,14 @@
                       />
                     </div>
                     <div class="field">
-                      <label for="progPrice">Preço *</label>
+                      <label for="progPrice">Preço nos cartões <small>(opcional)</small></label>
                       <input
                         id="progPrice"
                         name="progPrice"
                         type="text"
-                        placeholder="Ex: A partir de 90.000 Kz"
-                        required
+                        placeholder="Automático — vem da tabela de preços"
                       />
+                      <small>Vazio = "A partir de …" com o preço mais baixo da tabela.</small>
                     </div>
                     <div class="field">
                       <label for="progStartPoint">Ponto de Partida *</label>
@@ -346,10 +350,35 @@
                   </div>
                 </fieldset>
 
-                <!-- ─── 2. IMAGENS ─── -->
-                <fieldset class="program-form__section" id="progSecImages">
+                <!-- ─── 2. PREÇOS POR NÚMERO DE PESSOAS ─── -->
+                <fieldset class="program-form__section" id="progSecPrices">
                   <legend class="program-form__legend">
                     <span class="program-form__step">2</span>
+                    Preços por número de pessoas
+                  </legend>
+                  <p class="program-form__hint">
+                    Preço <strong>por pessoa</strong> conforme o tamanho do grupo. Ex.: 1 pessoa → 985.000 Kz;
+                    2 pessoas → 760.000 Kz cada. Grupos maiores do que o último escalão pagam o preço do último.
+                    Com um só escalão, o preço é igual para todos.
+                  </p>
+
+                  <div class="price-tiers__head" aria-hidden="true">
+                    <span>A partir de (pessoas)</span>
+                    <span>Preço por pessoa (Kz)</span>
+                    <span></span>
+                  </div>
+                  <ol class="price-tiers" id="progPriceTiers"></ol>
+                  <p class="price-tiers__empty">Ainda sem preços. Adicione pelo menos um escalão.</p>
+
+                  <button type="button" class="dyn-add" id="addPriceTierBtn">
+                    <i class="fa-solid fa-plus"></i> Adicionar escalão
+                  </button>
+                </fieldset>
+
+                <!-- ─── 3. IMAGENS ─── -->
+                <fieldset class="program-form__section" id="progSecImages">
+                  <legend class="program-form__legend">
+                    <span class="program-form__step">3</span>
                     Imagens
                   </legend>
 
@@ -421,7 +450,7 @@
                 <!-- ─── 3. O QUE INCLUI / NÃO INCLUI ─── -->
                 <fieldset class="program-form__section" id="progSecLists">
                   <legend class="program-form__legend">
-                    <span class="program-form__step">3</span>
+                    <span class="program-form__step">4</span>
                     O Que Inclui
                   </legend>
 
@@ -477,7 +506,7 @@
                 <!-- ─── 4. ROTEIRO (ITINERÁRIO) ─── -->
                 <fieldset class="program-form__section" id="progSecItinerary">
                   <legend class="program-form__legend">
-                    <span class="program-form__step">4</span>
+                    <span class="program-form__step">5</span>
                     Roteiro (Itinerário)
                   </legend>
                   <p class="program-form__hint">
@@ -572,6 +601,24 @@
                     placeholder="O que vai acontecer neste dia..."
                     aria-label="Descrição do dia"
                   ></textarea>
+                </li>
+              </template>
+
+              <template id="tplPriceTier">
+                <li class="price-tier">
+                  <label class="price-tier__field">
+                    <span class="visually-hidden">Número de pessoas</span>
+                    <input type="number" class="price-tier__pax" min="1" max="99" step="1" placeholder="1" />
+                    <em>pessoa(s)</em>
+                  </label>
+                  <label class="price-tier__field">
+                    <span class="visually-hidden">Preço por pessoa em Kz</span>
+                    <input type="text" class="price-tier__valor" inputmode="numeric" placeholder="Ex: 760000" />
+                    <em>Kz</em>
+                  </label>
+                  <button type="button" class="price-tier__remove" aria-label="Remover escalão" title="Remover">
+                    <i class="fa-regular fa-trash-can"></i>
+                  </button>
                 </li>
               </template>
 

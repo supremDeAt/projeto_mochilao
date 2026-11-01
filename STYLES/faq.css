@@ -413,13 +413,7 @@ body.faq-page {
   transform: translateY(-2px);
 }
 
-/* Botão "voltar ao topo" (o script.js trata da visibilidade) */
-.faq-top {
-  position: fixed;
-  right: 1.25rem;
-  bottom: 2rem;
-  z-index: 800;
-}
+/* Botão "voltar ao topo" → global.css (o script.js trata da visibilidade) */
 
 /* ─────────────────────────────────────────
    RESPONSIVO
@@ -504,20 +498,8 @@ body.faq-page {
 }
 
 /* ─────────────────────────────────────────
-   NAVBAR nesta página
-   A navbar do site é transparente; aqui, ao fazer scroll,
-   ganha fundo escuro para continuar legível sobre o conteúdo claro.
+   NAVBAR nesta página → fundo ao fazer scroll está no global.css
    ───────────────────────────────────────── */
-.faq-page .navbar {
-  padding-top: 0.9rem;
-  padding-bottom: 0.9rem;
-}
-.faq-page .navbar.scrolled {
-  background: var(--clr-dark-94);
-  box-shadow: 0 4px 20px var(--clr-black-pure-20);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-}
 @media (max-width: 900px) {
   .faq-nav {
     top: var(--faq-navbar-h, 72px);

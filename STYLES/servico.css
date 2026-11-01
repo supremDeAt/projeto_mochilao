@@ -8,11 +8,7 @@
   overflow-x: clip;
 }
 
-/* A navbar do site é transparente; aqui ganha fundo ao fazer scroll */
-.svc-page .navbar.scrolled {
-  background: var(--clr-dark-94);
-  backdrop-filter: blur(8px);
-}
+/* Menu com fundo ao fazer scroll → global.css */
 
 /* ─────────────────────────────────────────
    HERO
@@ -621,14 +617,4 @@ body.partner-modal-open {
   }
 }
 
-/* ─────────────────────────────────────────
-   BOTÃO "VOLTAR AO TOPO"
-   Nesta página o botão não está dentro de .float-btns,
-   por isso ficava no fim do conteúdo em vez de flutuar.
-   ───────────────────────────────────────── */
-.svc-page > .float-btn--top {
-  position: fixed;
-  right: 1.25rem;
-  bottom: 2rem;
-  z-index: 800;
-}
+/* Botão "voltar ao topo" → global.css */

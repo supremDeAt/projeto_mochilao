@@ -1,4 +1,5 @@
 @import url("variaveis.css"); /* todas as cores do site */
+@import url("global.css"); /* menu, rodapé e botão "voltar ao topo" — iguais em todas as páginas */
 
 /* =====================================================
    O MOCHILÃO AVENTURAS — estilo.css
@@ -347,393 +348,8 @@ p {
 }
 
 /* ─────────────────────────────────────────
-   6. NAVBAR
+   6–7. NAVBAR e SIDEBAR → estão no global.css
    ───────────────────────────────────────── */
-.navbar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 900;
-  display: flex;
-  align-items: center;
-  padding-bottom: 7rem;
-  padding-left: max(
-    var(--pad-lateral),
-    calc((100vw - var(--content-max-width)) / 2)
-  );
-  padding-right: max(
-    var(--pad-lateral),
-    calc((100vw - var(--content-max-width)) / 2)
-  );
-  transition:
-    background var(--ease-std),
-    padding var(--ease-std),
-    box-shadow var(--ease-std);
-}
-
-/* Estado ao fazer scroll — adicionado via JS */
-.navbar.scrolled {
-  background: var(--clr-black-00);
-  box-shadow: 0 2px 20px var(--clr-black-pure-00);
-}
-
-.navbar__brand {
-  display: flex;
-  align-items: center;
-}
-
-.navbar__logo {
-  width: 100px;
-  transition: width var(--ease-std);
-}
-.navbar.scrolled .navbar__logo {
-  width: 75px;
-}
-
-.navbar__links {
-  display: flex;
-  align-items: center;
-  gap: 1.6rem;
-  margin-left: auto;
-  margin-right: 0.9rem;
-  overflow: hidden;
-  max-width: 0;
-  transition: max-width 0.6s cubic-bezier(0.65, 0, 0.35, 1);
-}
-
-.navbar__links.is-open {
-  max-width: 1000px;
-}
-
-/* Cada link entra com leve desfasamento, deslizando da direita —
-   partindo de junto ao botão, por isso o deslocamento é pequeno */
-.navbar__link {
-  overflow: visible;
-  font-size: 0.92rem;
-  color: var(--clr-white);
-  text-shadow: 0 1px 6px var(--clr-black-pure-40);
-  position: relative;
-  padding-bottom: 2px;
-  white-space: nowrap;
-  transition:
-    color var(--ease-std),
-    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 0.15s ease-out;
-  transform: translateX(14px);
-  opacity: 0;
-}
-.navbar__links.is-open .navbar__link {
-  transform: translateX(0);
-  opacity: 1;
-}
-/* O link mais próximo do botão (último, CTA) entra primeiro —
-   reforça a sensação de que tudo nasce a partir dele */
-.navbar__links.is-open .navbar__link:nth-last-child(1) {
-  transition-delay: 0.02s;
-}
-.navbar__links.is-open .navbar__link:nth-last-child(2) {
-  transition-delay: 0.07s;
-}
-.navbar__links.is-open .navbar__link:nth-last-child(3) {
-  transition-delay: 0.12s;
-}
-.navbar__links.is-open .navbar__link:nth-last-child(4) {
-  transition-delay: 0.17s;
-}
-.navbar__links.is-open .navbar__link:nth-last-child(5) {
-  transition-delay: 0.22s;
-}
-.navbar__links.is-open .navbar__link:nth-last-child(6) {
-  transition-delay: 0.27s;
-}
-.navbar__links.is-open .navbar__link:nth-last-child(7) {
-  transition-delay: 0.32s;
-}
-
-/* Ao fechar, a saída é inversa — o mais próximo do botão sai por último,
-   reforçando que tudo "recolhe" para dentro dele */
-.navbar__links:not(.is-open) .navbar__link:nth-last-child(1) {
-  transition-delay: 0.22s;
-}
-.navbar__links:not(.is-open) .navbar__link:nth-last-child(2) {
-  transition-delay: 0.17s;
-}
-.navbar__links:not(.is-open) .navbar__link:nth-last-child(3) {
-  transition-delay: 0.12s;
-}
-.navbar__links:not(.is-open) .navbar__link:nth-last-child(4) {
-  transition-delay: 0.07s;
-}
-.navbar__links:not(.is-open) .navbar__link:nth-last-child(5) {
-  transition-delay: 0.02s;
-}
-.navbar__links:not(.is-open) .navbar__link:nth-last-child(6),
-.navbar__links:not(.is-open) .navbar__link:nth-last-child(7) {
-  transition-delay: 0s;
-}
-.navbar__link::after {
-  content: "";
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 1.5px;
-  background: var(--clr-gold);
-  transition: width var(--ease-std);
-}
-.navbar__link:hover::after,
-.navbar__link--active::after {
-  width: 100%;
-}
-
-.navbar__link--active {
-  color: var(--clr-gold-light);
-}
-
-.navbar__link--cta {
-  background: var(--clr-brown-deep);
-  color: var(--clr-white);
-  padding: 0.5rem 1.25rem;
-  border-radius: var(--radius-pill);
-  text-shadow: none;
-}
-.navbar__link--cta::after {
-  display: none;
-}
-.navbar__link--cta:hover {
-  background: var(--clr-brown-mid);
-}
-
-/* ── Botão de idioma com bandeiras ── */
-.navbar__lang {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  background: var(--clr-white-08);
-  border: 1px solid var(--clr-white-10);
-  border-radius: var(--radius-pill);
-  padding: 0.2rem 0.3rem;
-  transition:
-    background var(--ease-std),
-    border-color var(--ease-std);
-  cursor: pointer;
-  flex-shrink: 0;
-}
-.navbar__lang:hover {
-  background: var(--clr-white-14);
-  border-color: var(--clr-white-22);
-}
-
-/* Cada bandeira (flag + label) */
-.navbar__lang-flag {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.25rem 0.55rem;
-  border-radius: var(--radius-pill);
-  transition:
-    opacity 0.18s ease-out,
-    transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
-    background-color 0.18s ease-out;
-  opacity: 0.4;
-  transform: scale(0.88);
-}
-
-/* Imagem da bandeira (flag-icons .fi) */
-.navbar__lang-flag .fi {
-  width: 20px;
-  height: 15px;
-  border-radius: 2px;
-  display: block;
-  flex-shrink: 0;
-  /* flag-icons usa background-image */
-  background-size: cover;
-  background-position: center;
-  box-shadow: 0 1px 3px var(--clr-black-pure-35);
-}
-
-/* Label PT / EN */
-.navbar__lang-label {
-  font-family: var(--font-ui);
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  color: var(--clr-white-85);
-  line-height: 1;
-}
-
-/* Divisor entre as duas bandeiras */
-.navbar__lang-flag + .navbar__lang-flag {
-  border-left: 1px solid var(--clr-white-12);
-  margin-left: 0.1rem;
-  padding-left: 0.6rem;
-}
-
-/* Bandeira activa */
-.navbar__lang-flag.lang--active {
-  opacity: 1;
-  transform: scale(1);
-  background: var(--clr-white-14);
-}
-.navbar__lang-flag.lang--active .navbar__lang-label {
-  color: var(--clr-white);
-}
-
-.navbar__burger {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  width: 46px;
-  height: 46px;
-  border-radius: var(--radius-sm);
-  transition: background var(--ease-std);
-  flex-shrink: 0;
-}
-.navbar__burger:hover {
-  background: var(--clr-white-20);
-}
-
-/* As 3 linhas do hambúrguer */
-.navbar__burger-line {
-  display: block;
-  width: 20px;
-  height: 2px;
-  background: var(--clr-white);
-  border-radius: 2px;
-  box-shadow: 3px 2px 4px var(--clr-black-pure-278);
-  transition:
-    transform 0.35s cubic-bezier(0.65, 0, 0.35, 1),
-    opacity 0.2s ease-out,
-    width 0.2s ease-out;
-}
-
-/* Estado aberto — morph para X */
-.navbar__burger.is-active .navbar__burger-line:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
-}
-.navbar__burger.is-active .navbar__burger-line:nth-child(2) {
-  opacity: 0;
-  width: 0;
-}
-.navbar__burger.is-active .navbar__burger-line:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
-}
-
-/* ─────────────────────────────────────────
-   7. SIDEBAR MOBILE
-   ───────────────────────────────────────── */
-.sidebar__overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: var(--clr-black-pure-55);
-  z-index: 950;
-  opacity: 0;
-  transition: opacity var(--ease-std);
-}
-.sidebar__overlay.is-open {
-  display: block;
-  opacity: 1;
-}
-
-.sidebar {
-  position: fixed;
-  top: 0;
-  right: 0;
-  height: 100%;
-  width: min(320px, 80vw);
-  background: var(--clr-dark);
-  z-index: 960;
-  display: flex;
-  flex-direction: column;
-  padding: 5rem 2rem 2rem;
-  transform: translateX(100%);
-  transition: transform var(--ease-slow);
-}
-.sidebar.is-open {
-  transform: translateX(0);
-}
-
-.sidebar__close {
-  position: absolute;
-  top: 1.25rem;
-  right: 1.25rem;
-  color: var(--clr-white);
-  font-size: 1.3rem;
-  padding: 0.4rem 0.7rem;
-  border-radius: var(--radius-sm);
-  background: var(--clr-brown-deep);
-  transition: background var(--ease-std);
-}
-.sidebar__close:hover {
-  background: var(--clr-brown-mid);
-}
-
-.sidebar__nav {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  flex: 1;
-}
-
-.sidebar__lang-wrap {
-  display: none;
-  justify-content: center;
-  padding: 1rem 0;
-}
-
-.sidebar__link {
-  font-family: var(--font-ui);
-  font-size: 1rem;
-  color: var(--clr-white-82);
-  padding: 0.85rem 1rem;
-  border-radius: var(--radius-sm);
-  transition:
-    color 0.18s cubic-bezier(0.16, 1, 0.3, 1),
-    background-color 0.18s cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 0.18s cubic-bezier(0.16, 1, 0.3, 1);
-  border-left: 3px solid transparent;
-}
-.sidebar__link:hover {
-  color: var(--clr-white);
-  background: var(--clr-white-06);
-  border-left-color: var(--clr-gold);
-}
-
-.sidebar__link--active {
-  color: var(--clr-gold-light);
-  background: var(--clr-white-05);
-  border-left-color: var(--clr-gold);
-}
-
-.sidebar__footer {
-  display: flex;
-  gap: 1.5rem;
-  justify-content: center;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--clr-white-10);
-}
-.sidebar__footer a {
-  color: var(--clr-white-60);
-  font-size: 1.1rem;
-  transition: color var(--ease-std);
-}
-.sidebar__footer a:hover {
-  color: var(--clr-gold);
-}
-
-@media (max-width: 640px) {
-  .navbar > .navbar__lang {
-    display: none;
-  }
-
-  .sidebar__lang-wrap {
-    display: flex;
-  }
-}
 
 /* ─────────────────────────────────────────
    8. HERO
@@ -893,44 +509,8 @@ p {
 }
 
 /* ─────────────────────────────────────────
-   9. BOTÕES FLUTUANTES
+   9. BOTÕES FLUTUANTES → estão no global.css
    ───────────────────────────────────────── */
-.float-btns {
-  position: fixed;
-  right: 1.25rem;
-  bottom: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
-  z-index: 800;
-}
-
-.float-btn {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.1rem;
-  box-shadow: var(--shadow-md);
-  transition:
-    transform var(--ease-std),
-    box-shadow var(--ease-std);
-}
-.float-btn:hover {
-  transform: scale(1.12) translateY(-2px);
-  box-shadow: var(--shadow-lg);
-}
-
-.float-btn--top {
-  background: var(--clr-brown-mid);
-  color: var(--clr-white);
-}
-.float-btn--wpp {
-  background: var(--clr-whatsapp);
-  color: var(--clr-white);
-}
 
 /* ─────────────────────────────────────────
    10. SECÇÃO TOURS
@@ -2823,95 +2403,8 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 /* ─────────────────────────────────────────
-  18. FOOTER
+  18. FOOTER → está no global.css
    ───────────────────────────────────────── */
-.footer {
-  background: var(--clr-dark);
-  color: var(--clr-white);
-  padding-top: var(--space-lg);
-  padding-bottom: var(--space-md);
-  padding-left: max(
-    var(--pad-lateral),
-    calc((100vw - var(--content-max-width)) / 2)
-  );
-  padding-right: max(
-    var(--pad-lateral),
-    calc((100vw - var(--content-max-width)) / 2)
-  );
-}
-
-.footer__main {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: 3rem;
-  padding-bottom: 2.5rem;
-  border-bottom: 1px solid var(--clr-white-08);
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.footer__logo {
-  width: 120px;
-  margin-bottom: 1rem;
-}
-
-.footer__tagline {
-  font-size: 0.9rem;
-  color: var(--clr-white-50);
-  margin-bottom: 1.25rem;
-  line-height: 1.7;
-}
-
-.footer__socials {
-  display: flex;
-  gap: 1rem;
-}
-.footer__socials a {
-  color: var(--clr-white-50);
-  font-size: 1rem;
-  transition: color var(--ease-std);
-}
-.footer__socials a:hover {
-  color: var(--clr-gold);
-}
-
-.footer__col {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.footer__col-title {
-  font-family: var(--font-heading);
-  font-size: 0.85rem;
-  color: var(--clr-gold);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-bottom: 0.25rem;
-}
-
-.footer__col a {
-  font-family: var(--font-ui);
-  font-size: 0.9rem;
-  color: var(--clr-white-55);
-  transition: color var(--ease-std);
-}
-.footer__col a:hover {
-  color: var(--clr-white);
-}
-
-.footer__bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 1.5rem;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-.footer__bottom p {
-  font-size: 0.8rem;
-  color: var(--clr-white-30);
-}
 
 /* ─────────────────────────────────────────
   19. KEYFRAMES
@@ -3129,9 +2622,6 @@ input[type="number"]::-webkit-inner-spin-button {
     --pad-lateral: 4rem;
   }
 
-  .navbar {
-    padding: 1rem 1.5rem;
-  }
   .packages {
     gap: 2rem;
   }
@@ -3182,13 +2672,6 @@ input[type="number"]::-webkit-inner-spin-button {
     padding-bottom: var(--space-lg);
   }
 
-  .footer__main {
-    grid-template-columns: 1fr 1fr;
-  }
-  .footer__brand {
-    grid-column: 1 / -1;
-  }
-
   .gallery__grid {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -3203,11 +2686,6 @@ input[type="number"]::-webkit-inner-spin-button {
 @media (max-width: 768px) {
   :root {
     --pad-lateral: 2rem;
-  }
-
-  /* Navbar */
-  .navbar {
-    padding: 1rem;
   }
 
   /* Hero — cards em 2 colunas, overlap mais curto */
@@ -3256,20 +2734,6 @@ input[type="number"]::-webkit-inner-spin-button {
   /* Formulário */
   .form-row {
     grid-template-columns: 1fr;
-  }
-
-  /* Footer */
-  .footer__main {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-  .footer__brand {
-    grid-column: auto;
-  }
-  .footer__bottom {
-    flex-direction: column;
-    gap: 0.5rem;
-    text-align: center;
   }
 }
 
@@ -3416,11 +2880,6 @@ input[type="number"]::-webkit-inner-spin-button {
     justify-content: center;
     padding: 0.75rem 0.5rem;
     border: none !important;
-  }
-
-  /* Footer */
-  .footer__main {
-    gap: 1.5rem;
   }
 }
 
@@ -4505,6 +3964,25 @@ body.cart-is-open {
   font-size: 0.92rem;
   color: var(--clr-gold);
   white-space: nowrap;
+}
+
+/* Nº de pessoas (só informação — escolhe-se no checkout) */
+.cart-item__people {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--clr-text-dark);
+}
+.cart-item__people i {
+  color: var(--clr-gold);
+  font-size: 0.72rem;
+}
+.cart-item__people small {
+  font-weight: 500;
+  color: var(--clr-text-muted);
 }
 
 .cart-item__remove {

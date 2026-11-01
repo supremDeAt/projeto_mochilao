@@ -6,6 +6,12 @@
    Script clássico (não-module) para funcionar em
    index.html e PAGES/*.html. Expõe a API em:
      window.MochilaoCart  e  window.addToCart(...) etc.
+
+   O número de pessoas escolhe-se no CHECKOUT. A mochila só
+   mostra quantas pessoas estão escolhidas e o valor.
+   Cada viagem pode trazer a tabela de preços do programa
+   (precos: [{ pax, valor }]) → o preço por pessoa depende
+   do tamanho do grupo.
    ===================================================== */
 
 (function () {
@@ -67,6 +73,31 @@
     return Math.min(PAX_MAX, Math.max(PAX_MIN, v));
   }
 
+  /* Preço por pessoa para N pessoas: escalão com o maior nº de
+     pessoas ≤ N (grupos maiores pagam o preço do último escalão). */
+  function unitPrice(item, pax) {
+    const tiers = (Array.isArray(item.precos) ? item.precos : [])
+      .map(function (t) { return { pax: parseInt(t.pax, 10) || 1, valor: parseKz(t.valor) }; })
+      .filter(function (t) { return t.valor > 0; })
+      .sort(function (a, b) { return a.pax - b.pax; });
+    if (!tiers.length) return parseKz(item.precoUnitario != null ? item.precoUnitario : item.precoUnit);
+    let chosen = tiers[0];
+    tiers.forEach(function (t) { if (t.pax <= pax) chosen = t; });
+    return chosen.valor;
+  }
+
+  function lineTotal(item) {
+    const pax = clampPax(item.pax);
+    return unitPrice(item, pax) * pax;
+  }
+
+  // Fotos guardadas com caminho de PAGES/ ("../imagens/…") → ajusta à página actual
+  function imagePath(src) {
+    if (!src || /^(https?:|data:|\/)/.test(src)) return src;
+    const clean = String(src).replace(/^(\.\.\/)+/, "");
+    return (IN_PAGES ? "../" : "") + clean;
+  }
+
   /* ─────────────────────────────────────────
      3. PERSISTÊNCIA (localStorage)
      ───────────────────────────────────────── */
@@ -96,7 +127,8 @@
 
   /**
    * Adiciona uma experiência à mochila.
-   * Se já existir o mesmo programa NA MESMA DATA, soma os pax.
+   * Se já existir o mesmo programa NA MESMA DATA, não duplica
+   * (o número de pessoas escolhe-se no checkout).
    *
    * @param {Object} item
    *   programaId  {string}  ex: "malanje"          (obrigatório)
@@ -122,19 +154,22 @@
 
     let saved;
     if (existing) {
-      existing.pax = clampPax(existing.pax + pax);
       saved = existing;
     } else {
+      // Mesmos nomes de campos que o programa-cart.js e o checkout usam
       saved = {
         id: id,
-        programaId: String(item.programaId),
+        programId: String(item.programaId),
         nome: String(item.nome),
+        imagem: item.img || "",
         data: String(item.data),
         pax: pax,
-        precoUnit: parseKz(item.precoUnit),
-        img: item.img || "",
+        precoUnitario: parseKz(item.precoUnit),
+        precos: Array.isArray(item.precos) ? item.precos : [],
         addedAt: Date.now(),
       };
+      saved.precoUnitario = unitPrice(saved, pax);
+      saved.total = saved.precoUnitario * pax;
       cart.push(saved);
     }
 
@@ -158,12 +193,14 @@
     });
     if (!item) return;
     item.pax = clampPax(item.pax + Number(change || 0));
+    item.precoUnitario = unitPrice(item, item.pax);
+    item.total = item.precoUnitario * item.pax;
     saveCart(cart);
   }
 
   function getCartTotal() {
     return getCart().reduce(function (sum, i) {
-      return sum + (Number(i.precoUnit) || 0) * (Number(i.pax) || 0);
+      return sum + lineTotal(i);
     }, 0);
   }
 
@@ -213,11 +250,12 @@
 
   function renderItem(item) {
     const id = escapeHtml(item.id);
-    const subtotal = (Number(item.precoUnit) || 0) * item.pax;
-    const preco =
-      item.precoUnit > 0 ? formatKz(subtotal) : "Preço a consultar";
-    const media = item.img
-      ? '<img src="' + escapeHtml(item.img) + '" alt="" class="cart-item__img" loading="lazy">'
+    const pax = clampPax(item.pax);
+    const subtotal = lineTotal(item);
+    const preco = subtotal > 0 ? formatKz(subtotal) : "Preço a consultar";
+    const imgSrc = imagePath(item.imagem || item.img || "");
+    const media = imgSrc
+      ? '<img src="' + escapeHtml(imgSrc) + '" alt="" class="cart-item__img" loading="lazy">'
       : '<span class="cart-item__ph"><i class="fa-solid fa-mountain-sun"></i></span>';
 
     return [
@@ -229,15 +267,9 @@
         escapeHtml(formatDate(item.data)) +
         "</p>",
       '    <div class="cart-item__row">',
-      '      <div class="cart-item__pax" role="group" aria-label="Número de pessoas">',
-      '        <button type="button" class="cart-item__pax-btn" data-action="dec" data-id="' + id + '" aria-label="Menos uma pessoa"' +
-        (item.pax <= PAX_MIN ? " disabled" : "") +
-        '><i class="fa-solid fa-minus"></i></button>',
-      '        <span class="cart-item__pax-val">' + item.pax + " " + (item.pax === 1 ? "Pax" : "Pax") + "</span>",
-      '        <button type="button" class="cart-item__pax-btn" data-action="inc" data-id="' + id + '" aria-label="Mais uma pessoa"' +
-        (item.pax >= PAX_MAX ? " disabled" : "") +
-        '><i class="fa-solid fa-plus"></i></button>',
-      "      </div>",
+      '      <span class="cart-item__people"><i class="fa-solid fa-user-group"></i> ' +
+        pax + (pax === 1 ? " pessoa" : " pessoas") +
+        ' <small>· altera no checkout</small></span>',
       '      <strong class="cart-item__price">' + preco + "</strong>",
       "    </div>",
       "  </div>",
@@ -360,6 +392,9 @@
     window.addEventListener("storage", function (e) {
       if (e.key === STORAGE_KEY) updateCartUI();
     });
+
+    // Outros scripts (programa-cart.js, checkout) mudaram a mochila
+    window.addEventListener("cartUpdated", updateCartUI);
   }
 
   /* ─────────────────────────────────────────
@@ -395,6 +430,8 @@
     formatKz: formatKz,
     parseKz: parseKz,
     formatDate: formatDate,
+    unitPrice: unitPrice,
+    lineTotal: lineTotal,
   };
 
   window.MochilaoCart = api;

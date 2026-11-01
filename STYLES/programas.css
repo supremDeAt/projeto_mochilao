@@ -698,6 +698,21 @@
   font-size: 1.25rem;
   color: var(--clr-brown-light);
 }
+/* Nota: o nº de pessoas escolhe-se no checkout */
+.pkg-booking__note {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0.2rem 0 0;
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: var(--clr-white-55);
+}
+.pkg-booking__note i {
+  color: var(--clr-gold-light);
+  font-size: 0.72rem;
+}
 
 /* Botão principal — "pill" como os botões do index */
 .pkg-cta-card__btn {

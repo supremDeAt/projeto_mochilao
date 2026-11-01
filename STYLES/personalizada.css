@@ -10,11 +10,7 @@
   overflow-x: clip;
 }
 
-/* A navbar do site é transparente; aqui ganha fundo ao fazer scroll */
-.pc-page .navbar.scrolled {
-  background: var(--clr-dark-94);
-  backdrop-filter: blur(8px);
-}
+/* Menu com fundo ao fazer scroll → global.css */
 
 /* ── Elementos comuns ── */
 .pc-tag {
@@ -112,10 +108,13 @@
    ───────────────────────────────────────── */
 .pc-medida {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.1fr 0.9fr; /* igual a "Como funciona" */
   gap: 4rem;
   align-items: center;
   padding: 6rem var(--pc-gutter);
+}
+.pc-facts[hidden] {
+  display: none;
 }
 .pc-facts {
   display: grid;
@@ -146,18 +145,13 @@
   font-size: 0.8rem;
   color: var(--clr-text-muted);
 }
-/* As duas fotos com o mesmo tamanho e alinhadas */
-.pc-medida__photos {
+/* Uma só foto, do mesmo tamanho da de "Como funciona" */
+.pc-medida__photo {
   position: relative;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
 }
-.pc-medida__photos figure {
-  aspect-ratio: 3 / 4;
-  max-height: 380px;
-  width: 100%;
-  border-radius: 14px;
+.pc-medida__photo figure {
+  height: 460px;
+  border-radius: 16px;
   overflow: hidden;
   background: var(--clr-brown-mid);
 }
@@ -356,12 +350,10 @@
   display: none;
 }
 .pc-btn--wpp {
-  background: var(--clr-whatsapp);
+  background: var( --clr-tan);
   color: var(--clr-white);
 }
-.pc-btn--wpp:hover {
-  background: var(--clr-whatsapp-hover);
-}
+
 .pc-btn--ghost {
   border: 1.5px solid var(--clr-white-60);
   color: var(--clr-white);
@@ -400,8 +392,8 @@
   .pc-facts {
     grid-template-columns: 1fr;
   }
-  .pc-medida__photos {
-    gap: 0.75rem;
+  .pc-medida__photo figure {
+    height: 280px;
   }
   .pc-como__photo {
     height: 280px;

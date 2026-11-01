@@ -5,6 +5,7 @@
 
    • Inclui / Não inclui  → linhas <input> + 🗑️
    • Roteiro              → cards { dia, titulo, descricao } + 🗑️
+   • Preços               → escalões { a partir de N pessoas, preço por pessoa }
    • Capa                 → pré-visualização local
    • Galeria              → miniaturas (existentes + novas), remover
    • Reset                → qualquer form.reset() limpa tudo
@@ -55,6 +56,9 @@ export function initProgramFormUI() {
     tplItem: $("tplListItem"),
     tplDay: $("tplItineraryDay"),
     tplGallery: $("tplGalleryItem"),
+    priceTiers: $("progPriceTiers"),
+    tplTier: $("tplPriceTier"),
+    addTierBtn: $("addPriceTierBtn"),
     navLinks: form.querySelectorAll(".program-form__nav-link"),
   };
   els.coverPlaceholder = els.coverPreview ? els.coverPreview.innerHTML : "";
@@ -67,6 +71,9 @@ export function initProgramFormUI() {
   /* Botão "Adicionar Dia" */
   els.addDayBtn?.addEventListener("click", () => addItineraryDay());
 
+  /* Botão "Adicionar escalão" (preços) */
+  els.addTierBtn?.addEventListener("click", () => addPriceTier());
+
   /* Remover (delegação: funciona para linhas criadas depois) */
   form.addEventListener("click", (e) => {
     const rmItem = e.target.closest(".dyn-item__remove");
@@ -77,6 +84,12 @@ export function initProgramFormUI() {
 
     const rmImg = e.target.closest(".gallery-manager__remove");
     if (rmImg) return removeGalleryItem(rmImg.closest(".gallery-manager__item"));
+
+    const rmTier = e.target.closest(".price-tier__remove");
+    if (rmTier) {
+      rmTier.closest(".price-tier")?.remove();
+      els.addTierBtn?.focus();
+    }
   });
 
   /* Teclado: Enter numa linha da lista cria a seguinte
@@ -96,6 +109,14 @@ export function initProgramFormUI() {
     if (t.tagName === "INPUT" && t.classList.contains("day-card__input")) {
       e.preventDefault();
     }
+    // Enter num preço → novo escalão (nunca submete o formulário)
+    if (t.closest?.(".price-tier")) {
+      e.preventDefault();
+      if (t.classList.contains("price-tier__valor") && t.value.trim()) {
+        const row = t.closest(".price-tier");
+        if (!row.nextElementSibling) addPriceTier();
+      }
+    }
   });
 
   /* Limpa o erro de um campo assim que é corrigido */
@@ -103,6 +124,12 @@ export function initProgramFormUI() {
     if (e.target.classList?.contains("is-invalid") && e.target.value.trim()) {
       e.target.classList.remove("is-invalid");
     }
+  });
+
+  /* Preço escrito sem pontos → fica 760.000 ao sair do campo */
+  form.addEventListener("focusout", (e) => {
+    const v = e.target.closest?.(".price-tier__valor");
+    if (v && toNumber(v.value)) v.value = formatKz(toNumber(v.value)).replace(" Kz", "");
   });
 
   /* Capa */
@@ -121,6 +148,7 @@ export function initProgramFormUI() {
   setupSectionNav();
 
   renderGallery();
+  if (!els.priceTiers?.children.length) addPriceTier({ pax: 1 }, { focus: false });
 }
 
 /* ─────────────────────────────────────────
@@ -210,6 +238,76 @@ export function getItinerary() {
       descricao: card.querySelector(".day-card__descricao").value.trim(),
     }))
     .filter((d) => d.dia || d.titulo || d.descricao); // ignora blocos vazios
+}
+
+/* ─────────────────────────────────────────
+   PREÇOS POR NÚMERO DE PESSOAS
+   Guardados no programa como precos: [{ pax: "2 Pax", valor: "760.000 Kz" }]
+   (o mesmo formato dos programas antigos, lido pela página e pelo carrinho)
+   ───────────────────────────────────────── */
+const toNumber = (v) => {
+  if (typeof v === "number") return isFinite(v) ? Math.round(v) : 0;
+  const d = String(v ?? "").replace(/[^\d]/g, "");
+  return d ? parseInt(d, 10) : 0;
+};
+export const formatKz = (n) => String(Math.round(n || 0)).replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " Kz";
+
+export function addPriceTier(data = {}, opts = {}) {
+  if (!els?.priceTiers || !els.tplTier) return null;
+  const { focus = true } = opts;
+  const li = els.tplTier.content.firstElementChild.cloneNode(true);
+  const pax = li.querySelector(".price-tier__pax");
+  const valor = li.querySelector(".price-tier__valor");
+
+  // Novo escalão: sugere o nº de pessoas a seguir ao último
+  const rows = getTierRows();
+  const lastPax = rows.length ? toNumber(rows[rows.length - 1].pax.value) : 0;
+  pax.value = data.pax ?? (rows.length ? lastPax + 1 || "" : 1);
+  valor.value = data.valor ? formatKz(data.valor).replace(" Kz", "") : "";
+  // Também como valor "por defeito": um form.reset() a seguir não os apaga
+  pax.defaultValue = pax.value;
+  valor.defaultValue = valor.value;
+
+  els.priceTiers.appendChild(li);
+  if (focus) valor.focus();
+  return li;
+}
+
+function getTierRows() {
+  if (!els?.priceTiers) return [];
+  return Array.from(els.priceTiers.querySelectorAll(".price-tier")).map((li) => ({
+    li,
+    pax: li.querySelector(".price-tier__pax"),
+    valor: li.querySelector(".price-tier__valor"),
+  }));
+}
+
+/** Escalões válidos, por ordem de nº de pessoas: [{ pax: 2, valor: 760000 }] */
+export function getPriceTiers() {
+  const seen = new Set();
+  return getTierRows()
+    .map((r) => ({ pax: toNumber(r.pax.value), valor: toNumber(r.valor.value) }))
+    .filter((t) => t.pax > 0 && t.valor > 0 && !seen.has(t.pax) && seen.add(t.pax))
+    .sort((a, b) => a.pax - b.pax);
+}
+
+/** Texto automático para os cartões ("A partir de 685.000 Kz") */
+function autoPriceText(tiers) {
+  if (!tiers.length) return "";
+  const min = Math.min(...tiers.map((t) => t.valor));
+  return tiers.length === 1 ? `${formatKz(min)} / pessoa` : `A partir de ${formatKz(min)}`;
+}
+
+/** Lê os escalões guardados (formato antigo "2 Pax" / "760.000 Kz" ou números) */
+function parseStoredTiers(program) {
+  const list = Array.isArray(program.precos) ? program.precos : [];
+  const tiers = list
+    .map((x) => ({ pax: toNumber(x?.pax) || 1, valor: toNumber(x?.valor) }))
+    .filter((t) => t.valor > 0);
+  if (tiers.length) return tiers;
+  // Programa antigo só com "Preço" → vira um escalão de 1 pessoa
+  const unico = toNumber(program.preco);
+  return unico ? [{ pax: 1, valor: unico }] : [];
 }
 
 /* ─────────────────────────────────────────
@@ -348,6 +446,8 @@ function clearDynamicState() {
   els.includeList?.replaceChildren();
   els.excludeList?.replaceChildren();
   els.itinerary?.replaceChildren();
+  els.priceTiers?.replaceChildren();
+  addPriceTier({ pax: 1 }, { focus: false }); // formulário limpo começa com 1 escalão
 
   // Liberta a memória dos URLs temporários
   if (state.coverObjectUrl) URL.revokeObjectURL(state.coverObjectUrl);
@@ -389,7 +489,13 @@ export function populateProgramForm(program = {}) {
   set("progName", program.nome);
   set("progSlogan", program.slogan);
   set("progDuration", program.duracao);
-  set("progPrice", program.preco);
+  // Preços: escalões + texto dos cartões (só fica no campo se não for o automático)
+  const tiers = parseStoredTiers(program);
+  els.priceTiers?.replaceChildren();
+  tiers.forEach((t) => addPriceTier(t, { focus: false }));
+  if (!tiers.length) addPriceTier({ pax: 1 }, { focus: false });
+  const autoText = autoPriceText(tiers);
+  set("progPrice", program.preco && program.preco !== autoText ? program.preco : "");
   set("progStartPoint", program.pontoPartida);
   set("progDesc", program.descricao);
 
@@ -442,7 +548,9 @@ export function getProgramFormData() {
     slogan: val("progSlogan"),
     categoria: val("progCategory"),
     duracao: val("progDuration"),
-    preco: val("progPrice"),
+    // Preços: escalões + texto para os cartões (automático se vazio)
+    precos: getPriceTiers().map((t) => ({ pax: `${t.pax} Pax`, valor: formatKz(t.valor) })),
+    preco: val("progPrice") || autoPriceText(getPriceTiers()),
     pontoPartida: val("progStartPoint"),
     descricao: val("progDesc"),
     inclui: getListValues(els.includeList),
@@ -470,13 +578,25 @@ export function validateProgramForm({ isNew = false } = {}) {
     ["progName", "Nome do destino"],
     ["progSlogan", "Slogan"],
     ["progDuration", "Duração"],
-    ["progPrice", "Preço"],
     ["progStartPoint", "Ponto de partida"],
     ["progDesc", "Descrição"],
   ].forEach(([id, label]) => {
     const el = $(id);
     if (el && !el.value.trim()) mark(el, `${label} é obrigatório.`);
   });
+
+  // Preços: pelo menos um escalão completo; linhas a meio ficam marcadas
+  getTierRows().forEach((r, i) => {
+    const hasPax = toNumber(r.pax.value) > 0;
+    const hasValor = toNumber(r.valor.value) > 0;
+    if (hasPax !== hasValor || (!hasPax && getTierRows().length === 1)) {
+      if (!hasPax) mark(r.pax, `Escalão ${i + 1}: indique o número de pessoas.`);
+      if (!hasValor) mark(r.valor, `Escalão ${i + 1}: indique o preço por pessoa.`);
+    }
+  });
+  if (!getPriceTiers().length && !errors.some((m) => m.startsWith("Escalão"))) {
+    mark(els.addTierBtn, "Indique pelo menos um preço (escalão).");
+  }
 
   if (isNew && !state.coverFile) {
     mark(els.coverInput?.nextElementSibling, "A imagem de capa é obrigatória.");

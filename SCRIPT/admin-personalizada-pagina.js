@@ -44,6 +44,7 @@ function emptyDraft() {
   PC_SECTIONS.forEach((s) => {
     d[s.key] = {};
     s.fields.forEach(([k]) => (d[s.key][k] = ""));
+    (s.toggles || []).forEach(([k]) => (d[s.key][k] = true));
   });
   d.destinos.programas = [];
   return d;
@@ -57,6 +58,7 @@ function fromFirestore(data) {
       if (typeof v === "string") d[s.key][k] = v;
     }),
   );
+  PC_SECTIONS.forEach((s) => (s.toggles || []).forEach(([k]) => (d[s.key][k] = data?.[s.key]?.[k] !== false)));
   const progs = data?.destinos?.programas;
   if (Array.isArray(progs)) d.destinos.programas = progs.filter((x) => typeof x === "string").slice(0, PC_MAX_PROGRAMS);
   return d;
@@ -160,6 +162,15 @@ export function initCustomPageAdmin({ db, canEdit = false }) {
         <fieldset class="ap-group pc-admin__group" data-pc-section="${s.key}">
           <legend class="ap-group__title">${esc(s.title)}</legend>
           ${s.photos.length ? `<div class="pc-admin__photos">${s.photos.map(photoCard).join("")}</div>` : ""}
+          ${(s.toggles || [])
+            .map(
+              ([k, label]) => `<label class="pc-admin__toggle">
+                <input type="checkbox" data-pc-toggle="${s.key}.${k}" ${dis} />
+                <span class="pc-admin__switch" aria-hidden="true"></span>
+                <span>${esc(label)}</span>
+              </label>`,
+            )
+            .join("")}
           <div class="pc-admin__fields">${s.fields.map((f) => field(s.key, f)).join("")}</div>
           ${
             s.programs
@@ -216,6 +227,16 @@ export function initCustomPageAdmin({ db, canEdit = false }) {
       if (document.activeElement === el) return;
       const [sec, k] = el.dataset.pcField.split(".");
       el.value = draft[sec][k] || "";
+    });
+    $$("[data-pc-toggle]").forEach((el) => {
+      const [sec, k] = el.dataset.pcToggle.split(".");
+      el.checked = draft[sec][k] !== false;
+      // Destaques escondidos → os campos deles ficam esbatidos
+      if (k === "mostrarFactos") {
+        pane.querySelectorAll('[data-pc-field^="medida.f"]').forEach((f) =>
+          f.closest(".ab-field").classList.toggle("is-off", !el.checked),
+        );
+      }
     });
     renderPrograms();
   }
@@ -303,6 +324,17 @@ export function initCustomPageAdmin({ db, canEdit = false }) {
   });
 
   pane.addEventListener("change", async (e) => {
+    // Interruptores (mostrar / esconder)
+    const tg = e.target.closest("[data-pc-toggle]");
+    if (tg) {
+      const [sec, k] = tg.dataset.pcToggle.split(".");
+      draft[sec][k] = tg.checked;
+      setDirty(true);
+      fillFields();
+      paintFrame();
+      return;
+    }
+
     // Programas
     const box = e.target.closest("[data-pc-programs]");
     if (box && e.target.type === "checkbox") {

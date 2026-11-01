@@ -7,8 +7,13 @@
    funciona com qualquer uma das fontes de dados.
 
    Grava em localStorage("mochilao-cart"):
-   { id, programId, nome, imagem, data, pax, precoUnitario, total }
+   { id, programId, nome, imagem, data, pax, precoUnitario, total,
+     precos: [{ pax, valor }] }   ← tabela de preços do programa
    e dispara window "cartUpdated".
+
+   O número de pessoas escolhe-se no checkout: aqui a viagem
+   entra na mochila com 1 pessoa e a tabela de preços vai junto,
+   para o checkout recalcular o preço por pessoa.
    ===================================================== */
 
 (function () {
@@ -129,6 +134,23 @@
     return img ? img.getAttribute("src") : "";
   }
 
+  /** Tabela de preços em números, por ordem: [{ pax: 2, valor: 760000 }] */
+  function getTiersForCart() {
+    const tiers = getPriceTiers();
+    const numbered = tiers.filter(function (t) { return t.pax !== null; });
+    const list = numbered.length ? numbered : tiers.slice(0, 1).map(function (t) { return { pax: 1, valor: t.valor }; });
+    return list
+      .map(function (t) { return { pax: t.pax, valor: t.valor }; })
+      .sort(function (a, b) { return a.pax - b.pax; });
+  }
+
+  /** Preço mais baixo da tabela (para "a partir de") */
+  function getMinPrice() {
+    const tiers = getPriceTiers();
+    if (!tiers.length) return getUnitPrice(1);
+    return Math.min.apply(null, tiers.map(function (t) { return t.valor; }));
+  }
+
   /* ── Render ── */
   /* Os controlos de pessoas e o total são opcionais: se não existirem
      no HTML, cada clique em "Embarcar" junta 1 pessoa à Mochila
@@ -139,7 +161,13 @@
     if (els.plus) els.plus.disabled = pax >= PAX_MAX;
 
     const unit = getUnitPrice(pax);
-    if (els.unit) els.unit.textContent = unit > 0 ? formatKz(unit) : "A consultar";
+    // Sem seletor de pessoas no card: mostra o preço mais baixo da tabela
+    if (els.unit) {
+      const tiers = getPriceTiers();
+      const min = getMinPrice();
+      els.unit.textContent =
+        min > 0 ? (tiers.length > 1 ? "a partir de " + formatKz(min) : formatKz(min)) : "A consultar";
+    }
     if (els.total) els.total.textContent = unit > 0 ? formatKz(unit * pax) : "A consultar";
   }
 
@@ -166,23 +194,24 @@
     });
 
     if (existing) {
-      // Mesmo programa na mesma data → soma pessoas e recalcula
-      existing.pax = Math.min(PAX_MAX, existing.pax + item.pax);
-      existing.precoUnitario = getUnitPrice(existing.pax);
-      existing.total = existing.precoUnitario * existing.pax;
-    } else {
-      cart.push(item);
+      // Já está na mochila: não soma pessoas (escolhem-se no checkout),
+      // só actualiza a tabela de preços caso tenha mudado
+      existing.precos = item.precos;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+      window.dispatchEvent(new Event("cartUpdated"));
+      return false;
     }
-
+    cart.push(item);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
     window.dispatchEvent(new Event("cartUpdated"));
+    return true;
   }
 
-  function flashButton() {
+  function flashButton(label) {
     const text = els.btn.querySelector(".pkg-cta-card__btn-text");
     els.btn.classList.add("is-added");
     const original = text ? text.textContent : "";
-    if (text) text.textContent = "Adicionado à Mochila";
+    if (text) text.textContent = label || "Adicionado à Mochila";
     setTimeout(function () {
       els.btn.classList.remove("is-added");
       if (text) text.textContent = original;
@@ -228,7 +257,7 @@
 
     const precoUnitario = getUnitPrice(pax);
 
-    addToCart({
+    const added = addToCart({
       id: programId + "__" + data,
       programId: programId,
       nome: nome,
@@ -237,9 +266,10 @@
       pax: pax,
       precoUnitario: precoUnitario,
       total: precoUnitario * pax,
+      precos: getTiersForCart(),
     });
 
-    flashButton();
+    flashButton(added ? "Adicionado à Mochila" : "Já está na Mochila");
     if (window.MochilaoCart) window.MochilaoCart.openCart();
   });
 

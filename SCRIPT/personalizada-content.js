@@ -22,8 +22,7 @@ export const pcPhotoDoc = (key) => `personalizada-foto-${key}`;
 /* Fotos da página (a original fica se não houver foto no painel) */
 export const PC_PHOTOS = [
   { key: "hero", label: "Fundo do topo", hint: "Horizontal, larga.", def: "../imagens/fundo_kifuka2.jpeg" },
-  { key: "medida1", label: "Foto 1 (Destinos à sua medida)", hint: "Vertical.", def: "../imagens/malanje2.webp" },
-  { key: "medida2", label: "Foto 2 (Destinos à sua medida)", hint: "Vertical.", def: "../imagens/namibe2.webp" },
+  { key: "medida1", label: "Foto de \"Destinos à sua medida\"", hint: "Vertical ou quadrada.", def: "../imagens/malanje2.webp" },
   { key: "como", label: "Foto de \"Como funciona\"", hint: "Vertical ou quadrada.", def: "../imagens/camelo.jpeg" },
   { key: "contacto", label: "Fundo do contacto", hint: "Horizontal. Fica escurecida.", def: "../imagens/huambo.webp" },
 ];
@@ -44,7 +43,9 @@ export const PC_SECTIONS = [
   {
     key: "medida",
     title: "2. Destinos à sua medida",
-    photos: ["medida1", "medida2"],
+    photos: ["medida1"],
+    // Interruptores (sim/não): [chave, texto no painel]
+    toggles: [["mostrarFactos", "Mostrar os 3 destaques (5 dias · Qualquer · Angola)"]],
     fields: [
       ["tag", "Etiqueta", 40, 1],
       ["titulo", "Título", 80, 2],
@@ -176,6 +177,7 @@ export function waNumber(raw, fallback = "244926509821") {
    d        → document da página (ou da pré-visualização)
    data     → siteConfig/personalizada
    photos   → { hero: url, medida1: url, … } (vazio = foto original)
+   data.medida.mostrarFactos === false → esconde os 3 destaques
    extra    → { contactos: {whatsapp, email}, programs: [{id, nome, slogan, imagemURL}] }
    ───────────────────────────────────────── */
 export function applyPersonalizada(d, data = {}, photos = {}, extra = {}) {
@@ -187,6 +189,9 @@ export function applyPersonalizada(d, data = {}, photos = {}, extra = {}) {
     if (!PC_DEFAULTS[sec] || !(key in PC_DEFAULTS[sec])) return;
     el.innerHTML = esc(pcValue(data, sec, key)).replace(/\n/g, "<br>");
   });
+
+  // Os 3 destaques podem ser escondidos no painel
+  d.querySelectorAll(".pc-facts").forEach((el) => (el.hidden = data?.medida?.mostrarFactos === false));
 
   // Fotos: <img data-pc-img="key"> ou fundo: <… data-pc-bg="key">
   PC_PHOTOS.forEach(({ key, def }) => {
