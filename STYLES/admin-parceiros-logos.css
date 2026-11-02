@@ -1,0 +1,157 @@
+/* =====================================================
+   O MOCHILÃO — admin-parceiros-logos.css
+   Admin → Site Web → "Logos de parceiros"
+   ===================================================== */
+.content-pane.pl-admin:not([hidden]) {
+  display: block;
+}
+.pl-admin .content-help {
+  max-width: 820px;
+  margin-bottom: 1.25rem;
+}
+.pl-admin .ab-field {
+  display: grid;
+  gap: 0.35rem;
+}
+.pl-admin .ab-field small {
+  font-weight: 400;
+  color: var(--clr-text-muted);
+}
+.pl-admin__title {
+  max-width: 420px;
+  margin-bottom: 1.25rem;
+}
+.pl-admin__list {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+.pl-row {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.9rem;
+  border: 1.5px solid var(--clr-brown-earth-15);
+  border-radius: 12px;
+  background: var(--clr-white);
+}
+.pl-row__logo {
+  position: relative;
+  height: 84px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 0.2rem;
+  padding: 0.5rem;
+  border: 1.5px dashed var(--clr-brown-earth-20);
+  border-radius: 10px;
+  background: var(--clr-off-white);
+  color: var(--clr-text-muted);
+  cursor: pointer;
+  overflow: hidden;
+}
+.pl-row__logo img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+.pl-row__logo:not(.is-empty) {
+  border-style: solid;
+  background: var(--clr-white);
+}
+.pl-row__logo.is-invalid {
+  border-color: var(--clr-red);
+}
+.pl-row__logo:hover {
+  border-color: var(--clr-brown-mid);
+}
+.pl-row__busy {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.8);
+}
+.pl-row__busy[hidden] {
+  display: none;
+}
+.pl-row__fields {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+  gap: 0.75rem;
+}
+.pl-row .is-invalid {
+  border-color: var(--clr-red) !important;
+}
+.pl-row__tools {
+  display: flex;
+  gap: 0.35rem;
+}
+.pl-row__tools button {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid var(--clr-brown-earth-15);
+  border-radius: 8px;
+  background: var(--clr-white);
+  color: var(--clr-text-mid);
+  cursor: pointer;
+}
+.pl-row__tools button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.pl-row__tools button.is-danger {
+  border-color: transparent;
+  background: var(--clr-red-08);
+  color: var(--clr-red);
+}
+.pl-admin__preview {
+  margin-top: 2rem;
+  border: 1px solid var(--clr-brown-earth-12);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.pl-admin__preview-label {
+  display: block;
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--clr-brown-earth-12);
+  background: var(--clr-off-white);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--clr-text-muted);
+}
+.pl-admin__preview .partner-logos {
+  padding: 2rem 1.5rem 2.25rem;
+  border-top: 0;
+}
+.pl-admin__preview .partner-logos__list {
+  gap: 1.5rem 2.5rem;
+}
+.pl-admin__preview-empty {
+  margin: 0;
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--clr-text-muted);
+}
+.pl-admin__preview-empty[hidden] {
+  display: none;
+}
+@media (max-width: 860px) {
+  .pl-row {
+    grid-template-columns: 110px minmax(0, 1fr);
+  }
+  .pl-row__fields {
+    grid-template-columns: 1fr;
+  }
+  .pl-row__tools {
+    grid-column: 1 / -1;
+    justify-content: flex-end;
+  }
+}

@@ -1,0 +1,83 @@
+/* =====================================================
+   O MOCHILÃO — parceiros-logos.css
+   Faixa de logótipos dos parceiros (index, depois do "Fale Connosco").
+   Cada logótipo abre a página do parceiro.
+   Gerida no painel: Site Web → Logos de parceiros
+   ===================================================== */
+.partner-logos {
+  padding: 3.5rem max(var(--pad-lateral), calc((100vw - var(--content-max-width)) / 2)) 4rem;
+  background: var(--clr-white);
+  border-top: 1px solid var(--clr-brown-earth-08);
+}
+.partner-logos[hidden] {
+  display: none;
+}
+.partner-logos__label {
+  margin: 0 0 2.25rem;
+  text-align: center;
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--clr-text-muted);
+}
+.partner-logos__label:empty {
+  display: none;
+}
+.partner-logos__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem 3rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.partner-logos__item a,
+.partner-logos__item > span {
+  display: block;
+  width: 240px;
+  height: 130px;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  outline-offset: 6px;
+}
+/* O logótipo ocupa sempre a caixa (240×130), sem nunca passar dela */
+.partner-logos__item img {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none;
+  max-height: none;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+.partner-logos__item a:hover img,
+.partner-logos__item a:focus-visible img {
+  transform: scale(1.05);
+}
+.partner-logos__item a:focus-visible {
+  outline: 2px solid var(--clr-brown-mid);
+}
+
+@media (max-width: 640px) {
+  .partner-logos {
+    padding: 2.75rem 1.25rem 3rem;
+  }
+  .partner-logos__list {
+    gap: 1.75rem 2rem;
+  }
+  .partner-logos__item a,
+  .partner-logos__item > span {
+    width: 150px;
+    height: 90px;
+  }
+}
+
+/* O "Fale Connosco" tem muito espaço em baixo (pensado para ficar junto
+   ao rodapé); com os logótipos a seguir, esse espaço diminui. */
+.contact:has(+ .partner-logos:not([hidden])) {
+  padding-bottom: 5rem;
+}
