@@ -1,27 +1,25 @@
 /* =====================================================
    O MOCHILÃO — programa-cart.js
-   Formulário "Adicionar à Mochila" (programa.html)
+   Formulário "Embarcar" da página do programa (programa.html)
 
-   Lê os dados directamente do DOM já preenchido
-   (por programas.js ou programa-firestore.js), por isso
-   funciona com qualquer uma das fontes de dados.
+   O cliente escolhe o PACOTE (Individual, Casal, Kamba…) e a data.
+   Os pacotes são desenhados pelo pacotes.js como rádios:
+     <input name="pacote" value="casal" data-nome="Casal"
+            data-pessoas="2" data-valor="600000">
+   (o preço do pacote é fechado: o Casal cobre as 2 pessoas)
 
    Grava em localStorage("mochilao-cart"):
-   { id, programId, nome, imagem, data, pax, precoUnitario, total,
-     precos: [{ pax, valor }] }   ← tabela de preços do programa
+   { id, programId, nome, imagem, data,
+     pacote, pacoteId, pessoasPorPacote, qtd, pax,
+     precoUnitario, total }
    e dispara window "cartUpdated".
-
-   O número de pessoas escolhe-se no checkout: aqui a viagem
-   entra na mochila com 1 pessoa e a tabela de preços vai junto,
-   para o checkout recalcular o preço por pessoa.
+   A quantidade de pacotes ajusta-se no checkout.
    ===================================================== */
 
 (function () {
   "use strict";
 
   const STORAGE_KEY = "mochilao-cart";
-  const PAX_MIN = 1;
-  const PAX_MAX = 20;
 
   const params = new URLSearchParams(window.location.search);
   const programId = params.get("d") || "malanje"; // mesmo default do programas.js
@@ -30,34 +28,13 @@
     form: document.getElementById("bookingForm"),
     date: document.getElementById("tourDate"),
     dateError: document.getElementById("tourDateError"),
-    minus: document.getElementById("paxMinus"),
-    plus: document.getElementById("paxPlus"),
-    paxValue: document.getElementById("paxValue"),
-    unit: document.getElementById("bookingUnit"),
-    total: document.getElementById("bookingTotal"),
     btn: document.getElementById("addToCartBtn"),
-    precos: document.querySelector(".pkg-precos__list"),
+    list: document.querySelector(".pkg-pacotes__list"),
   };
 
   if (!els.form) return;
 
-  let pax = PAX_MIN;
-
   /* ── Utilitários ── */
-  function toNumber(value) {
-    if (typeof value === "number") return isFinite(value) ? value : 0;
-    const digits = String(value || "").replace(/[^\d]/g, "");
-    return digits ? parseInt(digits, 10) : 0;
-  }
-
-  function formatKz(n) {
-    return (
-      Math.round(Number(n) || 0)
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " Kz"
-    );
-  }
-
   function toISODate(d) {
     const m = String(d.getMonth() + 1).padStart(2, "0");
     const day = String(d.getDate()).padStart(2, "0");
@@ -69,52 +46,6 @@
   tomorrow.setDate(tomorrow.getDate() + 1);
   const MIN_DATE = toISODate(tomorrow);
   els.date.min = MIN_DATE;
-
-  /* ── Preços ──
-     Lê a tabela ".pkg-precos__list":
-       <li><span>2 Pax</span><strong>760.000 Kz</strong></li>
-     Escolhe o escalão com o maior nº de pax ≤ pax escolhido.
-     (ex: 5 pessoas no Malanje → usa o preço de "3 Pax") */
-  function getPriceTiers() {
-    if (!els.precos) return [];
-    return Array.from(els.precos.querySelectorAll("li"))
-      .map(function (li) {
-        const label = (li.querySelector("span") || {}).textContent || "";
-        const valor = toNumber((li.querySelector("strong") || {}).textContent);
-        const match = label.match(/(\d+)/);
-        return { pax: match ? parseInt(match[1], 10) : null, valor: valor };
-      })
-      .filter(function (t) {
-        return t.valor > 0;
-      });
-  }
-
-  function getUnitPrice(p) {
-    const tiers = getPriceTiers();
-
-    if (!tiers.length) {
-      // Fallback: "A partir de 760.000 Kz" no card de detalhes
-      const det = document.querySelector(".pkg-detail--preco .pkg-detail__value");
-      return det ? toNumber(det.textContent) : 0;
-    }
-
-    const numbered = tiers
-      .filter(function (t) {
-        return t.pax !== null;
-      })
-      .sort(function (a, b) {
-        return a.pax - b.pax;
-      });
-
-    // Preço único ("Por Pax")
-    if (!numbered.length) return tiers[0].valor;
-
-    let chosen = numbered[0];
-    numbered.forEach(function (t) {
-      if (t.pax <= p) chosen = t;
-    });
-    return chosen.valor;
-  }
 
   /* ── Dados do programa (do DOM) ── */
   function getProgramName() {
@@ -134,41 +65,16 @@
     return img ? img.getAttribute("src") : "";
   }
 
-  /** Tabela de preços em números, por ordem: [{ pax: 2, valor: 760000 }] */
-  function getTiersForCart() {
-    const tiers = getPriceTiers();
-    const numbered = tiers.filter(function (t) { return t.pax !== null; });
-    const list = numbered.length ? numbered : tiers.slice(0, 1).map(function (t) { return { pax: 1, valor: t.valor }; });
-    return list
-      .map(function (t) { return { pax: t.pax, valor: t.valor }; })
-      .sort(function (a, b) { return a.pax - b.pax; });
-  }
-
-  /** Preço mais baixo da tabela (para "a partir de") */
-  function getMinPrice() {
-    const tiers = getPriceTiers();
-    if (!tiers.length) return getUnitPrice(1);
-    return Math.min.apply(null, tiers.map(function (t) { return t.valor; }));
-  }
-
-  /* ── Render ── */
-  /* Os controlos de pessoas e o total são opcionais: se não existirem
-     no HTML, cada clique em "Embarcar" junta 1 pessoa à Mochila
-     (o número de pessoas ajusta-se depois na própria Mochila). */
-  function render() {
-    if (els.paxValue) els.paxValue.textContent = pax + (pax === 1 ? " Pessoa" : " Pessoas");
-    if (els.minus) els.minus.disabled = pax <= PAX_MIN;
-    if (els.plus) els.plus.disabled = pax >= PAX_MAX;
-
-    const unit = getUnitPrice(pax);
-    // Sem seletor de pessoas no card: mostra o preço mais baixo da tabela
-    if (els.unit) {
-      const tiers = getPriceTiers();
-      const min = getMinPrice();
-      els.unit.textContent =
-        min > 0 ? (tiers.length > 1 ? "a partir de " + formatKz(min) : formatKz(min)) : "A consultar";
-    }
-    if (els.total) els.total.textContent = unit > 0 ? formatKz(unit * pax) : "A consultar";
+  /** Pacote escolhido: { tipo, nome, pessoas, valor } ou null */
+  function getSelectedPackage() {
+    const input = els.list && els.list.querySelector('input[name="pacote"]:checked');
+    if (!input) return null;
+    return {
+      tipo: input.value,
+      nome: input.dataset.nome || "Pacote",
+      pessoas: parseInt(input.dataset.pessoas, 10) || 1,
+      valor: parseInt(input.dataset.valor, 10) || 0,
+    };
   }
 
   function setError(msg) {
@@ -192,11 +98,10 @@
     const existing = cart.find(function (i) {
       return i.id === item.id;
     });
-
     if (existing) {
-      // Já está na mochila: não soma pessoas (escolhem-se no checkout),
-      // só actualiza a tabela de preços caso tenha mudado
-      existing.precos = item.precos;
+      // Mesmo programa + data + pacote já na mochila: a quantidade muda-se no checkout
+      existing.precoUnitario = item.precoUnitario;
+      existing.total = item.precoUnitario * (parseInt(existing.qtd, 10) || 1);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
       window.dispatchEvent(new Event("cartUpdated"));
       return false;
@@ -219,22 +124,19 @@
   }
 
   /* ── Eventos ── */
-  els.minus?.addEventListener("click", function () {
-    pax = Math.max(PAX_MIN, pax - 1);
-    render();
-  });
-
-  els.plus?.addEventListener("click", function () {
-    pax = Math.min(PAX_MAX, pax + 1);
-    render();
-  });
-
   els.date.addEventListener("change", function () {
     if (els.date.value) setError("");
   });
 
   els.form.addEventListener("submit", function (e) {
     e.preventDefault();
+
+    const pkg = getSelectedPackage();
+    if (!pkg) {
+      setError("Escolha um pacote.");
+      els.list?.querySelector("input")?.focus();
+      return;
+    }
 
     const data = els.date.value;
     if (!data) {
@@ -255,28 +157,22 @@
       return;
     }
 
-    const precoUnitario = getUnitPrice(pax);
-
     const added = addToCart({
-      id: programId + "__" + data,
+      id: programId + "__" + data + "__" + pkg.tipo,
       programId: programId,
       nome: nome,
       imagem: getProgramImage(),
       data: data,
-      pax: pax,
-      precoUnitario: precoUnitario,
-      total: precoUnitario * pax,
-      precos: getTiersForCart(),
+      pacote: pkg.nome,
+      pacoteId: pkg.tipo,
+      pessoasPorPacote: pkg.pessoas,
+      qtd: 1,
+      pax: pkg.pessoas,
+      precoUnitario: pkg.valor,
+      total: pkg.valor,
     });
 
     flashButton(added ? "Adicionado à Mochila" : "Já está na Mochila");
     if (window.MochilaoCart) window.MochilaoCart.openCart();
   });
-
-  /* ── Re-render quando os preços chegam (Firestore é assíncrono) ── */
-  if (els.precos && "MutationObserver" in window) {
-    new MutationObserver(render).observe(els.precos, { childList: true });
-  }
-
-  render();
 })();

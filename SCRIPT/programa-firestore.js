@@ -7,7 +7,7 @@
      nome, slogan, categoria, duracao, preco, pontoPartida, descricao,
      imagemURL (miniatura da capa), capaId, galeria [{id}],
      inclui [], naoInclui [], roteiro [{dia, titulo, descricao}],
-     precos [{pax, valor}] (opcional)
+     pacotes [{tipo, nome, pessoas, valor}]  (ou precos antigos — ver pacotes.js)
    programs/{id}/imagens/{imgId}  → { tipo, data (Base64) }
 
    URL: programa.html?d=<id do documento>
@@ -78,6 +78,11 @@ function renderText(p) {
   document.title = `${p.nome} — O Mochilão Aventuras`;
 
   setText(".pkg-breadcrumb span", p.nome);
+  // Programa criado só para a página "Viagens Personalizadas" → caminho de volta para lá
+  const crumb = $(".pkg-breadcrumb");
+  if (p.soPersonalizada && crumb && !crumb.querySelector('[href="personalizada.html"]')) {
+    crumb.insertAdjacentHTML("beforeend", '<i class="fa-solid fa-chevron-right" aria-hidden="true"></i><a href="personalizada.html">Viagens Personalizadas</a>');
+  }
   setText(".pkg-hero__title", p.nome);
   setText(".pkg-hero__desc", p.slogan);
   setText("#pkgTitle", p.nome);
@@ -88,7 +93,11 @@ function renderText(p) {
 
   // Detalhes
   setText(".pkg-detail--dur .pkg-detail__value", p.duracao || "—");
-  setText(".pkg-detail--preco .pkg-detail__value", p.preco || "—");
+  const pacotes = window.MochilaoPacotes ? window.MochilaoPacotes.fromProgram(p) : [];
+  setText(
+    ".pkg-detail--preco .pkg-detail__value",
+    pacotes.length ? window.MochilaoPacotes.priceText(pacotes) : p.preco || "—",
+  );
   setText(".pkg-detail--partida .pkg-detail__value", p.pontoPartida || p.partida || "—");
 
   const roteiro = Array.isArray(p.roteiro) ? p.roteiro : [];
@@ -121,17 +130,8 @@ function renderText(p) {
   if (inc) inc.innerHTML = (p.inclui || []).map(li("fa-check")).join("");
   if (exc) exc.innerHTML = (p.naoInclui || []).map(li("fa-xmark")).join("");
 
-  // Preços por nº de pessoas (o programa-cart.js lê esta lista)
-  const precos =
-    Array.isArray(p.precos) && p.precos.length
-      ? p.precos
-      : [{ pax: "Por pessoa", valor: p.preco || "A consultar" }];
-  const precosEl = $(".pkg-precos__list");
-  if (precosEl) {
-    precosEl.innerHTML = precos
-      .map((x) => `<li><span>${esc(x.pax)}</span><strong>${esc(x.valor)}</strong></li>`)
-      .join("");
-  }
+  // Pacotes: opções do card + "Qual pacote escolher?" (pacotes.js)
+  window.MochilaoPacotes?.render(pacotes);
 
   // Miniatura enquanto as fotos grandes carregam
   setHero(p.imagemURL);
@@ -186,10 +186,12 @@ async function renderOthers(currentId) {
 
   let others = [];
   try {
-    const snap = await getDocs(query(collection(db, "programs"), limit(6)));
+    const snap = await getDocs(query(collection(db, "programs"), limit(12)));
     others = snap.docs
       .filter((d) => d.id !== currentId)
-      .map((d) => ({ id: d.id, ...d.data() }));
+      .map((d) => ({ id: d.id, ...d.data() }))
+      // Programas só da página "Viagens Personalizadas" não são sugeridos aqui
+      .filter((o) => !o.soPersonalizada);
   } catch (err) {
     console.warn("[programa] Outros destinos:", err);
   }
@@ -198,7 +200,7 @@ async function renderOthers(currentId) {
   if (others.length < 3 && typeof PROGRAMAS !== "undefined") {
     Object.entries(PROGRAMAS).forEach(([key, s]) => {
       if (others.length < 3) {
-        others.push({ id: key, nome: s.nome, slogan: s.slogan, preco: s.preco, duracao: s.duracao, imagemURL: s.heroImg });
+        others.push({ id: key, nome: s.nome, slogan: s.slogan, duracao: s.duracao, imagemURL: s.heroImg });
       }
     });
   }
@@ -219,10 +221,6 @@ async function renderOthers(currentId) {
           <h3 class="package-card__title">${esc(o.nome)}</h3>
           <p class="package-card__desc">${esc(o.slogan)}</p>
           <div class="package-card__meta">
-            <div class="package-card__meta-item">
-              <span class="package-card__meta-label">Preço/Pax</span>
-              <span class="package-card__meta-value">${esc(o.preco)}</span>
-            </div>
             <div class="package-card__meta-item">
               <span class="package-card__meta-label">Duração</span>
               <span class="package-card__meta-value">${esc(o.duracao)}</span>

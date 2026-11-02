@@ -416,6 +416,15 @@
   font-weight: 600;
   color: var(--clr-text-main);
 }
+.checkout-item__people {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.74rem;
+  color: var(--clr-text-muted);
+}
+.checkout-pax__value {
+  white-space: nowrap;
+}
 .checkout-item__price {
   font-family: var(--font-ui);
   font-size: 0.92rem;

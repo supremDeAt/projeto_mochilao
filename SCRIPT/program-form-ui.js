@@ -71,7 +71,7 @@ export function initProgramFormUI() {
   /* Botão "Adicionar Dia" */
   els.addDayBtn?.addEventListener("click", () => addItineraryDay());
 
-  /* Botão "Adicionar escalão" (preços) */
+  /* Botão "Adicionar pacote" (preços) */
   els.addTierBtn?.addEventListener("click", () => addPriceTier());
 
   /* Remover (delegação: funciona para linhas criadas depois) */
@@ -109,12 +109,12 @@ export function initProgramFormUI() {
     if (t.tagName === "INPUT" && t.classList.contains("day-card__input")) {
       e.preventDefault();
     }
-    // Enter num preço → novo escalão (nunca submete o formulário)
+    // Enter num preço → novo pacote (nunca submete o formulário)
     if (t.closest?.(".price-tier")) {
       e.preventDefault();
       if (t.classList.contains("price-tier__valor") && t.value.trim()) {
         const row = t.closest(".price-tier");
-        if (!row.nextElementSibling) addPriceTier();
+        if (!row.nextElementSibling && nextFreeTipo()) addPriceTier();
       }
     }
   });
@@ -125,6 +125,15 @@ export function initProgramFormUI() {
       e.target.classList.remove("is-invalid");
     }
   });
+  form.addEventListener("change", (e) => {
+    if (e.target.classList?.contains("price-tier__tipo")) {
+      if (e.target.value) e.target.classList.remove("is-invalid");
+      refreshTipoOptions();
+    }
+  });
+
+  /* Tipos de pacote (Site Web → Pacotes) chegam do Firestore → atualiza as listas */
+  window.MochilaoPacotes?.onCatalog(() => refreshTipoOptions());
 
   /* Preço escrito sem pontos → fica 760.000 ao sair do campo */
   form.addEventListener("focusout", (e) => {
@@ -148,7 +157,7 @@ export function initProgramFormUI() {
   setupSectionNav();
 
   renderGallery();
-  if (!els.priceTiers?.children.length) addPriceTier({ pax: 1 }, { focus: false });
+  if (!els.priceTiers?.children.length) addPriceTier({}, { focus: false });
 }
 
 /* ─────────────────────────────────────────
@@ -241,9 +250,12 @@ export function getItinerary() {
 }
 
 /* ─────────────────────────────────────────
-   PREÇOS POR NÚMERO DE PESSOAS
-   Guardados no programa como precos: [{ pax: "2 Pax", valor: "760.000 Kz" }]
-   (o mesmo formato dos programas antigos, lido pela página e pelo carrinho)
+   PACOTES E PREÇOS
+   Cada linha: tipo de pacote (Site Web → Pacotes) + preço do pacote.
+   Guardados no programa como
+     pacotes: [{ tipo: "casal", nome: "Casal", pessoas: 2, valor: 600000 }]
+   (o nome e o nº de pessoas vão junto: o programa continua certo
+   mesmo que o tipo seja mudado ou apagado mais tarde)
    ───────────────────────────────────────── */
 const toNumber = (v) => {
   if (typeof v === "number") return isFinite(v) ? Math.round(v) : 0;
@@ -252,24 +264,70 @@ const toNumber = (v) => {
 };
 export const formatKz = (n) => String(Math.round(n || 0)).replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " Kz";
 
+const esc = (v) =>
+  String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+const pessoasLabel = (n) => `${n} ${n === 1 ? "pessoa" : "pessoas"}`;
+const catalogTipos = () => window.MochilaoPacotes?.getCatalog().tipos || [];
+
+/** Opções de um <select>: tipos do catálogo + o tipo guardado, se já não existir */
+function fillTipoSelect(select, keep = null) {
+  const value = keep?.tipo ?? select.value;
+  const extra = keep?.tipo ? keep : select._extra || null; // tipo antigo/apagado
+  const tipos = catalogTipos();
+  // Preço antigo convertido: lembra a que grupo correspondia
+  const opts = [`<option value="">${select._antes ? `Era ${esc(select._antes)} → escolha` : "— Escolha o pacote —"}</option>`];
+  tipos.forEach((t) =>
+    opts.push(
+      `<option value="${esc(t.id)}" data-nome="${esc(t.nome)}" data-pessoas="${t.pessoas}">${esc(t.nome)} · ${pessoasLabel(t.pessoas)}</option>`,
+    ),
+  );
+  if (extra && extra.tipo && !tipos.some((t) => t.id === extra.tipo)) {
+    select._extra = extra;
+    opts.push(
+      `<option value="${esc(extra.tipo)}" data-nome="${esc(extra.nome)}" data-pessoas="${extra.pessoas}">${esc(extra.nome)} · ${pessoasLabel(extra.pessoas)} (tipo antigo)</option>`,
+    );
+  }
+  select.innerHTML = opts.join("");
+  select.value = value || "";
+  // form.reset() repõe esta opção (não apaga a linha)
+  Array.from(select.options).forEach((o) => (o.defaultSelected = o.value === select.value));
+}
+
+/** Atualiza todas as listas; tipos já usados noutra linha ficam indisponíveis */
+function refreshTipoOptions() {
+  const rows = getTierRows();
+  rows.forEach((r) => fillTipoSelect(r.tipo));
+  const used = rows.map((r) => r.tipo.value).filter(Boolean);
+  rows.forEach((r) =>
+    Array.from(r.tipo.options).forEach((o) => {
+      o.disabled = !!o.value && o.value !== r.tipo.value && used.includes(o.value);
+    }),
+  );
+  if (els?.addTierBtn) els.addTierBtn.disabled = !nextFreeTipo();
+}
+
+/** Primeiro tipo do catálogo ainda sem linha (ou "" se já estão todos) */
+function nextFreeTipo() {
+  const used = getTierRows().map((r) => r.tipo.value);
+  return catalogTipos().find((t) => !used.includes(t.id))?.id || "";
+}
+
 export function addPriceTier(data = {}, opts = {}) {
   if (!els?.priceTiers || !els.tplTier) return null;
   const { focus = true } = opts;
   const li = els.tplTier.content.firstElementChild.cloneNode(true);
-  const pax = li.querySelector(".price-tier__pax");
+  const tipo = li.querySelector(".price-tier__tipo");
   const valor = li.querySelector(".price-tier__valor");
 
-  // Novo escalão: sugere o nº de pessoas a seguir ao último
-  const rows = getTierRows();
-  const lastPax = rows.length ? toNumber(rows[rows.length - 1].pax.value) : 0;
-  pax.value = data.pax ?? (rows.length ? lastPax + 1 || "" : 1);
-  valor.value = data.valor ? formatKz(data.valor).replace(" Kz", "") : "";
-  // Também como valor "por defeito": um form.reset() a seguir não os apaga
-  pax.defaultValue = pax.value;
-  valor.defaultValue = valor.value;
-
   els.priceTiers.appendChild(li);
-  if (focus) valor.focus();
+  if (data.tipo === "" && data.nome) tipo._antes = data.nome;
+  // Linha nova: sugere o próximo tipo ainda não usado
+  fillTipoSelect(tipo, data.tipo ? data : { tipo: data.tipo === "" ? "" : nextFreeTipo() });
+  valor.value = data.valor ? formatKz(data.valor).replace(" Kz", "") : "";
+  valor.defaultValue = valor.value;
+  refreshTipoOptions();
+
+  if (focus) (tipo.value ? valor : tipo).focus();
   return li;
 }
 
@@ -277,37 +335,41 @@ function getTierRows() {
   if (!els?.priceTiers) return [];
   return Array.from(els.priceTiers.querySelectorAll(".price-tier")).map((li) => ({
     li,
-    pax: li.querySelector(".price-tier__pax"),
+    tipo: li.querySelector(".price-tier__tipo"),
     valor: li.querySelector(".price-tier__valor"),
   }));
 }
 
-/** Escalões válidos, por ordem de nº de pessoas: [{ pax: 2, valor: 760000 }] */
+/** Pacotes válidos, pela ordem do formulário */
 export function getPriceTiers() {
   const seen = new Set();
   return getTierRows()
-    .map((r) => ({ pax: toNumber(r.pax.value), valor: toNumber(r.valor.value) }))
-    .filter((t) => t.pax > 0 && t.valor > 0 && !seen.has(t.pax) && seen.add(t.pax))
-    .sort((a, b) => a.pax - b.pax);
+    .map((r) => {
+      const opt = r.tipo.selectedOptions[0];
+      return {
+        tipo: r.tipo.value,
+        nome: opt?.dataset.nome || "",
+        pessoas: parseInt(opt?.dataset.pessoas, 10) || 1,
+        valor: toNumber(r.valor.value),
+      };
+    })
+    .filter((p) => p.tipo && p.nome && p.valor > 0 && !seen.has(p.tipo) && seen.add(p.tipo));
 }
 
-/** Texto automático para os cartões ("A partir de 685.000 Kz") */
-function autoPriceText(tiers) {
-  if (!tiers.length) return "";
-  const min = Math.min(...tiers.map((t) => t.valor));
-  return tiers.length === 1 ? `${formatKz(min)} / pessoa` : `A partir de ${formatKz(min)}`;
+/** Texto do "Preço" nos detalhes da viagem ("A partir de 300.000 Kz") */
+function autoPriceText(pacotes) {
+  if (window.MochilaoPacotes) return window.MochilaoPacotes.priceText(pacotes);
+  if (!pacotes.length) return "";
+  return `A partir de ${formatKz(Math.min(...pacotes.map((p) => p.valor)))}`;
 }
 
-/** Lê os escalões guardados (formato antigo "2 Pax" / "760.000 Kz" ou números) */
-function parseStoredTiers(program) {
-  const list = Array.isArray(program.precos) ? program.precos : [];
-  const tiers = list
-    .map((x) => ({ pax: toNumber(x?.pax) || 1, valor: toNumber(x?.valor) }))
-    .filter((t) => t.valor > 0);
-  if (tiers.length) return tiers;
-  // Programa antigo só com "Preço" → vira um escalão de 1 pessoa
-  const unico = toNumber(program.preco);
-  return unico ? [{ pax: 1, valor: unico }] : [];
+/** Pacotes guardados; programas antigos (preço por pessoa) → convertidos, sem tipo */
+function parseStoredPackages(program) {
+  if (Array.isArray(program.pacotes) && program.pacotes.length) {
+    return { legacy: false, list: window.MochilaoPacotes.fromProgram(program) };
+  }
+  const list = window.MochilaoPacotes ? window.MochilaoPacotes.fromLegacy(program.precos, program.preco) : [];
+  return { legacy: list.length > 0, list: list.map((p) => ({ ...p, tipo: "" })) };
 }
 
 /* ─────────────────────────────────────────
@@ -447,7 +509,9 @@ function clearDynamicState() {
   els.excludeList?.replaceChildren();
   els.itinerary?.replaceChildren();
   els.priceTiers?.replaceChildren();
-  addPriceTier({ pax: 1 }, { focus: false }); // formulário limpo começa com 1 escalão
+  addPriceTier({}, { focus: false }); // formulário limpo começa com 1 pacote
+  const legacyNote = document.getElementById("progPriceLegacy");
+  if (legacyNote) legacyNote.hidden = true;
 
   // Liberta a memória dos URLs temporários
   if (state.coverObjectUrl) URL.revokeObjectURL(state.coverObjectUrl);
@@ -489,14 +553,16 @@ export function populateProgramForm(program = {}) {
   set("progName", program.nome);
   set("progSlogan", program.slogan);
   set("progDuration", program.duracao);
-  // Preços: escalões + texto dos cartões (só fica no campo se não for o automático)
-  const tiers = parseStoredTiers(program);
+  // Pacotes e preços
+  const stored = parseStoredPackages(program);
   els.priceTiers?.replaceChildren();
-  tiers.forEach((t) => addPriceTier(t, { focus: false }));
-  if (!tiers.length) addPriceTier({ pax: 1 }, { focus: false });
-  const autoText = autoPriceText(tiers);
-  set("progPrice", program.preco && program.preco !== autoText ? program.preco : "");
+  stored.list.forEach((p) => addPriceTier(p, { focus: false }));
+  if (!stored.list.length) addPriceTier({}, { focus: false });
+  const legacyNote = document.getElementById("progPriceLegacy");
+  if (legacyNote) legacyNote.hidden = !stored.legacy;
   set("progStartPoint", program.pontoPartida);
+  const onlyCustom = $("progSoPersonalizada");
+  if (onlyCustom) onlyCustom.checked = program.soPersonalizada === true;
   set("progDesc", program.descricao);
 
   // Categoria que não exista no <select> é acrescentada (não se perde)
@@ -548,10 +614,13 @@ export function getProgramFormData() {
     slogan: val("progSlogan"),
     categoria: val("progCategory"),
     duracao: val("progDuration"),
-    // Preços: escalões + texto para os cartões (automático se vazio)
-    precos: getPriceTiers().map((t) => ({ pax: `${t.pax} Pax`, valor: formatKz(t.valor) })),
-    preco: val("progPrice") || autoPriceText(getPriceTiers()),
+    // Pacotes (Individual, Casal, Kamba…) com preço fechado
+    pacotes: getPriceTiers(),
+    precos: [], // formato antigo (preço por pessoa) deixa de ser usado
+    preco: autoPriceText(getPriceTiers()),
     pontoPartida: val("progStartPoint"),
+    // true = só aparece na página Viagens Personalizadas
+    soPersonalizada: $("progSoPersonalizada")?.checked === true,
     descricao: val("progDesc"),
     inclui: getListValues(els.includeList),
     naoInclui: getListValues(els.excludeList),
@@ -585,17 +654,18 @@ export function validateProgramForm({ isNew = false } = {}) {
     if (el && !el.value.trim()) mark(el, `${label} é obrigatório.`);
   });
 
-  // Preços: pelo menos um escalão completo; linhas a meio ficam marcadas
-  getTierRows().forEach((r, i) => {
-    const hasPax = toNumber(r.pax.value) > 0;
+  // Pacotes: pelo menos um completo; linhas a meio ficam marcadas
+  const rows = getTierRows();
+  rows.forEach((r, i) => {
+    const hasTipo = !!r.tipo.value;
     const hasValor = toNumber(r.valor.value) > 0;
-    if (hasPax !== hasValor || (!hasPax && getTierRows().length === 1)) {
-      if (!hasPax) mark(r.pax, `Escalão ${i + 1}: indique o número de pessoas.`);
-      if (!hasValor) mark(r.valor, `Escalão ${i + 1}: indique o preço por pessoa.`);
+    if (hasTipo !== hasValor || (!hasTipo && rows.length === 1)) {
+      if (!hasTipo) mark(r.tipo, `Pacote ${i + 1}: escolha o tipo de pacote.`);
+      if (!hasValor) mark(r.valor, `Pacote ${i + 1}: indique o preço do pacote.`);
     }
   });
-  if (!getPriceTiers().length && !errors.some((m) => m.startsWith("Escalão"))) {
-    mark(els.addTierBtn, "Indique pelo menos um preço (escalão).");
+  if (!getPriceTiers().length && !errors.some((m) => m.startsWith("Pacote"))) {
+    mark(els.addTierBtn, "Adicione pelo menos um pacote com preço.");
   }
 
   if (isNew && !state.coverFile) {

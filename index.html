@@ -7,6 +7,7 @@
 
     <link rel="icon" href="imagens/logo5.png" />
     <link rel="stylesheet" href="STYLES/estilo.css" />
+    <link rel="stylesheet" href="STYLES/testemunhos.css" />
 
     <!-- Flag icons (bandeiras reais, funciona em todos os browsers) -->
     <link
@@ -107,6 +108,7 @@
         <a href="#team" class="sidebar__link">Equipa</a>
         <a href="#tips" class="sidebar__link">Dicas</a>
         <a href="PAGES/faq.html" class="sidebar__link">Perguntas Frequentes</a>
+        <a href="PAGES/testemunhos.html" class="sidebar__link">Testemunhos</a>
         <a href="#contact" class="sidebar__link">Fale Connosco</a>
       </nav>
 
@@ -784,10 +786,6 @@
 
             <div class="package-card__meta">
               <div class="package-card__meta-item">
-                <span class="package-card__meta-label">Preço/Pax</span>
-                <span class="package-card__meta-value">45.000 Kz</span>
-              </div>
-              <div class="package-card__meta-item">
                 <span class="package-card__meta-label">Duração</span>
                 <span class="package-card__meta-value">2 Dias</span>
               </div>
@@ -818,10 +816,6 @@
             </p>
 
             <div class="package-card__meta">
-              <div class="package-card__meta-item">
-                <span class="package-card__meta-label">Preço/Pax</span>
-                <span class="package-card__meta-value">38.000 Kz</span>
-              </div>
               <div class="package-card__meta-item">
                 <span class="package-card__meta-label">Duração</span>
                 <span class="package-card__meta-value">1 Dia</span>
@@ -855,10 +849,6 @@
             </p>
 
             <div class="package-card__meta">
-              <div class="package-card__meta-item">
-                <span class="package-card__meta-label">Preço/Pax</span>
-                <span class="package-card__meta-value">62.000 Kz</span>
-              </div>
               <div class="package-card__meta-item">
                 <span class="package-card__meta-label">Duração</span>
                 <span class="package-card__meta-value">3 Dias</span>
@@ -1063,6 +1053,37 @@
       </div>
     </section>
 
+    <!-- ======= TESTEMUNHOS =======
+         Cartões aprovados no painel (Site Web → Testemunhos) — testemunhos.js.
+         Os clientes enviam o seu em PAGES/testemunhos.html#enviar -->
+    <section class="testimonials" id="testimonials">
+      <div class="section-header testimonials__header reveal-up">
+        <span class="section-tag">Testemunhos</span>
+        <h2 class="section-title">O que dizem os Mochileiros</h2>
+        <p class="section-desc">Histórias reais de quem já pôs a mochila às costas connosco.</p>
+      </div>
+
+      <div class="testimonials__track" data-tm-track aria-label="Testemunhos"></div>
+      <p class="testimonials__empty" data-tm-empty hidden>
+        Ainda não há testemunhos publicados. Viajou connosco? Seja o primeiro a contar como foi!
+      </p>
+
+      <div class="testimonials__foot">
+        <button type="button" class="testimonials__arrow" data-tm-prev aria-label="Testemunhos anteriores" hidden>
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <div class="testimonials__actions">
+          <a href="PAGES/testemunhos.html" class="btn btn--outline-dark">Ver todos os testemunhos</a>
+          <a href="PAGES/testemunhos.html#enviar" class="btn btn--primary">
+            <i class="fa-regular fa-pen-to-square"></i> Partilhar a minha experiência
+          </a>
+        </div>
+        <button type="button" class="testimonials__arrow" data-tm-next aria-label="Testemunhos seguintes" hidden>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+    </section>
+
     <!-- ======= CONTACTO ======= -->
     <section class="contact" id="contact">
       <div class="contact__info reveal-left">
@@ -1119,12 +1140,12 @@
           id="contactSuccessMsg"
           style="
             display: none;
-            background: rgba(46, 125, 91, 0.1);
-            border-left: 3px solid #2e7d5b;
+            background: var(--clr-brown-mid-10);
+            border-left: 3px solid var(--clr-brown-mid);
             border-radius: 8px;
             padding: 1rem 1.25rem;
             margin-bottom: 1.25rem;
-            color: #2e7d5b;
+            color: var(--clr-brown-deep);
             font-weight: 600;
           "
         >
@@ -1262,6 +1283,7 @@
           <a href="#tips">Dicas de Viagem</a>
           <a href="#packages">Viagens em Grupo</a>
           <a href="PAGES/faq.html">Perguntas Frequentes</a>
+          <a href="PAGES/testemunhos.html">Testemunhos</a>
           <a href="#contact">Fale Connosco</a>
         </div>
       </div>
@@ -1282,6 +1304,7 @@
     <script type="module" src="SCRIPT/site-appearance.js"></script>
     <script type="module" src="SCRIPT/home-gallery.js"></script>
     <script type="module" src="SCRIPT/hero-cards.js"></script>
+    <script type="module" src="SCRIPT/testemunhos.js"></script>
     <script type="module" src="SCRIPT/about-section.js"></script>
     <script type="module" src="SCRIPT/forms.js"></script>
     <script type="module" src="SCRIPT/script.js"></script>

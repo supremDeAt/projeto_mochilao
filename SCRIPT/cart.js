@@ -7,11 +7,12 @@
    index.html e PAGES/*.html. Expõe a API em:
      window.MochilaoCart  e  window.addToCart(...) etc.
 
-   O número de pessoas escolhe-se no CHECKOUT. A mochila só
-   mostra quantas pessoas estão escolhidas e o valor.
-   Cada viagem pode trazer a tabela de preços do programa
-   (precos: [{ pax, valor }]) → o preço por pessoa depende
-   do tamanho do grupo.
+   Cada viagem entra com um PACOTE de preço fechado
+   (Individual, Casal, Kamba…): { pacote, pessoasPorPacote, qtd,
+   precoUnitario = preço do pacote }. A quantidade muda-se no
+   CHECKOUT; a mochila só a mostra.
+   Viagens antigas (sem pacote) continuam a funcionar com a tabela
+   de preço por pessoa (precos: [{ pax, valor }]).
    ===================================================== */
 
 (function () {
@@ -86,9 +87,26 @@
     return chosen.valor;
   }
 
+  // Viagem com pacote (preço fechado por pacote)
+  function isPackage(item) {
+    return !!(item && item.pacote);
+  }
+
   function lineTotal(item) {
+    if (isPackage(item)) return parseKz(item.precoUnitario) * clampPax(item.qtd);
     const pax = clampPax(item.pax);
     return unitPrice(item, pax) * pax;
+  }
+
+  /* Texto curto: "2 × Casal (4 pessoas)" ou "3 pessoas" */
+  function itemPeopleText(item) {
+    if (isPackage(item)) {
+      const qtd = clampPax(item.qtd);
+      const pessoas = qtd * (parseInt(item.pessoasPorPacote, 10) || 1);
+      return qtd + " × " + item.pacote + (pessoas > 1 ? " (" + pessoas + " pessoas)" : "");
+    }
+    const pax = clampPax(item.pax);
+    return pax + (pax === 1 ? " pessoa" : " pessoas");
   }
 
   // Fotos guardadas com caminho de PAGES/ ("../imagens/…") → ajusta à página actual
@@ -192,9 +210,16 @@
       return i.id === id;
     });
     if (!item) return;
-    item.pax = clampPax(item.pax + Number(change || 0));
-    item.precoUnitario = unitPrice(item, item.pax);
-    item.total = item.precoUnitario * item.pax;
+    if (isPackage(item)) {
+      // Pacotes: muda a quantidade de pacotes
+      item.qtd = clampPax(clampPax(item.qtd) + Number(change || 0));
+      item.pax = item.qtd * (parseInt(item.pessoasPorPacote, 10) || 1);
+      item.total = parseKz(item.precoUnitario) * item.qtd;
+    } else {
+      item.pax = clampPax(item.pax + Number(change || 0));
+      item.precoUnitario = unitPrice(item, item.pax);
+      item.total = item.precoUnitario * item.pax;
+    }
     saveCart(cart);
   }
 
@@ -250,7 +275,6 @@
 
   function renderItem(item) {
     const id = escapeHtml(item.id);
-    const pax = clampPax(item.pax);
     const subtotal = lineTotal(item);
     const preco = subtotal > 0 ? formatKz(subtotal) : "Preço a consultar";
     const imgSrc = imagePath(item.imagem || item.img || "");
@@ -267,8 +291,10 @@
         escapeHtml(formatDate(item.data)) +
         "</p>",
       '    <div class="cart-item__row">',
-      '      <span class="cart-item__people"><i class="fa-solid fa-user-group"></i> ' +
-        pax + (pax === 1 ? " pessoa" : " pessoas") +
+      '      <span class="cart-item__people"><i class="fa-solid ' +
+        (isPackage(item) ? "fa-ticket" : "fa-user-group") +
+        '"></i> ' +
+        escapeHtml(itemPeopleText(item)) +
         ' <small>· altera no checkout</small></span>',
       '      <strong class="cart-item__price">' + preco + "</strong>",
       "    </div>",
@@ -432,6 +458,8 @@
     formatDate: formatDate,
     unitPrice: unitPrice,
     lineTotal: lineTotal,
+    isPackage: isPackage,
+    itemPeopleText: itemPeopleText,
   };
 
   window.MochilaoCart = api;

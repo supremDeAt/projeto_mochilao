@@ -1,7 +1,7 @@
 /* =====================================================
    O MOCHILÃO — admin-precos.css
-   Admin → Programas → formulário → "Preços por número de pessoas"
-   (escalões: a partir de N pessoas → preço por pessoa)
+   Admin → Programas → formulário → "Pacotes e preços"
+   (cada linha: tipo de pacote → preço do pacote)
    ===================================================== */
 
 .price-tiers__head,
@@ -47,7 +47,8 @@
   align-items: center;
   min-width: 0;
 }
-.price-tier__field input {
+.price-tier__field input,
+.price-tier__field select {
   width: 100%;
   min-width: 0;
   border: 1.5px solid var(--clr-brown-earth-15);
@@ -61,11 +62,16 @@
     border-color var(--ease-std),
     box-shadow var(--ease-std);
 }
-.price-tier__field input:focus {
+.price-tier__field select {
+  padding-right: 0.9rem;
+  cursor: pointer;
+}
+.price-tier__field input:focus,
+.price-tier__field select:focus {
   border-color: var(--clr-gold);
   box-shadow: 0 0 0 3px var(--clr-gold-15);
 }
-.price-tier__field input.is-invalid {
+.price-tier__field .is-invalid {
   border-color: var(--clr-red);
 }
 /* Unidade dentro do campo ("pessoa(s)" / "Kz") */
@@ -106,4 +112,115 @@
   .price-tier__field em {
     font-size: 0.7rem;
   }
+}
+
+/* Programa antigo: preços por pessoa convertidos */
+.price-tiers__legacy {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+  margin: 0 0 0.9rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: 8px;
+  background: var(--clr-gold-10);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--clr-text-main);
+}
+.price-tiers__legacy[hidden] {
+  display: none;
+}
+.price-tiers__legacy i {
+  margin-top: 0.2rem;
+  color: var(--clr-gold);
+}
+
+/* Interruptor "Só na página Viagens Personalizadas" (secção Básico) */
+.prog-only-custom,
+.field .prog-only-custom,
+.field .prog-only-custom * {
+  text-transform: none;
+  letter-spacing: 0;
+}
+.prog-only-custom {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border: 1.5px solid var(--clr-brown-earth-15);
+  border-radius: 10px;
+  background: var(--clr-white);
+  cursor: pointer;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.prog-only-custom input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.prog-only-custom__switch {
+  position: relative;
+  flex-shrink: 0;
+  width: 38px;
+  height: 22px;
+  margin-top: 0.1rem;
+  border-radius: 999px;
+  background: var(--clr-brown-earth-15);
+  transition: background 0.2s ease;
+}
+.prog-only-custom__switch::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--clr-white);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.22);
+  transition: transform 0.2s ease;
+}
+.prog-only-custom input:checked + .prog-only-custom__switch {
+  background: var(--clr-gold);
+}
+.prog-only-custom input:checked + .prog-only-custom__switch::after {
+  transform: translateX(16px);
+}
+.prog-only-custom input:focus-visible + .prog-only-custom__switch {
+  outline: 2px solid var(--clr-gold);
+  outline-offset: 2px;
+}
+.prog-only-custom strong {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--clr-text-main);
+}
+.prog-only-custom small {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.78rem;
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--clr-text-muted);
+}
+.prog-only-custom:has(input:checked) {
+  border-color: var(--clr-gold);
+  background: var(--clr-gold-05, var(--clr-white));
+}
+
+/* Lista de programas: etiqueta dos exclusivos da página personalizada */
+.prog-badge-custom {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.12rem 0.5rem;
+  border-radius: 999px;
+  background: var(--clr-gold-12, rgba(201, 151, 46, 0.12));
+  color: var(--clr-gold-dark, #8c6717);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  vertical-align: 0.1em;
+  white-space: nowrap;
 }

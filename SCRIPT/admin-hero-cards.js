@@ -240,7 +240,7 @@ export function initHeroCardsAdmin({ db, canEdit = false }) {
     (snap) => {
       programs = snap.docs
         .map((d) => ({ id: d.id, ...d.data() }))
-        .filter((p) => p.ativo !== false)
+        .filter((p) => p.ativo !== false && !p.soPersonalizada) // exclusivos da pág. personalizada ficam de fora
         .sort((a, b) => String(a.nome || "").localeCompare(String(b.nome || ""), "pt"));
       byId = new Map(programs.map((p) => [p.id, p]));
       renderAll();

@@ -7,6 +7,8 @@
     <link rel="icon" href="../imagens/logo5.png" />
     <link rel="stylesheet" href="../STYLES/estilo.css" />
     <link rel="stylesheet" href="../STYLES/admin.css" />
+    <!-- O painel mantém o dourado/verde dos estados (o site é só castanhos) -->
+    <link rel="stylesheet" href="../STYLES/admin-cores.css" />
     <link rel="stylesheet" href="../STYLES/admin-controlo.css" />
     <link rel="stylesheet" href="../STYLES/admin-parceiros.css" />
     <link rel="stylesheet" href="../STYLES/admin-personalizadas.css" />
@@ -246,7 +248,7 @@
                       <i class="fa-solid fa-circle-info"></i> Básico
                     </a>
                     <a href="#progSecPrices" class="program-form__nav-link">
-                      <i class="fa-solid fa-tags"></i> Preços
+                      <i class="fa-solid fa-tags"></i> Pacotes
                     </a>
                     <a href="#progSecImages" class="program-form__nav-link">
                       <i class="fa-regular fa-images"></i> Imagens
@@ -317,16 +319,6 @@
                       />
                     </div>
                     <div class="field">
-                      <label for="progPrice">Preço nos cartões <small>(opcional)</small></label>
-                      <input
-                        id="progPrice"
-                        name="progPrice"
-                        type="text"
-                        placeholder="Automático — vem da tabela de preços"
-                      />
-                      <small>Vazio = "A partir de …" com o preço mais baixo da tabela.</small>
-                    </div>
-                    <div class="field">
                       <label for="progStartPoint">Ponto de Partida *</label>
                       <input
                         id="progStartPoint"
@@ -347,31 +339,48 @@
                       ></textarea>
                       <small>Linha em branco = novo parágrafo no site.</small>
                     </div>
+                    <!-- Onde aparece o programa -->
+                    <div class="field field--full">
+                      <label class="prog-only-custom" for="progSoPersonalizada">
+                        <input type="checkbox" id="progSoPersonalizada" name="progSoPersonalizada" />
+                        <span class="prog-only-custom__switch" aria-hidden="true"></span>
+                        <span>
+                          <strong>Só na página Viagens Personalizadas</strong>
+                          <small>Não aparece no início nem nas sugestões dos outros programas. Escolha-o depois em
+                            Site Web → Pág. Personalizada → "Conheça alguns destinos".</small>
+                        </span>
+                      </label>
+                    </div>
                   </div>
                 </fieldset>
 
-                <!-- ─── 2. PREÇOS POR NÚMERO DE PESSOAS ─── -->
+                <!-- ─── 2. PACOTES E PREÇOS ─── -->
                 <fieldset class="program-form__section" id="progSecPrices">
                   <legend class="program-form__legend">
                     <span class="program-form__step">2</span>
-                    Preços por número de pessoas
+                    Pacotes e preços
                   </legend>
                   <p class="program-form__hint">
-                    Preço <strong>por pessoa</strong> conforme o tamanho do grupo. Ex.: 1 pessoa → 985.000 Kz;
-                    2 pessoas → 760.000 Kz cada. Grupos maiores do que o último escalão pagam o preço do último.
-                    Com um só escalão, o preço é igual para todos.
+                    Escolha os pacotes que este programa tem e o <strong>preço de cada pacote</strong>
+                    (o preço do Casal já cobre as 2 pessoas). Os tipos de pacote e as explicações que
+                    aparecem no site editam-se em <strong>Site Web → Pacotes</strong>.
+                  </p>
+                  <p class="price-tiers__legacy" id="progPriceLegacy" hidden>
+                    <i class="fa-solid fa-circle-info"></i>
+                    Este programa tinha preços por pessoa. Foram convertidos no preço total de cada grupo —
+                    escolha o tipo de pacote de cada linha e confirme os valores.
                   </p>
 
                   <div class="price-tiers__head" aria-hidden="true">
-                    <span>A partir de (pessoas)</span>
-                    <span>Preço por pessoa (Kz)</span>
+                    <span>Tipo de pacote</span>
+                    <span>Preço do pacote (Kz)</span>
                     <span></span>
                   </div>
                   <ol class="price-tiers" id="progPriceTiers"></ol>
-                  <p class="price-tiers__empty">Ainda sem preços. Adicione pelo menos um escalão.</p>
+                  <p class="price-tiers__empty">Ainda sem pacotes. Adicione pelo menos um.</p>
 
                   <button type="button" class="dyn-add" id="addPriceTierBtn">
-                    <i class="fa-solid fa-plus"></i> Adicionar escalão
+                    <i class="fa-solid fa-plus"></i> Adicionar pacote
                   </button>
                 </fieldset>
 
@@ -606,17 +615,16 @@
 
               <template id="tplPriceTier">
                 <li class="price-tier">
-                  <label class="price-tier__field">
-                    <span class="visually-hidden">Número de pessoas</span>
-                    <input type="number" class="price-tier__pax" min="1" max="99" step="1" placeholder="1" />
-                    <em>pessoa(s)</em>
+                  <label class="price-tier__field price-tier__field--select">
+                    <span class="visually-hidden">Tipo de pacote</span>
+                    <select class="price-tier__tipo"></select>
                   </label>
                   <label class="price-tier__field">
-                    <span class="visually-hidden">Preço por pessoa em Kz</span>
-                    <input type="text" class="price-tier__valor" inputmode="numeric" placeholder="Ex: 760000" />
+                    <span class="visually-hidden">Preço do pacote em Kz</span>
+                    <input type="text" class="price-tier__valor" inputmode="numeric" placeholder="Ex: 600000" />
                     <em>Kz</em>
                   </label>
-                  <button type="button" class="price-tier__remove" aria-label="Remover escalão" title="Remover">
+                  <button type="button" class="price-tier__remove" aria-label="Remover pacote" title="Remover">
                     <i class="fa-regular fa-trash-can"></i>
                   </button>
                 </li>
@@ -1252,11 +1260,17 @@
       </div>
     </div>
 
+    <!-- Tipos de pacote (Individual, Casal, Kamba…) — usado pelo formulário de programas -->
+    <script src="../SCRIPT/pacotes.js"></script>
     <script type="module" src="../SCRIPT/firebase-config.js"></script>
     <script type="module" src="../SCRIPT/admin.js"></script>
     <!-- Site Web → separador "Pág. Personalizada" (cria-se sozinho) -->
     <script type="module" src="../SCRIPT/admin-personalizada-pagina.js"></script>
     <!-- Site Web → "Cards do Hero" (os 3 cards na base do hero do index) -->
     <script type="module" src="../SCRIPT/admin-hero-cards.js"></script>
+    <!-- Site Web → "Pacotes" (tipos de pacote + explicação na página do programa) -->
+    <script type="module" src="../SCRIPT/admin-pacotes.js"></script>
+    <!-- Site Web → "Testemunhos" (aprovar os que chegam pelo site, destacar, adicionar) -->
+    <script type="module" src="../SCRIPT/admin-testemunhos.js"></script>
   </body>
 </html>

@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Testemunhos — O Mochilão Aventuras</title>
+    <meta name="description" content="O que dizem os Mochileiros que já viajaram com O Mochilão Aventuras — e partilhe também a sua experiência." />
+
+    <link rel="icon" href="../imagens/logo5.png" />
+    <link rel="stylesheet" href="../STYLES/estilo.css" />
+    <link rel="stylesheet" href="../STYLES/testemunhos.css" />
+
+    <!-- Flag icons (bandeiras reais, funciona em todos os browsers) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/6.11.0/css/flag-icons.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Google Fonts — fallback caso Nekst não carregue -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="tm-page">
+    <!-- ======= NAVBAR ======= -->
+    <header class="navbar" id="navbar">
+      <a href="../index.html" class="navbar__brand">
+       
+        <img src="../imagens/Sem Título-3.png" alt="" class="navbar__logo" />
+      </a>
+
+      <nav class="navbar__links" id="navLinks">
+        <a href="../index.html#tours" class="navbar__link" data-i18n="nav.tours">Viagens</a>
+        <a href="../index.html#gallery" class="navbar__link" data-i18n="nav.gallery"
+          >Galeria</a
+        >
+        <a href="../index.html#contact" class="navbar__link" data-i18n="nav.custom"
+          >Personalizado</a
+        >
+        <a href="../index.html#services" class="navbar__link" data-i18n="nav.services"
+          >Serviços</a
+        >
+        <a href="../index.html#about" class="navbar__link" data-i18n="nav.about">Sobre</a>
+        <a href="../index.html#tips" class="navbar__link" data-i18n="nav.tips">Dicas</a>
+        <a
+          href="../index.html#contact"
+          class="navbar__link navbar__link--cta"
+          data-i18n="nav.contact"
+          >Fale Connosco</a
+        >
+      </nav>
+
+      <button
+        class="navbar__lang"
+        id="langBtn"
+        aria-label="Mudar idioma"
+        title="Mudar idioma"
+      >
+        <!-- Bandeira Angola (PT) -->
+        <span class="navbar__lang-flag navbar__lang-pt" aria-label="Português">
+          <span class="fi fi-ao" role="img" aria-label="Angola"></span>
+          <span class="navbar__lang-label">PT</span>
+        </span>
+        <!-- Bandeira UK (EN) -->
+        <span class="navbar__lang-flag navbar__lang-en" aria-label="English">
+          <span class="fi fi-gb" role="img" aria-label="English"></span>
+          <span class="navbar__lang-label">EN</span>
+        </span>
+      </button>
+
+      <button
+        class="navbar__burger"
+        id="burgerBtn"
+        aria-label="Abrir menu"
+        aria-expanded="false"
+      >
+        <span class="navbar__burger-line"></span>
+        <span class="navbar__burger-line"></span>
+        <span class="navbar__burger-line"></span>
+      </button>
+    </header>
+
+    <!-- ======= SIDEBAR / DRAWER DE NAVEGAÇÃO ======= -->
+    <div class="sidebar__overlay" id="sidebarOverlay"></div>
+    <aside class="sidebar" id="sidebar">
+      <button class="sidebar__close" id="closeBtn" aria-label="Fechar menu">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <nav class="sidebar__nav">
+        <a href="../index.html#hero" class="sidebar__link">Início</a>
+        <a href="../index.html#tours" class="sidebar__link">Viagens</a>
+        <a href="../index.html#gallery" class="sidebar__link">Galeria</a>
+        <a href="../index.html#contact" class="sidebar__link">Personalizado</a>
+        <a href="../index.html#services" class="sidebar__link">Serviços</a>
+        <a href="../index.html#about" class="sidebar__link">Sobre</a>
+        <a href="../index.html#team" class="sidebar__link">Equipa</a>
+        <a href="../index.html#tips" class="sidebar__link">Dicas</a>
+        <a href="faq.html" class="sidebar__link">Perguntas Frequentes</a>
+        <a href="testemunhos.html" class="sidebar__link sidebar__link--active">Testemunhos</a>
+        <a href="../index.html#contact" class="sidebar__link">Fale Connosco</a>
+      </nav>
+
+      <div class="sidebar__lang-wrap">
+        <button
+          class="navbar__lang"
+          type="button"
+          aria-label="Mudar idioma"
+          title="Mudar idioma"
+        >
+          <span
+            class="navbar__lang-flag navbar__lang-pt"
+            aria-label="Português"
+          >
+            <span class="fi fi-ao" role="img" aria-label="Angola"></span>
+            <span class="navbar__lang-label">PT</span>
+          </span>
+          <span class="navbar__lang-flag navbar__lang-en" aria-label="English">
+            <span class="fi fi-gb" role="img" aria-label="English"></span>
+            <span class="navbar__lang-label">EN</span>
+          </span>
+        </button>
+      </div>
+
+      <div class="sidebar__footer">
+        <a href="https://www.instagram.com/o_mochilao/" target="_blank"
+          ><i class="fa-brands fa-instagram"></i
+        ></a>
+        <a
+          href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0"
+          target="_blank"
+          ><i class="fa-brands fa-whatsapp"></i
+        ></a>
+        <a href="https://www.tiktok.com/@o.mochilao" target="_blank"
+          ><i class="fa-brands fa-tiktok"></i
+        ></a>
+      </div>
+    </aside>
+
+    <!-- ======= HERO DA PÁGINA ======= -->
+    <header class="tm-hero">
+      <div class="tm-hero__inner">
+        <nav class="tm-hero__crumbs" aria-label="Caminho">
+          
+        </nav>
+        <span class="tm-hero__tag">Confira</span>
+        <h1 class="tm-hero__title">Testemunhos</h1>
+        <p class="tm-hero__text">Histórias reais de quem já pôs a mochila às costas connosco.</p>
+        <a href="#enviar" class="btn btn--primary"><i class="fa-regular fa-pen-to-square"></i> Partilhar a minha experiência</a>
+      </div>
+    </header>
+
+    <main>
+      <!-- ======= LISTA (testemunhos aprovados no painel) ======= -->
+      <section class="tm-list" aria-labelledby="tmListTitle">
+        <div class="section-header">
+          <span class="section-tag">Testemunhos</span>
+          <h2 class="section-title" id="tmListTitle">O que dizem os Mochileiros</h2>
+        </div>
+
+        <div class="tm-grid" data-tm-grid></div>
+        <p class="testimonials__empty" data-tm-empty hidden>
+          Ainda não há testemunhos publicados. Viajou connosco? Seja o primeiro a contar como foi!
+        </p>
+        <div class="tm-list__more" data-tm-more hidden>
+          <button type="button" class="btn btn--outline-dark">Ver mais testemunhos</button>
+        </div>
+      </section>
+
+      <!-- ======= FORMULÁRIO ======= -->
+      <section class="tm-form-section" id="enviar" aria-labelledby="tmFormTitle">
+        <div class="section-header">
+          <span class="section-tag">Deixe o seu</span>
+          <h2 class="section-title" id="tmFormTitle">Partilhe a sua experiência</h2>
+          <p class="section-desc">
+            O seu testemunho ajuda outros viajantes a escolher a próxima aventura e ajuda-nos a melhorar.
+            É publicado depois de revisto pela nossa equipa.
+          </p>
+        </div>
+
+        <form class="tm-form" id="tmForm" novalidate>
+          <div class="tm-form__field">
+            <label class="tm-form__label" for="tmNome">Nome *</label>
+            <input class="tm-form__input" id="tmNome" type="text" maxlength="60" autocomplete="name" placeholder="O seu nome" required />
+            <span class="tm-form__error" data-error-for="tmNome"></span>
+          </div>
+
+          <div class="tm-form__field">
+            <label class="tm-form__label" for="tmLocal">De onde é <small>(opcional)</small></label>
+            <input class="tm-form__input" id="tmLocal" type="text" maxlength="60" placeholder="Ex.: Luanda" />
+          </div>
+
+          <div class="tm-form__field tm-form__field--full">
+            <label class="tm-form__label" for="tmPrograma">Que viagem fez connosco? <small>(opcional)</small></label>
+            <select class="tm-form__input" id="tmPrograma">
+              <option value="">— Escolha a viagem —</option>
+              <option value="__outro">Outra / viagem personalizada</option>
+            </select>
+          </div>
+
+          <div class="tm-form__field tm-form__field--full">
+            <span class="tm-form__label" id="tmEstrelasLabel">A sua avaliação *</span>
+            <fieldset class="tm-stars" id="tmEstrelas" aria-labelledby="tmEstrelasLabel">
+                <input type="radio" name="estrelas" id="tmStar5" value="5" checked />
+                <label for="tmStar5" title="5 estrelas"><i class="fa-solid fa-star"></i><span class="visually-hidden">5 estrelas</span></label>
+                <input type="radio" name="estrelas" id="tmStar4" value="4" />
+                <label for="tmStar4" title="4 estrelas"><i class="fa-solid fa-star"></i><span class="visually-hidden">4 estrelas</span></label>
+                <input type="radio" name="estrelas" id="tmStar3" value="3" />
+                <label for="tmStar3" title="3 estrelas"><i class="fa-solid fa-star"></i><span class="visually-hidden">3 estrelas</span></label>
+                <input type="radio" name="estrelas" id="tmStar2" value="2" />
+                <label for="tmStar2" title="2 estrelas"><i class="fa-solid fa-star"></i><span class="visually-hidden">2 estrelas</span></label>
+                <input type="radio" name="estrelas" id="tmStar1" value="1" />
+                <label for="tmStar1" title="1 estrela"><i class="fa-solid fa-star"></i><span class="visually-hidden">1 estrela</span></label>
+            </fieldset>
+            <span class="tm-form__error" data-error-for="tmEstrelas"></span>
+          </div>
+
+          <div class="tm-form__field tm-form__field--full">
+            <label class="tm-form__label" for="tmTexto">O seu testemunho *</label>
+            <textarea class="tm-form__input" id="tmTexto" maxlength="1500" placeholder="Como foi a viagem? O que mais gostou?" required></textarea>
+            <span class="tm-form__hint"><span>Mínimo 20 caracteres.</span><span id="tmTextoCount">0 / 1500</span></span>
+            <span class="tm-form__error" data-error-for="tmTexto"></span>
+          </div>
+
+          <div class="tm-form__field tm-form__field--full">
+            <span class="tm-form__label">Foto <small>(opcional — aparece pequena, ao lado do nome)</small></span>
+            <label class="tm-photo">
+              <input type="file" id="tmFoto" accept="image/*" aria-label="Escolher foto" />
+              <span class="tm-photo__preview" id="tmFotoPreview"><i class="fa-regular fa-image"></i></span>
+              <span class="tm-photo__text" id="tmFotoText"><strong>Adicionar foto</strong>Clique ou arraste uma foto sua (opcional)</span>
+              <button type="button" class="tm-photo__remove" id="tmFotoRemove" hidden>Remover</button>
+            </label>
+            <span class="tm-form__error" data-error-for="tmFoto"></span>
+          </div>
+
+          <div class="tm-form__field tm-form__field--full">
+            <label class="tm-form__consent">
+              <input type="checkbox" id="tmConsent" />
+              <span>Autorizo O Mochilão Aventuras a publicar este testemunho (e a foto, se a enviar) no site e nas redes sociais. *</span>
+            </label>
+            <span class="tm-form__error" data-error-for="tmConsent"></span>
+          </div>
+
+          <!-- Campo-isco contra spam: as pessoas não o veem -->
+          <div class="tm-form__hp" aria-hidden="true">
+            <label for="tmSite">Não preencher</label>
+            <input type="text" id="tmSite" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <p class="tm-form__status" id="tmStatus" role="alert"></p>
+
+          <div class="tm-form__field tm-form__field--full">
+            <button type="submit" class="btn btn--primary tm-form__submit" id="tmSubmit">
+              Enviar testemunho <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </div>
+        </form>
+
+        <div class="tm-thanks" id="tmThanks" hidden role="status">
+          <span class="tm-thanks__icon"><i class="fa-solid fa-check"></i></span>
+          <h3>Obrigado!</h3>
+          <p>Recebemos o seu testemunho. Vai aparecer no site assim que for revisto pela nossa equipa.</p>
+          <button type="button" class="btn btn--outline-dark" id="tmAgain">Enviar outro testemunho</button>
+        </div>
+      </section>
+    </main>
+
+    <a href="#" class="float-btn float-btn--top faq-top" aria-label="Voltar ao topo"><i class="fa-solid fa-arrow-up"></i></a>
+
+    <!-- ======= FOOTER ======= -->
+    <footer class="footer">
+      <div class="footer__main">
+        <div class="footer__brand">
+          <!--
+          LOGO DO FOOTER:
+          Substitua o src pelo logo branco (branco2.png ou outro)
+        -->
+          <img
+            src="../imagens/branco2.png"
+            alt="O Mochilão"
+            class="footer__logo"
+          />
+          <p class="footer__tagline">
+            Seus companheiros das aventuras por Angola
+          </p>
+          <div class="footer__socials">
+            <a
+              href="https://www.instagram.com/o_mochilao/"
+              target="_blank"
+              aria-label="Instagram"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+            <a
+              href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0"
+              target="_blank"
+              aria-label="WhatsApp"
+              ><i class="fa-brands fa-whatsapp"></i
+            ></a>
+            <a
+              href="https://www.tiktok.com/@o.mochilao"
+              target="_blank"
+              aria-label="TikTok"
+              ><i class="fa-brands fa-tiktok"></i
+            ></a>
+            <a
+              href="https://www.facebook.com/OMochilao"
+              target="_blank"
+              aria-label="Facebook"
+              ><i class="fa-brands fa-facebook-f"></i
+            ></a>
+          </div>
+        </div>
+
+        <div class="footer__col">
+          <h4 class="footer__col-title">Navegação</h4>
+          <a href="../index.html#hero">Início</a>
+          <a href="../index.html#tours">Viagens</a>
+          <a href="../index.html#gallery">Galeria</a>
+          <a href="../index.html#about">Sobre Nós</a>
+        </div>
+
+        <div class="footer__col">
+          <h4 class="footer__col-title">Informações</h4>
+          <a href="../index.html#tips">Dicas de Viagem</a>
+          <a href="../index.html#packages">Viagens em Grupo</a>
+          <a href="faq.html">Perguntas Frequentes</a>
+          <a href="testemunhos.html">Testemunhos</a>
+          <a href="../index.html#contact">Fale Connosco</a>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <p>© 2025 O Mochilão Aventuras. Todos os direitos reservados.</p>
+        <p>Desenvolvido por <strong>Valganho</strong></p>
+      </div>
+    </footer>
+
+    <script type="module" src="../SCRIPT/firebase-config.js"></script>
+    <script type="module" src="../SCRIPT/site-appearance.js"></script>
+    <script type="module" src="../SCRIPT/site-extras.js"></script>
+    <script type="module" src="../SCRIPT/script.js"></script>
+    <script type="module" src="../SCRIPT/testemunhos.js"></script>
+    <script type="module" src="../SCRIPT/testemunho-form.js"></script>
+  </body>
+</html>

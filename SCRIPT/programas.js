@@ -530,8 +530,11 @@ const PROGRAMAS = {
   /* 8. Detalhes */
   document.querySelector(".pkg-detail--dur .pkg-detail__value").textContent =
     prog.duracao;
+  const pacotes = window.MochilaoPacotes
+    ? window.MochilaoPacotes.fromLegacy(prog.precos, prog.preco)
+    : [];
   document.querySelector(".pkg-detail--preco .pkg-detail__value").textContent =
-    prog.preco;
+    pacotes.length ? window.MochilaoPacotes.priceText(pacotes) : prog.preco;
   document.querySelector(
     ".pkg-detail--partida .pkg-detail__value",
   ).textContent = prog.partida;
@@ -566,15 +569,8 @@ const PROGRAMAS = {
     }
   }
 
-  /* 9. Tabela de preços por pax */
-  const precosEl = document.querySelector(".pkg-precos__list");
-  precosEl.innerHTML = prog.precos
-    .map(function (p) {
-      return (
-        "<li><span>" + p.pax + "</span><strong>" + p.valor + "</strong></li>"
-      );
-    })
-    .join("");
+  /* 9. Pacotes (card de reserva + "Qual pacote escolher?") — pacotes.js */
+  if (window.MochilaoPacotes) window.MochilaoPacotes.render(pacotes);
 
   /* 10. Inclui / Não Inclui */
   document.querySelector(".pkg-inclui__list").innerHTML = prog.inclui
@@ -678,12 +674,6 @@ const PROGRAMAS = {
           '    <h3 class="package-card__title">' + p.nome + "</h3>",
           '    <p class="package-card__desc">' + p.slogan + "</p>",
           '    <div class="package-card__meta">',
-          '      <div class="package-card__meta-item">',
-          '        <span class="package-card__meta-label">Preço/Pax</span>',
-          '        <span class="package-card__meta-value">' +
-            p.preco +
-            "</span>",
-          "      </div>",
           '      <div class="package-card__meta-item">',
           '        <span class="package-card__meta-label">Duração</span>',
           '        <span class="package-card__meta-value">' +

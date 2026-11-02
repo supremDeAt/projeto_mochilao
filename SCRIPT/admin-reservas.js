@@ -71,7 +71,10 @@ export function normalizeReservation(raw) {
         data: i.data || "",
         pax,
         precoUnitario,
-        total: toNumber(i.total) || precoUnitario * pax,
+        // Pacote (Individual, Casal, Kamba…) — reservas novas
+        pacote: i.pacote || "",
+        qtd: parseInt(i.qtd, 10) || 1,
+        total: toNumber(i.total) || precoUnitario * (i.pacote ? parseInt(i.qtd, 10) || 1 : pax),
       };
     });
   } else {
@@ -113,7 +116,7 @@ export function normalizeReservation(raw) {
     historico: Array.isArray(r.historico) ? r.historico : [],
     legacy: !Array.isArray(r.itens),
   };
-  res.programas = itens.map((i) => i.nome).join(", ");
+  res.programas = itens.map((i) => (i.pacote ? `${i.nome} (${i.qtd > 1 ? i.qtd + " × " : ""}${i.pacote})` : i.nome)).join(", ");
   res.search = searchable(res.ref, res.cliente.nome, res.cliente.email, res.cliente.telefone, res.programas);
   return res;
 }
@@ -350,8 +353,10 @@ export function createReservationsView({ db, getPerms, getRole, getUser, openMod
           }
           <div class="res-item__body">
             <strong>${esc(i.nome)}</strong>
-            <span>${esc(formatDate(i.data))} · ${i.pax || "–"} pessoa${i.pax === 1 ? "" : "s"}${
-              i.precoUnitario ? ` × ${esc(formatKz(i.precoUnitario))}` : ""
+            <span>${esc(formatDate(i.data))} · ${
+              i.pacote
+                ? `${i.qtd} × ${esc(i.pacote)}${i.precoUnitario ? ` (${esc(formatKz(i.precoUnitario))})` : ""} · ${i.pax} pessoa${i.pax === 1 ? "" : "s"}`
+                : `${i.pax || "–"} pessoa${i.pax === 1 ? "" : "s"}${i.precoUnitario ? ` × ${esc(formatKz(i.precoUnitario))}` : ""}`
             }</span>
           </div>
           <strong class="res-item__total">${i.total ? esc(formatKz(i.total)) : "–"}</strong>

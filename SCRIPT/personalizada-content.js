@@ -81,7 +81,7 @@ export const PC_SECTIONS = [
     key: "destinos",
     title: "4. Conheça alguns destinos",
     photos: [],
-    programs: true, // escolha de até 3 programas
+    programs: true, // escolha de até 6 programas (do site ou criados só para esta página)
     fields: [
       ["tag", "Etiqueta", 40, 1],
       ["titulo", "Título", 80, 2],
@@ -102,7 +102,7 @@ export const PC_SECTIONS = [
   },
 ];
 
-export const PC_MAX_PROGRAMS = 3;
+export const PC_MAX_PROGRAMS = 6;
 
 export const PC_DEFAULTS = {
   hero: {

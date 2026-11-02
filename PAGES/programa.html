@@ -179,6 +179,8 @@
     </section>
 
     <!-- ======= RESERVA ======= -->
+    <!-- Card de reserva (esquerda) + "Qual pacote escolher?" (direita).
+         Pacotes: pacotes.js · explicações editáveis no painel: Site Web → Pacotes -->
     <section class="pkg-booking-section">
       <div class="pkg-booking-section__inner">
         <!-- Card de reserva -->
@@ -186,14 +188,14 @@
           <h3 class="pkg-cta-card__title" id="pkgCtaTitle">Juntar-se</h3>
           <p class="pkg-cta-card__desc pkg-descricao-cta">—</p>
 
-          <!-- Preços por pax -->
-          <div class="pkg-precos">
-            <h4 class="pkg-precos__title">Preço por pessoa, conforme o tamanho do grupo</h4>
-            <ul class="pkg-precos__list"></ul>
-          </div>
-
           <!-- ======= RESERVA → MOCHILA ======= -->
           <form class="pkg-booking" id="bookingForm" novalidate>
+            <!-- Pacotes do programa (preenchidos pelo pacotes.js) -->
+            <fieldset class="pkg-pacotes">
+              <legend class="pkg-booking__label">Escolha o pacote</legend>
+              <div class="pkg-pacotes__list"></div>
+            </fieldset>
+
             <div class="pkg-booking__field">
               <label for="tourDate" class="pkg-booking__label"
                 >Data da viagem</label
@@ -212,15 +214,9 @@
               ></span>
             </div>
 
-            <div class="pkg-booking__summary">
-              <div class="pkg-booking__summary-row">
-                <span>Preço por pessoa</span>
-                <span id="bookingUnit">—</span>
-              </div>
-              <p class="pkg-booking__note">
-                <i class="fa-solid fa-user-group"></i> O número de pessoas escolhe-se no checkout.
-              </p>
-            </div>
+            <p class="pkg-booking__note">
+              <i class="fa-solid fa-bag-shopping"></i> Precisa de mais do que um pacote? Ajusta a quantidade no checkout.
+            </p>
 
             <button type="submit" id="addToCartBtn" class="pkg-cta-card__btn">
               <i class="fa-solid fa-cart-plus"></i>
@@ -251,6 +247,14 @@
             ></a>
           </div>
         </div>
+
+        <!-- Qual pacote escolher? (textos no painel: Site Web → Pacotes) -->
+        <aside class="pkg-pacotes-info" data-pacotes-info hidden>
+          <span class="section-tag">Pacotes</span>
+          <h3 class="pkg-pacotes-info__title" data-pacotes-titulo>Qual pacote escolher?</h3>
+          <p class="pkg-pacotes-info__intro" data-pacotes-intro></p>
+          <ul class="pkg-pacotes-info__list" data-pacotes-lista></ul>
+        </aside>
       </div>
     </section>
 
@@ -425,6 +429,7 @@
 
     <!-- Carrinho global primeiro -->
     <script src="../SCRIPT/cart.js"></script>
+    <script src="../SCRIPT/pacotes.js"></script>
     <script src="../SCRIPT/programas.js"></script>
     <script type="module" src="../SCRIPT/programa-firestore.js"></script>
     <!-- Formulário "Adicionar à Mochila" -->

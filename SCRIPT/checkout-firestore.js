@@ -4,8 +4,10 @@
 
    1. Lê localStorage("mochilao-cart") e preenche o resumo
       (carrinho vazio → volta para index.html)
-      Cada viagem tem − / + para escolher o nº de pessoas:
-      o preço por pessoa vem da tabela do programa (precos)
+      Cada viagem tem − / + para escolher a QUANTIDADE do pacote
+      (Individual, Casal, Kamba… — preço fechado por pacote).
+      Viagens antigas sem pacote: − / + muda o nº de pessoas
+      (preço por pessoa da tabela "precos").
    2. Valida Nome / Email / Telefone
    3. Grava em Firestore → colecção "reservations"
    4. Limpa o carrinho e mostra o modal de sucesso
@@ -111,9 +113,24 @@ function unitPrice(item, pax) {
   return chosen.valor;
 }
 
-function lineTotal(item) {
+// Viagem com pacote (preço fechado por pacote)
+const isPackage = (item) => !!item?.pacote;
+
+/* Quantidade que o − / + controla, preço de cada unidade e total da linha */
+function lineInfo(item) {
+  if (isPackage(item)) {
+    const qtd = clampPax(item.qtd);
+    const porPacote = parseInt(item.pessoasPorPacote, 10) || 1;
+    const unit = toNumber(item.precoUnitario);
+    return { count: qtd, unit, total: unit * qtd, pessoas: qtd * porPacote, porPacote };
+  }
   const pax = clampPax(item.pax);
-  return unitPrice(item, pax) * pax;
+  const unit = unitPrice(item, pax);
+  return { count: pax, unit, total: unit * pax, pessoas: pax, porPacote: 1 };
+}
+
+function lineTotal(item) {
+  return lineInfo(item).total;
 }
 
 // O checkout está em /PAGES/ → imagens precisam de "../"
@@ -138,18 +155,24 @@ function getCart() {
 // Firestore não aceita "undefined" → normaliza cada item
 function sanitizeItems(cart) {
   return cart.map((item) => {
-    const pax = clampPax(item.pax);
-    const precoUnitario = unitPrice(item, pax);
-    return {
+    const info = lineInfo(item);
+    const base = {
       id: String(item.id ?? ""),
       programId: String(item.programId ?? item.programaId ?? ""),
       nome: String(item.nome ?? ""),
       imagem: String(item.imagem ?? item.img ?? ""),
       data: String(item.data ?? ""),
-      pax,
-      precoUnitario,
-      total: precoUnitario * pax,
+      pax: info.pessoas, // total de pessoas da linha
+      precoUnitario: info.unit,
+      total: info.total,
     };
+    if (isPackage(item)) {
+      base.pacote = String(item.pacote);
+      base.pacoteId = String(item.pacoteId ?? "");
+      base.pessoasPorPacote = info.porPacote;
+      base.qtd = info.count;
+    }
+    return base;
   });
 }
 
@@ -158,9 +181,16 @@ function setPax(id, pax) {
   const cart = getCart();
   const item = cart.find((i) => i.id === id);
   if (!item) return;
-  item.pax = clampPax(pax);
-  item.precoUnitario = unitPrice(item, item.pax);
-  item.total = item.precoUnitario * item.pax;
+  if (isPackage(item)) {
+    item.qtd = clampPax(pax);
+    const info = lineInfo(item);
+    item.pax = info.pessoas;
+    item.total = info.total;
+  } else {
+    item.pax = clampPax(pax);
+    item.precoUnitario = unitPrice(item, item.pax);
+    item.total = item.precoUnitario * item.pax;
+  }
   localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
   window.dispatchEvent(new Event("cartUpdated"));
   renderSummary(cart);
@@ -179,9 +209,17 @@ function getTotal(cart) {
 function renderSummary(cart) {
   els.items.innerHTML = cart
     .map((item) => {
-      const pax = clampPax(item.pax);
-      const unit = unitPrice(item, pax);
-      const valor = unit * pax;
+      const { count, unit, total: valor, pessoas, porPacote } = lineInfo(item);
+      const pack = isPackage(item);
+      const pessoasTxt = `${pessoas} ${pessoas === 1 ? "pessoa" : "pessoas"}`;
+      const countTxt = pack ? `${count} × ${escapeHtml(item.pacote)}` : pessoasTxt;
+      const unitTxt =
+        unit > 0
+          ? pack
+            ? ` · ${escapeHtml(item.pacote)} ${formatKz(unit)}${porPacote > 1 ? ` (${porPacote} pessoas)` : ""}`
+            : ` · ${formatKz(unit)} / pessoa`
+          : "";
+      const what = pack ? "pacote" : "pessoa";
       const src = imagePath(item.imagem ?? item.img);
       const id = escapeHtml(item.id);
       const media = src
@@ -192,20 +230,21 @@ function renderSummary(cart) {
         <li class="checkout-item">
           <div class="checkout-item__media">
             ${media}
-            <span class="checkout-item__qty" title="${pax} ${pax === 1 ? "pessoa" : "pessoas"}">${pax}</span>
+            <span class="checkout-item__qty" title="${pessoasTxt}">${pessoas}</span>
           </div>
           <div class="checkout-item__info">
             <span class="checkout-item__title">${escapeHtml(item.nome)}</span>
             <span class="checkout-item__meta">
-              ${escapeHtml(formatDate(item.data))}${unit > 0 ? ` · ${formatKz(unit)} / pessoa` : ""}
+              ${escapeHtml(formatDate(item.data))}${unitTxt}
             </span>
-            <div class="checkout-pax" role="group" aria-label="Número de pessoas — ${escapeHtml(item.nome)}">
+            <div class="checkout-pax" role="group" aria-label="${pack ? "Quantidade de pacotes" : "Número de pessoas"} — ${escapeHtml(item.nome)}">
               <button type="button" class="checkout-pax__btn" data-id="${id}" data-pax="dec"
-                aria-label="Menos uma pessoa" ${pax <= PAX_MIN ? "disabled" : ""}><i class="fa-solid fa-minus"></i></button>
-              <span class="checkout-pax__value" aria-live="polite">${pax} ${pax === 1 ? "pessoa" : "pessoas"}</span>
+                aria-label="Menos um ${what}" ${count <= PAX_MIN ? "disabled" : ""}><i class="fa-solid fa-minus"></i></button>
+              <span class="checkout-pax__value" aria-live="polite">${countTxt}</span>
               <button type="button" class="checkout-pax__btn" data-id="${id}" data-pax="inc"
-                aria-label="Mais uma pessoa" ${pax >= PAX_MAX ? "disabled" : ""}><i class="fa-solid fa-plus"></i></button>
+                aria-label="Mais um ${what}" ${count >= PAX_MAX ? "disabled" : ""}><i class="fa-solid fa-plus"></i></button>
             </div>
+            ${pack && pessoas > 1 ? `<span class="checkout-item__people">${pessoasTxt} no total</span>` : ""}
           </div>
           <span class="checkout-item__price">${valor > 0 ? formatKz(valor) : "A consultar"}</span>
         </li>`;
@@ -267,7 +306,7 @@ els.items.addEventListener("click", (e) => {
   const item = getCart().find((i) => i.id === id);
   if (!item) return;
   lastAction = btn.dataset.pax;
-  setPax(id, clampPax(item.pax) + (lastAction === "inc" ? 1 : -1));
+  setPax(id, lineInfo(item).count + (lastAction === "inc" ? 1 : -1));
 });
 
 // Limpa o erro assim que o utilizador corrige o campo

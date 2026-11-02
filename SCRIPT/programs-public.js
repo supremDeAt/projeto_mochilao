@@ -28,10 +28,6 @@ function renderPrograms(programs) {
             <p class="package-card__desc">${escapeHtml(program.slogan || program.descricao || "Conheça esta experiência em Angola.")}</p>
             <div class="package-card__meta">
               <div class="package-card__meta-item">
-                <span class="package-card__meta-label">Preço/Pax</span>
-                <span class="package-card__meta-value">${escapeHtml(program.preco || "A consultar")}</span>
-              </div>
-              <div class="package-card__meta-item">
                 <span class="package-card__meta-label">Duração</span>
                 <span class="package-card__meta-value">${escapeHtml(program.duracao || "A consultar")}</span>
               </div>
@@ -54,7 +50,10 @@ function renderPrograms(programs) {
 onSnapshot(
   collection(db, "programs"),
   (snapshot) => {
-    const programs = snapshot.docs.map((item) => ({ id: item.id, ...item.data() }));
+    const programs = snapshot.docs
+      .map((item) => ({ id: item.id, ...item.data() }))
+      // Programas criados só para a página "Viagens Personalizadas" não aparecem aqui
+      .filter((program) => !program.soPersonalizada);
     renderPrograms(programs);
   },
   (error) => console.warn("Não foi possível carregar os programas públicos.", error),

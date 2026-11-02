@@ -187,3 +187,19 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* Programas criados só para esta página */
+.pc-admin__prog-tag {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--clr-gold-dark, #8c6717);
+}
+.pc-admin__new-prog {
+  margin-top: 0.85rem;
+}
+.pc-admin__new-prog + .ab-small {
+  display: block;
+  margin-top: 0.45rem;
+}

@@ -18,9 +18,12 @@
   --clr-warm-white: #ffffff;
   --clr-white: #ffffff;
 
-  /* Acento dourado */
-  --clr-gold: #c9962a;
-  --clr-gold-light: #e8c56e;
+  /* Acento — o site é só variações de castanho.
+     Os nomes "gold" / "green" / "whatsapp" ficaram por compatibilidade,
+     mas os valores são castanhos. (O painel admin repõe as cores
+     originais em admin-cores.css, para os estados das reservas.) */
+  --clr-gold: #a07d55;
+  --clr-gold-light: #c8aa80;
 
   /* Texto */
   --clr-text-dark: #1a1208;
@@ -32,7 +35,7 @@
   --clr-bg: #f8f5f0;
   --clr-surface: #ffffff;
   --clr-line: var(--clr-brown-earth-12);
-  --clr-green: #2e7d5b;
+  --clr-green: #775f43;
   --clr-blue: #3a5f8a;
   --clr-red: #a5482a;
 
@@ -166,34 +169,34 @@
 
   --clr-floral-white: #fffaf0;
 
-  --clr-gold-05: rgba(201, 150, 42, 0.05);
-  --clr-gold-08: rgba(201, 150, 42, 0.08);
-  --clr-gold-10: rgba(201, 150, 42, 0.1);
-  --clr-gold-12: rgba(201, 150, 42, 0.12);
-  --clr-gold-15: rgba(201, 150, 42, 0.15);
-  --clr-gold-16: rgba(201, 150, 42, 0.16);
-  --clr-gold-80: rgba(201, 150, 42, 0.8);
+  --clr-gold-05: rgba(160, 125, 85, 0.05);
+  --clr-gold-08: rgba(160, 125, 85, 0.08);
+  --clr-gold-10: rgba(160, 125, 85, 0.1);
+  --clr-gold-12: rgba(160, 125, 85, 0.12);
+  --clr-gold-15: rgba(160, 125, 85, 0.15);
+  --clr-gold-16: rgba(160, 125, 85, 0.16);
+  --clr-gold-80: rgba(160, 125, 85, 0.8);
 
-  --clr-gold-b-044: rgba(201, 151, 42, 0.044);
+  --clr-gold-b-044: rgba(160, 125, 85, 0.044);
 
-  --clr-gold-dark: #8c6717;
+  --clr-gold-dark: #775f43;
 
-  --clr-gold-deep: #94680e;
+  --clr-gold-deep: #6b5038;
 
-  --clr-gold-light-18: rgba(232, 197, 110, 0.18);
-  --clr-gold-light-30: rgba(232, 197, 110, 0.3);
-  --clr-gold-light-45: rgba(232, 197, 110, 0.45);
-  --clr-gold-light-55: rgba(232, 197, 110, 0.55);
-  --clr-gold-light-60: rgba(232, 197, 110, 0.6);
+  --clr-gold-light-18: rgba(200, 170, 128, 0.18);
+  --clr-gold-light-30: rgba(200, 170, 128, 0.30);
+  --clr-gold-light-45: rgba(200, 170, 128, 0.45);
+  --clr-gold-light-55: rgba(200, 170, 128, 0.55);
+  --clr-gold-light-60: rgba(200, 170, 128, 0.60);
 
-  --clr-green-10: rgba(46, 125, 91, 0.1);
-  --clr-green-12: rgba(46, 125, 91, 0.12);
-  --clr-green-35: rgba(46, 125, 91, 0.35);
+  --clr-green-10: rgba(119, 95, 67, 0.10);
+  --clr-green-12: rgba(119, 95, 67, 0.12);
+  --clr-green-35: rgba(119, 95, 67, 0.35);
 
-  --clr-green-dark: #1d8a48;
+  --clr-green-dark: #4d351e;
 
-  --clr-green-light-40: rgba(52, 184, 106, 0.4);
-  --clr-green-light: #34b86a;
+  --clr-green-light-40: rgba(160, 125, 85, 0.4);
+  --clr-green-light: #a07d55;
 
   --clr-instagram-1: #f09433;
 
@@ -215,7 +218,7 @@
 
   --clr-maroon: #5a2414;
 
-  --clr-mint: #6fd3a3;
+  --clr-mint: #c8aa80;
 
   --clr-off-white: #faf8f4;
 
@@ -267,11 +270,11 @@
   --clr-umber-00: #34190c00;
   --clr-umber-85: #34190c85;
 
-  --clr-whatsapp: #25d366;
+  --clr-whatsapp: #a07d55;
 
-  --clr-whatsapp-hover: #1ebe5b;
+  --clr-whatsapp-hover: #8a6b48;
 
-  --clr-whatsapp-hover-b: #1ebe5a;
+  --clr-whatsapp-hover-b: #8a6b48;
 
   --clr-white-00: rgba(255, 255, 255, 0);
   --clr-white-04: rgba(255, 255, 255, 0.04);
