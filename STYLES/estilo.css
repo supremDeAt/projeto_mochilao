@@ -688,6 +688,25 @@ p {
   text-decoration-color: var(--clr-white-ff);
 }
 
+/* Local por baixo do título ("Luanda") */
+.tour-card__place {
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+}
+/* O card inteiro é clicável (o link "Saber Mais" estica-se por cima) */
+.tour-card__btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.tour-card__btn:focus-visible {
+  outline: 2px solid var(--clr-white-ff);
+  outline-offset: 4px;
+}
+
 .tour-card--soon {
   opacity: 0.6;
   pointer-events: none;
