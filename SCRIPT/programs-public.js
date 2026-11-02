@@ -26,12 +26,6 @@ function renderPrograms(programs) {
           <div class="package-card__body">
             <h3 class="package-card__title">${escapeHtml(program.nome || "Programa")}</h3>
             <p class="package-card__desc">${escapeHtml(program.slogan || program.descricao || "Conheça esta experiência em Angola.")}</p>
-            <div class="package-card__meta">
-              <div class="package-card__meta-item">
-                <span class="package-card__meta-label">Duração</span>
-                <span class="package-card__meta-value">${escapeHtml(program.duracao || "A consultar")}</span>
-              </div>
-            </div>
             <div class="package-card__actions">
               <a href="PAGES/programa.html?d=${encodeURIComponent(program.id)}" class="btn btn--primary btn--sm pkg-btn">Saber Mais</a>
             </div>
