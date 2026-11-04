@@ -9,7 +9,10 @@
       Viagens antigas sem pacote: − / + muda o nº de pessoas
       (preço por pessoa da tabela "precos").
    2. Valida Nome / Email / Telefone
-   3. Grava em Firestore → colecção "reservations"
+   3. Confirma no Firestore, numa só transação:
+        • o preço de cada pacote (igual ao do programa no painel)
+        • as vagas da data (programs/{id}.vagas vs ocupacao/{id}__{data})
+      e só então grava em "reservations" e soma os lugares em "ocupacao"
    4. Limpa o carrinho e mostra o modal de sucesso
    ===================================================== */
 
@@ -19,7 +22,8 @@ import { db } from "./firebase-config.js";
 //    senão o Firestore dá erro "Type does not match the expected instance".
 import {
   collection,
-  addDoc,
+  doc,
+  runTransaction,
   serverTimestamp,
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
@@ -407,29 +411,25 @@ els.form.addEventListener("submit", async (e) => {
     return;
   }
 
-  const itens = sanitizeItems(cart);
-  const total = getTotal(itens);
-
   setLoading(true);
 
   try {
-    const docRef = await addDoc(collection(db, COLLECTION), {
-      clienteInfo,
-      itens,
-      total,
-      status: STATUS_INICIAL,
-      dataPedido: serverTimestamp(),
-    });
+    const { id, total } = await reserve(clienteInfo, cart);
 
     // Limpa o carrinho e avisa o resto do site
     localStorage.removeItem(STORAGE_KEY);
     window.dispatchEvent(new Event("cartUpdated"));
 
-    const ref = "MCH-" + docRef.id.slice(0, 6).toUpperCase();
+    const ref = "MCH-" + id.slice(0, 6).toUpperCase();
     showSuccess({ total, ref, nome: clienteInfo.nome });
   } catch (err) {
-    console.error("[checkout] Erro ao gravar reserva:", err);
     setLoading(false);
+    if (err instanceof CheckoutError) {
+      if (err.kind === "price") applyNewPrices(err.changes);
+      showGeneralError(err.message);
+      return;
+    }
+    console.error("[checkout] Erro ao gravar reserva:", err);
     showGeneralError(
       err?.code === "permission-denied"
         ? "Não foi possível registar a reserva (permissões). Contacte-nos pelo WhatsApp."
@@ -437,6 +437,125 @@ els.form.addEventListener("submit", async (e) => {
     );
   }
 });
+
+/* ─────────────────────────────────────────
+   9b. CONFIRMAÇÃO NO FIRESTORE (preços + vagas)
+   Tudo numa transação: se outra pessoa reservar os últimos lugares
+   ao mesmo tempo, só uma das reservas passa.
+   ───────────────────────────────────────── */
+class CheckoutError extends Error {
+  constructor(kind, message, extra = {}) {
+    super(message);
+    this.kind = kind;
+    Object.assign(this, extra);
+  }
+}
+
+const fmtDate = (iso) => formatDate(iso);
+
+async function reserve(clienteInfo, cart) {
+  return runTransaction(db, async (tx) => {
+    const itens = sanitizeItems(cart);
+
+    // 1. Programas do painel envolvidos (os antigos, fixos no site, não estão no Firestore)
+    const progs = {};
+    for (const id of [...new Set(itens.map((i) => i.programId).filter(Boolean))]) {
+      const snap = await tx.get(doc(db, "programs", id));
+      progs[id] = snap.exists() ? snap.data() : null;
+    }
+
+    // 2. Preços: cada pacote tem de custar o mesmo que no programa
+    const changes = [];
+    itens.forEach((it) => {
+      const p = progs[it.programId];
+      if (!p) return;
+      const pacotes = Array.isArray(p.pacotes) ? p.pacotes : [];
+      if (!pacotes.length) return; // programa sem pacotes (formato antigo)
+      if (!it.pacote) {
+        throw new CheckoutError(
+          "stale",
+          `${it.nome} foi adicionado à mochila antes de uma atualização do site. Remova-o e adicione-o de novo na página do programa.`,
+        );
+      }
+      const pk =
+        pacotes.find((x) => String(x.tipo || "") === String(it.pacoteId || "")) ||
+        pacotes.find((x) => String(x.nome || "").toLowerCase() === String(it.pacote).toLowerCase());
+      if (!pk) {
+        throw new CheckoutError("gone", `O pacote ${it.pacote} de ${it.nome} já não está disponível. Remova-o da mochila.`);
+      }
+      const valor = toNumber(pk.valor);
+      if (valor !== it.precoUnitario) changes.push({ id: it.id, nome: it.nome, pacote: it.pacote, valor });
+    });
+    if (changes.length) {
+      const c = changes[0];
+      throw new CheckoutError(
+        "price",
+        changes.length === 1
+          ? `O preço de ${c.nome} (${c.pacote}) foi atualizado para ${formatKz(c.valor)}. Confira o total e confirme de novo.`
+          : "Alguns preços foram atualizados. Confira o total e confirme de novo.",
+        { changes },
+      );
+    }
+
+    // 3. Vagas: soma as pessoas por programa + data
+    const groups = {};
+    itens.forEach((it) => {
+      if (!progs[it.programId] || !it.data) return;
+      const key = `${it.programId}__${it.data}`;
+      groups[key] ||= { programId: it.programId, data: it.data, nome: it.nome, pessoas: 0 };
+      groups[key].pessoas += it.pax;
+    });
+    const occ = {};
+    for (const key of Object.keys(groups)) {
+      const snap = await tx.get(doc(db, "ocupacao", key));
+      occ[key] = snap.exists() ? parseInt(snap.data().pessoas, 10) || 0 : null;
+    }
+    for (const [key, g] of Object.entries(groups)) {
+      const vagas = parseInt(progs[g.programId].vagas, 10) || 0;
+      const ocupadas = occ[key] || 0;
+      if (vagas && ocupadas + g.pessoas > vagas) {
+        const restam = Math.max(0, vagas - ocupadas);
+        throw new CheckoutError(
+          "full",
+          restam === 0
+            ? `${g.nome} está esgotado em ${fmtDate(g.data)}. Remova-o da mochila ou escolha outra data.`
+            : `${g.nome} em ${fmtDate(g.data)}: só ${restam === 1 ? "resta 1 lugar" : `restam ${restam} lugares`} (pediu ${g.pessoas}). Reduza a quantidade.`,
+        );
+      }
+    }
+
+    // 4. Tudo certo → soma os lugares e grava a reserva
+    for (const [key, g] of Object.entries(groups)) {
+      const ref = doc(db, "ocupacao", key);
+      if (occ[key] === null) tx.set(ref, { programId: g.programId, data: g.data, pessoas: g.pessoas });
+      else tx.update(ref, { pessoas: occ[key] + g.pessoas });
+    }
+    const total = getTotal(itens);
+    const resRef = doc(collection(db, COLLECTION));
+    tx.set(resRef, {
+      clienteInfo,
+      itens,
+      total,
+      status: STATUS_INICIAL,
+      dataPedido: serverTimestamp(),
+    });
+    return { id: resRef.id, total };
+  });
+}
+
+/* Preço mudou no painel → atualiza a mochila e o resumo */
+function applyNewPrices(changes = []) {
+  const cart = getCart();
+  changes.forEach((c) => {
+    const item = cart.find((i) => i.id === c.id);
+    if (!item) return;
+    item.precoUnitario = c.valor;
+    item.total = c.valor * clampPax(item.qtd);
+  });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+  window.dispatchEvent(new Event("cartUpdated"));
+  renderSummary(cart);
+}
 
 /* ─────────────────────────────────────────
    10. INIT

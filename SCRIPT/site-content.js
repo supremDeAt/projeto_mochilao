@@ -1,6 +1,6 @@
 import {
   doc,
-  onSnapshot,
+  getDoc,
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 import { db } from "./firebase-config.js";
 
@@ -17,9 +17,9 @@ function setContent(element, value) {
   element.style.whiteSpace = "pre-line";
 }
 
-onSnapshot(
-  doc(db, "siteConfig", "hero"),
-  (snapshot) => {
+// Leitura única (não fica a "ouvir" o Firestore): gasta menos leituras do plano
+getDoc(doc(db, "siteConfig", "hero"))
+  .then((snapshot) => {
     if (!snapshot.exists()) return;
 
     const content = snapshot.data();
@@ -36,8 +36,7 @@ onSnapshot(
     setContent(contentElements.featureLabel, content.featureLabel);
     setContent(contentElements.heroTitle, content.heroTitle);
     setContent(contentElements.heroSubtitle, content.heroSubtitle);
-  },
-  (error) => {
+  })
+  .catch((error) => {
     console.warn("Não foi possível carregar o conteúdo da Home.", error);
-  },
-);
+  });

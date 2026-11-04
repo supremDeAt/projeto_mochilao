@@ -382,6 +382,20 @@
                   <button type="button" class="dyn-add" id="addPriceTierBtn">
                     <i class="fa-solid fa-plus"></i> Adicionar pacote
                   </button>
+
+                  <!-- Vagas por data -->
+                  <div class="field prog-vagas">
+                    <label for="progVagas">Vagas por data <small>(opcional)</small></label>
+                    <div class="prog-vagas__row">
+                      <input id="progVagas" name="progVagas" type="number" min="0" max="999" step="1" placeholder="Sem limite" />
+                      <span>pessoas</span>
+                    </div>
+                    <small>
+                      Número máximo de pessoas em cada data. Quando esgota, o site deixa de aceitar reservas para essa data.
+                      Vazio ou 0 = sem limite. Reservas canceladas libertam os lugares.
+                    </small>
+                    <ul class="prog-vagas__list" id="progVagasList" hidden></ul>
+                  </div>
                 </fieldset>
 
                 <!-- ─── 3. IMAGENS ─── -->

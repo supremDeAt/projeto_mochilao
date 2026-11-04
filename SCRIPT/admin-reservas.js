@@ -10,9 +10,12 @@
 
 import {
   doc,
+  collection,
+  onSnapshot,
   updateDoc,
   deleteDoc,
   arrayUnion,
+  runTransaction,
 } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 import {
   esc,
@@ -73,6 +76,7 @@ export function normalizeReservation(raw) {
         precoUnitario,
         // Pacote (Individual, Casal, Kamba…) — reservas novas
         pacote: i.pacote || "",
+        pacoteId: i.pacoteId || "",
         qtd: parseInt(i.qtd, 10) || 1,
         total: toNumber(i.total) || precoUnitario * (i.pacote ? parseInt(i.qtd, 10) || 1 : pax),
       };
@@ -162,6 +166,60 @@ export function createReservationsView({ db, getPerms, getRole, getUser, openMod
   let all = [];
   let filter = "todas";
   let query = "";
+
+  /* ── Programas (para conferir os preços das reservas) ── */
+  let programs = new Map();
+  onSnapshot(
+    collection(db, "programs"),
+    (snap) => {
+      programs = new Map(snap.docs.map((d) => [d.id, d.data()]));
+      if (openId && document.getElementById("resDetail")) openDetail(openId, true);
+    },
+    () => {},
+  );
+
+  /** Preço atual do pacote no programa (null = não dá para conferir) */
+  function currentPrice(i) {
+    const p = programs.get(i.programId);
+    if (!p || !i.pacote || !Array.isArray(p.pacotes) || !p.pacotes.length) return null;
+    const pk =
+      p.pacotes.find((x) => String(x.tipo || "") === String(i.pacoteId || "")) ||
+      p.pacotes.find((x) => String(x.nome || "").toLowerCase() === String(i.pacote).toLowerCase());
+    return pk ? toNumber(pk.valor) : null;
+  }
+
+  /* ── Vagas: cancelar liberta os lugares, reativar volta a ocupá-los ── */
+  async function adjustOccupancy(r, sign) {
+    const groups = {};
+    (r.itens || []).forEach((i) => {
+      if (!i.programId || !i.data || !programs.has(i.programId)) return;
+      const key = `${i.programId}__${i.data}`;
+      groups[key] ||= { programId: i.programId, data: i.data, pessoas: 0 };
+      groups[key].pessoas += parseInt(i.pax, 10) || 0;
+    });
+    const keys = Object.keys(groups);
+    if (!keys.length) return;
+    try {
+      await runTransaction(db, async (tx) => {
+        const cur = {};
+        for (const k of keys) {
+          const snap = await tx.get(doc(db, "ocupacao", k));
+          cur[k] = snap.exists() ? parseInt(snap.data().pessoas, 10) || 0 : null;
+        }
+        for (const k of keys) {
+          const g = groups[k];
+          const next = Math.max(0, (cur[k] || 0) + sign * g.pessoas);
+          const ref = doc(db, "ocupacao", k);
+          if (cur[k] === null) {
+            if (next > 0) tx.set(ref, { programId: g.programId, data: g.data, pessoas: next });
+          } else tx.update(ref, { pessoas: next });
+        }
+      });
+    } catch (err) {
+      console.error("[reservas] vagas:", err);
+      toast("A reserva mudou, mas não foi possível atualizar as vagas.", "error");
+    }
+  }
 
   /* ── Lista filtrada ── */
   function visible() {
@@ -254,6 +312,8 @@ export function createReservationsView({ db, getPerms, getRole, getUser, openMod
     const r = all.find((x) => x.id === id);
     if (!r || r.status === newStatus) return;
     const user = getUser();
+    const wasCancelled = r.status === "Cancelada";
+    const isCancelled = newStatus === "Cancelada";
     await updateDoc(doc(db, "reservations", id), {
       status: newStatus,
       historico: arrayUnion({
@@ -263,6 +323,8 @@ export function createReservationsView({ db, getPerms, getRole, getUser, openMod
         em: new Date(),
       }),
     });
+    if (!wasCancelled && isCancelled) await adjustOccupancy(r, -1); // liberta os lugares
+    if (wasCancelled && !isCancelled) await adjustOccupancy(r, +1); // volta a ocupá-los
     toast(`${r.ref}: ${newStatus}`);
   }
 
@@ -342,6 +404,18 @@ export function createReservationsView({ db, getPerms, getRole, getUser, openMod
     const typedNotes = refresh ? document.getElementById("resNotes")?.value : null;
 
     const wpp = waLink(r.cliente.telefone, whatsappMessage(r));
+    // Preços diferentes dos do programa (ex.: alterados no navegador do cliente)
+    const priceWarn = (i) => {
+      const atual = currentPrice(i);
+      return atual !== null && atual !== toNumber(i.precoUnitario)
+        ? `<em class="res-item__warn"><i class="fa-solid fa-triangle-exclamation"></i> Preço diferente do programa (atual: ${esc(formatKz(atual))})</em>`
+        : "";
+    };
+    const somaItens = r.itens.reduce((s, i) => s + toNumber(i.total), 0);
+    const totalWarn =
+      !r.legacy && somaItens && toNumber(r.total) !== somaItens
+        ? `<p class="res-warn"><i class="fa-solid fa-triangle-exclamation"></i> O total da reserva (${esc(formatKz(r.total))}) não bate com a soma das viagens (${esc(formatKz(somaItens))}).</p>`
+        : "";
     const itensHtml = r.itens
       .map(
         (i) => `
@@ -358,6 +432,7 @@ export function createReservationsView({ db, getPerms, getRole, getUser, openMod
                 ? `${i.qtd} × ${esc(i.pacote)}${i.precoUnitario ? ` (${esc(formatKz(i.precoUnitario))})` : ""} · ${i.pax} pessoa${i.pax === 1 ? "" : "s"}`
                 : `${i.pax || "–"} pessoa${i.pax === 1 ? "" : "s"}${i.precoUnitario ? ` × ${esc(formatKz(i.precoUnitario))}` : ""}`
             }</span>
+            ${priceWarn(i)}
           </div>
           <strong class="res-item__total">${i.total ? esc(formatKz(i.total)) : "–"}</strong>
         </li>`,
@@ -396,6 +471,7 @@ export function createReservationsView({ db, getPerms, getRole, getUser, openMod
           <h4 class="detail-block__title">Programas</h4>
           <ul class="res-items">${itensHtml}</ul>
           <div class="res-total"><span>Total</span><strong>${r.total ? esc(formatKz(r.total)) : "A definir"}</strong></div>
+          ${totalWarn}
         </section>
 
         ${
@@ -466,6 +542,7 @@ export function createReservationsView({ db, getPerms, getRole, getUser, openMod
       if (!confirm(`Eliminar definitivamente a reserva ${r.ref} de ${r.cliente.nome}?`)) return;
       try {
         await deleteDoc(doc(db, "reservations", id));
+        if (r.status !== "Cancelada") await adjustOccupancy(r, -1);
         openId = null;
         closeModal();
         toast(`Reserva ${r.ref} eliminada.`);

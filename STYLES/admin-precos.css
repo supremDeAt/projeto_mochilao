@@ -224,3 +224,77 @@
   vertical-align: 0.1em;
   white-space: nowrap;
 }
+
+/* Vagas por data */
+.prog-vagas {
+  margin-top: 1.25rem;
+  padding-top: 1.1rem;
+  border-top: 1px dashed var(--clr-brown-earth-15);
+}
+.prog-vagas__row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.prog-vagas__row input {
+  max-width: 140px;
+}
+.prog-vagas__row span {
+  font-size: 0.85rem;
+  color: var(--clr-text-muted);
+}
+.prog-vagas__list {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.prog-vagas__list[hidden] {
+  display: none;
+}
+.prog-vagas__list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  background: var(--clr-off-white);
+  font-size: 0.85rem;
+  color: var(--clr-text-mid);
+}
+.prog-vagas__list li strong {
+  color: var(--clr-text-dark);
+}
+.prog-vagas__list li.is-full strong {
+  color: var(--clr-red);
+}
+.prog-vagas__list .prog-vagas__title {
+  padding: 0;
+  background: none;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--clr-text-muted);
+}
+
+/* Reservas: preço diferente do programa */
+.res-item__warn,
+.res-warn {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  margin-top: 0.3rem;
+  font-style: normal;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--clr-red);
+}
+.res-warn {
+  margin: 0.75rem 0 0;
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  background: var(--clr-red-08);
+}

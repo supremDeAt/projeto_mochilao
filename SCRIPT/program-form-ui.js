@@ -504,6 +504,11 @@ export function getGalleryChanges() {
    ───────────────────────────────────────── */
 function clearDynamicState() {
   if (!els) return;
+  const occ = $("progVagasList");
+  if (occ) {
+    occ.hidden = true;
+    occ.replaceChildren();
+  }
 
   els.includeList?.replaceChildren();
   els.excludeList?.replaceChildren();
@@ -561,6 +566,8 @@ export function populateProgramForm(program = {}) {
   const legacyNote = document.getElementById("progPriceLegacy");
   if (legacyNote) legacyNote.hidden = !stored.legacy;
   set("progStartPoint", program.pontoPartida);
+  set("progVagas", parseInt(program.vagas, 10) > 0 ? parseInt(program.vagas, 10) : "");
+  renderOccupancy(program.id, parseInt(program.vagas, 10) || 0);
   const onlyCustom = $("progSoPersonalizada");
   if (onlyCustom) onlyCustom.checked = program.soPersonalizada === true;
   set("progDesc", program.descricao);
@@ -619,6 +626,8 @@ export function getProgramFormData() {
     precos: [], // formato antigo (preço por pessoa) deixa de ser usado
     preco: autoPriceText(getPriceTiers()),
     pontoPartida: val("progStartPoint"),
+    // Lugares por data (0 = sem limite)
+    vagas: Math.max(0, Math.min(999, parseInt(val("progVagas"), 10) || 0)),
     // true = só aparece na página Viagens Personalizadas
     soPersonalizada: $("progSoPersonalizada")?.checked === true,
     descricao: val("progDesc"),
@@ -723,4 +732,50 @@ function setupSectionNav() {
     .querySelectorAll(".program-form__section")
     .forEach((sec) => observer.observe(sec));
   setActive("progSecBasic");
+}
+/* ─────────────────────────────────────────
+   VAGAS — lugares já reservados por data (só leitura)
+   ocupacao/{programId}__{data} → { programId, data, pessoas }
+   ───────────────────────────────────────── */
+let occSeq = 0;
+async function renderOccupancy(programId, vagas) {
+  const box = $("progVagasList");
+  if (!box || !programId) return;
+  const mine = ++occSeq;
+  try {
+    const [{ db }, fs] = await Promise.all([
+      import("./firebase-config.js"),
+      import("https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js"),
+    ]);
+    const snap = await fs.getDocs(fs.query(fs.collection(db, "ocupacao"), fs.where("programId", "==", programId)));
+    if (mine !== occSeq) return;
+    const today = new Date().toISOString().slice(0, 10);
+    const rows = snap.docs
+      .map((d) => d.data())
+      .filter((o) => o.data >= today && (parseInt(o.pessoas, 10) || 0) > 0)
+      .sort((a, b) => String(a.data).localeCompare(String(b.data)));
+    if (!rows.length) {
+      box.hidden = true;
+      return;
+    }
+    const fmt = (iso) => {
+      const [y, m, d] = String(iso).split("-");
+      return d && m && y ? `${d}/${m}/${y}` : iso;
+    };
+    box.innerHTML =
+      '<li class="prog-vagas__title">Lugares reservados nas próximas datas</li>' +
+      rows
+        .map((o) => {
+          const n = parseInt(o.pessoas, 10) || 0;
+          const full = vagas && n >= vagas;
+          return `<li class="${full ? "is-full" : ""}"><span>${fmt(o.data)}</span><strong>${
+            vagas ? `${n} de ${vagas}${full ? " · esgotado" : ""}` : `${n} reservado${n === 1 ? "" : "s"}`
+          }</strong></li>`;
+        })
+        .join("");
+    box.hidden = false;
+  } catch (err) {
+    console.warn("[vagas] Não foi possível ler as datas reservadas:", err);
+    box.hidden = true;
+  }
 }

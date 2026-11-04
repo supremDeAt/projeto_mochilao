@@ -1203,3 +1203,36 @@
 @media (hover: none) {
   .pkg-gallery__item--photo::after { display: none; }
 }
+/* Vagas na data escolhida (programa-firestore.js) */
+.pkg-booking__vagas {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: -0.35rem 0 0;
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--clr-white-70);
+}
+.pkg-booking__vagas[hidden] {
+  display: none;
+}
+.pkg-booking__vagas i {
+  color: var(--clr-tan);
+}
+.pkg-booking__vagas.is-low {
+  color: var(--clr-tan);
+  font-weight: 700;
+}
+.pkg-booking__vagas.is-full {
+  color: var(--clr-salmon);
+  font-weight: 700;
+}
+.pkg-booking__vagas.is-full i {
+  color: var(--clr-salmon);
+}
+.pkg-cta-card__btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}

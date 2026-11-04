@@ -8,6 +8,8 @@
      imagemURL (miniatura da capa), capaId, galeria [{id}],
      inclui [], naoInclui [], roteiro [{dia, titulo, descricao}],
      pacotes [{tipo, nome, pessoas, valor}]  (ou precos antigos — ver pacotes.js)
+     vagas (nº de lugares por data; 0 ou vazio = sem limite)
+   ocupacao/{programId}__{data} → { programId, data, pessoas }  (lugares já reservados)
    programs/{id}/imagens/{imgId}  → { tipo, data (Base64) }
 
    URL: programa.html?d=<id do documento>
@@ -315,4 +317,65 @@ function bindInteractions() {
   renderText(program);
   renderMedia(program); // fotos grandes chegam depois, sem bloquear o texto
   renderOthers(program.id);
+  setupVagas(program);
 })();
+
+/* ─────────────────────────────────────────
+   VAGAS — lugares disponíveis na data escolhida
+   O programa-cart.js lê form.dataset.restantes antes de adicionar à mochila.
+   (O checkout volta a confirmar no momento da reserva.)
+   ───────────────────────────────────────── */
+function setupVagas(p) {
+  const vagas = parseInt(p.vagas, 10) || 0;
+  const form = document.getElementById("bookingForm");
+  const date = document.getElementById("tourDate");
+  const info = document.getElementById("bookingVagas");
+  const btn = document.getElementById("addToCartBtn");
+  if (!form || !date || !info || !vagas) return; // sem limite de vagas
+
+  let seq = 0;
+  const pessoasDoPacote = () =>
+    parseInt(form.querySelector('input[name="pacote"]:checked')?.dataset.pessoas, 10) || 1;
+
+  async function update() {
+    const data = date.value;
+    if (!data) {
+      delete form.dataset.restantes;
+      info.hidden = false;
+      info.className = "pkg-booking__vagas";
+      info.innerHTML = `<i class="fa-solid fa-users"></i> ${vagas} lugares por data. Escolha a data para ver os disponíveis.`;
+      if (btn) btn.disabled = false;
+      return;
+    }
+    const mine = ++seq;
+    info.hidden = false;
+    info.className = "pkg-booking__vagas";
+    info.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> A ver as vagas…';
+    let ocupadas = 0;
+    try {
+      const s = await getDoc(doc(db, "ocupacao", `${p.id}__${data}`));
+      ocupadas = s.exists() ? parseInt(s.data().pessoas, 10) || 0 : 0;
+    } catch (err) {
+      console.warn("[vagas]", err);
+      if (mine === seq) info.hidden = true; // sem ligação: o checkout confirma depois
+      return;
+    }
+    if (mine !== seq) return; // o utilizador já mudou a data
+    const restantes = Math.max(0, vagas - ocupadas);
+    form.dataset.restantes = String(restantes);
+    const falta = pessoasDoPacote() > restantes;
+    info.className = "pkg-booking__vagas" + (restantes === 0 ? " is-full" : restantes <= 5 ? " is-low" : "");
+    info.innerHTML =
+      restantes === 0
+        ? '<i class="fa-solid fa-circle-xmark"></i> Esgotado nesta data. Escolha outra data.'
+        : `<i class="fa-solid fa-users"></i> ${restantes === 1 ? "Resta 1 lugar" : `Restam ${restantes} lugares`} nesta data` +
+          (falta ? " — não chega para este pacote." : ".");
+    if (btn) btn.disabled = restantes === 0 || falta;
+  }
+
+  date.addEventListener("change", update);
+  form.addEventListener("change", (e) => {
+    if (e.target.name === "pacote") update();
+  });
+  update();
+}

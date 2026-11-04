@@ -289,7 +289,7 @@
     }
   }
 
-  /* ── Catálogo do Firestore (tempo real) ── */
+  /* ── Catálogo do Firestore ── */
   function loadCatalog() {
     Promise.all([
       import("./firebase-config.js"),
@@ -298,15 +298,23 @@
       .then(function (mods) {
         var db = mods[0].db;
         var fs = mods[1];
-        fs.onSnapshot(
-          fs.doc(db, "siteConfig", "pacotes"),
-          function (snap) {
+        var ref = fs.doc(db, "siteConfig", "pacotes");
+        var onErr = function (err) {
+          console.warn("[pacotes] A usar os tipos de pacote por defeito:", err);
+        };
+        if (document.querySelector(".admin-page")) {
+          // Painel: em tempo real (o separador "Pacotes" pode mudar os tipos)
+          fs.onSnapshot(ref, function (snap) {
             setCatalog(snap.exists() ? snap.data() : null);
-          },
-          function (err) {
-            console.warn("[pacotes] A usar os tipos de pacote por defeito:", err);
-          },
-        );
+          }, onErr);
+        } else {
+          // Site: leitura única (gasta menos leituras do plano)
+          fs.getDoc(ref)
+            .then(function (snap) {
+              setCatalog(snap.exists() ? snap.data() : null);
+            })
+            .catch(onErr);
+        }
       })
       .catch(function (err) {
         console.warn("[pacotes] Sem ligação ao Firestore:", err);

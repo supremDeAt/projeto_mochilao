@@ -1,4 +1,4 @@
-import { collection, onSnapshot } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+import { collection, getDocs } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 import { db } from "./firebase-config.js";
 
 function escapeHtml(value) {
@@ -41,14 +41,13 @@ function renderPrograms(programs) {
   });
 }
 
-onSnapshot(
-  collection(db, "programs"),
-  (snapshot) => {
+// Leitura única (não fica a "ouvir" o Firestore): gasta menos leituras do plano
+getDocs(collection(db, "programs"))
+  .then((snapshot) => {
     const programs = snapshot.docs
       .map((item) => ({ id: item.id, ...item.data() }))
       // Programas criados só para a página "Viagens Personalizadas" não aparecem aqui
       .filter((program) => !program.soPersonalizada);
     renderPrograms(programs);
-  },
-  (error) => console.warn("Não foi possível carregar os programas públicos.", error),
-);
+  })
+  .catch((error) => console.warn("Não foi possível carregar os programas públicos.", error));

@@ -14,6 +14,8 @@
      precoUnitario, total }
    e dispara window "cartUpdated".
    A quantidade de pacotes ajusta-se no checkout.
+   Vagas: se o programa tiver limite, não deixa adicionar mais
+   pessoas do que os lugares que restam (o checkout volta a confirmar).
    ===================================================== */
 
 (function () {
@@ -150,6 +152,17 @@
       return;
     }
     setError("");
+
+    // Vagas (preenchido pelo programa-firestore.js quando o programa tem limite)
+    const restantes = els.form.dataset.restantes;
+    if (restantes !== undefined && pkg.pessoas > Number(restantes)) {
+      setError(
+        Number(restantes) === 0
+          ? "Esta data está esgotada. Escolha outra data."
+          : "Só restam " + restantes + " lugar(es) nesta data.",
+      );
+      return;
+    }
 
     const nome = getProgramName();
     if (!nome) {
