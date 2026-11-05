@@ -1,0 +1,52 @@
+/* =====================================================
+   O MOCHILÃO — hero-slides.css
+   Fotos do fundo do hero (index) a passar suavemente.
+   Fotos escolhidas no painel: Site Web → Hero → "Fotos do fundo".
+   Sem fotos no painel → fica a foto normal do hero.
+   ===================================================== */
+.hero__slides {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.hero__slide {
+  position: absolute;
+  inset: -2%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1.06);
+  transition:
+    opacity 1.8s ease-in-out,
+    transform 9s ease-out;
+  will-change: opacity, transform;
+}
+/* Foto visível: aparece devagar e "aproxima-se" muito ligeiramente */
+.hero__slide.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+/* Mesmo véu da foto normal, para o texto continuar legível */
+.hero__slides::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, var(--clr-rust-1e) 0%, var(--clr-rust-1e) 100%);
+}
+/* O grão (.hero::before) e o texto ficam por cima das fotos */
+.hero.has-slides::before {
+  z-index: 1;
+}
+
+/* Quem pede menos movimento no sistema: só troca, sem zoom */
+@media (prefers-reduced-motion: reduce) {
+  .hero__slide {
+    transform: none;
+    transition: opacity 1.2s ease-in-out;
+  }
+  .hero__slide.is-active {
+    transform: none;
+  }
+}

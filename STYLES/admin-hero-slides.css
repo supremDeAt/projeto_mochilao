@@ -1,0 +1,173 @@
+/* =====================================================
+   O MOCHILÃO — admin-hero-slides.css
+   Admin → Site Web → Hero → "Fotos do fundo (slide)"
+   ===================================================== */
+.hs-admin {
+  grid-column: 1 / -1;
+  margin-top: 0.5rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--clr-line);
+}
+.hs-admin__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+.hs-admin__title {
+  margin: 0 0 0.35rem;
+  font-size: 1.05rem;
+  color: var(--clr-text-dark);
+}
+.hs-admin__help {
+  margin: 0;
+  max-width: 720px;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--clr-text-muted);
+}
+.hs-admin__interval {
+  display: grid;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--clr-text-mid);
+}
+.hs-admin__interval select {
+  padding: 0.55rem 0.8rem;
+  border: 1.5px solid var(--clr-brown-earth-15);
+  border-radius: 8px;
+  background: var(--clr-white);
+  font: inherit;
+}
+.hs-admin__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+.hs-admin__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.hs-admin__list:empty {
+  display: none;
+}
+.hs-item {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--clr-off-white);
+  border: 1px solid var(--clr-brown-earth-12);
+}
+.hs-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.hs-item__num {
+  position: absolute;
+  top: 0.4rem;
+  left: 0.4rem;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+.hs-item__tools {
+  position: absolute;
+  right: 0.35rem;
+  bottom: 0.35rem;
+  display: flex;
+  gap: 0.25rem;
+}
+.hs-item__tools button {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--clr-text-dark);
+  font-size: 0.72rem;
+  cursor: pointer;
+}
+.hs-item__tools button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.hs-item__tools button.is-danger {
+  color: var(--clr-red);
+}
+
+.hs-admin__preview {
+  display: grid;
+  gap: 0.5rem;
+}
+.hs-admin__preview-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--clr-text-muted);
+}
+.hs-admin__stage {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--clr-dark);
+  display: grid;
+  place-items: center;
+}
+.hs-admin__stage-empty {
+  position: relative;
+  z-index: 1;
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+.hs-admin__stage-empty[hidden] {
+  display: none;
+}
+.hs-admin__add {
+  margin-top: 1rem;
+  cursor: pointer;
+}
+.hs-admin__add.is-disabled {
+  opacity: 0.45;
+  pointer-events: none;
+}
+.hs-admin__busy {
+  margin: 0.75rem 0 0;
+  font-size: 0.85rem;
+  color: var(--clr-text-muted);
+}
+.hs-admin__busy[hidden] {
+  display: none;
+}
+@media (max-width: 960px) {
+  .hs-admin__body {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* A pré-visualização do hero (acima) deixa de "flutuar" por cima deste bloco */
+.content-pane:has(.hs-admin) .hero-preview-wrap {
+  position: static;
+}
