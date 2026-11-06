@@ -2,14 +2,16 @@
    O MOCHILÃO — programa-cart.js
    Formulário "Embarcar" da página do programa (programa.html)
 
-   O cliente escolhe o PACOTE (Individual, Casal, Kamba…) e a data.
+   O cliente escolhe o PACOTE (Individual, Casal, Kamba…) e uma das
+   DATAS definidas no painel (desenhadas pelo datas.js como rádios
+   <input name="dataViagem" value="partida" data-fim="regresso">).
    Os pacotes são desenhados pelo pacotes.js como rádios:
      <input name="pacote" value="casal" data-nome="Casal"
             data-pessoas="2" data-valor="600000">
    (o preço do pacote é fechado: o Casal cobre as 2 pessoas)
 
    Grava em localStorage("mochilao-cart"):
-   { id, programId, nome, imagem, data,
+   { id, programId, nome, imagem, data (partida), dataFim (regresso),
      pacote, pacoteId, pessoasPorPacote, qtd, pax,
      precoUnitario, total }
    e dispara window "cartUpdated".
@@ -28,7 +30,6 @@
 
   const els = {
     form: document.getElementById("bookingForm"),
-    date: document.getElementById("tourDate"),
     dateError: document.getElementById("tourDateError"),
     btn: document.getElementById("addToCartBtn"),
     list: document.querySelector(".pkg-pacotes__list"),
@@ -36,18 +37,12 @@
 
   if (!els.form) return;
 
-  /* ── Utilitários ── */
-  function toISODate(d) {
-    const m = String(d.getMonth() + 1).padStart(2, "0");
-    const day = String(d.getDate()).padStart(2, "0");
-    return d.getFullYear() + "-" + m + "-" + day;
+  /** Data escolhida (datas.js): { inicio, fim } ou null */
+  function getSelectedDate() {
+    const input = els.form.querySelector('input[name="dataViagem"]:checked');
+    if (!input) return null;
+    return { inicio: input.value, fim: input.dataset.fim || input.value };
   }
-
-  /* ── Data mínima: amanhã ── */
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  const MIN_DATE = toISODate(tomorrow);
-  els.date.min = MIN_DATE;
 
   /* ── Dados do programa (do DOM) ── */
   function getProgramName() {
@@ -80,9 +75,7 @@
   }
 
   function setError(msg) {
-    els.dateError.textContent = msg || "";
-    els.date.classList.toggle("is-invalid", !!msg);
-    els.date.setAttribute("aria-invalid", msg ? "true" : "false");
+    if (els.dateError) els.dateError.textContent = msg || "";
   }
 
   /* ── Carrinho ── */
@@ -147,8 +140,8 @@
   });
 
   /* ── Eventos ── */
-  els.date.addEventListener("change", function () {
-    if (els.date.value) setError("");
+  els.form.addEventListener("change", function (e) {
+    if (e.target.name === "dataViagem" || e.target.name === "pacote") setError("");
   });
 
   els.form.addEventListener("submit", function (e) {
@@ -161,20 +154,19 @@
       return;
     }
 
-    const data = els.date.value;
-    if (!data) {
-      setError("Escolha a data da viagem.");
-      els.date.focus();
+    const datas = getSelectedDate();
+    if (!datas) {
+      setError(
+        els.form.classList.contains("is-unavailable")
+          ? "Este programa não tem datas disponíveis."
+          : "Escolha a data da viagem.",
+      );
       return;
     }
-    if (data < MIN_DATE) {
-      setError("Escolha uma data a partir de amanhã.");
-      els.date.focus();
-      return;
-    }
+    const data = datas.inicio;
     setError("");
 
-    // Vagas (preenchido pelo programa-firestore.js quando o programa tem limite)
+    // Vagas (preenchido pelo datas.js quando o programa tem limite)
     const restantes = els.form.dataset.restantes;
     if (restantes !== undefined && pkg.pessoas > Number(restantes)) {
       setError(
@@ -196,7 +188,8 @@
       programId: programId,
       nome: nome,
       imagem: getProgramImage(),
-      data: data,
+      data: data, // dia de partida
+      dataFim: datas.fim, // dia de regresso
       pacote: pkg.nome,
       pacoteId: pkg.tipo,
       pessoasPorPacote: pkg.pessoas,
