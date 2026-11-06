@@ -125,6 +125,27 @@
     }, 1800);
   }
 
+  /* ── "Saber mais" (Detalhes da Viagem) → desce suavemente até ao card ── */
+  document.querySelectorAll("[data-scroll-booking]").forEach(function (link) {
+    link.addEventListener("click", function (e) {
+      const card = document.getElementById("reservar");
+      if (!card) return;
+      e.preventDefault();
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      card.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+      // Realça o card por um instante, quando lá chegar
+      card.classList.remove("is-highlight");
+      setTimeout(function () {
+        card.classList.add("is-highlight");
+        const first = card.querySelector('input[name="pacote"]:checked, input[name="pacote"]');
+        if (first) first.focus({ preventScroll: true });
+      }, reduce ? 0 : 700);
+      setTimeout(function () {
+        card.classList.remove("is-highlight");
+      }, 2600);
+    });
+  });
+
   /* ── Eventos ── */
   els.date.addEventListener("change", function () {
     if (els.date.value) setError("");

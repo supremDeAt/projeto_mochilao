@@ -1236,3 +1236,50 @@
   cursor: not-allowed;
   transform: none;
 }
+
+/* "Saber mais" ao lado do preço (Detalhes da Viagem) */
+.pkg-detail--preco > div {
+  flex: 1;
+  min-width: 0;
+}
+.pkg-detail__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+  padding: 0.5rem 0.95rem;
+  border: 1.5px solid var(--clr-brown-deep);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--clr-brown-deep);
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background var(--ease-std),
+    color var(--ease-std);
+}
+.pkg-detail__more i {
+  font-size: 0.7rem;
+  transition: transform var(--ease-std);
+}
+.pkg-detail__more:hover,
+.pkg-detail__more:focus-visible {
+  background: var(--clr-brown-deep);
+  color: var(--clr-white);
+}
+.pkg-detail__more:hover i {
+  transform: translateY(2px);
+}
+
+/* Card "Juntar-se": não fica escondido debaixo do menu e realça ao chegar */
+#reservar {
+  scroll-margin-top: 6.5rem;
+  transition: box-shadow 0.4s ease;
+}
+#reservar.is-highlight {
+  box-shadow:
+    0 0 0 3px var(--clr-brown-light),
+    var(--shadow-lg);
+}
