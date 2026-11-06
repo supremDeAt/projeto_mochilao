@@ -12,6 +12,27 @@
 export const HS_DOC = "hero-slides";
 export const HS_DEFAULT_INTERVAL = 7;
 
+/* Fotos do Cloudinary: pede a foto JÁ no formato do ecrã (largura × altura
+   do hero, em píxeis reais do ecrã), recortada ao centro como o "cover".
+   Assim o browser nunca tem de esticar uma foto pequena (era isto que
+   deixava o fundo desfocado, sobretudo nos telemóveis em pé). */
+const CLD_RE = /^https:\/\/res\.cloudinary\.com\/[^/]+\/image\/upload\//;
+const MAX_PX = 2560;
+const step = (n) => Math.ceil(n / 200) * 200; // poucos tamanhos diferentes (cache)
+export function heroImageUrl(url, hero) {
+  if (!CLD_RE.test(url)) return url;
+  const dpr = Math.min(3, window.devicePixelRatio || 1);
+  let w = Math.round((hero?.clientWidth || window.innerWidth) * dpr);
+  let h = Math.round((hero?.clientHeight || window.innerHeight) * dpr);
+  const k = Math.min(1, MAX_PX / Math.max(w, h));
+  w = step(w * k);
+  h = step(h * k);
+  const [base, rest] = url.split("/image/upload/");
+  const path = rest.replace(/^(?:[a-z]{1,3}_[^/]+\/)+/, ""); // tira o tamanho antigo
+  // c_lfill: recorta ao centro sem nunca aumentar além do original
+  return `${base}/image/upload/f_auto,q_auto:best,c_lfill,g_center,w_${w},h_${h}/${path}`;
+}
+
 const safeUrl = (u) => (/^(https:\/\/|data:image\/)/.test(String(u || "")) ? String(u) : "");
 
 /** Liga o slide a um elemento .hero. Devolve uma função para parar. */
@@ -30,7 +51,7 @@ export function startHeroSlides(hero, data = {}) {
   const layers = urls.map((url) => {
     const el = document.createElement("div");
     el.className = "hero__slide";
-    el.dataset.src = url;
+    el.dataset.src = heroImageUrl(url, hero);
     box.appendChild(el);
     return el;
   });

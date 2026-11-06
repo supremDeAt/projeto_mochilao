@@ -13,17 +13,18 @@
 }
 .hero__slide {
   position: absolute;
-  inset: -2%;
+  inset: 0;
   background-size: cover;
   background-position: center;
   opacity: 0;
-  transform: scale(1.06);
+  /* zoom muito leve (3%) só durante a entrada; no fim a foto fica a 100% */
+  transform: scale(1.03);
   transition:
     opacity 1.8s ease-in-out,
-    transform 9s ease-out;
-  will-change: opacity, transform;
+    transform 7s ease-out;
+  will-change: opacity;
 }
-/* Foto visível: aparece devagar e "aproxima-se" muito ligeiramente */
+/* Foto visível: aparece devagar e assenta no tamanho real (nítida) */
 .hero__slide.is-active {
   opacity: 1;
   transform: scale(1);
