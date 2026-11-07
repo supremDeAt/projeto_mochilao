@@ -17,17 +17,13 @@
   background-size: cover;
   background-position: center;
   opacity: 0;
-  /* zoom muito leve (3%) só durante a entrada; no fim a foto fica a 100% */
-  transform: scale(1.03);
-  transition:
-    opacity 1.8s ease-in-out,
-    transform 7s ease-out;
+  /* Sem zoom: a foto aparece no tamanho real, só com a troca suave */
+  transition: opacity 1.8s ease-in-out;
   will-change: opacity;
 }
-/* Foto visível: aparece devagar e assenta no tamanho real (nítida) */
+/* Foto visível: aparece devagar */
 .hero__slide.is-active {
   opacity: 1;
-  transform: scale(1);
 }
 /* Mesmo véu da foto normal, para o texto continuar legível */
 .hero__slides::after {
@@ -44,10 +40,6 @@
 /* Quem pede menos movimento no sistema: só troca, sem zoom */
 @media (prefers-reduced-motion: reduce) {
   .hero__slide {
-    transform: none;
     transition: opacity 1.2s ease-in-out;
-  }
-  .hero__slide.is-active {
-    transform: none;
   }
 }

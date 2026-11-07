@@ -12,16 +12,16 @@
 export const HS_DOC = "hero-slides";
 export const HS_DEFAULT_INTERVAL = 7;
 
-/* Fotos do Cloudinary: pede a foto JÁ no formato do ecrã (largura × altura
-   do hero, em píxeis reais do ecrã), recortada ao centro como o "cover".
-   Assim o browser nunca tem de esticar uma foto pequena (era isto que
-   deixava o fundo desfocado, sobretudo nos telemóveis em pé). */
+/* Fotos do Cloudinary: pede a foto INTEIRA (sem recorte), num tamanho que
+   chegue para cobrir o hero em píxeis reais do ecrã (c_mfit = "cover" sem
+   cortar). O enquadramento fica igual ao da foto original; só deixa de ser
+   esticada pelo browser (era isto que a desfocava nos telemóveis). */
 const CLD_RE = /^https:\/\/res\.cloudinary\.com\/[^/]+\/image\/upload\//;
 const MAX_PX = 2560;
 const step = (n) => Math.ceil(n / 200) * 200; // poucos tamanhos diferentes (cache)
 export function heroImageUrl(url, hero) {
   if (!CLD_RE.test(url)) return url;
-  const dpr = Math.min(3, window.devicePixelRatio || 1);
+  const dpr = Math.min(2, window.devicePixelRatio || 1);
   let w = Math.round((hero?.clientWidth || window.innerWidth) * dpr);
   let h = Math.round((hero?.clientHeight || window.innerHeight) * dpr);
   const k = Math.min(1, MAX_PX / Math.max(w, h));
@@ -29,8 +29,8 @@ export function heroImageUrl(url, hero) {
   h = step(h * k);
   const [base, rest] = url.split("/image/upload/");
   const path = rest.replace(/^(?:[a-z]{1,3}_[^/]+\/)+/, ""); // tira o tamanho antigo
-  // c_lfill: recorta ao centro sem nunca aumentar além do original
-  return `${base}/image/upload/f_auto,q_auto:best,c_lfill,g_center,w_${w},h_${h}/${path}`;
+  // c_mfit: a foto inteira, com largura ≥ w E altura ≥ h (sem recorte)
+  return `${base}/image/upload/f_auto,q_auto:best,c_mfit,w_${w},h_${h}/${path}`;
 }
 
 const safeUrl = (u) => (/^(https:\/\/|data:image\/)/.test(String(u || "")) ? String(u) : "");
