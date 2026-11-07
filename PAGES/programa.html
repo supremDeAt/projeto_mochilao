@@ -156,6 +156,10 @@
                 <span class="pkg-detail__label">Preço</span>
                 <span class="pkg-detail__value">—</span>
               </div>
+              <!-- Desce até ao card "Juntar-se" (programa-cart.js) -->
+              <a href="#reservar" class="pkg-detail__more" data-scroll-booking>
+                Saber mais <i class="fa-solid fa-arrow-down"></i>
+              </a>
             </li>
             <li class="pkg-detail pkg-detail--partida">
               <span class="pkg-detail__icon"
@@ -184,7 +188,7 @@
     <section class="pkg-booking-section">
       <div class="pkg-booking-section__inner">
         <!-- Card de reserva -->
-        <div class="pkg-cta-card">
+        <div class="pkg-cta-card" id="reservar">
           <h3 class="pkg-cta-card__title" id="pkgCtaTitle">Juntar-se</h3>
           <p class="pkg-cta-card__desc pkg-descricao-cta">—</p>
 
@@ -196,32 +200,23 @@
               <div class="pkg-pacotes__list"></div>
             </fieldset>
 
-            <div class="pkg-booking__field">
-              <label for="tourDate" class="pkg-booking__label"
-                >Data da viagem</label
-              >
-              <input
-                type="date"
-                id="tourDate"
-                name="tourDate"
-                class="pkg-booking__input"
-                required
-              />
-              <span
-                class="pkg-booking__error"
-                id="tourDateError"
-                aria-live="polite"
-              ></span>
-            </div>
+            <!-- Datas definidas no painel (datas.js) -->
+            <fieldset class="pkg-datas">
+              <legend class="pkg-booking__label">Data da viagem</legend>
+              <div class="pkg-datas__list" data-datas-list>
+                <p class="pkg-datas__empty"><i class="fa-solid fa-spinner fa-spin"></i> A carregar as datas…</p>
+              </div>
+              <span class="pkg-booking__error" id="tourDateError" aria-live="polite"></span>
+            </fieldset>
 
-            <!-- Vagas na data escolhida (programa-firestore.js) -->
+            <!-- Vagas na data escolhida (datas.js) -->
             <p class="pkg-booking__vagas" id="bookingVagas" aria-live="polite" hidden></p>
 
             <p class="pkg-booking__note">
               <i class="fa-solid fa-bag-shopping"></i> Precisa de mais do que um pacote? Ajusta a quantidade no checkout.
             </p>
 
-            <button type="submit" id="addToCartBtn" class="pkg-cta-card__btn">
+            <button type="submit" id="addToCartBtn" class="pkg-cta-card__btn" disabled>
               <i class="fa-solid fa-cart-plus"></i>
               <span class="pkg-cta-card__btn-text">Embarcar</span>
             </button>
@@ -433,6 +428,7 @@
     <!-- Carrinho global primeiro -->
     <script src="../SCRIPT/cart.js"></script>
     <script src="../SCRIPT/pacotes.js"></script>
+    <script src="../SCRIPT/datas.js"></script>
     <script src="../SCRIPT/programas.js"></script>
     <script type="module" src="../SCRIPT/programa-firestore.js"></script>
     <!-- Formulário "Adicionar à Mochila" -->

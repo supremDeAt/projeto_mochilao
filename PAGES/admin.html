@@ -248,7 +248,7 @@
                       <i class="fa-solid fa-circle-info"></i> Básico
                     </a>
                     <a href="#progSecPrices" class="program-form__nav-link">
-                      <i class="fa-solid fa-tags"></i> Pacotes
+                      <i class="fa-solid fa-tags"></i> Pacotes e datas
                     </a>
                     <a href="#progSecImages" class="program-form__nav-link">
                       <i class="fa-regular fa-images"></i> Imagens
@@ -358,7 +358,7 @@
                 <fieldset class="program-form__section" id="progSecPrices">
                   <legend class="program-form__legend">
                     <span class="program-form__step">2</span>
-                    Pacotes e preços
+                    Pacotes, preços e datas
                   </legend>
                   <p class="program-form__hint">
                     Escolha os pacotes que este programa tem e o <strong>preço de cada pacote</strong>
@@ -382,6 +382,20 @@
                   <button type="button" class="dyn-add" id="addPriceTierBtn">
                     <i class="fa-solid fa-plus"></i> Adicionar pacote
                   </button>
+
+                  <!-- Datas da viagem (partida e regresso) -->
+                  <div class="field prog-datas">
+                    <label>Datas da viagem</label>
+                    <small>
+                      Partida e regresso de cada vez que o programa acontece. Com mais de uma data,
+                      o cliente escolhe no site. Sem datas, o site mostra “Datas em breve” e não deixa reservar.
+                      As datas que já passaram deixam de aparecer sozinhas.
+                    </small>
+                    <ol class="prog-datas__list" id="progDatasList"></ol>
+                    <button type="button" class="dyn-add" id="addProgDateBtn">
+                      <i class="fa-solid fa-plus"></i> Adicionar data
+                    </button>
+                  </div>
 
                   <!-- Vagas por data -->
                   <div class="field prog-vagas">
@@ -624,6 +638,22 @@
                     placeholder="O que vai acontecer neste dia..."
                     aria-label="Descrição do dia"
                   ></textarea>
+                </li>
+              </template>
+
+              <template id="tplProgDate">
+                <li class="prog-date">
+                  <label class="prog-date__field">
+                    <span>Partida</span>
+                    <input type="date" class="prog-date__inicio" />
+                  </label>
+                  <label class="prog-date__field">
+                    <span>Regresso</span>
+                    <input type="date" class="prog-date__fim" />
+                  </label>
+                  <button type="button" class="prog-date__remove" aria-label="Remover data" title="Remover">
+                    <i class="fa-regular fa-trash-can"></i>
+                  </button>
                 </li>
               </template>
 

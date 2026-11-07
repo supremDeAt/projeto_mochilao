@@ -77,6 +77,7 @@ export function normalizeReservation(raw) {
         // Pacote (Individual, Casal, Kamba…) — reservas novas
         pacote: i.pacote || "",
         pacoteId: i.pacoteId || "",
+        dataFim: i.dataFim || "",
         qtd: parseInt(i.qtd, 10) || 1,
         total: toNumber(i.total) || precoUnitario * (i.pacote ? parseInt(i.qtd, 10) || 1 : pax),
       };
@@ -427,7 +428,7 @@ export function createReservationsView({ db, getPerms, getRole, getUser, openMod
           }
           <div class="res-item__body">
             <strong>${esc(i.nome)}</strong>
-            <span>${esc(formatDate(i.data))} · ${
+            <span>${esc(formatDate(i.data))}${i.dataFim && i.dataFim !== i.data ? ` – ${esc(formatDate(i.dataFim))}` : ""} · ${
               i.pacote
                 ? `${i.qtd} × ${esc(i.pacote)}${i.precoUnitario ? ` (${esc(formatKz(i.precoUnitario))})` : ""} · ${i.pax} pessoa${i.pax === 1 ? "" : "s"}`
                 : `${i.pax || "–"} pessoa${i.pax === 1 ? "" : "s"}${i.precoUnitario ? ` × ${esc(formatKz(i.precoUnitario))}` : ""}`

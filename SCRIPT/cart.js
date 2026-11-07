@@ -288,7 +288,13 @@
       '  <div class="cart-item__info">',
       '    <h3 class="cart-item__title">' + escapeHtml(item.nome) + "</h3>",
       '    <p class="cart-item__date"><i class="fa-regular fa-calendar"></i> ' +
-        escapeHtml(formatDate(item.data)) +
+        escapeHtml(
+          item.dataFim && window.MochilaoDatas
+            ? window.MochilaoDatas.formatRange(item.data, item.dataFim)
+            : item.dataFim && item.dataFim !== item.data
+              ? formatDate(item.data) + " – " + formatDate(item.dataFim)
+              : formatDate(item.data),
+        ) +
         "</p>",
       '    <div class="cart-item__row">',
       '      <span class="cart-item__people"><i class="fa-solid ' +

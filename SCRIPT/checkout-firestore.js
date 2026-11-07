@@ -91,6 +91,21 @@ function formatDate(iso) {
   });
 }
 
+/* "20 – 22 dez 2026" (partida e regresso) */
+const MESES = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
+function formatRange(inicio, fim) {
+  const p = (iso) => String(iso || "").split("-").map(Number);
+  const [ay, am, ad] = p(inicio);
+  const [by, bm, bd] = p(fim);
+  if (!ay || !am || !ad) return formatDate(inicio);
+  const one = (y, m, d, year) => `${d} ${MESES[m - 1]}${year ? " " + y : ""}`;
+  if (!by || !bm || !bd || fim === inicio) return one(ay, am, ad, true);
+  if (ay !== by) return `${one(ay, am, ad, true)} – ${one(by, bm, bd, true)}`;
+  if (am !== bm) return `${one(ay, am, ad, false)} – ${one(by, bm, bd, true)}`;
+  return `${ad} – ${one(by, bm, bd, true)}`;
+}
+const itemDate = (item) => (item.dataFim ? formatRange(item.data, item.dataFim) : formatDate(item.data));
+
 function escapeHtml(str) {
   return String(str ?? "")
     .replace(/&/g, "&amp;")
@@ -165,7 +180,8 @@ function sanitizeItems(cart) {
       programId: String(item.programId ?? item.programaId ?? ""),
       nome: String(item.nome ?? ""),
       imagem: String(item.imagem ?? item.img ?? ""),
-      data: String(item.data ?? ""),
+      data: String(item.data ?? ""), // partida
+      dataFim: String(item.dataFim ?? item.data ?? ""), // regresso
       pax: info.pessoas, // total de pessoas da linha
       precoUnitario: info.unit,
       total: info.total,
@@ -239,7 +255,7 @@ function renderSummary(cart) {
           <div class="checkout-item__info">
             <span class="checkout-item__title">${escapeHtml(item.nome)}</span>
             <span class="checkout-item__meta">
-              ${escapeHtml(formatDate(item.data))}${unitTxt}
+              ${escapeHtml(itemDate(item))}${unitTxt}
             </span>
             <div class="checkout-pax" role="group" aria-label="${pack ? "Quantidade de pacotes" : "Número de pessoas"} — ${escapeHtml(item.nome)}">
               <button type="button" class="checkout-pax__btn" data-id="${id}" data-pax="dec"
@@ -497,7 +513,19 @@ async function reserve(clienteInfo, cart) {
       );
     }
 
-    // 3. Vagas: soma as pessoas por programa + data
+    // 3. Datas: a data tem de continuar a existir no programa
+    itens.forEach((it) => {
+      const p = progs[it.programId];
+      if (!p || !Array.isArray(p.datas) || !p.datas.length) return;
+      if (!p.datas.some((d) => d && d.inicio === it.data)) {
+        throw new CheckoutError(
+          "date",
+          `A data ${itemDate(it)} de ${it.nome} já não está disponível. Remova-a da mochila e escolha outra data.`,
+        );
+      }
+    });
+
+    // 4. Vagas: soma as pessoas por programa + data
     const groups = {};
     itens.forEach((it) => {
       if (!progs[it.programId] || !it.data) return;
@@ -524,7 +552,7 @@ async function reserve(clienteInfo, cart) {
       }
     }
 
-    // 4. Tudo certo → soma os lugares e grava a reserva
+    // 5. Tudo certo → soma os lugares e grava a reserva
     for (const [key, g] of Object.entries(groups)) {
       const ref = doc(db, "ocupacao", key);
       if (occ[key] === null) tx.set(ref, { programId: g.programId, data: g.data, pessoas: g.pessoas });

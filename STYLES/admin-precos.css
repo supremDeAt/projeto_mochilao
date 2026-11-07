@@ -298,3 +298,74 @@
   border-radius: 8px;
   background: var(--clr-red-08);
 }
+
+/* Datas da viagem (partida e regresso) */
+.prog-datas {
+  margin-top: 1.25rem;
+  padding-top: 1.1rem;
+  border-top: 1px dashed var(--clr-brown-earth-15);
+}
+.prog-datas__list {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0.6rem 0 0.4rem;
+  padding: 0;
+  list-style: none;
+}
+.prog-datas__list:empty {
+  display: none;
+}
+.prog-date {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 38px;
+  gap: 0.6rem;
+  align-items: end;
+}
+.prog-date__field {
+  display: grid;
+  gap: 0.25rem;
+  min-width: 0;
+}
+.prog-date__field span {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--clr-text-muted);
+}
+.prog-date__field input {
+  width: 100%;
+  min-width: 0;
+  border: 1.5px solid var(--clr-brown-earth-15);
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  background: var(--clr-white);
+  font: inherit;
+  font-size: 0.9rem;
+}
+.prog-date__field input:focus {
+  outline: none;
+  border-color: var(--clr-brown-mid);
+}
+.prog-date__field input.is-invalid {
+  border-color: var(--clr-red);
+}
+.prog-date.is-past .prog-date__field input {
+  opacity: 0.55;
+}
+.prog-date__remove {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 8px;
+  background: var(--clr-red-08);
+  color: var(--clr-red);
+  cursor: pointer;
+}
+.prog-date__remove:hover {
+  background: var(--clr-red);
+  color: var(--clr-white);
+}

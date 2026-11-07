@@ -571,6 +571,8 @@ const PROGRAMAS = {
 
   /* 9. Pacotes (card de reserva + "Qual pacote escolher?") — pacotes.js */
   if (window.MochilaoPacotes) window.MochilaoPacotes.render(pacotes);
+  /* 9b. Datas (programas antigos não têm datas → "Datas em breve") */
+  if (window.MochilaoDatas) window.MochilaoDatas.render({ datas: prog.datas || [] });
 
   /* 10. Inclui / Não Inclui */
   document.querySelector(".pkg-inclui__list").innerHTML = prog.inclui

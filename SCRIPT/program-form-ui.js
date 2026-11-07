@@ -59,6 +59,9 @@ export function initProgramFormUI() {
     priceTiers: $("progPriceTiers"),
     tplTier: $("tplPriceTier"),
     addTierBtn: $("addPriceTierBtn"),
+    datesList: $("progDatasList"),
+    tplDate: $("tplProgDate"),
+    addDateBtn: $("addProgDateBtn"),
     navLinks: form.querySelectorAll(".program-form__nav-link"),
   };
   els.coverPlaceholder = els.coverPreview ? els.coverPreview.innerHTML : "";
@@ -74,6 +77,9 @@ export function initProgramFormUI() {
   /* Botão "Adicionar pacote" (preços) */
   els.addTierBtn?.addEventListener("click", () => addPriceTier());
 
+  /* Botão "Adicionar data" */
+  els.addDateBtn?.addEventListener("click", () => addProgDate());
+
   /* Remover (delegação: funciona para linhas criadas depois) */
   form.addEventListener("click", (e) => {
     const rmItem = e.target.closest(".dyn-item__remove");
@@ -84,6 +90,13 @@ export function initProgramFormUI() {
 
     const rmImg = e.target.closest(".gallery-manager__remove");
     if (rmImg) return removeGalleryItem(rmImg.closest(".gallery-manager__item"));
+
+    const rmDate = e.target.closest(".prog-date__remove");
+    if (rmDate) {
+      rmDate.closest(".prog-date")?.remove();
+      els.addDateBtn?.focus();
+      return;
+    }
 
     const rmTier = e.target.closest(".price-tier__remove");
     if (rmTier) {
@@ -108,6 +121,11 @@ export function initProgramFormUI() {
     }
     if (t.tagName === "INPUT" && t.classList.contains("day-card__input")) {
       e.preventDefault();
+    }
+    // Enter numa data → não submete o formulário
+    if (t.closest?.(".prog-date")) {
+      e.preventDefault();
+      return;
     }
     // Enter num preço → novo pacote (nunca submete o formulário)
     if (t.closest?.(".price-tier")) {
@@ -504,6 +522,7 @@ export function getGalleryChanges() {
    ───────────────────────────────────────── */
 function clearDynamicState() {
   if (!els) return;
+  els.datesList?.replaceChildren();
   const occ = $("progVagasList");
   if (occ) {
     occ.hidden = true;
@@ -567,6 +586,11 @@ export function populateProgramForm(program = {}) {
   if (legacyNote) legacyNote.hidden = !stored.legacy;
   set("progStartPoint", program.pontoPartida);
   set("progVagas", parseInt(program.vagas, 10) > 0 ? parseInt(program.vagas, 10) : "");
+  els.datesList?.replaceChildren();
+  (Array.isArray(program.datas) ? program.datas : [])
+    .filter((d) => d && d.inicio)
+    .sort((a, b) => String(a.inicio).localeCompare(String(b.inicio)))
+    .forEach((d) => addProgDate(d, { focus: false }));
   renderOccupancy(program.id, parseInt(program.vagas, 10) || 0);
   const onlyCustom = $("progSoPersonalizada");
   if (onlyCustom) onlyCustom.checked = program.soPersonalizada === true;
@@ -628,6 +652,8 @@ export function getProgramFormData() {
     pontoPartida: val("progStartPoint"),
     // Lugares por data (0 = sem limite)
     vagas: Math.max(0, Math.min(999, parseInt(val("progVagas"), 10) || 0)),
+    // Datas da viagem: [{ inicio, fim }] por ordem
+    datas: getProgDates(),
     // true = só aparece na página Viagens Personalizadas
     soPersonalizada: $("progSoPersonalizada")?.checked === true,
     descricao: val("progDesc"),
@@ -680,6 +706,18 @@ export function validateProgramForm({ isNew = false } = {}) {
   if (isNew && !state.coverFile) {
     mark(els.coverInput?.nextElementSibling, "A imagem de capa é obrigatória.");
   }
+
+  // Datas: partida obrigatória, regresso igual ou depois da partida, sem repetir
+  const seenDates = new Set();
+  getDateRows().forEach((r, i) => {
+    const ini = r.inicio.value;
+    const fim = r.fim.value;
+    if (!ini && !fim) return; // linha vazia é ignorada
+    if (!ini) mark(r.inicio, `Data ${i + 1}: indique o dia de partida.`);
+    else if (fim && fim < ini) mark(r.fim, `Data ${i + 1}: o regresso não pode ser antes da partida.`);
+    else if (seenDates.has(ini)) mark(r.inicio, `Data ${i + 1}: esta partida já existe.`);
+    seenDates.add(ini);
+  });
 
   // Dias com conteúdo mas sem título
   els.itinerary?.querySelectorAll(".day-card").forEach((card, i) => {
@@ -778,4 +816,51 @@ async function renderOccupancy(programId, vagas) {
     console.warn("[vagas] Não foi possível ler as datas reservadas:", err);
     box.hidden = true;
   }
+}
+
+/* ─────────────────────────────────────────
+   DATAS DA VIAGEM (partida e regresso)
+   Guardadas no programa como datas: [{ inicio: "AAAA-MM-DD", fim: "AAAA-MM-DD" }]
+   ───────────────────────────────────────── */
+export function addProgDate(data = {}, opts = {}) {
+  if (!els?.datesList || !els.tplDate) return null;
+  const { focus = true } = opts;
+  const li = els.tplDate.content.firstElementChild.cloneNode(true);
+  const ini = li.querySelector(".prog-date__inicio");
+  const fim = li.querySelector(".prog-date__fim");
+  ini.value = data.inicio || "";
+  fim.value = data.fim || "";
+  // form.reset() não apaga as datas carregadas
+  ini.defaultValue = ini.value;
+  fim.defaultValue = fim.value;
+  // Regresso não pode ser antes da partida
+  const sync = () => {
+    fim.min = ini.value || "";
+    if (ini.value && (!fim.value || fim.value < ini.value)) fim.value = ini.value;
+  };
+  ini.addEventListener("change", sync);
+  sync();
+  const today = new Date().toISOString().slice(0, 10);
+  li.classList.toggle("is-past", !!ini.value && (fim.value || ini.value) < today);
+  els.datesList.appendChild(li);
+  if (focus) ini.focus();
+  return li;
+}
+
+function getDateRows() {
+  if (!els?.datesList) return [];
+  return Array.from(els.datesList.querySelectorAll(".prog-date")).map((li) => ({
+    li,
+    inicio: li.querySelector(".prog-date__inicio"),
+    fim: li.querySelector(".prog-date__fim"),
+  }));
+}
+
+/** Datas válidas, sem repetir, por ordem */
+export function getProgDates() {
+  const seen = new Set();
+  return getDateRows()
+    .map((r) => ({ inicio: r.inicio.value, fim: r.fim.value || r.inicio.value }))
+    .filter((d) => d.inicio && d.fim >= d.inicio && !seen.has(d.inicio) && seen.add(d.inicio))
+    .sort((a, b) => a.inicio.localeCompare(b.inicio));
 }
