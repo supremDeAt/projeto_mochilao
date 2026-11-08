@@ -596,3 +596,11 @@ function applyNewPrices(changes = []) {
   }
   renderSummary(cart);
 })();
+
+// Voltou ao checkout com o botão "Voltar" (cache do browser): mostra a mochila atual
+window.addEventListener("pageshow", (e) => {
+  if (!e.persisted) return;
+  const cart = getCart();
+  if (!cart.length) window.location.replace(HOME_URL);
+  else renderSummary(cart);
+});

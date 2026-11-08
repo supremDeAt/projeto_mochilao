@@ -427,6 +427,17 @@
 
     // Outros scripts (programa-cart.js, checkout) mudaram a mochila
     window.addEventListener("cartUpdated", updateCartUI);
+
+    // Página reaberta com o botão "Voltar" (cache do browser, sobretudo
+    // Safari/telemóvel): a página volta como estava, com a mochila antiga.
+    // Lê sempre a mochila de novo quando a página aparece.
+    window.addEventListener("pageshow", function (e) {
+      if (e.persisted) updateCartUI();
+    });
+    document.addEventListener("visibilitychange", function () {
+      if (!document.hidden) updateCartUI();
+    });
+    window.addEventListener("focus", updateCartUI);
   }
 
   /* ─────────────────────────────────────────
