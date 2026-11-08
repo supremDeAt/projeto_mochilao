@@ -4019,6 +4019,13 @@ body.cart-is-open {
   font-weight: 500;
   color: var(--clr-text-muted);
 }
+.cart-item__note {
+  margin: 0.35rem 0 0;
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  line-height: 1.4;
+  color: var(--clr-text-muted);
+}
 
 .cart-item__remove {
   position: absolute;

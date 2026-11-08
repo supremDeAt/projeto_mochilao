@@ -301,9 +301,10 @@
         (isPackage(item) ? "fa-ticket" : "fa-user-group") +
         '"></i> ' +
         escapeHtml(itemPeopleText(item)) +
-        ' <small>· altera no checkout</small></span>',
+        "</span>",
       '      <strong class="cart-item__price">' + preco + "</strong>",
       "    </div>",
+      '    <p class="cart-item__note">Pode alterar a quantidade ao finalizar a reserva.</p>',
       "  </div>",
       '  <button type="button" class="cart-item__remove" data-action="remove" data-id="' + id + '" aria-label="Remover ' + escapeHtml(item.nome) + '">',
       '    <i class="fa-regular fa-trash-can"></i>',
