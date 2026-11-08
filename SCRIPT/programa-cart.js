@@ -59,7 +59,9 @@
     const img =
       document.querySelector(".pkg-img-box img") ||
       document.querySelector(".pkg-gallery__img");
-    return img ? img.getAttribute("src") : "";
+    const src = img ? img.getAttribute("src") || "" : "";
+    // Foto em Base64 (programas antigos) é enorme: não vai para a mochila
+    return /^data:/.test(src) ? "" : src;
   }
 
   /** Pacote escolhido: { tipo, nome, pessoas, valor } ou null */
@@ -88,6 +90,35 @@
     }
   }
 
+  /** Grava a mochila. Se o browser recusar (memória cheia, modo privado),
+      tenta de novo sem as fotos, que são o que ocupa mais espaço. */
+  function writeCart(cart) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+      return true;
+    } catch (e) {
+      try {
+        const light = cart.map(function (i) {
+          return Object.assign({}, i, { imagem: /^data:/.test(i.imagem || "") ? "" : i.imagem });
+        });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(light));
+        return true;
+      } catch (e2) {
+        console.warn("[mochila] Não foi possível gravar:", e2);
+        return false;
+      }
+    }
+  }
+
+  /** Mostra logo a mochila atualizada (contador + gaveta) */
+  function refreshCart() {
+    window.dispatchEvent(new Event("cartUpdated"));
+    if (window.MochilaoCart && typeof window.MochilaoCart.updateCartUI === "function") {
+      window.MochilaoCart.updateCartUI();
+    }
+  }
+
+  /** true = novo · false = já estava · null = não gravou */
   function addToCart(item) {
     const cart = readCart();
     const existing = cart.find(function (i) {
@@ -97,14 +128,16 @@
       // Mesmo programa + data + pacote já na mochila: a quantidade muda-se no checkout
       existing.precoUnitario = item.precoUnitario;
       existing.total = item.precoUnitario * (parseInt(existing.qtd, 10) || 1);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
-      window.dispatchEvent(new Event("cartUpdated"));
-      return false;
+      // dados novos do programa (nome, foto, regresso) sem mexer na quantidade
+      existing.nome = item.nome;
+      existing.imagem = item.imagem || existing.imagem;
+      existing.dataFim = item.dataFim;
+    } else {
+      cart.push(item);
     }
-    cart.push(item);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
-    window.dispatchEvent(new Event("cartUpdated"));
-    return true;
+    if (!writeCart(cart)) return null;
+    refreshCart();
+    return !existing;
   }
 
   function flashButton(label) {
@@ -199,6 +232,10 @@
       total: pkg.valor,
     });
 
+    if (added === null) {
+      setError("Não foi possível guardar na mochila. Verifique se o browser não está em modo privado.");
+      return;
+    }
     flashButton(added ? "Adicionado à Mochila" : "Já está na Mochila");
     if (window.MochilaoCart) window.MochilaoCart.openCart();
   });

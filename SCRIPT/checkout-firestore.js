@@ -8,7 +8,10 @@
       (Individual, Casal, Kamba… — preço fechado por pacote).
       Viagens antigas sem pacote: − / + muda o nº de pessoas
       (preço por pessoa da tabela "precos").
-   2. Valida Nome / Email / Telefone
+   2. Valida Nome / Email / Telefone / Nacionalidade do cliente
+      e os ACOMPANHANTES: por cada pessoa a mais na reserva aparece um
+      bloco (Nome, Telefone, Nacionalidade, Email opcional). Ex.: 1 Casal
+      = 2 pessoas → 1 acompanhante; 2 Casal = 4 pessoas → 3 acompanhantes.
    3. Confirma no Firestore, numa só transação:
         • o preço de cada pacote (igual ao do programa no painel)
         • as vagas da data (programs/{id}.vagas vs ocupacao/{id}__{data})
@@ -17,6 +20,7 @@
    ===================================================== */
 
 import { db } from "./firebase-config.js";
+import { PAIS_PADRAO, paisValido, garantirDatalist } from "./paises.js";
 
 // ⚠️ A versão (12.x.x) TEM de ser igual à usada no firebase-config.js,
 //    senão o Firestore dá erro "Type does not match the expected instance".
@@ -49,6 +53,8 @@ const els = {
   nome: document.getElementById("clienteNome"),
   email: document.getElementById("clienteEmail"),
   telefone: document.getElementById("clienteTelefone"),
+  nacionalidade: document.getElementById("clienteNacionalidade"),
+  companions: document.getElementById("checkoutCompanions"),
   items: document.getElementById("checkoutItems"),
   subtotal: document.getElementById("checkoutSubtotal"),
   total: document.getElementById("checkoutTotal"),
@@ -274,7 +280,143 @@ function renderSummary(cart) {
   const total = getTotal(cart);
   els.subtotal.textContent = formatKz(total);
   els.total.textContent = formatKz(total);
+  renderCompanions(cart);
 }
+
+/* ─────────────────────────────────────────
+   5b. ACOMPANHANTES
+   Um bloco por cada pessoa a mais em cada viagem. O que já foi escrito
+   fica guardado em memória: ao mudar a quantidade, nada se perde.
+   ───────────────────────────────────────── */
+const companionData = {}; // "itemId#n" → { nome, telefone, email, nacionalidade }
+const COMP_FIELDS = ["nome", "telefone", "email", "nacionalidade"];
+
+/** Acompanhantes pedidos: [{ key, item, n }] */
+function companionSlots(cart) {
+  const slots = [];
+  cart.forEach((item) => {
+    const extra = Math.max(0, lineInfo(item).pessoas - 1);
+    for (let n = 1; n <= extra; n++) slots.push({ key: `${item.id}#${n}`, item, n });
+  });
+  return slots;
+}
+
+function saveCompanionInputs() {
+  els.companions?.querySelectorAll("[data-comp]").forEach((input) => {
+    const key = input.dataset.comp;
+    companionData[key] ||= {};
+    companionData[key][input.dataset.field] = input.value;
+  });
+}
+
+function renderCompanions(cart) {
+  if (!els.companions) return;
+  saveCompanionInputs();
+  const slots = companionSlots(cart);
+  if (!slots.length) {
+    els.companions.hidden = true;
+    els.companions.innerHTML = "";
+    return;
+  }
+  const multiTrip = new Set(slots.map((s) => s.item.id)).size > 1;
+  let lastTrip = null;
+  let count = 0;
+  const html = slots
+    .map(({ key, item, n }) => {
+      const d = companionData[key] || {};
+      const uid = "comp" + ++count;
+      const val = (f, fallback = "") => escapeHtml(d[f] ?? fallback);
+      const head =
+        multiTrip && lastTrip !== item.id
+          ? `<p class="checkout-companions__trip"><i class="fa-solid fa-route"></i> ${escapeHtml(item.nome)} · ${escapeHtml(itemDate(item))}</p>`
+          : "";
+      lastTrip = item.id;
+      const field = (f, label, type, extra = "", req = true) => `
+          <div class="checkout-form__field">
+            <label for="${uid}-${f}" class="checkout-form__label">
+              ${label} ${req ? '<span class="checkout-form__req">*</span>' : '<span class="checkout-companion__opt">(opcional)</span>'}
+            </label>
+            <input type="${type}" id="${uid}-${f}" class="checkout-form__input" data-comp="${escapeHtml(key)}" data-field="${f}" ${extra} />
+            <span class="checkout-form__error" data-error-for="${uid}-${f}"></span>
+          </div>`;
+      return `${head}
+        <div class="checkout-companion" data-slot="${escapeHtml(key)}">
+          <p class="checkout-companion__title"><span class="checkout-companion__num">${n}</span> Acompanhante ${n}</p>
+          ${field("nome", "Nome completo", "text", `value="${val("nome")}" placeholder="Nome completo do acompanhante" autocomplete="off"`)}
+          <div class="checkout-form__row">
+            ${field("telefone", "Telefone / WhatsApp", "tel", `value="${val("telefone")}" placeholder="+244 9XX XXX XXX" inputmode="tel" autocomplete="off"`)}
+            ${field("nacionalidade", "Nacionalidade", "text", `value="${val("nacionalidade", PAIS_PADRAO)}" list="listaPaises" placeholder="Escreva para procurar o país" autocomplete="off"`)}
+          </div>
+          ${field("email", "Email", "email", `value="${val("email")}" placeholder="exemplo@gmail.com" autocomplete="off"`, false)}
+        </div>`;
+    })
+    .join("");
+  const total = slots.length;
+  els.companions.innerHTML = `
+    <p class="checkout-companions__intro">
+      <i class="fa-solid fa-user-group"></i>
+      ${total === 1 ? "A reserva inclui mais 1 pessoa." : `A reserva inclui mais ${total} pessoas.`}
+      Indique os dados de ${total === 1 ? "quem vai consigo" : "cada pessoa que vai consigo"}.
+    </p>${html}`;
+  els.companions.hidden = false;
+}
+
+/** Valida e devolve os acompanhantes, ou null (com o 1.º campo errado focado) */
+function validateCompanions(cart, firstInvalidRef) {
+  saveCompanionInputs();
+  const list = [];
+  companionSlots(cart).forEach(({ key, item, n }) => {
+    const box = els.companions.querySelector(`[data-slot="${CSS.escape(key)}"]`);
+    const input = (f) => box?.querySelector(`[data-field="${f}"]`);
+    const d = companionData[key] || {};
+    const nome = String(d.nome || "").trim().replace(/\s+/g, " ");
+    const telefone = String(d.telefone || "").trim();
+    const email = String(d.email || "").trim().toLowerCase();
+    const nacionalidade = paisValido(d.nacionalidade);
+    const tel = telefone.replace(/\D/g, "");
+    const checks = [
+      ["nome", nome.length < 3 ? "Indique o nome completo." : ""],
+      ["telefone", tel.length < 9 || tel.length > 15 ? "Indique um telefone válido." : ""],
+      ["nacionalidade", !nacionalidade ? "Escolha um país da lista." : ""],
+      ["email", email && !EMAIL_RE.test(email) ? "Email inválido (ou deixe em branco)." : ""],
+    ];
+    checks.forEach(([f, msg]) => {
+      const el = input(f);
+      if (!el) return;
+      setFieldError(el, msg);
+      if (msg && !firstInvalidRef.el) firstInvalidRef.el = el;
+    });
+    if (nacionalidade && input("nacionalidade")) input("nacionalidade").value = nacionalidade;
+    list.push({
+      programId: String(item.programId ?? ""),
+      programa: String(item.nome ?? ""),
+      data: String(item.data ?? ""),
+      numero: n,
+      nome,
+      telefone,
+      email,
+      nacionalidade,
+    });
+  });
+  return list;
+}
+
+// Nacionalidade: ao entrar no campo, seleciona o texto → basta escrever para procurar
+document.addEventListener("focusin", (e) => {
+  const input = e.target;
+  if (input instanceof HTMLInputElement && input.getAttribute("list") === "listaPaises") {
+    setTimeout(() => input.select(), 0);
+  }
+});
+
+// Limpa o erro de um acompanhante assim que o campo é corrigido
+els.companions?.addEventListener("input", (e) => {
+  const input = e.target.closest("[data-comp]");
+  if (!input) return;
+  companionData[input.dataset.comp] ||= {};
+  companionData[input.dataset.comp][input.dataset.field] = input.value;
+  if (input.classList.contains("is-invalid")) setFieldError(input, "");
+});
 
 /* ─────────────────────────────────────────
    6. VALIDAÇÃO
@@ -290,6 +432,7 @@ function setFieldError(input, msg) {
 
 function validate() {
   const nome = els.nome.value.trim().replace(/\s+/g, " ");
+  const nacionalidade = paisValido(els.nacionalidade?.value);
   const email = els.email.value.trim().toLowerCase();
   const telefone = els.telefone.value.trim();
   const telDigits = telefone.replace(/\D/g, "");
@@ -304,6 +447,9 @@ function validate() {
         : "",
     ],
   ];
+  if (els.nacionalidade) {
+    errors.push([els.nacionalidade, !nacionalidade ? "Escolha o seu país na lista." : ""]);
+  }
 
   let firstInvalid = null;
   errors.forEach(([input, msg]) => {
@@ -311,11 +457,16 @@ function validate() {
     if (msg && !firstInvalid) firstInvalid = input;
   });
 
-  if (firstInvalid) {
-    firstInvalid.focus();
+  const ref = { el: firstInvalid };
+  const acompanhantes = validateCompanions(getCart(), ref);
+
+  if (ref.el) {
+    ref.el.focus();
+    ref.el.scrollIntoView({ behavior: "smooth", block: "center" });
     return null;
   }
-  return { nome, email, telefone };
+  if (els.nacionalidade) els.nacionalidade.value = nacionalidade;
+  return { clienteInfo: { nome, email, telefone, nacionalidade }, acompanhantes };
 }
 
 // − / + do número de pessoas em cada viagem
@@ -330,7 +481,7 @@ els.items.addEventListener("click", (e) => {
 });
 
 // Limpa o erro assim que o utilizador corrige o campo
-[els.nome, els.email, els.telefone].forEach((input) =>
+[els.nome, els.email, els.telefone, els.nacionalidade].filter(Boolean).forEach((input) =>
   input.addEventListener("input", () => {
     if (input.classList.contains("is-invalid")) setFieldError(input, "");
   }),
@@ -418,8 +569,9 @@ els.form.addEventListener("submit", async (e) => {
   if (submitting) return; // evita duplo clique
   showGeneralError("");
 
-  const clienteInfo = validate();
-  if (!clienteInfo) return;
+  const dados = validate();
+  if (!dados) return;
+  const { clienteInfo, acompanhantes } = dados;
 
   const cart = getCart();
   if (!cart.length) {
@@ -430,7 +582,7 @@ els.form.addEventListener("submit", async (e) => {
   setLoading(true);
 
   try {
-    const { id, total } = await reserve(clienteInfo, cart);
+    const { id, total } = await reserve(clienteInfo, cart, acompanhantes);
 
     // Limpa o carrinho e avisa o resto do site
     localStorage.removeItem(STORAGE_KEY);
@@ -469,7 +621,7 @@ class CheckoutError extends Error {
 
 const fmtDate = (iso) => formatDate(iso);
 
-async function reserve(clienteInfo, cart) {
+async function reserve(clienteInfo, cart, acompanhantes = []) {
   return runTransaction(db, async (tx) => {
     const itens = sanitizeItems(cart);
 
@@ -563,6 +715,7 @@ async function reserve(clienteInfo, cart) {
     tx.set(resRef, {
       clienteInfo,
       itens,
+      acompanhantes,
       total,
       status: STATUS_INICIAL,
       dataPedido: serverTimestamp(),
@@ -589,6 +742,7 @@ function applyNewPrices(changes = []) {
    10. INIT
    ───────────────────────────────────────── */
 (function init() {
+  garantirDatalist();
   const cart = getCart();
   if (!cart.length) {
     window.location.replace(HOME_URL);
@@ -596,3 +750,11 @@ function applyNewPrices(changes = []) {
   }
   renderSummary(cart);
 })();
+
+// Voltou ao checkout com o botão "Voltar" (cache do browser): mostra a mochila atual
+window.addEventListener("pageshow", (e) => {
+  if (!e.persisted) return;
+  const cart = getCart();
+  if (!cart.length) window.location.replace(HOME_URL);
+  else renderSummary(cart);
+});

@@ -2596,6 +2596,22 @@ input[type="number"]::-webkit-inner-spin-button {
   line-height: 1;
 }
 
+/* Index: Data + Preço lado a lado (passam para baixo se não couberem) */
+.package-card__meta {
+  flex-wrap: wrap;
+  justify-content: space-between;
+  row-gap: 0.75rem;
+}
+.package-card__meta-value--date {
+  color: var(--clr-brown-deep);
+}
+.package-card__meta-more {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--clr-text-muted);
+  white-space: nowrap;
+}
+
 .package-card__actions {
   margin-top: 0.75rem;
 }

@@ -109,7 +109,17 @@ export function normalizeReservation(raw) {
       nome: cliente.nome || "Cliente sem nome",
       email: cliente.email || "",
       telefone: cliente.telefone || "",
+      nacionalidade: cliente.nacionalidade || "",
     },
+    // Pessoas que vão com o cliente (checkout: uma por cada pessoa a mais)
+    acompanhantes: (Array.isArray(r.acompanhantes) ? r.acompanhantes : []).map((a) => ({
+      nome: String(a?.nome || ""),
+      telefone: String(a?.telefone || ""),
+      email: String(a?.email || ""),
+      nacionalidade: String(a?.nacionalidade || ""),
+      programa: String(a?.programa || ""),
+      data: String(a?.data || ""),
+    })),
     itens,
     total,
     pax,
@@ -122,7 +132,14 @@ export function normalizeReservation(raw) {
     legacy: !Array.isArray(r.itens),
   };
   res.programas = itens.map((i) => (i.pacote ? `${i.nome} (${i.qtd > 1 ? i.qtd + " × " : ""}${i.pacote})` : i.nome)).join(", ");
-  res.search = searchable(res.ref, res.cliente.nome, res.cliente.email, res.cliente.telefone, res.programas);
+  res.search = searchable(
+    res.ref,
+    res.cliente.nome,
+    res.cliente.email,
+    res.cliente.telefone,
+    res.programas,
+    ...res.acompanhantes.map((a) => a.nome + " " + a.telefone),
+  );
   return res;
 }
 
@@ -367,7 +384,7 @@ export function createReservationsView({ db, getPerms, getRole, getUser, openMod
   exportBtn?.addEventListener("click", () => {
     const rows = visible();
     if (!rows.length) return toast("Não há reservas para exportar.", "info");
-    const data = [["Referência", "Pedido em", "Cliente", "Email", "Telefone", "Programas", "Data da viagem", "Pessoas", "Total (Kz)", "Estado", "Notas"]];
+    const data = [["Referência", "Pedido em", "Cliente", "Email", "Telefone", "Nacionalidade", "Programas", "Data da viagem", "Pessoas", "Acompanhantes", "Total (Kz)", "Estado", "Notas"]];
     rows.forEach((r) =>
       data.push([
         r.ref,
@@ -375,9 +392,11 @@ export function createReservationsView({ db, getPerms, getRole, getUser, openMod
         r.cliente.nome,
         r.cliente.email,
         r.cliente.telefone,
+        r.cliente.nacionalidade,
         r.programas,
         formatDate(r.viagem),
         r.pax,
+        r.acompanhantes.map((a) => [a.nome, a.telefone, a.nacionalidade].filter(Boolean).join(" / ")).join("; "),
         r.total,
         r.status,
         r.notas,
@@ -460,13 +479,39 @@ export function createReservationsView({ db, getPerms, getRole, getUser, openMod
         <section class="detail-block">
           <h4 class="detail-block__title">Cliente</h4>
           <p class="detail-block__name">${esc(r.cliente.nome)}</p>
-          <p class="cell-sub">${esc(r.cliente.email || "sem email")} · ${esc(r.cliente.telefone || "sem telefone")}</p>
+          <p class="cell-sub">${esc(r.cliente.email || "sem email")} · ${esc(r.cliente.telefone || "sem telefone")}${
+            r.cliente.nacionalidade ? ` · ${esc(r.cliente.nacionalidade)}` : ""
+          }</p>
           <div class="detail-actions">
             ${wpp ? `<a href="${esc(wpp)}" target="_blank" rel="noopener" class="btn btn--sm btn--wpp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>` : ""}
             ${r.cliente.telefone ? `<a href="tel:${esc(r.cliente.telefone.replace(/\s/g, ""))}" class="btn btn--outline btn--sm"><i class="fa-solid fa-phone"></i> Ligar</a>` : ""}
             ${r.cliente.email ? `<a href="mailto:${esc(r.cliente.email)}?subject=${encodeURIComponent("Reserva " + r.ref + " — O Mochilão")}" class="btn btn--outline btn--sm"><i class="fa-solid fa-envelope"></i> Email</a>` : ""}
           </div>
         </section>
+
+        ${
+          r.acompanhantes.length
+            ? `<section class="detail-block">
+                <h4 class="detail-block__title">Acompanhantes (${r.acompanhantes.length})</h4>
+                <ul class="res-companions">${r.acompanhantes
+                  .map((a, i) => {
+                    const prev = r.acompanhantes[i - 1];
+                    const multi = new Set(r.acompanhantes.map((x) => x.programa + x.data)).size > 1;
+                    const head =
+                      multi && (!prev || prev.programa + prev.data !== a.programa + a.data)
+                        ? `<li class="res-companions__trip">${esc(a.programa)}</li>`
+                        : "";
+                    const wa = waLink(a.telefone, `Olá ${a.nome.split(" ")[0]}! Somos O Mochilão Aventuras, a propósito da reserva ${r.ref}.`);
+                    return `${head}<li class="res-companion">
+                      <strong>${esc(a.nome || "Sem nome")}</strong>
+                      <span class="cell-sub">${esc(a.telefone || "sem telefone")}${a.email ? " · " + esc(a.email) : ""}${a.nacionalidade ? " · " + esc(a.nacionalidade) : ""}</span>
+                      ${wa ? `<a href="${esc(wa)}" target="_blank" rel="noopener" class="res-companion__wa" aria-label="WhatsApp de ${esc(a.nome)}"><i class="fa-brands fa-whatsapp"></i></a>` : ""}
+                    </li>`;
+                  })
+                  .join("")}</ul>
+              </section>`
+            : ""
+        }
 
         <section class="detail-block">
           <h4 class="detail-block__title">Programas</h4>

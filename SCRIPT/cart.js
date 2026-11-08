@@ -408,10 +408,13 @@
       });
     }
 
-    // Bloquear checkout com mochila vazia
+    // Finalizar Reserva: vai para o checkout (mesmo que o botão não seja um link)
+    // e não deixa avançar com a mochila vazia
     if (els.checkout) {
       els.checkout.addEventListener("click", function (e) {
-        if (getCartCount() === 0) e.preventDefault();
+        e.preventDefault();
+        if (getCartCount() === 0) return;
+        window.location.href = CHECKOUT_URL;
       });
     }
 
@@ -427,6 +430,17 @@
 
     // Outros scripts (programa-cart.js, checkout) mudaram a mochila
     window.addEventListener("cartUpdated", updateCartUI);
+
+    // Página reaberta com o botão "Voltar" (cache do browser, sobretudo
+    // Safari/telemóvel): a página volta como estava, com a mochila antiga.
+    // Lê sempre a mochila de novo quando a página aparece.
+    window.addEventListener("pageshow", function (e) {
+      if (e.persisted) updateCartUI();
+    });
+    document.addEventListener("visibilitychange", function () {
+      if (!document.hidden) updateCartUI();
+    });
+    window.addEventListener("focus", updateCartUI);
   }
 
   /* ─────────────────────────────────────────
