@@ -408,10 +408,13 @@
       });
     }
 
-    // Bloquear checkout com mochila vazia
+    // Finalizar Reserva: vai para o checkout (mesmo que o botão não seja um link)
+    // e não deixa avançar com a mochila vazia
     if (els.checkout) {
       els.checkout.addEventListener("click", function (e) {
-        if (getCartCount() === 0) e.preventDefault();
+        e.preventDefault();
+        if (getCartCount() === 0) return;
+        window.location.href = CHECKOUT_URL;
       });
     }
 
