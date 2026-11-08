@@ -376,7 +376,9 @@ p {
     var(--pad-lateral),
     calc((100vw - var(--content-max-width)) / 2)
   );
-  
+  background-image:
+    linear-gradient(to bottom, var(--clr-rust-1e) 0%, var(--clr-rust-1e) 100%),
+    var(--hero-image, url("../imagens/fundo_kifuka2.jpeg"));
 
   background-size: cover;
   background-position: center;
