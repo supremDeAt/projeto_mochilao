@@ -304,6 +304,16 @@ export function createReservationsView({ db, getPerms, getRole, getUser, openMod
           <td>
             <strong>${esc(r.cliente.nome)}</strong>
             <div class="cell-sub">${esc(r.cliente.telefone || r.cliente.email || "")}</div>
+            ${
+              r.acompanhantes.length
+                ? `<div class="res-comp-tag" title="${esc(r.acompanhantes.map((a) => a.nome).join(", "))}">
+                    <i class="fa-solid fa-user-group"></i>
+                    + ${esc(r.acompanhantes[0].nome.split(" ")[0] || "Acompanhante")}${
+                      r.acompanhantes.length > 1 ? ` e mais ${r.acompanhantes.length - 1}` : ""
+                    }
+                  </div>`
+                : ""
+            }
           </td>
           <td class="cell-truncate">${esc(r.itens[0].nome)}${extra}</td>
           <td style="white-space:nowrap">${esc(formatDate(r.viagem))}</td>
