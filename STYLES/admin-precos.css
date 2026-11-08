@@ -369,3 +369,44 @@
   background: var(--clr-red);
   color: var(--clr-white);
 }
+
+/* ── Reservas: acompanhantes ── */
+.res-companions {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.res-companions__trip {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.7;
+  margin-top: 0.35rem;
+}
+.res-companion {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  column-gap: 0.75rem;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+}
+.res-companion .cell-sub {
+  grid-column: 1;
+}
+.res-companion__wa {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--clr-whatsapp, #25d366);
+  color: #fff;
+}

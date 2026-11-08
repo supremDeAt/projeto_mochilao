@@ -106,6 +106,30 @@
                 <span class="checkout-form__error" data-error-for="clienteTelefone"></span>
               </div>
             </div>
+
+            <div class="checkout-form__row">
+              <div class="checkout-form__field">
+                <label for="clienteNacionalidade" class="checkout-form__label">
+                  Nacionalidade <span class="checkout-form__req">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="clienteNacionalidade"
+                  name="nacionalidade"
+                  class="checkout-form__input checkout-form__input--pais"
+                  list="listaPaises"
+                  value="Angola"
+                  placeholder="Escreva para procurar o país"
+                  autocomplete="country-name"
+                  required
+                />
+                <span class="checkout-form__error" data-error-for="clienteNacionalidade"></span>
+              </div>
+            </div>
+
+            <!-- Acompanhantes: um bloco por cada pessoa a mais na reserva
+                 (preenchido pelo checkout-firestore.js) -->
+            <div class="checkout-companions" id="checkoutCompanions" hidden></div>
           </fieldset>
 
           <!-- Método de Pagamento -->
