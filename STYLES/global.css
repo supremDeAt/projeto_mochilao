@@ -475,7 +475,7 @@ body > .float-btn--top,
 
 .footer__main {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
   gap: 3rem;
   padding-bottom: 2.5rem;
   border-bottom: 1px solid var(--clr-white-08);
@@ -545,39 +545,7 @@ body > .float-btn--top,
   font-size: 0.8rem;
   color: var(--clr-white-30);
 }
-.footer__bottom {
-  gap: 1rem;
-  flex-wrap: wrap;
-}
 
-/* Botões "Política de Privacidade" e "Termos e Condições" */
-.footer__legal {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.6rem;
-}
-.footer__legal-btn {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.45rem 1rem;
-  border: 1px solid var(--clr-white-15, rgba(255, 255, 255, 0.15));
-  border-radius: 999px;
-  font-family: var(--font-ui);
-  font-size: 0.75rem;
-  letter-spacing: 0.02em;
-  color: var(--clr-white-55);
-  transition:
-    color var(--ease-std),
-    border-color var(--ease-std),
-    background var(--ease-std);
-}
-.footer__legal-btn:hover,
-.footer__legal-btn:focus-visible {
-  color: var(--clr-white);
-  border-color: var(--clr-tan);
-  background: var(--clr-white-06, rgba(255, 255, 255, 0.06));
-}
 
 
 /* ─────────────────────────────────────────
@@ -609,7 +577,7 @@ body > .float-btn--top,
     padding: 1rem 1.5rem;
   }
   .footer__main {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
   }
   .footer__brand {
     grid-column: 1 / -1;
@@ -629,7 +597,7 @@ body > .float-btn--top,
   }
   .footer__bottom {
     flex-direction: column;
-    gap: 0.9rem;
+    gap: 0.5rem;
     text-align: center;
   }
 }
