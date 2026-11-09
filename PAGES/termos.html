@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Termos e Condições — O Mochilão Aventuras</title>
+    <meta name="description" content="Condições de reserva, pagamento e cancelamento das viagens de O Mochilão Aventuras." />
+
+    <link rel="icon" href="../imagens/logo5.png" />
+    <link rel="stylesheet" href="../STYLES/estilo.css" />
+    <link rel="stylesheet" href="../STYLES/legal.css" />
+
+    <!-- Flag icons (bandeiras reais, funciona em todos os browsers) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/6.11.0/css/flag-icons.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Google Fonts — fallback caso Nekst não carregue -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+  </head>
+  <body class="legal-page">
+    <!-- ======= NAVBAR ======= -->
+    <header class="navbar" id="navbar">
+      <a href="../index.html" class="navbar__brand">
+       
+        <img src="../imagens/Sem Título-3.png" alt="" class="navbar__logo" />
+      </a>
+
+      <nav class="navbar__links" id="navLinks">
+        <a href="../index.html#tours" class="navbar__link" data-i18n="nav.tours">Viagens</a>
+        <a href="../index.html#gallery" class="navbar__link" data-i18n="nav.gallery"
+          >Galeria</a
+        >
+        <a href="../index.html#custom" class="navbar__link" data-i18n="nav.custom"
+          >Personalizado</a
+        >
+        <a href="../index.html#services" class="navbar__link" data-i18n="nav.services"
+          >Serviços</a
+        >
+        <a href="../index.html#about" class="navbar__link" data-i18n="nav.about">Sobre</a>
+        <a href="../index.html#tips" class="navbar__link" data-i18n="nav.tips">Dicas</a>
+        <a
+          href="../index.html#contact"
+          class="navbar__link navbar__link--cta"
+          data-i18n="nav.contact"
+          >Fale Connosco</a
+        >
+      </nav>
+
+      <button
+        class="navbar__lang"
+        id="langBtn"
+        aria-label="Mudar idioma"
+        title="Mudar idioma"
+      >
+        <!-- Bandeira Angola (PT) -->
+        <span class="navbar__lang-flag navbar__lang-pt" aria-label="Português">
+          <span class="fi fi-ao" role="img" aria-label="Angola"></span>
+          <span class="navbar__lang-label">PT</span>
+        </span>
+        <!-- Bandeira UK (EN) -->
+        <span class="navbar__lang-flag navbar__lang-en" aria-label="English">
+          <span class="fi fi-gb" role="img" aria-label="English"></span>
+          <span class="navbar__lang-label">EN</span>
+        </span>
+      </button>
+
+      <button
+        class="navbar__burger"
+        id="burgerBtn"
+        aria-label="Abrir menu"
+        aria-expanded="false"
+      >
+        <span class="navbar__burger-line"></span>
+        <span class="navbar__burger-line"></span>
+        <span class="navbar__burger-line"></span>
+      </button>
+    </header>
+
+    <!-- ======= SIDEBAR / DRAWER DE NAVEGAÇÃO ======= -->
+    <div class="sidebar__overlay" id="sidebarOverlay"></div>
+    <aside class="sidebar" id="sidebar">
+      <button class="sidebar__close" id="closeBtn" aria-label="Fechar menu">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <nav class="sidebar__nav">
+        <a href="../index.html#hero" class="sidebar__link">Início</a>
+        <a href="../index.html#tours" class="sidebar__link">Viagens</a>
+        <a href="../index.html#gallery" class="sidebar__link">Galeria</a>
+        <a href="../index.html#custom" class="sidebar__link">Personalizado</a>
+        <a href="../index.html#services" class="sidebar__link">Serviços</a>
+        <a href="../index.html#about" class="sidebar__link">Sobre</a>
+        <a href="../index.html#team" class="sidebar__link">Equipa</a>
+        <a href="../index.html#tips" class="sidebar__link">Dicas</a>
+        <a href="faq.html" class="sidebar__link">Perguntas Frequentes</a>
+        <a href="../index.html#contact" class="sidebar__link">Fale Connosco</a>
+      </nav>
+
+      <div class="sidebar__lang-wrap">
+        <button
+          class="navbar__lang"
+          type="button"
+          aria-label="Mudar idioma"
+          title="Mudar idioma"
+        >
+          <span
+            class="navbar__lang-flag navbar__lang-pt"
+            aria-label="Português"
+          >
+            <span class="fi fi-ao" role="img" aria-label="Angola"></span>
+            <span class="navbar__lang-label">PT</span>
+          </span>
+          <span class="navbar__lang-flag navbar__lang-en" aria-label="English">
+            <span class="fi fi-gb" role="img" aria-label="English"></span>
+            <span class="navbar__lang-label">EN</span>
+          </span>
+        </button>
+      </div>
+
+      <div class="sidebar__footer">
+        <a href="https://www.instagram.com/o_mochilao/" target="_blank"
+          ><i class="fa-brands fa-instagram"></i
+        ></a>
+        <a
+          href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0"
+          target="_blank"
+          ><i class="fa-brands fa-whatsapp"></i
+        ></a>
+        <a href="https://www.tiktok.com/@o.mochilao" target="_blank"
+          ><i class="fa-brands fa-tiktok"></i
+        ></a>
+      </div>
+    </aside>
+
+    <!-- ======= TERMOS E CONDIÇÕES ======= -->
+    <header class="legal-hero">
+      <div class="legal-hero__inner">
+        <nav class="legal-hero__crumbs" aria-label="Caminho">
+          <a href="../index.html">Início</a> <span aria-hidden="true">/</span>
+          <span>Termos e Condições</span>
+        </nav>
+        <span class="legal-hero__tag">Antes de embarcar</span>
+        <h1 class="legal-hero__title">Termos e Condições</h1>
+        <p class="legal-hero__date">Última atualização: novembro de 2026</p>
+      </div>
+    </header>
+
+    <main class="legal-main">
+      <aside class="legal-toc" aria-label="Índice">
+        <p class="legal-toc__title">Nesta página</p>
+        <ol>
+          <li><a href="#geral">Geral</a></li>
+          <li><a href="#reservas">Reservas</a></li>
+          <li><a href="#precos">Preços e pacotes</a></li>
+          <li><a href="#pagamento">Pagamento</a></li>
+          <li><a href="#cancelamento">Cancelamento pelo cliente</a></li>
+          <li><a href="#alteracoes-programa">Alterações pelo Mochilão</a></li>
+          <li><a href="#incluido">O que está incluído</a></li>
+          <li><a href="#criancas">Crianças</a></li>
+          <li><a href="#responsabilidades">Responsabilidades do viajante</a></li>
+          <li><a href="#imagem">Fotografias e imagem</a></li>
+          <li><a href="#responsabilidade">Limitação de responsabilidade</a></li>
+          <li><a href="#lei">Lei aplicável</a></li>
+        </ol>
+      </aside>
+
+      <article class="legal-content">
+        <p class="legal-lead">
+          Estes termos aplicam-se a todas as reservas feitas com O Mochilão Aventuras, pelo site, pelo
+          WhatsApp ou diretamente com a nossa equipa. Ao finalizar uma reserva, confirma que os leu e
+          aceita.
+        </p>
+
+        <section id="geral">
+          <h2>1. Geral</h2>
+          <p>
+            <strong>O Mochilão Aventuras</strong> (NIF 5001788957), com sede em Luanda, Angola, organiza
+            viagens de grupo em datas definidas e programas personalizados em Angola e na Namíbia.
+            Contactos: <a href="mailto:geral@omochilao.ao">geral@omochilao.ao</a> ·
+            <a href="https://wa.me/244926509821" target="_blank" rel="noopener">+244 926 509 821</a>.
+          </p>
+        </section>
+
+        <section id="reservas">
+          <h2>2. Reservas</h2>
+          <p>
+            Pelo site, escolhe o programa, a data e o pacote, adiciona-os à Mochila e, ao finalizar,
+            indica os seus dados e os de quem viaja consigo. Recebe então uma referência de reserva
+            (MCH-…) com os dados para pagamento.
+          </p>
+          <p>
+            <strong>A reserva só fica garantida após o pagamento.</strong> Até lá, os lugares não ficam
+            bloqueados e podem esgotar. Quem faz a reserva deve ser maior de 18 anos e responde pela
+            exatidão dos dados de todos os viajantes.
+          </p>
+        </section>
+
+        <section id="precos">
+          <h2>3. Preços e pacotes</h2>
+          <p>
+            Os preços estão em Kwanzas (Kz) e são fechados por pacote. O pacote <strong>Casal</strong> cobre
+            duas pessoas no mesmo quarto. No pacote <strong>Kamba</strong>, o quarto é partilhado com outro
+            viajante que também escolheu o Kamba, do mesmo sexo. O pacote <strong>Particular</strong> é para
+            uma pessoa.
+          </p>
+          <p>
+            O preço confirmado é o que aparece no momento em que finaliza a reserva. Os programas
+            personalizados têm preço próprio, indicado na proposta que lhe enviamos.
+          </p>
+        </section>
+
+        <section id="pagamento">
+          <h2>4. Pagamento</h2>
+          <ul>
+            <li>O pagamento é feito por transferência bancária, para os dados indicados após a reserva;</li>
+            <li>
+              Pode pagar <strong>30% para garantir a reserva</strong> e os restantes
+              <strong>70% até 10 dias antes do início da viagem</strong>, ou a totalidade de uma só vez;
+            </li>
+            <li>Envie o comprovativo pelo WhatsApp, indicando a referência da reserva;</li>
+            <li>
+              Se os 70% não forem pagos no prazo, a reserva pode ser cancelada, aplicando-se o ponto 5.
+            </li>
+          </ul>
+        </section>
+
+        <section id="cancelamento">
+          <h2>5. Cancelamento pelo cliente</h2>
+          <p>
+            O sinal de <strong>30% não é reembolsável</strong>, porque é usado para garantir alojamento e
+            transporte junto dos nossos parceiros. Os pedidos de cancelamento devem ser feitos por escrito
+            (email ou WhatsApp). Sempre que possível, ajudamos a encontrar uma alternativa, como a troca
+            de data ou a transferência da reserva para outra pessoa.
+          </p>
+        </section>
+
+        <section id="alteracoes-programa">
+          <h2>6. Alterações ou cancelamento pelo Mochilão</h2>
+          <p>
+            Por razões de segurança, meteorologia, número mínimo de participantes ou outras causas
+            alheias à nossa vontade, podemos alterar o itinerário, o alojamento ou a data. Se cancelarmos
+            uma viagem, propomos uma nova data ou devolvemos os valores pagos.
+          </p>
+        </section>
+
+        <section id="incluido">
+          <h2>7. O que está incluído</h2>
+          <p>
+            O que cada pacote inclui está descrito na página do programa. <strong>Os voos não estão
+            incluídos</strong>: a aventura começa no aeroporto ou no local de encontro indicado. As
+            despesas pessoais e tudo o que não esteja indicado no programa ficam a cargo do viajante.
+          </p>
+        </section>
+
+        <section id="criancas">
+          <h2>8. Crianças</h2>
+          <p>
+            Nas viagens de grupo são permitidas crianças a partir dos 8 anos. Dos 0 aos 4 anos não pagam,
+            dos 5 aos 7 anos pagam 50% e a partir dos 8 anos pagam como adultos. Nos programas
+            personalizados não há limite de idade. Os menores viajam sempre acompanhados por um adulto
+            responsável.
+          </p>
+        </section>
+
+        <section id="responsabilidades">
+          <h2>9. Responsabilidades do viajante</h2>
+          <ul>
+            <li>Ter documento de identificação válido e, para a Namíbia, os documentos de viagem exigidos;</li>
+            <li>Informar-nos antes da viagem de condições de saúde, alergias ou necessidades especiais relevantes;</li>
+            <li>Cumprir os horários e as indicações dos guias, sobretudo em atividades de aventura;</li>
+            <li>Respeitar os outros viajantes, as comunidades locais e o ambiente.</li>
+          </ul>
+          <p>
+            Recomendamos que tenha um seguro de viagem e de saúde. Comportamentos que ponham em risco o
+            grupo podem levar à exclusão da viagem, sem direito a reembolso.
+          </p>
+        </section>
+
+        <section id="imagem">
+          <h2>10. Fotografias e imagem</h2>
+          <p>
+            As fotografias fazem parte do pacote. Podemos usar fotografias e vídeos das viagens nas nossas
+            redes sociais e no site. Se não quiser aparecer, basta avisar-nos antes ou durante a viagem.
+          </p>
+        </section>
+
+        <section id="responsabilidade">
+          <h2>11. Limitação de responsabilidade</h2>
+          <p>
+            Trabalhamos com parceiros escolhidos com cuidado, mas não respondemos por falhas de
+            terceiros (como companhias aéreas), por perda ou dano de bens pessoais, nem por atrasos ou
+            alterações causados por situações de força maior.
+          </p>
+        </section>
+
+        <section id="lei">
+          <h2>12. Lei aplicável</h2>
+          <p>
+            Estes termos regem-se pela lei angolana. Em caso de dúvida ou reclamação, contacte-nos
+            primeiro: procuramos sempre resolver tudo de forma amigável.
+          </p>
+        </section>
+
+        <p class="legal-see">
+          Veja também a nossa <a href="privacidade.html">Política de Privacidade</a>.
+        </p>
+      </article>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__main">
+        <div class="footer__brand">
+          <!--
+          LOGO DO FOOTER:
+          Substitua o src pelo logo branco (branco2.png ou outro)
+        -->
+          <img
+            src="../imagens/branco2.png"
+            alt="O Mochilão"
+            class="footer__logo"
+          />
+          <p class="footer__tagline">
+            Seus companheiros das aventuras por Angola
+          </p>
+          <div class="footer__socials">
+            <a
+              href="https://www.instagram.com/o_mochilao/"
+              target="_blank"
+              aria-label="Instagram"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+            <a
+              href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0"
+              target="_blank"
+              aria-label="WhatsApp"
+              ><i class="fa-brands fa-whatsapp"></i
+            ></a>
+            <a
+              href="https://www.tiktok.com/@o.mochilao"
+              target="_blank"
+              aria-label="TikTok"
+              ><i class="fa-brands fa-tiktok"></i
+            ></a>
+            <a
+              href="https://www.facebook.com/OMochilao"
+              target="_blank"
+              aria-label="Facebook"
+              ><i class="fa-brands fa-facebook-f"></i
+            ></a>
+          </div>
+        </div>
+
+        <div class="footer__col">
+          <h4 class="footer__col-title">Navegação</h4>
+          <a href="../index.html#hero">Início</a>
+          <a href="../index.html#tours">Viagens</a>
+          <a href="../index.html#gallery">Galeria</a>
+          <a href="../index.html#about">Sobre Nós</a>
+        </div>
+
+        <div class="footer__col">
+          <h4 class="footer__col-title">Informações</h4>
+          <a href="../index.html#tips">Dicas de Viagem</a>
+          <a href="../index.html#packages">Viagens em Grupo</a>
+          <a href="faq.html">Perguntas Frequentes</a>
+          <a href="../index.html#contact">Fale Connosco</a>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <p>© 2025 O Mochilão Aventuras. Todos os direitos reservados.</p>
+        <nav class="footer__legal" aria-label="Informação legal">
+          <a href="privacidade.html" class="footer__legal-btn">Política de Privacidade</a>
+          <a href="termos.html" class="footer__legal-btn">Termos e Condições</a>
+        </nav>
+        <p>Desenvolvido por <strong>Valganho</strong></p>
+      </div>
+    </footer>
+
+    <script type="module" src="../SCRIPT/firebase-config.js"></script>
+    <script type="module" src="../SCRIPT/site-appearance.js"></script>
+    <script type="module" src="../SCRIPT/site-extras.js"></script>
+    <script type="module" src="../SCRIPT/script.js"></script>
+  </body>
+</html>

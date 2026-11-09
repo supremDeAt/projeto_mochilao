@@ -545,6 +545,39 @@ body > .float-btn--top,
   font-size: 0.8rem;
   color: var(--clr-white-30);
 }
+.footer__bottom {
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Botões "Política de Privacidade" e "Termos e Condições" */
+.footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+}
+.footer__legal-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 1rem;
+  border: 1px solid var(--clr-white-15, rgba(255, 255, 255, 0.15));
+  border-radius: 999px;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  color: var(--clr-white-55);
+  transition:
+    color var(--ease-std),
+    border-color var(--ease-std),
+    background var(--ease-std);
+}
+.footer__legal-btn:hover,
+.footer__legal-btn:focus-visible {
+  color: var(--clr-white);
+  border-color: var(--clr-tan);
+  background: var(--clr-white-06, rgba(255, 255, 255, 0.06));
+}
 
 
 /* ─────────────────────────────────────────
@@ -553,6 +586,7 @@ body > .float-btn--top,
    ganha fundo escuro ao fazer scroll para continuar legível.
    ───────────────────────────────────────── */
 .svc-page .navbar.scrolled,
+.legal-page .navbar.scrolled,
 .pc-page .navbar.scrolled,
 .faq-page .navbar.scrolled {
   background: var(--clr-dark-94);
@@ -595,7 +629,7 @@ body > .float-btn--top,
   }
   .footer__bottom {
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.9rem;
     text-align: center;
   }
 }

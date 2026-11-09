@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Política de Privacidade — O Mochilão Aventuras</title>
+    <meta name="description" content="Como O Mochilão Aventuras recolhe, usa e protege os seus dados pessoais." />
+
+    <link rel="icon" href="../imagens/logo5.png" />
+    <link rel="stylesheet" href="../STYLES/estilo.css" />
+    <link rel="stylesheet" href="../STYLES/legal.css" />
+
+    <!-- Flag icons (bandeiras reais, funciona em todos os browsers) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/6.11.0/css/flag-icons.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Google Fonts — fallback caso Nekst não carregue -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+  </head>
+  <body class="legal-page">
+    <!-- ======= NAVBAR ======= -->
+    <header class="navbar" id="navbar">
+      <a href="../index.html" class="navbar__brand">
+       
+        <img src="../imagens/Sem Título-3.png" alt="" class="navbar__logo" />
+      </a>
+
+      <nav class="navbar__links" id="navLinks">
+        <a href="../index.html#tours" class="navbar__link" data-i18n="nav.tours">Viagens</a>
+        <a href="../index.html#gallery" class="navbar__link" data-i18n="nav.gallery"
+          >Galeria</a
+        >
+        <a href="../index.html#custom" class="navbar__link" data-i18n="nav.custom"
+          >Personalizado</a
+        >
+        <a href="../index.html#services" class="navbar__link" data-i18n="nav.services"
+          >Serviços</a
+        >
+        <a href="../index.html#about" class="navbar__link" data-i18n="nav.about">Sobre</a>
+        <a href="../index.html#tips" class="navbar__link" data-i18n="nav.tips">Dicas</a>
+        <a
+          href="../index.html#contact"
+          class="navbar__link navbar__link--cta"
+          data-i18n="nav.contact"
+          >Fale Connosco</a
+        >
+      </nav>
+
+      <button
+        class="navbar__lang"
+        id="langBtn"
+        aria-label="Mudar idioma"
+        title="Mudar idioma"
+      >
+        <!-- Bandeira Angola (PT) -->
+        <span class="navbar__lang-flag navbar__lang-pt" aria-label="Português">
+          <span class="fi fi-ao" role="img" aria-label="Angola"></span>
+          <span class="navbar__lang-label">PT</span>
+        </span>
+        <!-- Bandeira UK (EN) -->
+        <span class="navbar__lang-flag navbar__lang-en" aria-label="English">
+          <span class="fi fi-gb" role="img" aria-label="English"></span>
+          <span class="navbar__lang-label">EN</span>
+        </span>
+      </button>
+
+      <button
+        class="navbar__burger"
+        id="burgerBtn"
+        aria-label="Abrir menu"
+        aria-expanded="false"
+      >
+        <span class="navbar__burger-line"></span>
+        <span class="navbar__burger-line"></span>
+        <span class="navbar__burger-line"></span>
+      </button>
+    </header>
+
+    <!-- ======= SIDEBAR / DRAWER DE NAVEGAÇÃO ======= -->
+    <div class="sidebar__overlay" id="sidebarOverlay"></div>
+    <aside class="sidebar" id="sidebar">
+      <button class="sidebar__close" id="closeBtn" aria-label="Fechar menu">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <nav class="sidebar__nav">
+        <a href="../index.html#hero" class="sidebar__link">Início</a>
+        <a href="../index.html#tours" class="sidebar__link">Viagens</a>
+        <a href="../index.html#gallery" class="sidebar__link">Galeria</a>
+        <a href="../index.html#custom" class="sidebar__link">Personalizado</a>
+        <a href="../index.html#services" class="sidebar__link">Serviços</a>
+        <a href="../index.html#about" class="sidebar__link">Sobre</a>
+        <a href="../index.html#team" class="sidebar__link">Equipa</a>
+        <a href="../index.html#tips" class="sidebar__link">Dicas</a>
+        <a href="faq.html" class="sidebar__link">Perguntas Frequentes</a>
+        <a href="../index.html#contact" class="sidebar__link">Fale Connosco</a>
+      </nav>
+
+      <div class="sidebar__lang-wrap">
+        <button
+          class="navbar__lang"
+          type="button"
+          aria-label="Mudar idioma"
+          title="Mudar idioma"
+        >
+          <span
+            class="navbar__lang-flag navbar__lang-pt"
+            aria-label="Português"
+          >
+            <span class="fi fi-ao" role="img" aria-label="Angola"></span>
+            <span class="navbar__lang-label">PT</span>
+          </span>
+          <span class="navbar__lang-flag navbar__lang-en" aria-label="English">
+            <span class="fi fi-gb" role="img" aria-label="English"></span>
+            <span class="navbar__lang-label">EN</span>
+          </span>
+        </button>
+      </div>
+
+      <div class="sidebar__footer">
+        <a href="https://www.instagram.com/o_mochilao/" target="_blank"
+          ><i class="fa-brands fa-instagram"></i
+        ></a>
+        <a
+          href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0"
+          target="_blank"
+          ><i class="fa-brands fa-whatsapp"></i
+        ></a>
+        <a href="https://www.tiktok.com/@o.mochilao" target="_blank"
+          ><i class="fa-brands fa-tiktok"></i
+        ></a>
+      </div>
+    </aside>
+
+    <!-- ======= POLÍTICA DE PRIVACIDADE ======= -->
+    <header class="legal-hero">
+      <div class="legal-hero__inner">
+        <nav class="legal-hero__crumbs" aria-label="Caminho">
+          <a href="../index.html">Início</a> <span aria-hidden="true">/</span>
+          <span>Política de Privacidade</span>
+        </nav>
+        <span class="legal-hero__tag">Os seus dados</span>
+        <h1 class="legal-hero__title">Política de Privacidade</h1>
+        <p class="legal-hero__date">Última atualização: novembro de 2026</p>
+      </div>
+    </header>
+
+    <main class="legal-main">
+      <aside class="legal-toc" aria-label="Índice">
+        <p class="legal-toc__title">Nesta página</p>
+        <ol>
+          <li><a href="#quem-somos">Quem somos</a></li>
+          <li><a href="#dados">Que dados recolhemos</a></li>
+          <li><a href="#finalidades">Para que usamos os dados</a></li>
+          <li><a href="#partilha">Com quem partilhamos</a></li>
+          <li><a href="#prazo">Durante quanto tempo</a></li>
+          <li><a href="#armazenamento">Armazenamento no browser</a></li>
+          <li><a href="#seguranca">Segurança</a></li>
+          <li><a href="#direitos">Os seus direitos</a></li>
+          <li><a href="#menores">Menores</a></li>
+          <li><a href="#alteracoes">Alterações</a></li>
+        </ol>
+      </aside>
+
+      <article class="legal-content">
+        <p class="legal-lead">
+          A sua privacidade é importante para nós. Esta política explica que dados pessoais recolhemos
+          quando usa o nosso site ou reserva uma viagem connosco, para que os usamos e quais são os seus
+          direitos, nos termos da Lei n.º 22/11, de 17 de Junho (Lei da Protecção de Dados Pessoais).
+        </p>
+
+        <section id="quem-somos">
+          <h2>1. Quem somos</h2>
+          <p>
+            O responsável pelo tratamento dos seus dados é <strong>O Mochilão Aventuras</strong>
+            (NIF 5001788957), empresa de turismo de aventura com sede em Luanda, Angola.
+          </p>
+          <p>
+            Para qualquer questão sobre os seus dados, contacte-nos por email em
+            <a href="mailto:geral@omochilao.ao">geral@omochilao.ao</a> ou pelo WhatsApp
+            <a href="https://wa.me/244926509821" target="_blank" rel="noopener">+244 926 509 821</a>.
+          </p>
+        </section>
+
+        <section id="dados">
+          <h2>2. Que dados recolhemos</h2>
+          <p>Recolhemos apenas os dados que nos dá ao usar o site:</p>
+          <ul>
+            <li>
+              <strong>Reservas:</strong> nome completo, email, telefone/WhatsApp e nacionalidade de quem
+              reserva; nome, telefone, nacionalidade e, se o indicar, email de cada acompanhante; o programa,
+              as datas e o pacote escolhidos.
+            </li>
+            <li>
+              <strong>Mensagens e pedidos de viagem personalizada:</strong> nome, contactos e o que nos
+              escrever (destino, datas, número de pessoas, preferências).
+            </li>
+            <li>
+              <strong>Testemunhos:</strong> nome, localidade, programa, avaliação, texto e, se a enviar, uma
+              fotografia.
+            </li>
+            <li>
+              <strong>Dados de utilização:</strong> estatísticas anónimas de visita (páginas vistas,
+              tipo de dispositivo), para percebermos como o site é usado.
+            </li>
+          </ul>
+          <p>
+            Ao indicar os dados de acompanhantes, confirma que essas pessoas sabem e concordam que nos
+            transmita os seus dados para efeitos da viagem.
+          </p>
+        </section>
+
+        <section id="finalidades">
+          <h2>3. Para que usamos os dados</h2>
+          <ul>
+            <li>Registar e confirmar a sua reserva e gerir os pagamentos;</li>
+            <li>Organizar a viagem: alojamento, transporte, guias e seguros, quando aplicável;</li>
+            <li>Adicioná-lo ao grupo de conversa da viagem e enviar-lhe o itinerário e as informações úteis;</li>
+            <li>Responder às suas mensagens e preparar propostas de viagens personalizadas;</li>
+            <li>Publicar o seu testemunho no site, apenas depois de o aprovarmos;</li>
+            <li>Melhorar o site e os nossos serviços.</li>
+          </ul>
+          <p>
+            Não vendemos os seus dados e não os usamos para publicidade de terceiros. Só lhe enviamos
+            novidades e promoções se nos tiver dado autorização para isso.
+          </p>
+        </section>
+
+        <section id="partilha">
+          <h2>4. Com quem partilhamos</h2>
+          <p>Partilhamos apenas o necessário, com:</p>
+          <ul>
+            <li>
+              <strong>Parceiros da viagem</strong> (alojamentos, transportadoras, guias), para executar o
+              programa que reservou;
+            </li>
+            <li>
+              <strong>Prestadores de serviços tecnológicos</strong> que guardam ou processam os dados por
+              nossa conta: Google Firebase (base de dados e estatísticas do site), Cloudinary
+              (fotografias) e EmailJS (avisos por email à nossa equipa). Estes serviços podem guardar dados
+              em servidores fora de Angola, com medidas de segurança adequadas;
+            </li>
+            <li><strong>Autoridades</strong>, quando a lei o exigir.</li>
+          </ul>
+        </section>
+
+        <section id="prazo">
+          <h2>5. Durante quanto tempo guardamos os dados</h2>
+          <p>
+            Guardamos os dados das reservas enquanto forem necessários para a viagem e, depois, pelo tempo
+            exigido pelas obrigações legais, fiscais e contabilísticas. As mensagens e os pedidos de
+            proposta são apagados quando deixam de ser úteis. Os testemunhos ficam publicados até nos pedir
+            para os retirar.
+          </p>
+        </section>
+
+        <section id="armazenamento">
+          <h2>6. Armazenamento no browser</h2>
+          <p>
+            A sua Mochila (as viagens que escolheu antes de finalizar a reserva) fica guardada apenas no seu
+            próprio browser, para não se perder ao mudar de página. Pode apagá-la a qualquer momento
+            removendo as viagens ou limpando os dados de navegação. As estatísticas de visita usam
+            identificadores do Google Analytics para Firebase.
+          </p>
+        </section>
+
+        <section id="seguranca">
+          <h2>7. Segurança</h2>
+          <p>
+            O site usa ligação segura (HTTPS) e o acesso aos dados das reservas está limitado à nossa
+            equipa, com contas pessoais e níveis de permissão. Nenhum sistema é totalmente invulnerável,
+            mas tomamos as medidas razoáveis para proteger a sua informação.
+          </p>
+        </section>
+
+        <section id="direitos">
+          <h2>8. Os seus direitos</h2>
+          <p>A qualquer momento, pode pedir-nos para:</p>
+          <ul>
+            <li>Saber que dados temos sobre si e receber uma cópia;</li>
+            <li>Corrigir dados incorretos ou incompletos;</li>
+            <li>Apagar os seus dados, quando já não forem necessários ou a lei o permitir;</li>
+            <li>Opor-se a determinado uso, como o envio de novidades.</li>
+          </ul>
+          <p>
+            Basta escrever para <a href="mailto:geral@omochilao.ao">geral@omochilao.ao</a>. Respondemos com
+            a maior brevidade possível. Se considerar que os seus direitos não foram respeitados, pode
+            apresentar reclamação à Agência de Protecção de Dados (APD).
+          </p>
+        </section>
+
+        <section id="menores">
+          <h2>9. Menores</h2>
+          <p>
+            As reservas devem ser feitas por maiores de 18 anos. Os dados de menores que viajem connosco
+            são indicados pelos pais ou responsáveis legais, que respondem por essa informação.
+          </p>
+        </section>
+
+        <section id="alteracoes">
+          <h2>10. Alterações a esta política</h2>
+          <p>
+            Podemos atualizar esta política quando mudarmos o site ou os nossos serviços. A data da última
+            atualização aparece sempre no topo desta página.
+          </p>
+        </section>
+
+        <p class="legal-see">
+          Veja também os nossos <a href="termos.html">Termos e Condições</a>.
+        </p>
+      </article>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__main">
+        <div class="footer__brand">
+          <!--
+          LOGO DO FOOTER:
+          Substitua o src pelo logo branco (branco2.png ou outro)
+        -->
+          <img
+            src="../imagens/branco2.png"
+            alt="O Mochilão"
+            class="footer__logo"
+          />
+          <p class="footer__tagline">
+            Seus companheiros das aventuras por Angola
+          </p>
+          <div class="footer__socials">
+            <a
+              href="https://www.instagram.com/o_mochilao/"
+              target="_blank"
+              aria-label="Instagram"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+            <a
+              href="https://www.whatsapp.com/catalog/244926509821/?app_absent=0"
+              target="_blank"
+              aria-label="WhatsApp"
+              ><i class="fa-brands fa-whatsapp"></i
+            ></a>
+            <a
+              href="https://www.tiktok.com/@o.mochilao"
+              target="_blank"
+              aria-label="TikTok"
+              ><i class="fa-brands fa-tiktok"></i
+            ></a>
+            <a
+              href="https://www.facebook.com/OMochilao"
+              target="_blank"
+              aria-label="Facebook"
+              ><i class="fa-brands fa-facebook-f"></i
+            ></a>
+          </div>
+        </div>
+
+        <div class="footer__col">
+          <h4 class="footer__col-title">Navegação</h4>
+          <a href="../index.html#hero">Início</a>
+          <a href="../index.html#tours">Viagens</a>
+          <a href="../index.html#gallery">Galeria</a>
+          <a href="../index.html#about">Sobre Nós</a>
+        </div>
+
+        <div class="footer__col">
+          <h4 class="footer__col-title">Informações</h4>
+          <a href="../index.html#tips">Dicas de Viagem</a>
+          <a href="../index.html#packages">Viagens em Grupo</a>
+          <a href="faq.html">Perguntas Frequentes</a>
+          <a href="../index.html#contact">Fale Connosco</a>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <p>© 2025 O Mochilão Aventuras. Todos os direitos reservados.</p>
+        <nav class="footer__legal" aria-label="Informação legal">
+          <a href="privacidade.html" class="footer__legal-btn">Política de Privacidade</a>
+          <a href="termos.html" class="footer__legal-btn">Termos e Condições</a>
+        </nav>
+        <p>Desenvolvido por <strong>Valganho</strong></p>
+      </div>
+    </footer>
+
+    <script type="module" src="../SCRIPT/firebase-config.js"></script>
+    <script type="module" src="../SCRIPT/site-appearance.js"></script>
+    <script type="module" src="../SCRIPT/site-extras.js"></script>
+    <script type="module" src="../SCRIPT/script.js"></script>
+  </body>
+</html>
