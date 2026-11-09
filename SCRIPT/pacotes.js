@@ -1,6 +1,7 @@
 /* =====================================================
    O MOCHILÃO — pacotes.js  (script clássico, partilhado)
-   Pacotes dos programas: Individual, Casal, Kamba…
+   Pacotes dos programas: Particular, Casal, Kamba…
+   (o "Particular" chamava-se "Individual"; o id continua "individual")
 
    • Cada programa guarda os pacotes que tem, com preço FECHADO:
        programs/{id}.pacotes = [{ tipo: "casal", nome: "Casal", pessoas: 2, valor: 600000 }]
@@ -25,7 +26,7 @@
     tipos: [
       {
         id: "individual",
-        nome: "Individual",
+        nome: "Particular",
         pessoas: 1,
         descricao: "Para quem viaja sozinho e quer o quarto só para si.",
       },
@@ -101,9 +102,12 @@
           return t && String(t.nome || "").trim();
         })
         .map(function (t) {
+          var nome = String(t.nome).trim();
+          // Nome antigo guardado no painel → novo nome
+          if (nome === "Individual" && String(t.id || "individual") === "individual") nome = "Particular";
           return {
             id: String(t.id || slug(t.nome)),
-            nome: String(t.nome).trim(),
+            nome: nome,
             pessoas: Math.max(1, parseInt(t.pessoas, 10) || 1),
             descricao: String(t.descricao || "").trim(),
           };
@@ -174,9 +178,12 @@
     if (Array.isArray(p.pacotes) && p.pacotes.length) {
       return p.pacotes
         .map(function (x) {
+          // O nome mostrado vem do tipo do painel (Site Web → Pacotes): mudar
+          // o nome lá muda-o em todos os programas, mesmo nos já criados
+          var tipo = findTipo({ tipo: x.tipo || slug(x.nome), nome: x.nome });
           return {
             tipo: String(x.tipo || slug(x.nome)),
-            nome: String(x.nome || "").trim() || "Pacote",
+            nome: (tipo && tipo.nome) || String(x.nome || "").trim() || "Pacote",
             pessoas: Math.max(1, parseInt(x.pessoas, 10) || 1),
             valor: toNumber(x.valor),
           };
