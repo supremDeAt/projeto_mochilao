@@ -26,35 +26,30 @@ function cardPrice(program) {
   return { label: legacy !== raw ? "A partir de" : "Preço", value: legacy || "A consultar" };
 }
 
-/* ── Data: a próxima partida (as que já passaram não contam) ── */
-const MESES = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
+/* ── Duração: nº de dias da próxima partida ("20 – 22 mai" → "3 dias") ──
+   Só nos cards do index; a página do programa continua a mostrar as datas. */
 const parseISO = (iso) => {
   const [y, m, d] = String(iso || "").split("-").map(Number);
   return y && m && d ? { y, m, d } : null;
 };
-function formatRange(inicio, fim) {
+const daysLabel = (n) => `${n} ${n === 1 ? "dia" : "dias"}`;
+function tripDays(inicio, fim) {
   const a = parseISO(inicio);
-  const b = parseISO(fim);
-  if (!a) return "";
-  const one = (x, year) => `${x.d} ${MESES[x.m - 1]}${year ? " " + x.y : ""}`;
-  if (!b || fim === inicio) return one(a, true);
-  if (a.y !== b.y) return `${one(a, true)} – ${one(b, true)}`;
-  if (a.m !== b.m) return `${one(a, false)} – ${one(b, true)}`;
-  return `${a.d} – ${one(b, true)}`;
+  const b = parseISO(fim) || a;
+  if (!a) return 0;
+  const ms = Date.UTC(b.y, b.m - 1, b.d) - Date.UTC(a.y, a.m - 1, a.d);
+  return Math.max(1, Math.round(ms / 86400000) + 1); // conta o dia de partida e o de regresso
 }
 function cardDate(program) {
   const t = new Date();
   const today = `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, "0")}-${String(t.getDate()).padStart(2, "0")}`;
-  const list = (Array.isArray(program.datas) ? program.datas : [])
+  const next = (Array.isArray(program.datas) ? program.datas : [])
     .filter((d) => d && parseISO(d.inicio) && d.inicio >= today)
-    .sort((a, b) => (a.inicio < b.inicio ? -1 : 1));
-  if (!list.length) return { label: "Data", value: "Em breve" };
-  const extra = list.length - 1;
-  return {
-    label: extra ? "Próxima data" : "Data",
-    value: formatRange(list[0].inicio, list[0].fim || list[0].inicio),
-    extra: extra ? `+${extra} ${extra === 1 ? "data" : "datas"}` : "",
-  };
+    .sort((a, b) => (a.inicio < b.inicio ? -1 : 1))[0];
+  if (next) return { label: "Duração", value: daysLabel(tripDays(next.inicio, next.fim || next.inicio)) };
+  // Sem datas: a duração escrita no painel (ex.: "3 Dias"), senão "Em breve"
+  const dur = String(program.duracao || "").trim();
+  return { label: "Duração", value: dur || "Datas em breve" };
 }
 
 function renderPrograms(programs) {
@@ -78,9 +73,7 @@ function renderPrograms(programs) {
             <div class="package-card__meta">
               <div class="package-card__meta-item">
                 <span class="package-card__meta-label">${escapeHtml(date.label)}</span>
-                <span class="package-card__meta-value package-card__meta-value--date">${escapeHtml(date.value)}${
-                  date.extra ? ` <small class="package-card__meta-more">${escapeHtml(date.extra)}</small>` : ""
-                }</span>
+                <span class="package-card__meta-value package-card__meta-value--date">${escapeHtml(date.value)}</span>
               </div>
               <div class="package-card__meta-item">
                 <span class="package-card__meta-label">${escapeHtml(price.label)}</span>

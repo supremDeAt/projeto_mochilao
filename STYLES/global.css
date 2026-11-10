@@ -172,7 +172,7 @@
   background: var(--clr-brown-mid);
 }
 
-/* ── Botão de idioma com bandeiras ── */
+/* ── Botão de idioma (PT / EN) ── */
 .navbar__lang {
   display: flex;
   align-items: center;
@@ -207,23 +207,10 @@
   transform: scale(0.88);
 }
 
-/* Imagem da bandeira (flag-icons .fi) */
-.navbar__lang-flag .fi {
-  width: 20px;
-  height: 15px;
-  border-radius: 2px;
-  display: block;
-  flex-shrink: 0;
-  /* flag-icons usa background-image */
-  background-size: cover;
-  background-position: center;
-  box-shadow: 0 1px 3px var(--clr-black-pure-35);
-}
-
 /* Label PT / EN */
 .navbar__lang-label {
   font-family: var(--font-ui);
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   color: var(--clr-white-85);
