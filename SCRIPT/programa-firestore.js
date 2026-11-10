@@ -80,12 +80,6 @@ function setHero(url) {
 function renderText(p) {
   document.title = `${p.nome} — O Mochilão Aventuras`;
 
-  setText(".pkg-breadcrumb span", p.nome);
-  // Programa criado só para a página "Viagens Personalizadas" → caminho de volta para lá
-  const crumb = $(".pkg-breadcrumb");
-  if (p.soPersonalizada && crumb && !crumb.querySelector('[href="personalizada.html"]')) {
-    crumb.insertAdjacentHTML("beforeend", '<i class="fa-solid fa-chevron-right" aria-hidden="true"></i><a href="personalizada.html">Viagens Personalizadas</a>');
-  }
   setText(".pkg-hero__title", p.nome);
   setText(".pkg-hero__desc", p.slogan);
   setText("#pkgTitle", p.nome);

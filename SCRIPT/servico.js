@@ -35,7 +35,7 @@ const els = {
 function renderService(service, all) {
   document.title = `${service.nome} — O Mochilão Aventuras`;
   document.querySelector('meta[name="description"]')?.setAttribute("content", service.descricao || "");
-  els.crumb.textContent = service.nome;
+  if (els.crumb) els.crumb.textContent = service.nome;
   els.title.textContent = service.nome;
   els.text.textContent = service.descricao || "";
   els.icon.innerHTML = serviceIconSVG(service.icone);
@@ -56,7 +56,7 @@ function renderService(service, all) {
 
 function renderNotFound() {
   document.title = "Serviço não encontrado — O Mochilão Aventuras";
-  els.crumb.textContent = "Serviço não encontrado";
+  if (els.crumb) els.crumb.textContent = "Serviço não encontrado";
   els.title.textContent = "Serviço não encontrado";
   els.text.textContent = "O endereço pode estar errado ou o serviço já não está disponível.";
   els.count.hidden = true;
