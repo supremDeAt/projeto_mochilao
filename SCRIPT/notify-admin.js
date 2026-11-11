@@ -14,7 +14,7 @@
      EmailJS → template → "To Email", não aqui.
    ===================================================== */
 
-import emailjs from "https://cdn.jsdelivr.net/npm/@emailjs/browser@4/+esm";
+import emailjs from "https://cdn.jsdelivr.net/npm/@emailjs/browser@4.4.1/+esm";
 
 /* ─────────────────────────────────────────
    CONFIGURAÇÃO — copiar do painel do EmailJS

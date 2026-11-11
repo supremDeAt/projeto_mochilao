@@ -1,78 +1,213 @@
 rules_version = '2';
 
+// =====================================================
+// O MOCHILÃO — Regras do Firestore (todas as coleções do site)
+// Copiar TUDO para Firebase → Firestore Database → Regras → Publicar.
+//
+// Níveis do painel (admins/{uid}.role), iguais ao admin.js:
+//   Super Admin        → tudo
+//   Gestor de Conteúdo → programas, site, reservas, mensagens
+//   Atendente          → reservas, mensagens, pedidos
+//   Visualizador       → só ver
+// Um administrador com "ativo: false" (suspenso) perde o acesso.
+// =====================================================
+
 service cloud.firestore {
   match /databases/{database}/documents {
+
+    // ───────── Funções ─────────
     function isSignedIn() {
       return request.auth != null;
     }
-
-    function adminDocument() {
+    function adminPath() {
+      return /databases/$(database)/documents/admins/$(request.auth.uid);
+    }
+    function isAdmin() {
       return isSignedIn()
-        && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+        && exists(adminPath())
+        && get(adminPath()).data.get('ativo', true) != false;
     }
-
-    function currentRole() {
-      return get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.role;
+    function role() {
+      return get(adminPath()).data.role;
     }
-
-    function hasRole(role) {
-      return adminDocument() && currentRole() == role;
-    }
-
-    function hasAnyRole(roles) {
-      return adminDocument() && currentRole() in roles;
-    }
-
     function isSuperAdmin() {
-      return hasRole('Super Admin');
+      return isAdmin() && role() == 'Super Admin';
+    }
+    function canEditContent() {
+      return isAdmin() && role() in ['Super Admin', 'Gestor de Conteúdo'];
+    }
+    function canManageReservations() {
+      return isAdmin() && role() in ['Super Admin', 'Gestor de Conteúdo', 'Atendente'];
     }
 
-    function canManagePrograms() {
-      return hasAnyRole(['Super Admin', 'Gestor de Conteúdo']);
-    }
-
-    function canManageMessagesAndReservations() {
-      return hasAnyRole(['Super Admin', 'Gestor de Conteúdo', 'Atendente']);
-    }
-
-    function onlyStatusChanged() {
-      return request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status']);
-    }
-
-    // Apenas Super Admin pode consultar ou alterar os administradores.
+    // ───────── Administradores ─────────
     match /admins/{adminId} {
-      // Necessário para o login descobrir a role do próprio utilizador.
+      // Cada um lê o próprio documento (o login precisa de saber o nível)
       allow get: if isSignedIn() && request.auth.uid == adminId;
-      allow list: if isSuperAdmin();
+      allow list, get: if isSuperAdmin();
       allow create, update, delete: if isSuperAdmin();
+      // Cada um regista o seu último acesso ao painel
+      allow update: if isSignedIn() && request.auth.uid == adminId
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['ultimoAcesso']);
     }
 
-    // Os programas são públicos para leitura; a gestão fica limitada às roles de conteúdo.
+    // ───────── Programas (+ fotos) ─────────
     match /programs/{programId} {
       allow read: if true;
-      allow create, update, delete: if canManagePrograms();
+      allow create, update, delete: if canEditContent();
+
+      match /imagens/{imgId} {
+        allow read: if true;
+        allow create, update, delete: if canEditContent();
+      }
     }
 
-    // O formulário público pode criar mensagens. A leitura e alteração são administrativas.
-    match /messages/{messageId} {
-      allow create: if true;
-      allow read: if isSignedIn();
-      allow update: if canManageMessagesAndReservations() && onlyStatusChanged();
-      allow delete: if isSuperAdmin();
-    }
-
-    // O formulário público pode criar reservas. A leitura e alteração são administrativas.
-    match /reservations/{reservationId} {
-      allow create: if true;
-      allow read: if isSignedIn();
-      allow update: if canManageMessagesAndReservations() && onlyStatusChanged();
-      allow delete: if isSuperAdmin();
-    }
-
-    // O conteúdo público pode ser lido; apenas conteúdo e Super Admin podem editá-lo.
+    // ───────── Conteúdo do site ─────────
     match /siteConfig/{configId} {
       allow read: if true;
-      allow create, update, delete: if canManagePrograms();
+      allow create, update, delete: if canEditContent();
+    }
+    match /services/{serviceId} {
+      allow read: if true;
+      allow create, update, delete: if canEditContent();
+    }
+    match /team/{memberId} {
+      allow read: if true;
+      allow create, update, delete: if canEditContent();
+    }
+    match /partners/{partnerId} {
+      allow read: if true;
+      allow create, update, delete: if canEditContent();
+
+      match /fotos/{fotoId} {
+        allow read: if true;
+        allow create, update, delete: if canEditContent();
+      }
+    }
+
+    // ───────── Mensagens (formulário "Fale Connosco") ─────────
+    // Só aceita o formato do formulário (nada de campos extra, estados falsos ou textos gigantes)
+    function texto(v, min, max) {
+      return v is string && v.size() >= min && v.size() <= max;
+    }
+    match /messages/{messageId} {
+      allow create: if request.resource.data.keys().hasOnly(
+                         ['nome', 'email', 'telefone', 'assunto', 'mensagem', 'data', 'status', 'lido'])
+                    && texto(request.resource.data.nome, 2, 100)
+                    && texto(request.resource.data.email, 0, 150)
+                    && texto(request.resource.data.telefone, 0, 30)
+                    && texto(request.resource.data.assunto, 0, 150)
+                    && texto(request.resource.data.mensagem, 1, 5000)
+                    && request.resource.data.data == request.time
+                    && request.resource.data.status == 'Pendente'
+                    && request.resource.data.lido == false;
+      allow read: if isAdmin();
+      allow update: if canManageReservations();
+      allow delete: if isSuperAdmin();
+    }
+
+    // ───────── Reservas (checkout) ─────────
+    // Reserva do checkout: { clienteInfo, itens, acompanhantes, total, status, dataPedido }
+    // Começa SEMPRE em "Aguardando Pagamento" (o público não pode criar reservas
+    // já "Confirmadas", nem com notas/histórico). Os preços são confirmados pelo
+    // checkout, mas confira sempre o valor pago com o total da reserva.
+    function reservaValida() {
+      let r = request.resource.data;
+      return r.keys().hasOnly(['clienteInfo', 'itens', 'acompanhantes', 'total', 'status', 'dataPedido'])
+        && r.keys().hasAll(['clienteInfo', 'itens', 'total', 'status', 'dataPedido'])
+        && r.clienteInfo is map
+        && r.clienteInfo.keys().hasOnly(['nome', 'email', 'telefone', 'nacionalidade'])
+        && texto(r.clienteInfo.nome, 3, 100)
+        && texto(r.clienteInfo.email, 5, 150)
+        && texto(r.clienteInfo.telefone, 9, 30)
+        && r.itens is list && r.itens.size() >= 1 && r.itens.size() <= 20
+        && (!('acompanhantes' in r) || (r.acompanhantes is list && r.acompanhantes.size() <= 100))
+        && r.total is number && r.total >= 0
+        && r.status == 'Aguardando Pagamento'
+        && r.dataPedido == request.time;
+    }
+    match /reservations/{reservationId} {
+      allow create: if reservaValida();
+      allow read: if isAdmin();
+      // estado, histórico e notas
+      allow update: if canManageReservations();
+      allow delete: if isSuperAdmin();
+    }
+
+    // ───────── Vagas: lugares reservados por programa + data ─────────
+    // id = "<programId>__<AAAA-MM-DD>"  ·  { programId, data, pessoas }
+    // O site só pode AUMENTAR o número (no checkout) e nunca acima das vagas
+    // do programa. Cancelar no painel liberta os lugares.
+    function cabeNasVagas() {
+      let p = get(/databases/$(database)/documents/programs/$(request.resource.data.programId)).data;
+      return p.get('vagas', 0) == 0 || request.resource.data.pessoas <= p.get('vagas', 0);
+    }
+    match /ocupacao/{ocupacaoId} {
+      allow read: if true;
+      allow create: if canManageReservations() || (
+           request.resource.data.keys().hasOnly(['programId', 'data', 'pessoas'])
+        && request.resource.data.programId is string
+        && request.resource.data.data is string
+        && ocupacaoId == request.resource.data.programId + '__' + request.resource.data.data
+        && request.resource.data.pessoas is int
+        && request.resource.data.pessoas > 0
+        && request.resource.data.pessoas <= 100
+        && cabeNasVagas());
+      allow update: if canManageReservations() || (
+           request.resource.data.diff(resource.data).affectedKeys().hasOnly(['pessoas'])
+        && request.resource.data.pessoas is int
+        && request.resource.data.pessoas > resource.data.pessoas
+        && request.resource.data.pessoas - resource.data.pessoas <= 100
+        && cabeNasVagas());
+      allow delete: if canManageReservations();
+    }
+
+    // ───────── Pedidos de viagem personalizada (antigos) ─────────
+    match /customTrips/{tripId} {
+      allow create: if request.resource.data.keys().hasOnly(
+                         ['nome', 'telefone', 'email', 'destino', 'pessoas', 'quando',
+                          'duracao', 'tipo', 'interesses', 'alojamento', 'orcamento',
+                          'mensagem', 'status', 'lido', 'origem', 'criadoEm'])
+                    && request.resource.data.nome is string
+                    && request.resource.data.nome.size() > 0
+                    && request.resource.data.nome.size() <= 80
+                    && request.resource.data.status == 'Novo';
+      allow read: if isAdmin();
+      allow update: if canManageReservations();
+      allow delete: if isSuperAdmin();
+    }
+
+    // ───────── Testemunhos ─────────
+    match /testimonials/{testimonialId} {
+      // O público só lê os aprovados; o painel lê todos
+      allow read: if resource.data.status == 'aprovado' || isAdmin();
+      // Qualquer visitante pode ENVIAR, mas fica sempre "pendente"
+      allow create: if canEditContent() || (
+           request.resource.data.keys().hasOnly(
+             ['nome', 'local', 'programaId', 'programaNome', 'estrelas', 'texto',
+              'foto', 'status', 'destaque', 'origem', 'criadoEm'])
+        && request.resource.data.nome is string
+        && request.resource.data.nome.size() > 1
+        && request.resource.data.nome.size() <= 60
+        && request.resource.data.local is string
+        && request.resource.data.local.size() <= 60
+        && request.resource.data.programaId is string
+        && request.resource.data.programaId.size() <= 100
+        && request.resource.data.programaNome is string
+        && request.resource.data.programaNome.size() <= 100
+        && request.resource.data.estrelas is int
+        && request.resource.data.estrelas >= 1
+        && request.resource.data.estrelas <= 5
+        && request.resource.data.texto is string
+        && request.resource.data.texto.size() >= 20
+        && request.resource.data.texto.size() <= 1500
+        && request.resource.data.foto is string
+        && request.resource.data.foto.size() <= 80000
+        && request.resource.data.status == 'pendente'
+        && request.resource.data.destaque == false
+        && request.resource.data.origem == 'site'
+        && request.resource.data.criadoEm == request.time);
+      allow update, delete: if canEditContent();
     }
   }
 }

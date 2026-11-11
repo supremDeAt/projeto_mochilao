@@ -41,7 +41,7 @@ Após executar o script, guarde as credenciais exibidas:
 
 ```
 Email: admin@omochilao.ao
-Senha: Omochilao2024!
+Senha: a que definir em `ADMIN_PASSWORD` ao executar o script (nunca a escreva no código)
 ```
 
 **⚠️ IMPORTANTE:** Mude a senha após o primeiro login!

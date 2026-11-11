@@ -22,7 +22,7 @@ import { createMessagesView } from "./admin-mensagens.js";
 import { initCustomTripsAdmin } from "./admin-personalizadas.js";
 import { createDashboard } from "./admin-dashboard.js";
 import { initContentAdmin } from "./admin-conteudo.js";
-import { toast } from "./admin-utils.js";
+import { toast, esc } from "./admin-utils.js";
 import { initAdminsAdmin } from "./admin-admins.js";
 import { initGalleryAdmin } from "./admin-galeria.js";
 import { initAppearanceAdmin } from "./admin-aparencia.js";
@@ -223,15 +223,15 @@ document.addEventListener("DOMContentLoaded", function () {
       .map(
         (program) => `
       <tr>
-        <td><strong>${program.nome || ""}</strong></td>
-        <td>${program.categoria || ""}</td>
-        <td>${program.duracao || ""}</td>
-        <td>${program.preco || ""}</td>
+        <td><strong>${esc(program.nome)}</strong></td>
+        <td>${esc(program.categoria)}</td>
+        <td>${esc(program.duracao)}</td>
+        <td>${esc(program.preco)}</td>
         <td>
           ${
             perms.canEditPrograms
-              ? `<button class="table-action table-action--primary btn-edit-program" data-id="${program.id}" title="Editar"><i class="fa-solid fa-pen"></i></button>
-               <button class="table-action table-action--danger btn-delete-program" data-id="${program.id}" title="Remover"><i class="fa-solid fa-trash-can"></i></button>`
+              ? `<button class="table-action table-action--primary btn-edit-program" data-id="${esc(program.id)}" title="Editar"><i class="fa-solid fa-pen"></i></button>
+               <button class="table-action table-action--danger btn-delete-program" data-id="${esc(program.id)}" title="Remover"><i class="fa-solid fa-trash-can"></i></button>`
               : "-"
           }
         </td>

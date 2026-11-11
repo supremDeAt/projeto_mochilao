@@ -40,8 +40,14 @@ const auth = admin.auth();
  * Criar primeiro admin com email e senha
  */
 async function createFirstAdmin() {
+  // A senha NUNCA fica escrita no código (o repositório é público).
+  // Execute assim:  ADMIN_PASSWORD='uma-senha-forte' node SCRIPT/init-firestore.js
   const email = "admin@omochilao.ao";
-  const password = "Omochilao2024!"; // MUDAR EM PRODUÇÃO!
+  const password = process.env.ADMIN_PASSWORD;
+  if (!password || password.length < 12) {
+    console.error("❌ Defina ADMIN_PASSWORD (mínimo 12 caracteres) antes de executar.");
+    process.exit(1);
+  }
 
   try {
     console.log(`\n📝 Criando admin: ${email}`);
@@ -77,7 +83,7 @@ async function createFirstAdmin() {
     console.log(`✓ Documento admin criado no Firestore`);
     console.log(`\n🔐 Credenciais do primeiro admin:`);
     console.log(`   Email: ${email}`);
-    console.log(`   Senha: ${password}`);
+    console.log(`   Senha: (a que definiu em ADMIN_PASSWORD)`);
     console.log(`   ⚠️  GUARDE ESTAS CREDENCIAIS EM SEGURANÇA!`);
 
     return userRecord.uid;
