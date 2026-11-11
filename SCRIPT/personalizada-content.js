@@ -172,6 +172,42 @@ export function waNumber(raw, fallback = "244926509821") {
   return n.length >= 9 ? n : fallback;
 }
 
+/* ── Data e preço dos cartões (igual à página do programa) ── */
+const MESES = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
+const parseISO = (iso) => {
+  const [y, m, dd] = String(iso || "").split("-").map(Number);
+  return y && m && dd ? { y, m, d: dd } : null;
+};
+function formatRange(inicio, fim) {
+  const a = parseISO(inicio);
+  const b = parseISO(fim);
+  if (!a) return "";
+  const one = (x, year) => `${x.d} ${MESES[x.m - 1]}${year ? " " + x.y : ""}`;
+  if (!b || fim === inicio) return one(a, true);
+  if (a.y !== b.y) return `${one(a, true)} – ${one(b, true)}`;
+  if (a.m !== b.m) return `${one(a, false)} – ${one(b, true)}`;
+  return `${a.d} – ${one(b, true)}`;
+}
+/** Próxima partida: { label, value } */
+function cardDate(p) {
+  const t = new Date();
+  const today = `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, "0")}-${String(t.getDate()).padStart(2, "0")}`;
+  const list = (Array.isArray(p.datas) ? p.datas : [])
+    .filter((x) => x && parseISO(x.inicio) && x.inicio >= today)
+    .sort((a, b) => (a.inicio < b.inicio ? -1 : 1));
+  if (!list.length) return { label: "Data", value: "Em breve" };
+  return { label: list.length > 1 ? "Próxima data" : "Data", value: formatRange(list[0].inicio, list[0].fim || list[0].inicio) };
+}
+/** Menor preço dos pacotes: { label, value } */
+const formatKz = (n) => String(Math.round(Number(n) || 0)).replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " Kz";
+function cardPrice(p) {
+  const vals = (Array.isArray(p.pacotes) ? p.pacotes : []).map((x) => Number(x && x.valor) || 0).filter((v) => v > 0);
+  if (vals.length) return { label: vals.length > 1 ? "A partir de" : "Preço", value: formatKz(Math.min(...vals)) };
+  const raw = String(p.preco || "").trim();
+  const legacy = raw.replace(/^a partir de\s*/i, "").trim();
+  return { label: legacy !== raw ? "A partir de" : "Preço", value: legacy || "A consultar" };
+}
+
 /* ─────────────────────────────────────────
    APLICAR NA PÁGINA
    d        → document da página (ou da pré-visualização)
@@ -237,6 +273,15 @@ export function applyPersonalizada(d, data = {}, photos = {}, extra = {}) {
           <span class="pc-card__body">
             <strong>${esc(p.nome || "Programa")}</strong>
             <span>${esc(p.slogan || "")}</span>
+            ${(() => {
+              if (!p.pacotes && !p.datas && !p.preco) return ""; // pré-visualização sem dados
+              const dt = cardDate(p);
+              const pr = cardPrice(p);
+              return `<span class="pc-card__meta">
+                <span class="pc-card__meta-item"><small>${esc(dt.label)}</small><b>${esc(dt.value)}</b></span>
+                <span class="pc-card__meta-item pc-card__meta-item--price"><small>${esc(pr.label)}</small><b>${esc(pr.value)}</b></span>
+              </span>`;
+            })()}
           </span>
         </a>`,
       )
