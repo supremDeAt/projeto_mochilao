@@ -1,0 +1,15 @@
+# Cabeçalhos de segurança enviados pelo Cloudflare Pages em todas as páginas
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(self)
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+
+# O painel e o login não devem aparecer no Google
+/PAGES/admin.html
+  X-Robots-Tag: noindex, nofollow
+/PAGES/login.html
+  X-Robots-Tag: noindex, nofollow
+/PAGES/checkout.html
+  X-Robots-Tag: noindex
