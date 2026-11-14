@@ -162,6 +162,14 @@ service cloud.firestore {
       allow delete: if canManageReservations();
     }
 
+    // ───────── Pagamentos online (escritos só pelo servidor de pagamentos) ─────────
+    // O servidor usa uma conta de serviço (não passa por estas regras).
+    // O site não pode criar nem alterar pagamentos; o painel só lê.
+    match /pagamentos/{pagamentoId} {
+      allow read: if isAdmin();
+      allow write: if false;
+    }
+
     // ───────── Pedidos de viagem personalizada (antigos) ─────────
     match /customTrips/{tripId} {
       allow create: if request.resource.data.keys().hasOnly(

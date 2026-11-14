@@ -1,0 +1,23 @@
+# =====================================================
+# O MOCHILÃO — servidor de pagamentos (Cloudflare Workers)
+# Publicar:  npx wrangler deploy   (dentro desta pasta)
+#
+# SEGREDOS (nunca escrever aqui — usar o comando, ou o painel do Cloudflare):
+#   npx wrangler secret put FIREBASE_SERVICE_ACCOUNT   ← JSON da conta de serviço do Firebase
+#   npx wrangler secret put PAY4ALL_API_KEY            ← credenciais do Pay4All (quando as tiver)
+#   npx wrangler secret put PAY4ALL_API_SECRET
+# =====================================================
+name = "omochilao-pagamentos"
+main = "src/index.js"
+compatibility_date = "2024-09-23"
+
+[vars]
+FIREBASE_PROJECT_ID = "omochilao"
+# Sites que podem chamar este servidor (separados por vírgulas)
+ALLOWED_ORIGINS = "https://omochilao.ao,https://www.omochilao.ao,https://omochilao.pages.dev,https://supremdeat.github.io"
+# Percentagem paga online: 100 = total · 30 = só o sinal (decisão da empresa)
+PERCENTAGEM_ONLINE = "100"
+# "desligado" até haver credenciais · "simulado" só para testes · "pay4all" em produção
+MODO_PAGAMENTO = "desligado"
+# Endereço do Pay4All (vem na documentação que vão enviar)
+PAY4ALL_BASE_URL = ""
